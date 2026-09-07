@@ -1,0 +1,9 @@
+/_build
+/deps
+doc
+/inttegro-*.tar
+.cover
+.env
+.DS_Store
+.gitconfig
+.elixir_ls
