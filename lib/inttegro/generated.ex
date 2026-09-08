@@ -17,7 +17,7 @@ defmodule Inttegro.Codec do
   def encode(value), do: value
 end
 
-defmodule Inttegro.AppCredentialOwner do
+defmodule Inttegro.Apps.AppCredentialOwner do
   @moduledoc "Typed Inttegro AppCredentialOwner value."
   @type t :: :child | :parent | String.t()
   @values %{
@@ -34,7 +34,7 @@ defmodule Inttegro.AppCredentialOwner do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.AppManagementRole do
+defmodule Inttegro.Apps.AppManagementRole do
   @moduledoc "Typed Inttegro AppManagementRole value."
   @type t :: :parent | :child | String.t()
   @values %{
@@ -51,7 +51,7 @@ defmodule Inttegro.AppManagementRole do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.AppRelationshipKind do
+defmodule Inttegro.Apps.AppRelationshipKind do
   @moduledoc "Typed Inttegro AppRelationshipKind value."
   @type t :: :placement | String.t()
   @values %{
@@ -67,7 +67,7 @@ defmodule Inttegro.AppRelationshipKind do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.AppRelationshipStatus do
+defmodule Inttegro.Apps.AppRelationshipStatus do
   @moduledoc "Typed Inttegro AppRelationshipStatus value."
   @type t :: :active | :inactive | :suspended | :revoked | String.t()
   @values %{
@@ -86,7 +86,7 @@ defmodule Inttegro.AppRelationshipStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.BalanceTransactionType do
+defmodule Inttegro.BalanceTransactions.BalanceTransactionType do
   @moduledoc "Typed Inttegro BalanceTransactionType value."
   @type t :: :payment | :refund | String.t()
   @values %{
@@ -103,7 +103,7 @@ defmodule Inttegro.BalanceTransactionType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.BankAccountType do
+defmodule Inttegro.BankAccounts.BankAccountType do
   @moduledoc "Typed Inttegro BankAccountType value."
   @type t :: :ghana_bank_account | String.t()
   @values %{
@@ -119,7 +119,7 @@ defmodule Inttegro.BankAccountType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.CheckoutOrderStatus do
+defmodule Inttegro.Checkout.CheckoutOrderStatus do
   @moduledoc "Typed Inttegro CheckoutOrderStatus value."
   @type t :: :preparing | :requires_payment | :completed | :canceled | :expired | String.t()
   @values %{
@@ -139,7 +139,7 @@ defmodule Inttegro.CheckoutOrderStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.CheckoutPaymentStatus do
+defmodule Inttegro.Checkout.CheckoutPaymentStatus do
   @moduledoc "Typed Inttegro CheckoutPaymentStatus value."
   @type t :: :requires_action | :processing | :succeeded | :failed | :cancelled | String.t()
   @values %{
@@ -159,7 +159,7 @@ defmodule Inttegro.CheckoutPaymentStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ChimeEmailSchemaKind do
+defmodule Inttegro.Chimes.ChimeEmailSchemaKind do
   @moduledoc "Typed Inttegro ChimeEmailSchemaKind value."
   @type t :: :gmail_view_action | :schema_org_order | :schema_org_invoice | String.t()
   @values %{
@@ -177,7 +177,7 @@ defmodule Inttegro.ChimeEmailSchemaKind do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ChimeRecipientType do
+defmodule Inttegro.Chimes.ChimeRecipientType do
   @moduledoc "Typed Inttegro ChimeRecipientType value."
   @type t :: :phone | :email | String.t()
   @values %{
@@ -194,7 +194,7 @@ defmodule Inttegro.ChimeRecipientType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ChimeTransport do
+defmodule Inttegro.Chimes.ChimeTransport do
   @moduledoc "Typed Inttegro ChimeTransport value."
   @type t :: :sms | :email | String.t()
   @values %{
@@ -211,7 +211,7 @@ defmodule Inttegro.ChimeTransport do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ContentSafetyStatus do
+defmodule Inttegro.MessageTemplates.ContentSafetyStatus do
   @moduledoc "Typed Inttegro ContentSafetyStatus value."
   @type t :: :allowed | :rejected | :quarantined | String.t()
   @values %{
@@ -229,7 +229,7 @@ defmodule Inttegro.ContentSafetyStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Currency do
+defmodule Inttegro.Money.Currency do
   @moduledoc "Typed Inttegro Currency value."
   @type t :: :ghs | :usd | :gbp | :eur | :cny | String.t()
   @values %{
@@ -249,7 +249,7 @@ defmodule Inttegro.Currency do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.DeliveryChannel do
+defmodule Inttegro.Invoices.DeliveryChannel do
   @moduledoc "Typed Inttegro DeliveryChannel value."
   @type t :: :email | :sms | String.t()
   @values %{
@@ -266,7 +266,7 @@ defmodule Inttegro.DeliveryChannel do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileDelivery do
+defmodule Inttegro.Files.FileDelivery do
   @moduledoc "Typed Inttegro FileDelivery value."
   @type t :: :stream | :redirect | String.t()
   @values %{
@@ -283,7 +283,7 @@ defmodule Inttegro.FileDelivery do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileDisposition do
+defmodule Inttegro.Files.FileDisposition do
   @moduledoc "Typed Inttegro FileDisposition value."
   @type t :: :attachment | :inline | String.t()
   @values %{
@@ -300,7 +300,7 @@ defmodule Inttegro.FileDisposition do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileLinkDeliveryMode do
+defmodule Inttegro.FileLinks.FileLinkDeliveryMode do
   @moduledoc "Typed Inttegro FileLinkDeliveryMode value."
   @type t :: :redirect | :download | :inline | String.t()
   @values %{
@@ -318,7 +318,7 @@ defmodule Inttegro.FileLinkDeliveryMode do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileLinkKind do
+defmodule Inttegro.FileLinks.FileLinkKind do
   @moduledoc "Typed Inttegro FileLinkKind value."
   @type t :: :public | String.t()
   @values %{
@@ -334,7 +334,7 @@ defmodule Inttegro.FileLinkKind do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileLinkStatus do
+defmodule Inttegro.FileLinks.FileLinkStatus do
   @moduledoc "Typed Inttegro FileLinkStatus value."
   @type t :: :active | :revoked | :expired | :disabled | String.t()
   @values %{
@@ -353,7 +353,7 @@ defmodule Inttegro.FileLinkStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileScanStatus do
+defmodule Inttegro.Files.FileScanStatus do
   @moduledoc "Typed Inttegro FileScanStatus value."
   @type t :: :pending | :passed | :failed | :skipped | String.t()
   @values %{
@@ -372,7 +372,7 @@ defmodule Inttegro.FileScanStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileSourceType do
+defmodule Inttegro.Files.FileSourceType do
   @moduledoc "Typed Inttegro FileSourceType value."
   @type t :: :direct | :upload_request | :service | String.t()
   @values %{
@@ -390,7 +390,7 @@ defmodule Inttegro.FileSourceType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileStatus do
+defmodule Inttegro.Files.FileStatus do
   @moduledoc "Typed Inttegro FileStatus value."
   @type t :: :uploading | :processing | :available | :failed | :deleted | String.t()
   @values %{
@@ -410,7 +410,7 @@ defmodule Inttegro.FileStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileStorageEncoding do
+defmodule Inttegro.Files.FileStorageEncoding do
   @moduledoc "Typed Inttegro FileStorageEncoding value."
   @type t :: :identity | :brotli | String.t()
   @values %{
@@ -427,7 +427,7 @@ defmodule Inttegro.FileStorageEncoding do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FinancialAccountType do
+defmodule Inttegro.FinancialAccounts.FinancialAccountType do
   @moduledoc "Typed Inttegro FinancialAccountType value."
   @type t :: :wallet | :bank_account | :dosh_account | String.t()
   @values %{
@@ -445,7 +445,7 @@ defmodule Inttegro.FinancialAccountType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.LineItemType do
+defmodule Inttegro.Orders.LineItemType do
   @moduledoc "Typed Inttegro LineItemType value."
   @type t :: :product | :fee | :shipping | String.t()
   @values %{
@@ -463,7 +463,7 @@ defmodule Inttegro.LineItemType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplateChannel do
+defmodule Inttegro.MessageTemplates.MessageTemplateChannel do
   @moduledoc "Typed Inttegro MessageTemplateChannel value."
   @type t :: :sms | :email | String.t()
   @values %{
@@ -480,7 +480,7 @@ defmodule Inttegro.MessageTemplateChannel do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplateStatus do
+defmodule Inttegro.MessageTemplates.MessageTemplateStatus do
   @moduledoc "Typed Inttegro MessageTemplateStatus value."
   @type t :: :draft | :published | :archived | String.t()
   @values %{
@@ -498,7 +498,7 @@ defmodule Inttegro.MessageTemplateStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplateVariableItemType do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemType do
   @moduledoc "Typed Inttegro MessageTemplateVariableItemType value."
   @type t ::
           :string
@@ -532,7 +532,7 @@ defmodule Inttegro.MessageTemplateVariableItemType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplateVariableType do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariableType do
   @moduledoc "Typed Inttegro MessageTemplateVariableType value."
   @type t ::
           :string
@@ -568,7 +568,7 @@ defmodule Inttegro.MessageTemplateVariableType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MobileMoneyNetwork do
+defmodule Inttegro.PaymentMethods.MobileMoneyNetwork do
   @moduledoc "Typed Inttegro MobileMoneyNetwork value."
   @type t :: :airtel | :mtn | :telecel | :vodafone | String.t()
   @values %{
@@ -587,7 +587,7 @@ defmodule Inttegro.MobileMoneyNetwork do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OTPAlphabetType do
+defmodule Inttegro.Otp.OTPAlphabetType do
   @moduledoc "Typed Inttegro OTPAlphabetType value."
   @type t :: :numeric | :alpha | :alphanumeric | String.t()
   @values %{
@@ -605,7 +605,7 @@ defmodule Inttegro.OTPAlphabetType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OTPStatus do
+defmodule Inttegro.Otp.OTPStatus do
   @moduledoc "Typed Inttegro OTPStatus value."
   @type t ::
           :canceled
@@ -633,7 +633,7 @@ defmodule Inttegro.OTPStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OTPTransmissionStatus do
+defmodule Inttegro.Otp.OTPTransmissionStatus do
   @moduledoc "Typed Inttegro OTPTransmissionStatus value."
   @type t :: :delivered | :failed | :submitted | String.t()
   @values %{
@@ -651,7 +651,7 @@ defmodule Inttegro.OTPTransmissionStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OTPVerificationVerdict do
+defmodule Inttegro.Otp.OTPVerificationVerdict do
   @moduledoc "Typed Inttegro OTPVerificationVerdict value."
   @type t :: :fail | :pass | String.t()
   @values %{
@@ -668,7 +668,7 @@ defmodule Inttegro.OTPVerificationVerdict do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OrderCreatedFromResourceType do
+defmodule Inttegro.Orders.OrderCreatedFromResourceType do
   @moduledoc "Typed Inttegro OrderCreatedFromResourceType value."
   @type t :: :purchase_intent | String.t()
   @values %{
@@ -684,7 +684,7 @@ defmodule Inttegro.OrderCreatedFromResourceType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OrderDocumentKind do
+defmodule Inttegro.Invoices.OrderDocumentKind do
   @moduledoc "Typed Inttegro OrderDocumentKind value."
   @type t :: :invoice | :receipt | String.t()
   @values %{
@@ -701,7 +701,7 @@ defmodule Inttegro.OrderDocumentKind do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.OrderStatus do
+defmodule Inttegro.Orders.OrderStatus do
   @moduledoc "Typed Inttegro OrderStatus value."
   @type t ::
           :preparing
@@ -731,7 +731,7 @@ defmodule Inttegro.OrderStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentAttemptStatus do
+defmodule Inttegro.Payments.PaymentAttemptStatus do
   @moduledoc "Typed Inttegro PaymentAttemptStatus value."
   @type t ::
           :initiated
@@ -761,7 +761,7 @@ defmodule Inttegro.PaymentAttemptStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentConfirmationChannel do
+defmodule Inttegro.Payments.PaymentConfirmationChannel do
   @moduledoc "Typed Inttegro PaymentConfirmationChannel value."
   @type t :: :sms | :email | :push | String.t()
   @values %{
@@ -779,7 +779,7 @@ defmodule Inttegro.PaymentConfirmationChannel do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentMethodType do
+defmodule Inttegro.PaymentMethods.PaymentMethodType do
   @moduledoc "Typed Inttegro PaymentMethodType value."
   @type t :: :mobile_money | :bank_account | :card | :motito | String.t()
   @values %{
@@ -798,7 +798,7 @@ defmodule Inttegro.PaymentMethodType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentNextActionType do
+defmodule Inttegro.Payments.PaymentNextActionType do
   @moduledoc "Typed Inttegro PaymentNextActionType value."
   @type t :: :confirm_payment | :execute | :redirect | :authorize | :none | String.t()
   @values %{
@@ -818,7 +818,7 @@ defmodule Inttegro.PaymentNextActionType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentResultStatus do
+defmodule Inttegro.Payments.PaymentResultStatus do
   @moduledoc "Typed Inttegro PaymentResultStatus value."
   @type t :: :pending | :requires_confirmation | :processing | :succeeded | :failed | String.t()
   @values %{
@@ -838,7 +838,7 @@ defmodule Inttegro.PaymentResultStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentStatus do
+defmodule Inttegro.Payments.PaymentStatus do
   @moduledoc "Typed Inttegro PaymentStatus value."
   @type t ::
           :initiated
@@ -872,7 +872,7 @@ defmodule Inttegro.PaymentStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PayoutStatus do
+defmodule Inttegro.Payouts.PayoutStatus do
   @moduledoc "Typed Inttegro PayoutStatus value."
   @type t ::
           :initialized
@@ -902,7 +902,7 @@ defmodule Inttegro.PayoutStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ProductShipmentInputType do
+defmodule Inttegro.Products.ProductShipmentInputType do
   @moduledoc "Typed Inttegro ProductShipmentInputType value."
   @type t :: :delivery | :download | :render | :stream | String.t()
   @values %{
@@ -921,7 +921,7 @@ defmodule Inttegro.ProductShipmentInputType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ProductShipmentType do
+defmodule Inttegro.Products.ProductShipmentType do
   @moduledoc "Typed Inttegro ProductShipmentType value."
   @type t :: :delivery | :download | :render | :service | :stream | String.t()
   @values %{
@@ -941,7 +941,7 @@ defmodule Inttegro.ProductShipmentType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ProductType do
+defmodule Inttegro.Products.ProductType do
   @moduledoc "Typed Inttegro ProductType value."
   @type t :: :physical | :digital | :service | :voucher | :custom | :cause | String.t()
   @values %{
@@ -962,7 +962,7 @@ defmodule Inttegro.ProductType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PurchaseIntentActivityType do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentActivityType do
   @moduledoc "Typed Inttegro PurchaseIntentActivityType value."
   @type t ::
           :expired_viewed
@@ -988,7 +988,7 @@ defmodule Inttegro.PurchaseIntentActivityType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PurchaseIntentStatus do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentStatus do
   @moduledoc "Typed Inttegro PurchaseIntentStatus value."
   @type t :: :active | :expired | :inactive | :used | String.t()
   @values %{
@@ -1007,7 +1007,7 @@ defmodule Inttegro.PurchaseIntentStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.RefundReason do
+defmodule Inttegro.Refunds.RefundReason do
   @moduledoc "Typed Inttegro RefundReason value."
   @type t ::
           :requested_by_customer
@@ -1041,7 +1041,7 @@ defmodule Inttegro.RefundReason do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.RefundStatus do
+defmodule Inttegro.Refunds.RefundStatus do
   @moduledoc "Typed Inttegro RefundStatus value."
   @type t :: :canceled | :failed | :pending | :processing | :succeeded | String.t()
   @values %{
@@ -1061,7 +1061,7 @@ defmodule Inttegro.RefundStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.SecretKeyAuthResult do
+defmodule Inttegro.Keys.SecretKeyAuthResult do
   @moduledoc "Typed Inttegro SecretKeyAuthResult value."
   @type t :: :succeeded | :failed | String.t()
   @values %{
@@ -1078,7 +1078,7 @@ defmodule Inttegro.SecretKeyAuthResult do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.SecretKeyStatus do
+defmodule Inttegro.Keys.SecretKeyStatus do
   @moduledoc "Typed Inttegro SecretKeyStatus value."
   @type t :: :active | :revoked | :expired | String.t()
   @values %{
@@ -1096,7 +1096,7 @@ defmodule Inttegro.SecretKeyStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.SecretKeyTokenType do
+defmodule Inttegro.Keys.SecretKeyTokenType do
   @moduledoc "Typed Inttegro SecretKeyTokenType value."
   @type t :: :bearer | String.t()
   @values %{
@@ -1112,7 +1112,7 @@ defmodule Inttegro.SecretKeyTokenType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.UploadRequestStatus do
+defmodule Inttegro.UploadRequests.UploadRequestStatus do
   @moduledoc "Typed Inttegro UploadRequestStatus value."
   @type t :: :pending | :uploading | :fulfilled | :expired | :canceled | :failed | String.t()
   @values %{
@@ -1133,7 +1133,7 @@ defmodule Inttegro.UploadRequestStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.UploadReviewDecision do
+defmodule Inttegro.UploadRequests.UploadReviewDecision do
   @moduledoc "Typed Inttegro UploadReviewDecision value."
   @type t :: :approved | :rejected | String.t()
   @values %{
@@ -1150,7 +1150,7 @@ defmodule Inttegro.UploadReviewDecision do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.UploadReviewType do
+defmodule Inttegro.UploadRequests.UploadReviewType do
   @moduledoc "Typed Inttegro UploadReviewType value."
   @type t :: :automatic | :manual | String.t()
   @values %{
@@ -1167,7 +1167,7 @@ defmodule Inttegro.UploadReviewType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.WalletType do
+defmodule Inttegro.Wallets.WalletType do
   @moduledoc "Typed Inttegro WalletType value."
   @type t :: :mobile_money | String.t()
   @values %{
@@ -1183,18 +1183,18 @@ defmodule Inttegro.WalletType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.ChimeInlineRecipientInput do
+defmodule Inttegro.Chimes.ChimeInlineRecipientInput do
   @moduledoc "Typed Inttegro ChimeInlineRecipientInput value."
   @type t ::
-          Inttegro.ChimeInlineRecipientInputVariant1.t()
-          | Inttegro.ChimeInlineRecipientInputVariant2.t()
+          Inttegro.Chimes.ChimeInlineRecipientInputVariant1.t()
+          | Inttegro.Chimes.ChimeInlineRecipientInputVariant2.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.ChimeInlineRecipientInputVariant1,
-        Inttegro.ChimeInlineRecipientInputVariant2
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant1,
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant2
       ],
       value,
       fn module ->
@@ -1208,20 +1208,20 @@ defmodule Inttegro.ChimeInlineRecipientInput do
   end
 end
 
-defmodule Inttegro.ChimeRecipientInput do
+defmodule Inttegro.Chimes.ChimeRecipientInput do
   @moduledoc "Typed Inttegro ChimeRecipientInput value."
   @type t ::
-          Inttegro.ChimeInlineRecipientInputVariant1.t()
-          | Inttegro.ChimeInlineRecipientInputVariant2.t()
-          | Inttegro.ChimeSavedCustomerRecipientInput.t()
+          Inttegro.Chimes.ChimeInlineRecipientInputVariant1.t()
+          | Inttegro.Chimes.ChimeInlineRecipientInputVariant2.t()
+          | Inttegro.Chimes.ChimeSavedCustomerRecipientInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.ChimeInlineRecipientInputVariant1,
-        Inttegro.ChimeInlineRecipientInputVariant2,
-        Inttegro.ChimeSavedCustomerRecipientInput
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant1,
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant2,
+        Inttegro.Chimes.ChimeSavedCustomerRecipientInput
       ],
       value,
       fn module ->
@@ -1235,18 +1235,18 @@ defmodule Inttegro.ChimeRecipientInput do
   end
 end
 
-defmodule Inttegro.CreateMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.CreateMessageTemplateRequest do
   @moduledoc "Typed Inttegro CreateMessageTemplateRequest value."
   @type t ::
-          Inttegro.CreateSMSMessageTemplateRequest.t()
-          | Inttegro.CreateEmailMessageTemplateRequest.t()
+          Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest.t()
+          | Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.CreateSMSMessageTemplateRequest,
-        Inttegro.CreateEmailMessageTemplateRequest
+        Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest,
+        Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest
       ],
       value,
       fn module ->
@@ -1260,17 +1260,18 @@ defmodule Inttegro.CreateMessageTemplateRequest do
   end
 end
 
-defmodule Inttegro.CreateOrderRequest do
+defmodule Inttegro.Orders.CreateOrderRequest do
   @moduledoc "Typed Inttegro CreateOrderRequest value."
   @type t ::
-          Inttegro.CreateOrderNewCustomerInput.t() | Inttegro.CreateOrderExistingCustomerInput.t()
+          Inttegro.Customers.CreateOrderNewCustomerInput.t()
+          | Inttegro.Customers.CreateOrderExistingCustomerInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.CreateOrderNewCustomerInput,
-        Inttegro.CreateOrderExistingCustomerInput
+        Inttegro.Customers.CreateOrderNewCustomerInput,
+        Inttegro.Customers.CreateOrderExistingCustomerInput
       ],
       value,
       fn module ->
@@ -1284,20 +1285,20 @@ defmodule Inttegro.CreateOrderRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountCreateRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountCreateRequest do
   @moduledoc "Typed Inttegro FinancialAccountCreateRequest value."
   @type t ::
-          Inttegro.FinancialAccountWalletRequest.t()
-          | Inttegro.FinancialAccountBankRequest.t()
-          | Inttegro.FinancialAccountDoshRequest.t()
+          Inttegro.FinancialAccounts.FinancialAccountWalletRequest.t()
+          | Inttegro.FinancialAccounts.FinancialAccountBankRequest.t()
+          | Inttegro.FinancialAccounts.FinancialAccountDoshRequest.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.FinancialAccountWalletRequest,
-        Inttegro.FinancialAccountBankRequest,
-        Inttegro.FinancialAccountDoshRequest
+        Inttegro.FinancialAccounts.FinancialAccountWalletRequest,
+        Inttegro.FinancialAccounts.FinancialAccountBankRequest,
+        Inttegro.FinancialAccounts.FinancialAccountDoshRequest
       ],
       value,
       fn module ->
@@ -1311,20 +1312,20 @@ defmodule Inttegro.FinancialAccountCreateRequest do
   end
 end
 
-defmodule Inttegro.LineItemInput do
+defmodule Inttegro.Orders.LineItemInput do
   @moduledoc "Typed Inttegro LineItemInput value."
   @type t ::
-          Inttegro.ProductLineItemInput.t()
-          | Inttegro.FeeLineItemInput.t()
-          | Inttegro.ShippingLineItemInput.t()
+          Inttegro.Orders.ProductLineItemInput.t()
+          | Inttegro.Orders.FeeLineItemInput.t()
+          | Inttegro.Orders.ShippingLineItemInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.ProductLineItemInput,
-        Inttegro.FeeLineItemInput,
-        Inttegro.ShippingLineItemInput
+        Inttegro.Orders.ProductLineItemInput,
+        Inttegro.Orders.FeeLineItemInput,
+        Inttegro.Orders.ShippingLineItemInput
       ],
       value,
       fn module ->
@@ -1338,41 +1339,41 @@ defmodule Inttegro.LineItemInput do
   end
 end
 
-defmodule Inttegro.MessageTemplateAttachmentIDs do
+defmodule Inttegro.MessageTemplates.MessageTemplateAttachmentIDs do
   @moduledoc "Typed Inttegro MessageTemplateAttachmentIDs value."
   @type t :: [String.t()]
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.MessageTemplateAttachmentIDsInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateAttachmentIDsInput do
   @moduledoc "Typed Inttegro MessageTemplateAttachmentIDsInput value."
   @type t :: [String.t()]
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.MessageTemplateVariablesInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariablesInput do
   @moduledoc "Typed Inttegro MessageTemplateVariablesInput value."
   @type t :: %{optional(String.t()) => term()}
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.OrderLineItem do
+defmodule Inttegro.Orders.OrderLineItem do
   @moduledoc "Typed Inttegro OrderLineItem value."
   @type t ::
-          Inttegro.OrderProductLineItem.t()
-          | Inttegro.OrderFeeLineItem.t()
-          | Inttegro.OrderShippingLineItem.t()
+          Inttegro.Orders.OrderProductLineItem.t()
+          | Inttegro.Orders.OrderFeeLineItem.t()
+          | Inttegro.Orders.OrderShippingLineItem.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.OrderProductLineItem,
-        Inttegro.OrderFeeLineItem,
-        Inttegro.OrderShippingLineItem
+        Inttegro.Orders.OrderProductLineItem,
+        Inttegro.Orders.OrderFeeLineItem,
+        Inttegro.Orders.OrderShippingLineItem
       ],
       value,
       fn module ->
@@ -1386,20 +1387,20 @@ defmodule Inttegro.OrderLineItem do
   end
 end
 
-defmodule Inttegro.ProductDetailsInput do
+defmodule Inttegro.Products.ProductDetailsInput do
   @moduledoc "Typed Inttegro ProductDetailsInput value."
   @type t ::
-          Inttegro.InlineProductDetailsInput.t()
-          | Inttegro.CatalogProductWithPriceDataInput.t()
-          | Inttegro.CatalogProductWithPriceReferenceInput.t()
+          Inttegro.Products.InlineProductDetailsInput.t()
+          | Inttegro.Products.CatalogProductWithPriceDataInput.t()
+          | Inttegro.Products.CatalogProductWithPriceReferenceInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.InlineProductDetailsInput,
-        Inttegro.CatalogProductWithPriceDataInput,
-        Inttegro.CatalogProductWithPriceReferenceInput
+        Inttegro.Products.InlineProductDetailsInput,
+        Inttegro.Products.CatalogProductWithPriceDataInput,
+        Inttegro.Products.CatalogProductWithPriceReferenceInput
       ],
       value,
       fn module ->
@@ -1413,32 +1414,32 @@ defmodule Inttegro.ProductDetailsInput do
   end
 end
 
-defmodule Inttegro.RefundReasonInput do
+defmodule Inttegro.Refunds.RefundReasonInput do
   @moduledoc "Typed Inttegro RefundReasonInput value."
-  @type t :: Inttegro.RefundReason.t()
+  @type t :: Inttegro.Refunds.RefundReason.t()
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.RefundReasonValue do
+defmodule Inttegro.Refunds.RefundReasonValue do
   @moduledoc "Typed Inttegro RefundReasonValue value."
-  @type t :: Inttegro.RefundReason.t()
+  @type t :: Inttegro.Refunds.RefundReason.t()
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.ReviewUploadRequestAttemptRequest do
+defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest do
   @moduledoc "Typed Inttegro ReviewUploadRequestAttemptRequest value."
   @type t ::
-          Inttegro.ReviewUploadRequestAttemptByIDRequest.t()
-          | Inttegro.ReviewUploadRequestAttemptByOrdinalRequest.t()
+          Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest.t()
+          | Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.ReviewUploadRequestAttemptByIDRequest,
-        Inttegro.ReviewUploadRequestAttemptByOrdinalRequest
+        Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest,
+        Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest
       ],
       value,
       fn module ->
@@ -1452,15 +1453,15 @@ defmodule Inttegro.ReviewUploadRequestAttemptRequest do
   end
 end
 
-defmodule Inttegro.BroadcastRequestMessageTemplate do
+defmodule Inttegro.MessageTemplates.BroadcastRequestMessageTemplate do
   @moduledoc "Typed Inttegro BroadcastRequestMessageTemplate value."
-  @type t :: String.t() | Inttegro.MessageTemplateReferenceInput.t()
+  @type t :: String.t() | Inttegro.MessageTemplates.MessageTemplateReferenceInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.MessageTemplateReferenceInput
+        Inttegro.MessageTemplates.MessageTemplateReferenceInput
       ],
       value,
       fn module ->
@@ -1474,20 +1475,20 @@ defmodule Inttegro.BroadcastRequestMessageTemplate do
   end
 end
 
-defmodule Inttegro.ProductLineItemInputProduct do
+defmodule Inttegro.Orders.ProductLineItemInputProduct do
   @moduledoc "Typed Inttegro ProductLineItemInputProduct value."
   @type t ::
-          Inttegro.InlineProductDetailsInput.t()
-          | Inttegro.CatalogProductWithPriceDataInput.t()
-          | Inttegro.CatalogProductWithPriceReferenceInput.t()
+          Inttegro.Products.InlineProductDetailsInput.t()
+          | Inttegro.Products.CatalogProductWithPriceDataInput.t()
+          | Inttegro.Products.CatalogProductWithPriceReferenceInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.InlineProductDetailsInput,
-        Inttegro.CatalogProductWithPriceDataInput,
-        Inttegro.CatalogProductWithPriceReferenceInput
+        Inttegro.Products.InlineProductDetailsInput,
+        Inttegro.Products.CatalogProductWithPriceDataInput,
+        Inttegro.Products.CatalogProductWithPriceReferenceInput
       ],
       value,
       fn module ->
@@ -1501,20 +1502,20 @@ defmodule Inttegro.ProductLineItemInputProduct do
   end
 end
 
-defmodule Inttegro.SendChimeRequestRecipient do
+defmodule Inttegro.Chimes.SendChimeRequestRecipient do
   @moduledoc "Typed Inttegro SendChimeRequestRecipient value."
   @type t ::
-          Inttegro.ChimeInlineRecipientInputVariant1.t()
-          | Inttegro.ChimeInlineRecipientInputVariant2.t()
-          | Inttegro.ChimeSavedCustomerRecipientInput.t()
+          Inttegro.Chimes.ChimeInlineRecipientInputVariant1.t()
+          | Inttegro.Chimes.ChimeInlineRecipientInputVariant2.t()
+          | Inttegro.Chimes.ChimeSavedCustomerRecipientInput.t()
 
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.ChimeInlineRecipientInputVariant1,
-        Inttegro.ChimeInlineRecipientInputVariant2,
-        Inttegro.ChimeSavedCustomerRecipientInput
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant1,
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant2,
+        Inttegro.Chimes.ChimeSavedCustomerRecipientInput
       ],
       value,
       fn module ->
@@ -1528,7 +1529,7 @@ defmodule Inttegro.SendChimeRequestRecipient do
   end
 end
 
-defmodule Inttegro.ActivatePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.ActivatePaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -1555,7 +1556,7 @@ defmodule Inttegro.ActivatePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.AddProductPriceRequest do
+defmodule Inttegro.Products.AddProductPriceRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:product_id, :amount]
   defstruct label: nil, about: nil, product_id: nil, amount: nil
@@ -1564,7 +1565,7 @@ defmodule Inttegro.AddProductPriceRequest do
           label: String.t() | nil,
           about: String.t() | nil,
           product_id: String.t(),
-          amount: Inttegro.AmountParams.t()
+          amount: Inttegro.Money.AmountParams.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -1574,7 +1575,7 @@ defmodule Inttegro.AddProductPriceRequest do
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
       product_id: Map.fetch!(map, "product_id"),
-      amount: Inttegro.AmountParams.from_map(Map.fetch!(map, "amount"))
+      amount: Inttegro.Money.AmountParams.from_map(Map.fetch!(map, "amount"))
     }
   end
 
@@ -1591,7 +1592,7 @@ defmodule Inttegro.AddProductPriceRequest do
   end
 end
 
-defmodule Inttegro.AddressInput do
+defmodule Inttegro.Orders.AddressInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :phone_number, :line1, :town, :country]
   defstruct line2: nil,
@@ -1652,13 +1653,13 @@ defmodule Inttegro.AddressInput do
   end
 end
 
-defmodule Inttegro.Amount do
+defmodule Inttegro.Money.Amount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
 
   @type t :: %__MODULE__{
-          currency: Inttegro.Currency.t(),
+          currency: Inttegro.Money.Currency.t(),
           value: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -1666,7 +1667,7 @@ defmodule Inttegro.Amount do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      currency: Inttegro.Currency.decode(Map.fetch!(map, "currency")),
+      currency: Inttegro.Money.Currency.decode(Map.fetch!(map, "currency")),
       value: Map.fetch!(map, "value")
     }
   end
@@ -1674,7 +1675,7 @@ defmodule Inttegro.Amount do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "currency" => Inttegro.Currency.encode(value.currency),
+      "currency" => Inttegro.Money.Currency.encode(value.currency),
       "value" => Inttegro.Codec.encode(value.value)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -1682,13 +1683,13 @@ defmodule Inttegro.Amount do
   end
 end
 
-defmodule Inttegro.AmountParams do
+defmodule Inttegro.Money.AmountParams do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
 
   @type t :: %__MODULE__{
-          currency: Inttegro.Currency.t(),
+          currency: Inttegro.Money.Currency.t(),
           value: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -1696,7 +1697,7 @@ defmodule Inttegro.AmountParams do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      currency: Inttegro.Currency.decode(Map.fetch!(map, "currency")),
+      currency: Inttegro.Money.Currency.decode(Map.fetch!(map, "currency")),
       value: Map.fetch!(map, "value")
     }
   end
@@ -1704,7 +1705,7 @@ defmodule Inttegro.AmountParams do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "currency" => Inttegro.Currency.encode(value.currency),
+      "currency" => Inttegro.Money.Currency.encode(value.currency),
       "value" => Inttegro.Codec.encode(value.value)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -1712,7 +1713,7 @@ defmodule Inttegro.AmountParams do
   end
 end
 
-defmodule Inttegro.Application do
+defmodule Inttegro.Apps.Application do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :name, :created_at]
   defstruct id: nil,
@@ -1733,8 +1734,8 @@ defmodule Inttegro.Application do
           created_at: String.t(),
           updated_at: String.t() | nil,
           archived_at: String.t() | nil,
-          secret_key: Inttegro.ApplicationSecretKey.t() | nil,
-          relationship: Inttegro.ApplicationRelationship.t() | nil
+          secret_key: Inttegro.Keys.ApplicationSecretKey.t() | nil,
+          relationship: Inttegro.Apps.ApplicationRelationship.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -1754,12 +1755,12 @@ defmodule Inttegro.Application do
       secret_key:
         if(is_nil(Map.get(map, "secret_key")),
           do: nil,
-          else: Inttegro.ApplicationSecretKey.from_map(Map.get(map, "secret_key"))
+          else: Inttegro.Keys.ApplicationSecretKey.from_map(Map.get(map, "secret_key"))
         ),
       relationship:
         if(is_nil(Map.get(map, "relationship")),
           do: nil,
-          else: Inttegro.ApplicationRelationship.from_map(Map.get(map, "relationship"))
+          else: Inttegro.Apps.ApplicationRelationship.from_map(Map.get(map, "relationship"))
         )
     }
   end
@@ -1787,7 +1788,7 @@ defmodule Inttegro.Application do
   end
 end
 
-defmodule Inttegro.ApplicationRelationship do
+defmodule Inttegro.Apps.ApplicationRelationship do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [
     :id,
@@ -1820,16 +1821,16 @@ defmodule Inttegro.ApplicationRelationship do
 
   @type t :: %__MODULE__{
           id: String.t(),
-          kind: Inttegro.AppRelationshipKind.t(),
+          kind: Inttegro.Apps.AppRelationshipKind.t(),
           policy_version: String.t(),
-          status: Inttegro.AppRelationshipStatus.t(),
+          status: Inttegro.Apps.AppRelationshipStatus.t(),
           actor_app_id: String.t(),
           creator_app_id: String.t(),
           placement_parent_app_id: String.t(),
           subject_app_id: String.t(),
           child_app_id: String.t(),
           child_standing: String.t(),
-          relationship_policy: Inttegro.ApplicationRelationshipPolicy.t(),
+          relationship_policy: Inttegro.Apps.ApplicationRelationshipPolicy.t(),
           retained_creator_authority_exists: boolean(),
           created_at: String.t()
         }
@@ -1839,9 +1840,9 @@ defmodule Inttegro.ApplicationRelationship do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      kind: Inttegro.AppRelationshipKind.decode(Map.fetch!(map, "kind")),
+      kind: Inttegro.Apps.AppRelationshipKind.decode(Map.fetch!(map, "kind")),
       policy_version: Map.fetch!(map, "policy_version"),
-      status: Inttegro.AppRelationshipStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Apps.AppRelationshipStatus.decode(Map.fetch!(map, "status")),
       actor_app_id: Map.fetch!(map, "actor_app_id"),
       creator_app_id: Map.fetch!(map, "creator_app_id"),
       placement_parent_app_id: Map.fetch!(map, "placement_parent_app_id"),
@@ -1849,7 +1850,9 @@ defmodule Inttegro.ApplicationRelationship do
       child_app_id: Map.fetch!(map, "child_app_id"),
       child_standing: Map.fetch!(map, "child_standing"),
       relationship_policy:
-        Inttegro.ApplicationRelationshipPolicy.from_map(Map.fetch!(map, "relationship_policy")),
+        Inttegro.Apps.ApplicationRelationshipPolicy.from_map(
+          Map.fetch!(map, "relationship_policy")
+        ),
       retained_creator_authority_exists: Map.fetch!(map, "retained_creator_authority_exists"),
       created_at: Map.fetch!(map, "created_at")
     }
@@ -1859,9 +1862,9 @@ defmodule Inttegro.ApplicationRelationship do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "kind" => Inttegro.AppRelationshipKind.encode(value.kind),
+      "kind" => Inttegro.Apps.AppRelationshipKind.encode(value.kind),
       "policy_version" => Inttegro.Codec.encode(value.policy_version),
-      "status" => Inttegro.AppRelationshipStatus.encode(value.status),
+      "status" => Inttegro.Apps.AppRelationshipStatus.encode(value.status),
       "actor_app_id" => Inttegro.Codec.encode(value.actor_app_id),
       "creator_app_id" => Inttegro.Codec.encode(value.creator_app_id),
       "placement_parent_app_id" => Inttegro.Codec.encode(value.placement_parent_app_id),
@@ -1878,15 +1881,15 @@ defmodule Inttegro.ApplicationRelationship do
   end
 end
 
-defmodule Inttegro.ApplicationRelationshipPolicy do
+defmodule Inttegro.Apps.ApplicationRelationshipPolicy do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:child_standing, :management, :credentials]
   defstruct child_standing: nil, management: nil, credentials: nil
 
   @type t :: %__MODULE__{
           child_standing: String.t(),
-          management: Inttegro.AppManagementRole.t(),
-          credentials: Inttegro.AppCredentialOwner.t()
+          management: Inttegro.Apps.AppManagementRole.t(),
+          credentials: Inttegro.Apps.AppCredentialOwner.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -1894,8 +1897,8 @@ defmodule Inttegro.ApplicationRelationshipPolicy do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       child_standing: Map.fetch!(map, "child_standing"),
-      management: Inttegro.AppManagementRole.decode(Map.fetch!(map, "management")),
-      credentials: Inttegro.AppCredentialOwner.decode(Map.fetch!(map, "credentials"))
+      management: Inttegro.Apps.AppManagementRole.decode(Map.fetch!(map, "management")),
+      credentials: Inttegro.Apps.AppCredentialOwner.decode(Map.fetch!(map, "credentials"))
     }
   end
 
@@ -1903,15 +1906,15 @@ defmodule Inttegro.ApplicationRelationshipPolicy do
   def to_map(value) do
     %{
       "child_standing" => Inttegro.Codec.encode(value.child_standing),
-      "management" => Inttegro.AppManagementRole.encode(value.management),
-      "credentials" => Inttegro.AppCredentialOwner.encode(value.credentials)
+      "management" => Inttegro.Apps.AppManagementRole.encode(value.management),
+      "credentials" => Inttegro.Apps.AppCredentialOwner.encode(value.credentials)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.ApplicationSecretKey do
+defmodule Inttegro.Keys.ApplicationSecretKey do
   @moduledoc "Typed Inttegro domain value."
   defstruct id: nil, token_type: nil, issued_at: nil, token: nil
 
@@ -1949,7 +1952,7 @@ defmodule Inttegro.ApplicationSecretKey do
   end
 end
 
-defmodule Inttegro.ArchivePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.ArchivePaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -1976,7 +1979,7 @@ defmodule Inttegro.ArchivePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.BalanceTransaction do
+defmodule Inttegro.BalanceTransactions.BalanceTransaction do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:amount, :created_at, :id, :order_id, :type]
   defstruct amount: nil,
@@ -1992,7 +1995,7 @@ defmodule Inttegro.BalanceTransaction do
             type: nil
 
   @type t :: %__MODULE__{
-          amount: Inttegro.BalanceTransactionAmount.t(),
+          amount: Inttegro.BalanceTransactions.BalanceTransactionAmount.t(),
           available_at: String.t() | nil,
           claimed_at: String.t() | nil,
           created_at: String.t(),
@@ -2002,14 +2005,15 @@ defmodule Inttegro.BalanceTransaction do
           payment_id: String.t() | nil,
           payout_id: String.t() | nil,
           refund_id: String.t() | nil,
-          type: Inttegro.BalanceTransactionType.t()
+          type: Inttegro.BalanceTransactions.BalanceTransactionType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      amount: Inttegro.BalanceTransactionAmount.from_map(Map.fetch!(map, "amount")),
+      amount:
+        Inttegro.BalanceTransactions.BalanceTransactionAmount.from_map(Map.fetch!(map, "amount")),
       available_at:
         if(is_nil(Map.get(map, "available_at")), do: nil, else: Map.get(map, "available_at")),
       claimed_at:
@@ -2022,7 +2026,7 @@ defmodule Inttegro.BalanceTransaction do
         if(is_nil(Map.get(map, "payment_id")), do: nil, else: Map.get(map, "payment_id")),
       payout_id: if(is_nil(Map.get(map, "payout_id")), do: nil, else: Map.get(map, "payout_id")),
       refund_id: if(is_nil(Map.get(map, "refund_id")), do: nil, else: Map.get(map, "refund_id")),
-      type: Inttegro.BalanceTransactionType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.BalanceTransactions.BalanceTransactionType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -2044,14 +2048,14 @@ defmodule Inttegro.BalanceTransaction do
         if(is_nil(value.payout_id), do: nil, else: Inttegro.Codec.encode(value.payout_id)),
       "refund_id" =>
         if(is_nil(value.refund_id), do: nil, else: Inttegro.Codec.encode(value.refund_id)),
-      "type" => Inttegro.BalanceTransactionType.encode(value.type)
+      "type" => Inttegro.BalanceTransactions.BalanceTransactionType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.BalanceTransactionAmount do
+defmodule Inttegro.BalanceTransactions.BalanceTransactionAmount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
@@ -2081,7 +2085,7 @@ defmodule Inttegro.BalanceTransactionAmount do
   end
 end
 
-defmodule Inttegro.BalanceTransactionPage do
+defmodule Inttegro.BalanceTransactions.BalanceTransactionPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size]
   defstruct number: nil, size: nil, transactions: nil
@@ -2089,7 +2093,7 @@ defmodule Inttegro.BalanceTransactionPage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          transactions: [Inttegro.BalanceTransaction.t()] | nil
+          transactions: [Inttegro.BalanceTransactions.BalanceTransaction.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -2103,7 +2107,7 @@ defmodule Inttegro.BalanceTransactionPage do
           do: nil,
           else:
             Enum.map(Map.get(map, "transactions"), fn item ->
-              Inttegro.BalanceTransaction.from_map(item)
+              Inttegro.BalanceTransactions.BalanceTransaction.from_map(item)
             end)
         )
     }
@@ -2125,7 +2129,7 @@ defmodule Inttegro.BalanceTransactionPage do
   end
 end
 
-defmodule Inttegro.BalanceValue do
+defmodule Inttegro.Balances.BalanceValue do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:amount]
   defstruct amount: nil
@@ -2152,13 +2156,13 @@ defmodule Inttegro.BalanceValue do
   end
 end
 
-defmodule Inttegro.BillingDetailsInput do
+defmodule Inttegro.Orders.BillingDetailsInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :email_address, :phone_number]
   defstruct address: nil, name: nil, email_address: nil, phone_number: nil
 
   @type t :: %__MODULE__{
-          address: Inttegro.AddressInput.t() | nil,
+          address: Inttegro.Orders.AddressInput.t() | nil,
           name: String.t(),
           email_address: String.t(),
           phone_number: String.t()
@@ -2171,7 +2175,7 @@ defmodule Inttegro.BillingDetailsInput do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else: Inttegro.AddressInput.from_map(Map.get(map, "address"))
+          else: Inttegro.Orders.AddressInput.from_map(Map.get(map, "address"))
         ),
       name: Map.fetch!(map, "name"),
       email_address: Map.fetch!(map, "email_address"),
@@ -2192,7 +2196,7 @@ defmodule Inttegro.BillingDetailsInput do
   end
 end
 
-defmodule Inttegro.BroadcastCancelDetail do
+defmodule Inttegro.Broadcasts.BroadcastCancelDetail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -2215,8 +2219,8 @@ defmodule Inttegro.BroadcastCancelDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.BroadcastError.t()] | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
+          errors: [Inttegro.Broadcasts.BroadcastError.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -2246,13 +2250,15 @@ defmodule Inttegro.BroadcastCancelDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
-            Enum.map(Map.get(map, "errors"), fn item -> Inttegro.BroadcastError.from_map(item) end)
+            Enum.map(Map.get(map, "errors"), fn item ->
+              Inttegro.Broadcasts.BroadcastError.from_map(item)
+            end)
         ),
       executed_at:
         if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
@@ -2312,7 +2318,7 @@ defmodule Inttegro.BroadcastCancelDetail do
   end
 end
 
-defmodule Inttegro.BroadcastCreationDetail do
+defmodule Inttegro.Chimes.BroadcastCreationDetail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct content: nil,
@@ -2330,7 +2336,7 @@ defmodule Inttegro.BroadcastCreationDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
           purpose: String.t() | nil,
@@ -2353,7 +2359,7 @@ defmodule Inttegro.BroadcastCreationDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       id: Map.fetch!(map, "id"),
       idempotency_key:
@@ -2395,7 +2401,7 @@ defmodule Inttegro.BroadcastCreationDetail do
   end
 end
 
-defmodule Inttegro.BroadcastDetail do
+defmodule Inttegro.Broadcasts.BroadcastDetail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -2417,8 +2423,8 @@ defmodule Inttegro.BroadcastDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.BroadcastError.t()] | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
+          errors: [Inttegro.Broadcasts.BroadcastError.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -2447,13 +2453,15 @@ defmodule Inttegro.BroadcastDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
-            Enum.map(Map.get(map, "errors"), fn item -> Inttegro.BroadcastError.from_map(item) end)
+            Enum.map(Map.get(map, "errors"), fn item ->
+              Inttegro.Broadcasts.BroadcastError.from_map(item)
+            end)
         ),
       executed_at:
         if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
@@ -2509,7 +2517,7 @@ defmodule Inttegro.BroadcastDetail do
   end
 end
 
-defmodule Inttegro.BroadcastError do
+defmodule Inttegro.Broadcasts.BroadcastError do
   @moduledoc "Typed Inttegro domain value."
   defstruct recipient: nil, fix_code: nil, type: nil
 
@@ -2543,7 +2551,7 @@ defmodule Inttegro.BroadcastError do
   end
 end
 
-defmodule Inttegro.BroadcastRequest do
+defmodule Inttegro.Chimes.BroadcastRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:recipients]
   defstruct request_meta: nil,
@@ -2554,9 +2562,9 @@ defmodule Inttegro.BroadcastRequest do
             recipients: nil
 
   @type t :: %__MODULE__{
-          request_meta: Inttegro.BroadcastRequestRequestMeta.t() | nil,
-          message_template: Inttegro.BroadcastRequestMessageTemplate.t() | nil,
-          email: Inttegro.ChimeEmailMessageInput.t() | nil,
+          request_meta: Inttegro.Broadcasts.BroadcastRequestRequestMeta.t() | nil,
+          message_template: Inttegro.MessageTemplates.BroadcastRequestMessageTemplate.t() | nil,
+          email: Inttegro.Chimes.ChimeEmailMessageInput.t() | nil,
           purpose: String.t() | nil,
           sender: String.t() | nil,
           recipients: [term()]
@@ -2569,17 +2577,21 @@ defmodule Inttegro.BroadcastRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.BroadcastRequestRequestMeta.from_map(Map.get(map, "request_meta"))
+          else:
+            Inttegro.Broadcasts.BroadcastRequestRequestMeta.from_map(Map.get(map, "request_meta"))
         ),
       message_template:
         if(is_nil(Map.get(map, "message_template")),
           do: nil,
-          else: Inttegro.BroadcastRequestMessageTemplate.decode(Map.get(map, "message_template"))
+          else:
+            Inttegro.MessageTemplates.BroadcastRequestMessageTemplate.decode(
+              Map.get(map, "message_template")
+            )
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessageInput.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessageInput.from_map(Map.get(map, "email"))
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       sender: if(is_nil(Map.get(map, "sender")), do: nil, else: Map.get(map, "sender")),
@@ -2607,7 +2619,7 @@ defmodule Inttegro.BroadcastRequest do
   end
 end
 
-defmodule Inttegro.BroadcastRequestRequestMeta do
+defmodule Inttegro.Broadcasts.BroadcastRequestRequestMeta do
   @moduledoc "Typed Inttegro request parameters."
   defstruct idempotency_key: nil
 
@@ -2641,7 +2653,7 @@ defmodule Inttegro.BroadcastRequestRequestMeta do
   end
 end
 
-defmodule Inttegro.CancelBroadcastRequest do
+defmodule Inttegro.Broadcasts.CancelBroadcastRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:broadcast_id]
   defstruct broadcast_id: nil
@@ -2668,7 +2680,7 @@ defmodule Inttegro.CancelBroadcastRequest do
   end
 end
 
-defmodule Inttegro.CancelOrderRequest do
+defmodule Inttegro.Orders.CancelOrderRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct reason: nil, execute_refund: nil, order_id: nil
@@ -2706,7 +2718,7 @@ defmodule Inttegro.CancelOrderRequest do
   end
 end
 
-defmodule Inttegro.CancelPayoutRequest do
+defmodule Inttegro.Payouts.CancelPayoutRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payout_id]
   defstruct payout_id: nil
@@ -2733,7 +2745,7 @@ defmodule Inttegro.CancelPayoutRequest do
   end
 end
 
-defmodule Inttegro.CancelPurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.CancelPurchaseIntentRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct id: nil, purchase_intent_id: nil
 
@@ -2770,13 +2782,13 @@ defmodule Inttegro.CancelPurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.CancelRefundRequest do
+defmodule Inttegro.Refunds.CancelRefundRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:refund_id]
   defstruct request_meta: nil, refund_id: nil
 
   @type t :: %__MODULE__{
-          request_meta: Inttegro.RefundRequestMetaInput.t() | nil,
+          request_meta: Inttegro.Refunds.RefundRequestMetaInput.t() | nil,
           refund_id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -2787,7 +2799,7 @@ defmodule Inttegro.CancelRefundRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.RefundRequestMetaInput.from_map(Map.get(map, "request_meta"))
+          else: Inttegro.Refunds.RefundRequestMetaInput.from_map(Map.get(map, "request_meta"))
         ),
       refund_id: Map.fetch!(map, "refund_id")
     }
@@ -2805,7 +2817,7 @@ defmodule Inttegro.CancelRefundRequest do
   end
 end
 
-defmodule Inttegro.CancelScheduleRequest do
+defmodule Inttegro.Schedules.CancelScheduleRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:schedule_id]
   defstruct schedule_id: nil
@@ -2832,13 +2844,13 @@ defmodule Inttegro.CancelScheduleRequest do
   end
 end
 
-defmodule Inttegro.CancelUploadRequestRequest do
+defmodule Inttegro.UploadRequests.CancelUploadRequestRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct canceled_by: nil, id: nil
 
   @type t :: %__MODULE__{
-          canceled_by: Inttegro.FileActorInput.t() | nil,
+          canceled_by: Inttegro.Files.FileActorInput.t() | nil,
           id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -2849,7 +2861,7 @@ defmodule Inttegro.CancelUploadRequestRequest do
       canceled_by:
         if(is_nil(Map.get(map, "canceled_by")),
           do: nil,
-          else: Inttegro.FileActorInput.from_map(Map.get(map, "canceled_by"))
+          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "canceled_by"))
         ),
       id: Map.fetch!(map, "id")
     }
@@ -2867,7 +2879,7 @@ defmodule Inttegro.CancelUploadRequestRequest do
   end
 end
 
-defmodule Inttegro.CatalogPrice do
+defmodule Inttegro.Prices.CatalogPrice do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :active, :nominal, :created_at]
   defstruct id: nil,
@@ -2886,9 +2898,9 @@ defmodule Inttegro.CatalogPrice do
           label: String.t() | nil,
           about: String.t() | nil,
           active: boolean(),
-          nominal: Inttegro.Amount.t(),
+          nominal: Inttegro.Money.Amount.t(),
           product_id: String.t() | nil,
-          product: Inttegro.PriceEmbeddedProduct.t() | nil,
+          product: Inttegro.Prices.PriceEmbeddedProduct.t() | nil,
           created_at: String.t(),
           updated_at: String.t() | nil,
           archived_at: String.t() | nil
@@ -2902,13 +2914,13 @@ defmodule Inttegro.CatalogPrice do
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
       active: Map.fetch!(map, "active"),
-      nominal: Inttegro.Amount.from_map(Map.fetch!(map, "nominal")),
+      nominal: Inttegro.Money.Amount.from_map(Map.fetch!(map, "nominal")),
       product_id:
         if(is_nil(Map.get(map, "product_id")), do: nil, else: Map.get(map, "product_id")),
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.PriceEmbeddedProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.Prices.PriceEmbeddedProduct.from_map(Map.get(map, "product"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       updated_at:
@@ -2940,7 +2952,7 @@ defmodule Inttegro.CatalogPrice do
   end
 end
 
-defmodule Inttegro.CatalogPriceParams do
+defmodule Inttegro.Prices.CatalogPriceParams do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:amount]
   defstruct product_id: nil, label: nil, about: nil, amount: nil
@@ -2949,7 +2961,7 @@ defmodule Inttegro.CatalogPriceParams do
           product_id: String.t() | nil,
           label: String.t() | nil,
           about: String.t() | nil,
-          amount: Inttegro.AmountParams.t()
+          amount: Inttegro.Money.AmountParams.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -2960,7 +2972,7 @@ defmodule Inttegro.CatalogPriceParams do
         if(is_nil(Map.get(map, "product_id")), do: nil, else: Map.get(map, "product_id")),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
-      amount: Inttegro.AmountParams.from_map(Map.fetch!(map, "amount"))
+      amount: Inttegro.Money.AmountParams.from_map(Map.fetch!(map, "amount"))
     }
   end
 
@@ -2978,13 +2990,13 @@ defmodule Inttegro.CatalogPriceParams do
   end
 end
 
-defmodule Inttegro.CatalogProductWithPriceDataInput do
+defmodule Inttegro.Products.CatalogProductWithPriceDataInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:price, :product_id, :quantity]
   defstruct price: nil, product_id: nil, quantity: nil
 
   @type t :: %__MODULE__{
-          price: Inttegro.PriceParams.t(),
+          price: Inttegro.Prices.PriceParams.t(),
           product_id: String.t(),
           quantity: integer()
         }
@@ -2993,7 +3005,7 @@ defmodule Inttegro.CatalogProductWithPriceDataInput do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      price: Inttegro.PriceParams.from_map(Map.fetch!(map, "price")),
+      price: Inttegro.Prices.PriceParams.from_map(Map.fetch!(map, "price")),
       product_id: Map.fetch!(map, "product_id"),
       quantity: Map.fetch!(map, "quantity")
     }
@@ -3011,7 +3023,7 @@ defmodule Inttegro.CatalogProductWithPriceDataInput do
   end
 end
 
-defmodule Inttegro.CatalogProductWithPriceReferenceInput do
+defmodule Inttegro.Products.CatalogProductWithPriceReferenceInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:price_id, :product_id, :quantity]
   defstruct price_id: nil, product_id: nil, quantity: nil
@@ -3044,7 +3056,7 @@ defmodule Inttegro.CatalogProductWithPriceReferenceInput do
   end
 end
 
-defmodule Inttegro.Chime do
+defmodule Inttegro.Chimes.Chime do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :full_message, :id, :recipient, :sender_id]
   defstruct created_at: nil,
@@ -3063,14 +3075,14 @@ defmodule Inttegro.Chime do
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer_id: String.t() | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
           full_message: String.t(),
           id: String.t(),
           idempotency_key: String.t() | nil,
           purpose: String.t() | nil,
-          recipient: Inttegro.ChimeRecipient.t(),
+          recipient: Inttegro.Chimes.ChimeRecipient.t(),
           sender_id: String.t(),
-          transmission: Inttegro.ChimeTransmission.t() | nil
+          transmission: Inttegro.Chimes.ChimeTransmission.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3088,7 +3100,7 @@ defmodule Inttegro.Chime do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       full_message: Map.fetch!(map, "full_message"),
       id: Map.fetch!(map, "id"),
@@ -3098,12 +3110,12 @@ defmodule Inttegro.Chime do
           else: Map.get(map, "idempotency_key")
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
-      recipient: Inttegro.ChimeRecipient.from_map(Map.fetch!(map, "recipient")),
+      recipient: Inttegro.Chimes.ChimeRecipient.from_map(Map.fetch!(map, "recipient")),
       sender_id: Map.fetch!(map, "sender_id"),
       transmission:
         if(is_nil(Map.get(map, "transmission")),
           do: nil,
-          else: Inttegro.ChimeTransmission.from_map(Map.get(map, "transmission"))
+          else: Inttegro.Chimes.ChimeTransmission.from_map(Map.get(map, "transmission"))
         )
     }
   end
@@ -3141,7 +3153,7 @@ defmodule Inttegro.Chime do
   end
 end
 
-defmodule Inttegro.ChimeEmailEvent do
+defmodule Inttegro.Chimes.ChimeEmailEvent do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :occurred_at, :provider, :provider_message_id, :type]
   defstruct bounce_sub_type: nil,
@@ -3250,7 +3262,7 @@ defmodule Inttegro.ChimeEmailEvent do
   end
 end
 
-defmodule Inttegro.ChimeEmailMailbox do
+defmodule Inttegro.Chimes.ChimeEmailMailbox do
   @moduledoc "Typed Inttegro domain value."
   defstruct name: nil, address: nil
 
@@ -3279,7 +3291,7 @@ defmodule Inttegro.ChimeEmailMailbox do
   end
 end
 
-defmodule Inttegro.ChimeEmailMailboxInput do
+defmodule Inttegro.Chimes.ChimeEmailMailboxInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct name: nil, address: nil
 
@@ -3308,7 +3320,7 @@ defmodule Inttegro.ChimeEmailMailboxInput do
   end
 end
 
-defmodule Inttegro.ChimeEmailMessage do
+defmodule Inttegro.Chimes.ChimeEmailMessage do
   @moduledoc "Typed Inttegro domain value."
   defstruct subject: nil,
             text: nil,
@@ -3323,11 +3335,11 @@ defmodule Inttegro.ChimeEmailMessage do
           subject: String.t() | nil,
           text: String.t() | nil,
           html: String.t() | nil,
-          from_: Inttegro.ChimeEmailMailbox.t() | nil,
-          reply_to: Inttegro.ChimeEmailMailbox.t() | nil,
+          from_: Inttegro.Chimes.ChimeEmailMailbox.t() | nil,
+          reply_to: Inttegro.Chimes.ChimeEmailMailbox.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil,
-          safety: Inttegro.ChimeEmailSafetyResult.t() | nil,
-          schema: Inttegro.ChimeEmailSchemaMarkup.t() | nil
+          safety: Inttegro.Chimes.ChimeEmailSafetyResult.t() | nil,
+          schema: Inttegro.Chimes.ChimeEmailSchemaMarkup.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3340,12 +3352,12 @@ defmodule Inttegro.ChimeEmailMessage do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else: Inttegro.ChimeEmailMailbox.from_map(Map.get(map, "from"))
+          else: Inttegro.Chimes.ChimeEmailMailbox.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else: Inttegro.ChimeEmailMailbox.from_map(Map.get(map, "reply_to"))
+          else: Inttegro.Chimes.ChimeEmailMailbox.from_map(Map.get(map, "reply_to"))
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -3355,12 +3367,12 @@ defmodule Inttegro.ChimeEmailMessage do
       safety:
         if(is_nil(Map.get(map, "safety")),
           do: nil,
-          else: Inttegro.ChimeEmailSafetyResult.from_map(Map.get(map, "safety"))
+          else: Inttegro.Chimes.ChimeEmailSafetyResult.from_map(Map.get(map, "safety"))
         ),
       schema:
         if(is_nil(Map.get(map, "schema")),
           do: nil,
-          else: Inttegro.ChimeEmailSchemaMarkup.from_map(Map.get(map, "schema"))
+          else: Inttegro.Chimes.ChimeEmailSchemaMarkup.from_map(Map.get(map, "schema"))
         )
     }
   end
@@ -3390,7 +3402,7 @@ defmodule Inttegro.ChimeEmailMessage do
   end
 end
 
-defmodule Inttegro.ChimeEmailMessageInput do
+defmodule Inttegro.Chimes.ChimeEmailMessageInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:subject, :text, :from_]
   defstruct html: nil, reply_to: nil, headers: nil, subject: nil, text: nil, from_: nil
@@ -3401,7 +3413,7 @@ defmodule Inttegro.ChimeEmailMessageInput do
           headers: %{optional(String.t()) => String.t()} | nil,
           subject: String.t(),
           text: String.t(),
-          from_: Inttegro.ChimeEmailMailboxInput.t()
+          from_: Inttegro.Chimes.ChimeEmailMailboxInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3417,7 +3429,7 @@ defmodule Inttegro.ChimeEmailMessageInput do
         ),
       subject: Map.fetch!(map, "subject"),
       text: Map.fetch!(map, "text"),
-      from_: Inttegro.ChimeEmailMailboxInput.from_map(Map.fetch!(map, "from"))
+      from_: Inttegro.Chimes.ChimeEmailMailboxInput.from_map(Map.fetch!(map, "from"))
     }
   end
 
@@ -3444,7 +3456,7 @@ defmodule Inttegro.ChimeEmailMessageInput do
   end
 end
 
-defmodule Inttegro.ChimeEmailSafetyResult do
+defmodule Inttegro.Chimes.ChimeEmailSafetyResult do
   @moduledoc "Typed Inttegro domain value."
   defstruct status: nil,
             reason_codes: nil,
@@ -3456,11 +3468,11 @@ defmodule Inttegro.ChimeEmailSafetyResult do
             quarantine_notes: nil
 
   @type t :: %__MODULE__{
-          status: Inttegro.ContentSafetyStatus.t() | nil,
+          status: Inttegro.MessageTemplates.ContentSafetyStatus.t() | nil,
           reason_codes: [String.t()] | nil,
           sanitized_html: String.t() | nil,
           normalized_text: String.t() | nil,
-          links: [Inttegro.ChimeEmailScannedLink.t()] | nil,
+          links: [Inttegro.Chimes.ChimeEmailScannedLink.t()] | nil,
           scanner: String.t() | nil,
           content_hash: String.t() | nil,
           quarantine_notes: String.t() | nil
@@ -3473,7 +3485,7 @@ defmodule Inttegro.ChimeEmailSafetyResult do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.ContentSafetyStatus.decode(Map.get(map, "status"))
+          else: Inttegro.MessageTemplates.ContentSafetyStatus.decode(Map.get(map, "status"))
         ),
       reason_codes:
         if(is_nil(Map.get(map, "reason_codes")),
@@ -3492,7 +3504,7 @@ defmodule Inttegro.ChimeEmailSafetyResult do
           do: nil,
           else:
             Enum.map(Map.get(map, "links"), fn item ->
-              Inttegro.ChimeEmailScannedLink.from_map(item)
+              Inttegro.Chimes.ChimeEmailScannedLink.from_map(item)
             end)
         ),
       scanner: if(is_nil(Map.get(map, "scanner")), do: nil, else: Map.get(map, "scanner")),
@@ -3510,7 +3522,10 @@ defmodule Inttegro.ChimeEmailSafetyResult do
   def to_map(value) do
     %{
       "status" =>
-        if(is_nil(value.status), do: nil, else: Inttegro.ContentSafetyStatus.encode(value.status)),
+        if(is_nil(value.status),
+          do: nil,
+          else: Inttegro.MessageTemplates.ContentSafetyStatus.encode(value.status)
+        ),
       "reason_codes" =>
         if(is_nil(value.reason_codes),
           do: nil,
@@ -3545,7 +3560,7 @@ defmodule Inttegro.ChimeEmailSafetyResult do
   end
 end
 
-defmodule Inttegro.ChimeEmailScannedLink do
+defmodule Inttegro.Chimes.ChimeEmailScannedLink do
   @moduledoc "Typed Inttegro domain value."
   defstruct raw: nil, scheme: nil, host: nil, status: nil, reason: nil
 
@@ -3553,7 +3568,7 @@ defmodule Inttegro.ChimeEmailScannedLink do
           raw: String.t() | nil,
           scheme: String.t() | nil,
           host: String.t() | nil,
-          status: Inttegro.ContentSafetyStatus.t() | nil,
+          status: Inttegro.MessageTemplates.ContentSafetyStatus.t() | nil,
           reason: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -3567,7 +3582,7 @@ defmodule Inttegro.ChimeEmailScannedLink do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.ContentSafetyStatus.decode(Map.get(map, "status"))
+          else: Inttegro.MessageTemplates.ContentSafetyStatus.decode(Map.get(map, "status"))
         ),
       reason: if(is_nil(Map.get(map, "reason")), do: nil, else: Map.get(map, "reason"))
     }
@@ -3580,7 +3595,10 @@ defmodule Inttegro.ChimeEmailScannedLink do
       "scheme" => if(is_nil(value.scheme), do: nil, else: Inttegro.Codec.encode(value.scheme)),
       "host" => if(is_nil(value.host), do: nil, else: Inttegro.Codec.encode(value.host)),
       "status" =>
-        if(is_nil(value.status), do: nil, else: Inttegro.ContentSafetyStatus.encode(value.status)),
+        if(is_nil(value.status),
+          do: nil,
+          else: Inttegro.MessageTemplates.ContentSafetyStatus.encode(value.status)
+        ),
       "reason" => if(is_nil(value.reason), do: nil, else: Inttegro.Codec.encode(value.reason))
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -3588,12 +3606,12 @@ defmodule Inttegro.ChimeEmailScannedLink do
   end
 end
 
-defmodule Inttegro.ChimeEmailSchemaMarkup do
+defmodule Inttegro.Chimes.ChimeEmailSchemaMarkup do
   @moduledoc "Typed Inttegro domain value."
   defstruct kind: nil, json_ld: nil
 
   @type t :: %__MODULE__{
-          kind: Inttegro.ChimeEmailSchemaKind.t() | nil,
+          kind: Inttegro.Chimes.ChimeEmailSchemaKind.t() | nil,
           json_ld: %{optional(String.t()) => term()} | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -3604,7 +3622,7 @@ defmodule Inttegro.ChimeEmailSchemaMarkup do
       kind:
         if(is_nil(Map.get(map, "kind")),
           do: nil,
-          else: Inttegro.ChimeEmailSchemaKind.decode(Map.get(map, "kind"))
+          else: Inttegro.Chimes.ChimeEmailSchemaKind.decode(Map.get(map, "kind"))
         ),
       json_ld:
         if(is_nil(Map.get(map, "json_ld")),
@@ -3618,7 +3636,10 @@ defmodule Inttegro.ChimeEmailSchemaMarkup do
   def to_map(value) do
     %{
       "kind" =>
-        if(is_nil(value.kind), do: nil, else: Inttegro.ChimeEmailSchemaKind.encode(value.kind)),
+        if(is_nil(value.kind),
+          do: nil,
+          else: Inttegro.Chimes.ChimeEmailSchemaKind.encode(value.kind)
+        ),
       "json_ld" =>
         if(is_nil(value.json_ld),
           do: nil,
@@ -3633,15 +3654,15 @@ defmodule Inttegro.ChimeEmailSchemaMarkup do
   end
 end
 
-defmodule Inttegro.ChimeInlineRecipientInputVariant1 do
+defmodule Inttegro.Chimes.ChimeInlineRecipientInputVariant1 do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:phone, :type]
   defstruct name: nil, phone: nil, type: nil
 
   @type t :: %__MODULE__{
           name: String.t() | nil,
-          phone: Inttegro.ChimeInlineRecipientInputVariant1Phone.t(),
-          type: Inttegro.ChimeRecipientType.t()
+          phone: Inttegro.Chimes.ChimeInlineRecipientInputVariant1Phone.t(),
+          type: Inttegro.Chimes.ChimeRecipientType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3649,8 +3670,9 @@ defmodule Inttegro.ChimeInlineRecipientInputVariant1 do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
-      phone: Inttegro.ChimeInlineRecipientInputVariant1Phone.from_map(Map.fetch!(map, "phone")),
-      type: Inttegro.ChimeRecipientType.decode(Map.fetch!(map, "type"))
+      phone:
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant1Phone.from_map(Map.fetch!(map, "phone")),
+      type: Inttegro.Chimes.ChimeRecipientType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -3659,14 +3681,14 @@ defmodule Inttegro.ChimeInlineRecipientInputVariant1 do
     %{
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "phone" => Inttegro.Codec.encode(value.phone),
-      "type" => Inttegro.ChimeRecipientType.encode(value.type)
+      "type" => Inttegro.Chimes.ChimeRecipientType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.ChimeInlineRecipientInputVariant1Phone do
+defmodule Inttegro.Chimes.ChimeInlineRecipientInputVariant1Phone do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:number]
   defstruct number: nil
@@ -3693,15 +3715,15 @@ defmodule Inttegro.ChimeInlineRecipientInputVariant1Phone do
   end
 end
 
-defmodule Inttegro.ChimeInlineRecipientInputVariant2 do
+defmodule Inttegro.Chimes.ChimeInlineRecipientInputVariant2 do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:email, :type]
   defstruct name: nil, email: nil, type: nil
 
   @type t :: %__MODULE__{
           name: String.t() | nil,
-          email: Inttegro.ChimeInlineRecipientInputVariant2Email.t(),
-          type: Inttegro.ChimeRecipientType.t()
+          email: Inttegro.Chimes.ChimeInlineRecipientInputVariant2Email.t(),
+          type: Inttegro.Chimes.ChimeRecipientType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3709,8 +3731,9 @@ defmodule Inttegro.ChimeInlineRecipientInputVariant2 do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
-      email: Inttegro.ChimeInlineRecipientInputVariant2Email.from_map(Map.fetch!(map, "email")),
-      type: Inttegro.ChimeRecipientType.decode(Map.fetch!(map, "type"))
+      email:
+        Inttegro.Chimes.ChimeInlineRecipientInputVariant2Email.from_map(Map.fetch!(map, "email")),
+      type: Inttegro.Chimes.ChimeRecipientType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -3719,14 +3742,14 @@ defmodule Inttegro.ChimeInlineRecipientInputVariant2 do
     %{
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "email" => Inttegro.Codec.encode(value.email),
-      "type" => Inttegro.ChimeRecipientType.encode(value.type)
+      "type" => Inttegro.Chimes.ChimeRecipientType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.ChimeInlineRecipientInputVariant2Email do
+defmodule Inttegro.Chimes.ChimeInlineRecipientInputVariant2Email do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:address]
   defstruct address: nil
@@ -3753,7 +3776,7 @@ defmodule Inttegro.ChimeInlineRecipientInputVariant2Email do
   end
 end
 
-defmodule Inttegro.ChimePage do
+defmodule Inttegro.Chimes.ChimePage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :chimes]
   defstruct number: nil, size: nil, chimes: nil
@@ -3761,7 +3784,7 @@ defmodule Inttegro.ChimePage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          chimes: [Inttegro.Chime.t()]
+          chimes: [Inttegro.Chimes.Chime.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3770,7 +3793,8 @@ defmodule Inttegro.ChimePage do
     %__MODULE__{
       number: Map.fetch!(map, "number"),
       size: Map.fetch!(map, "size"),
-      chimes: Enum.map(Map.fetch!(map, "chimes"), fn item -> Inttegro.Chime.from_map(item) end)
+      chimes:
+        Enum.map(Map.fetch!(map, "chimes"), fn item -> Inttegro.Chimes.Chime.from_map(item) end)
     }
   end
 
@@ -3786,33 +3810,33 @@ defmodule Inttegro.ChimePage do
   end
 end
 
-defmodule Inttegro.ChimeRecipient do
+defmodule Inttegro.Chimes.ChimeRecipient do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct type: nil, name: nil, phone: nil, email: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.ChimeRecipientType.t(),
+          type: Inttegro.Chimes.ChimeRecipientType.t(),
           name: String.t() | nil,
-          phone: Inttegro.ChimeRecipientPhone.t() | nil,
-          email: Inttegro.ChimeRecipientEmail.t() | nil
+          phone: Inttegro.Chimes.ChimeRecipientPhone.t() | nil,
+          email: Inttegro.Chimes.ChimeRecipientEmail.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.ChimeRecipientType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Chimes.ChimeRecipientType.decode(Map.fetch!(map, "type")),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       phone:
         if(is_nil(Map.get(map, "phone")),
           do: nil,
-          else: Inttegro.ChimeRecipientPhone.from_map(Map.get(map, "phone"))
+          else: Inttegro.Chimes.ChimeRecipientPhone.from_map(Map.get(map, "phone"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeRecipientEmail.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeRecipientEmail.from_map(Map.get(map, "email"))
         )
     }
   end
@@ -3820,7 +3844,7 @@ defmodule Inttegro.ChimeRecipient do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.ChimeRecipientType.encode(value.type),
+      "type" => Inttegro.Chimes.ChimeRecipientType.encode(value.type),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "phone" => if(is_nil(value.phone), do: nil, else: Inttegro.Codec.encode(value.phone)),
       "email" => if(is_nil(value.email), do: nil, else: Inttegro.Codec.encode(value.email))
@@ -3830,7 +3854,7 @@ defmodule Inttegro.ChimeRecipient do
   end
 end
 
-defmodule Inttegro.ChimeRecipientEmail do
+defmodule Inttegro.Chimes.ChimeRecipientEmail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:address]
   defstruct address: nil
@@ -3857,7 +3881,7 @@ defmodule Inttegro.ChimeRecipientEmail do
   end
 end
 
-defmodule Inttegro.ChimeRecipientPhone do
+defmodule Inttegro.Chimes.ChimeRecipientPhone do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number]
   defstruct number: nil
@@ -3884,14 +3908,14 @@ defmodule Inttegro.ChimeRecipientPhone do
   end
 end
 
-defmodule Inttegro.ChimeSavedCustomerRecipientInput do
+defmodule Inttegro.Chimes.ChimeSavedCustomerRecipientInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:customer_id, :transport]
   defstruct customer_id: nil, transport: nil
 
   @type t :: %__MODULE__{
           customer_id: String.t(),
-          transport: Inttegro.ChimeTransport.t()
+          transport: Inttegro.Chimes.ChimeTransport.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -3899,7 +3923,7 @@ defmodule Inttegro.ChimeSavedCustomerRecipientInput do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       customer_id: Map.fetch!(map, "customer_id"),
-      transport: Inttegro.ChimeTransport.decode(Map.fetch!(map, "transport"))
+      transport: Inttegro.Chimes.ChimeTransport.decode(Map.fetch!(map, "transport"))
     }
   end
 
@@ -3907,14 +3931,14 @@ defmodule Inttegro.ChimeSavedCustomerRecipientInput do
   def to_map(value) do
     %{
       "customer_id" => Inttegro.Codec.encode(value.customer_id),
-      "transport" => Inttegro.ChimeTransport.encode(value.transport)
+      "transport" => Inttegro.Chimes.ChimeTransport.encode(value.transport)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.ChimeTransmission do
+defmodule Inttegro.Chimes.ChimeTransmission do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:address, :created_at, :gateway, :id, :initialized_at, :mechanism, :status]
   defstruct address: nil,
@@ -3942,7 +3966,7 @@ defmodule Inttegro.ChimeTransmission do
           address: String.t(),
           created_at: String.t(),
           delivered_at: String.t() | nil,
-          email_events: [Inttegro.ChimeEmailEvent.t()] | nil,
+          email_events: [Inttegro.Chimes.ChimeEmailEvent.t()] | nil,
           email_failure_code: String.t() | nil,
           email_failure_reason: String.t() | nil,
           email_status: String.t() | nil,
@@ -3953,9 +3977,9 @@ defmodule Inttegro.ChimeTransmission do
           id: String.t(),
           initialized_at: String.t(),
           last_email_event_at: String.t() | nil,
-          mechanism: Inttegro.ChimeTransport.t(),
+          mechanism: Inttegro.Chimes.ChimeTransport.t(),
           sent_at: String.t() | nil,
-          sent_via: Inttegro.ChimeTransport.t() | nil,
+          sent_via: Inttegro.Chimes.ChimeTransport.t() | nil,
           status: String.t(),
           suppressed_at: String.t() | nil,
           suppression_reason: String.t() | nil
@@ -3974,7 +3998,7 @@ defmodule Inttegro.ChimeTransmission do
           do: nil,
           else:
             Enum.map(Map.get(map, "email_events"), fn item ->
-              Inttegro.ChimeEmailEvent.from_map(item)
+              Inttegro.Chimes.ChimeEmailEvent.from_map(item)
             end)
         ),
       email_failure_code:
@@ -4004,12 +4028,12 @@ defmodule Inttegro.ChimeTransmission do
           do: nil,
           else: Map.get(map, "last_email_event_at")
         ),
-      mechanism: Inttegro.ChimeTransport.decode(Map.fetch!(map, "mechanism")),
+      mechanism: Inttegro.Chimes.ChimeTransport.decode(Map.fetch!(map, "mechanism")),
       sent_at: if(is_nil(Map.get(map, "sent_at")), do: nil, else: Map.get(map, "sent_at")),
       sent_via:
         if(is_nil(Map.get(map, "sent_via")),
           do: nil,
-          else: Inttegro.ChimeTransport.decode(Map.get(map, "sent_via"))
+          else: Inttegro.Chimes.ChimeTransport.decode(Map.get(map, "sent_via"))
         ),
       status: Map.fetch!(map, "status"),
       suppressed_at:
@@ -4062,10 +4086,13 @@ defmodule Inttegro.ChimeTransmission do
           do: nil,
           else: Inttegro.Codec.encode(value.last_email_event_at)
         ),
-      "mechanism" => Inttegro.ChimeTransport.encode(value.mechanism),
+      "mechanism" => Inttegro.Chimes.ChimeTransport.encode(value.mechanism),
       "sent_at" => if(is_nil(value.sent_at), do: nil, else: Inttegro.Codec.encode(value.sent_at)),
       "sent_via" =>
-        if(is_nil(value.sent_via), do: nil, else: Inttegro.ChimeTransport.encode(value.sent_via)),
+        if(is_nil(value.sent_via),
+          do: nil,
+          else: Inttegro.Chimes.ChimeTransport.encode(value.sent_via)
+        ),
       "status" => Inttegro.Codec.encode(value.status),
       "suppressed_at" =>
         if(is_nil(value.suppressed_at), do: nil, else: Inttegro.Codec.encode(value.suppressed_at)),
@@ -4080,7 +4107,7 @@ defmodule Inttegro.ChimeTransmission do
   end
 end
 
-defmodule Inttegro.CompleteOrderRequest do
+defmodule Inttegro.Orders.CompleteOrderRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct paid_out_of_band: nil, order_id: nil
@@ -4118,7 +4145,7 @@ defmodule Inttegro.CompleteOrderRequest do
   end
 end
 
-defmodule Inttegro.ConfirmPaymentRequest do
+defmodule Inttegro.Orders.ConfirmPaymentRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id, :payment_id, :confirmation_id, :token]
   defstruct order_id: nil, payment_id: nil, confirmation_id: nil, token: nil
@@ -4154,7 +4181,7 @@ defmodule Inttegro.ConfirmPaymentRequest do
   end
 end
 
-defmodule Inttegro.CountryBank do
+defmodule Inttegro.Specifications.CountryBank do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :name, :branches]
   defstruct id: nil, name: nil, swift_code: nil, sort_code_prefix: nil, branches: nil
@@ -4164,7 +4191,7 @@ defmodule Inttegro.CountryBank do
           name: String.t(),
           swift_code: String.t() | nil,
           sort_code_prefix: String.t() | nil,
-          branches: [Inttegro.CountryBankBranch.t()]
+          branches: [Inttegro.Specifications.CountryBankBranch.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -4182,7 +4209,7 @@ defmodule Inttegro.CountryBank do
         ),
       branches:
         Enum.map(Map.fetch!(map, "branches"), fn item ->
-          Inttegro.CountryBankBranch.from_map(item)
+          Inttegro.Specifications.CountryBankBranch.from_map(item)
         end)
     }
   end
@@ -4206,7 +4233,7 @@ defmodule Inttegro.CountryBank do
   end
 end
 
-defmodule Inttegro.CountryBankBranch do
+defmodule Inttegro.Specifications.CountryBankBranch do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :name, :sort_code]
   defstruct id: nil, name: nil, sort_code: nil
@@ -4239,7 +4266,7 @@ defmodule Inttegro.CountryBankBranch do
   end
 end
 
-defmodule Inttegro.CountryBankDirectory do
+defmodule Inttegro.Specifications.CountryBankDirectory do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:bank_account_type, :code_scheme, :items]
   defstruct bank_account_type: nil, code_scheme: nil, items: nil
@@ -4247,7 +4274,7 @@ defmodule Inttegro.CountryBankDirectory do
   @type t :: %__MODULE__{
           bank_account_type: String.t(),
           code_scheme: String.t(),
-          items: [Inttegro.CountryBank.t()]
+          items: [Inttegro.Specifications.CountryBank.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -4257,7 +4284,9 @@ defmodule Inttegro.CountryBankDirectory do
       bank_account_type: Map.fetch!(map, "bank_account_type"),
       code_scheme: Map.fetch!(map, "code_scheme"),
       items:
-        Enum.map(Map.fetch!(map, "items"), fn item -> Inttegro.CountryBank.from_map(item) end)
+        Enum.map(Map.fetch!(map, "items"), fn item ->
+          Inttegro.Specifications.CountryBank.from_map(item)
+        end)
     }
   end
 
@@ -4273,7 +4302,7 @@ defmodule Inttegro.CountryBankDirectory do
   end
 end
 
-defmodule Inttegro.CountrySpecification do
+defmodule Inttegro.Specifications.CountrySpecification do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [
     :country_code,
@@ -4307,7 +4336,7 @@ defmodule Inttegro.CountrySpecification do
           legal_entity_types: [String.t()],
           financial_account_types: [String.t()],
           id_document_types: [String.t()],
-          banks: Inttegro.CountryBankDirectory.t() | nil
+          banks: Inttegro.Specifications.CountryBankDirectory.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -4327,7 +4356,7 @@ defmodule Inttegro.CountrySpecification do
       banks:
         if(is_nil(Map.get(map, "banks")),
           do: nil,
-          else: Inttegro.CountryBankDirectory.from_map(Map.get(map, "banks"))
+          else: Inttegro.Specifications.CountryBankDirectory.from_map(Map.get(map, "banks"))
         )
     }
   end
@@ -4357,7 +4386,7 @@ defmodule Inttegro.CountrySpecification do
   end
 end
 
-defmodule Inttegro.CreateApplicationRequest do
+defmodule Inttegro.Apps.CreateApplicationRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name]
   defstruct alias: nil,
@@ -4372,7 +4401,7 @@ defmodule Inttegro.CreateApplicationRequest do
           description: String.t() | nil,
           legal_entity_type: String.t() | nil,
           placement_parent_application_id: String.t() | nil,
-          relationship_policy: Inttegro.CreateApplicationRequestRelationshipPolicy.t() | nil,
+          relationship_policy: Inttegro.Apps.CreateApplicationRequestRelationshipPolicy.t() | nil,
           name: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -4397,7 +4426,7 @@ defmodule Inttegro.CreateApplicationRequest do
         if(is_nil(Map.get(map, "relationship_policy")),
           do: nil,
           else:
-            Inttegro.CreateApplicationRequestRelationshipPolicy.from_map(
+            Inttegro.Apps.CreateApplicationRequestRelationshipPolicy.from_map(
               Map.get(map, "relationship_policy")
             )
         ),
@@ -4433,14 +4462,14 @@ defmodule Inttegro.CreateApplicationRequest do
   end
 end
 
-defmodule Inttegro.CreateApplicationRequestRelationshipPolicy do
+defmodule Inttegro.Apps.CreateApplicationRequestRelationshipPolicy do
   @moduledoc "Typed Inttegro request parameters."
   defstruct child_standing: nil, management: nil, credentials: nil
 
   @type t :: %__MODULE__{
           child_standing: String.t() | nil,
-          management: Inttegro.AppManagementRole.t() | nil,
-          credentials: Inttegro.AppCredentialOwner.t() | nil
+          management: Inttegro.Apps.AppManagementRole.t() | nil,
+          credentials: Inttegro.Apps.AppCredentialOwner.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -4452,12 +4481,12 @@ defmodule Inttegro.CreateApplicationRequestRelationshipPolicy do
       management:
         if(is_nil(Map.get(map, "management")),
           do: nil,
-          else: Inttegro.AppManagementRole.decode(Map.get(map, "management"))
+          else: Inttegro.Apps.AppManagementRole.decode(Map.get(map, "management"))
         ),
       credentials:
         if(is_nil(Map.get(map, "credentials")),
           do: nil,
-          else: Inttegro.AppCredentialOwner.decode(Map.get(map, "credentials"))
+          else: Inttegro.Apps.AppCredentialOwner.decode(Map.get(map, "credentials"))
         )
     }
   end
@@ -4473,12 +4502,12 @@ defmodule Inttegro.CreateApplicationRequestRelationshipPolicy do
       "management" =>
         if(is_nil(value.management),
           do: nil,
-          else: Inttegro.AppManagementRole.encode(value.management)
+          else: Inttegro.Apps.AppManagementRole.encode(value.management)
         ),
       "credentials" =>
         if(is_nil(value.credentials),
           do: nil,
-          else: Inttegro.AppCredentialOwner.encode(value.credentials)
+          else: Inttegro.Apps.AppCredentialOwner.encode(value.credentials)
         )
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -4486,7 +4515,7 @@ defmodule Inttegro.CreateApplicationRequestRelationshipPolicy do
   end
 end
 
-defmodule Inttegro.CreateCustomerRequest do
+defmodule Inttegro.Customers.CreateCustomerRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name]
   defstruct billing_address: nil,
@@ -4499,12 +4528,12 @@ defmodule Inttegro.CreateCustomerRequest do
             name: nil
 
   @type t :: %__MODULE__{
-          billing_address: Inttegro.CustomerAddressInput.t() | nil,
+          billing_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
           custom_data: %{optional(String.t()) => term()} | nil,
           email_address: String.t() | nil,
           phone_number: String.t() | nil,
           reference: String.t() | nil,
-          shipping_address: Inttegro.CustomerAddressInput.t() | nil,
+          shipping_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
           title: String.t() | nil,
           name: String.t()
         }
@@ -4516,7 +4545,7 @@ defmodule Inttegro.CreateCustomerRequest do
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.CustomerAddressInput.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "billing_address"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -4531,7 +4560,7 @@ defmodule Inttegro.CreateCustomerRequest do
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.CustomerAddressInput.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "shipping_address"))
         ),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),
       name: Map.fetch!(map, "name")
@@ -4573,7 +4602,7 @@ defmodule Inttegro.CreateCustomerRequest do
   end
 end
 
-defmodule Inttegro.CreateEmailMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:channel, :email, :name, :purpose]
   defstruct about: nil,
@@ -4589,9 +4618,9 @@ defmodule Inttegro.CreateEmailMessageTemplateRequest do
           about: String.t() | nil,
           attachments: [String.t()] | nil,
           locale: String.t() | nil,
-          variables: [Inttegro.MessageTemplateVariableInput.t()] | nil,
-          channel: Inttegro.MessageTemplateChannel.t(),
-          email: Inttegro.MessageTemplateEmailContentInput.t(),
+          variables: [Inttegro.MessageTemplates.MessageTemplateVariableInput.t()] | nil,
+          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
+          email: Inttegro.MessageTemplates.MessageTemplateEmailContentInput.t(),
           name: String.t(),
           purpose: String.t()
         }
@@ -4612,11 +4641,15 @@ defmodule Inttegro.CreateEmailMessageTemplateRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplateVariableInput.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateVariableInput.from_map(item)
             end)
         ),
-      channel: Inttegro.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
-      email: Inttegro.MessageTemplateEmailContentInput.from_map(Map.fetch!(map, "email")),
+      channel:
+        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      email:
+        Inttegro.MessageTemplates.MessageTemplateEmailContentInput.from_map(
+          Map.fetch!(map, "email")
+        ),
       name: Map.fetch!(map, "name"),
       purpose: Map.fetch!(map, "purpose")
     }
@@ -4637,7 +4670,7 @@ defmodule Inttegro.CreateEmailMessageTemplateRequest do
           do: nil,
           else: Enum.map(value.variables, fn item -> Inttegro.Codec.encode(item) end)
         ),
-      "channel" => Inttegro.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
       "email" => Inttegro.Codec.encode(value.email),
       "name" => Inttegro.Codec.encode(value.name),
       "purpose" => Inttegro.Codec.encode(value.purpose)
@@ -4647,7 +4680,7 @@ defmodule Inttegro.CreateEmailMessageTemplateRequest do
   end
 end
 
-defmodule Inttegro.CreateFileLinkRequest do
+defmodule Inttegro.FileLinks.CreateFileLinkRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:file_id]
   defstruct delivery: nil,
@@ -4658,9 +4691,9 @@ defmodule Inttegro.CreateFileLinkRequest do
             file_id: nil
 
   @type t :: %__MODULE__{
-          delivery: Inttegro.FileLinkDeliveryInput.t() | nil,
-          access: Inttegro.FileLinkAccessRequest.t() | nil,
-          created_by: Inttegro.FileActorInput.t() | nil,
+          delivery: Inttegro.FileLinks.FileLinkDeliveryInput.t() | nil,
+          access: Inttegro.FileLinks.FileLinkAccessRequest.t() | nil,
+          created_by: Inttegro.Files.FileActorInput.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           expires_at: String.t() | nil,
           file_id: String.t()
@@ -4673,17 +4706,17 @@ defmodule Inttegro.CreateFileLinkRequest do
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.FileLinkDeliveryInput.from_map(Map.get(map, "delivery"))
+          else: Inttegro.FileLinks.FileLinkDeliveryInput.from_map(Map.get(map, "delivery"))
         ),
       access:
         if(is_nil(Map.get(map, "access")),
           do: nil,
-          else: Inttegro.FileLinkAccessRequest.from_map(Map.get(map, "access"))
+          else: Inttegro.FileLinks.FileLinkAccessRequest.from_map(Map.get(map, "access"))
         ),
       created_by:
         if(is_nil(Map.get(map, "created_by")),
           do: nil,
-          else: Inttegro.FileActorInput.from_map(Map.get(map, "created_by"))
+          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "created_by"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -4721,7 +4754,7 @@ defmodule Inttegro.CreateFileLinkRequest do
   end
 end
 
-defmodule Inttegro.CreateOrderExistingCustomerInput do
+defmodule Inttegro.Customers.CreateOrderExistingCustomerInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:customer_id, :line_items]
   defstruct payment_method_id: nil,
@@ -4743,19 +4776,20 @@ defmodule Inttegro.CreateOrderExistingCustomerInput do
 
   @type t :: %__MODULE__{
           payment_method_id: String.t() | nil,
-          payment_method_data: Inttegro.PaymentMethodDataInput.t() | nil,
+          payment_method_data: Inttegro.PaymentMethods.PaymentMethodDataInput.t() | nil,
           receipt_number: String.t() | nil,
           statement_descriptor: String.t() | nil,
           statement_descriptor_prefix: String.t() | nil,
           execute_payment: boolean() | nil,
           finalize: boolean() | nil,
-          request_meta: Inttegro.CreateOrderExistingCustomerInputRequestMeta.t() | nil,
-          checkout_settings: Inttegro.CreateOrderExistingCustomerInputCheckoutSettings.t() | nil,
-          invoice_settings: Inttegro.InvoiceSettingsInput.t() | nil,
-          payout_settings: Inttegro.OrderPayoutSettingsRequest.t() | nil,
+          request_meta: Inttegro.Customers.CreateOrderExistingCustomerInputRequestMeta.t() | nil,
+          checkout_settings:
+            Inttegro.Checkout.CreateOrderExistingCustomerInputCheckoutSettings.t() | nil,
+          invoice_settings: Inttegro.Invoices.InvoiceSettingsInput.t() | nil,
+          payout_settings: Inttegro.Orders.OrderPayoutSettingsRequest.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          billing_details: Inttegro.BillingDetailsInput.t() | nil,
-          shipping: Inttegro.ShippingInput.t() | nil,
+          billing_details: Inttegro.Orders.BillingDetailsInput.t() | nil,
+          shipping: Inttegro.Orders.ShippingInput.t() | nil,
           customer_id: String.t(),
           line_items: [term()]
         }
@@ -4772,7 +4806,10 @@ defmodule Inttegro.CreateOrderExistingCustomerInput do
       payment_method_data:
         if(is_nil(Map.get(map, "payment_method_data")),
           do: nil,
-          else: Inttegro.PaymentMethodDataInput.from_map(Map.get(map, "payment_method_data"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodDataInput.from_map(
+              Map.get(map, "payment_method_data")
+            )
         ),
       receipt_number:
         if(is_nil(Map.get(map, "receipt_number")), do: nil, else: Map.get(map, "receipt_number")),
@@ -4796,7 +4833,7 @@ defmodule Inttegro.CreateOrderExistingCustomerInput do
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
           else:
-            Inttegro.CreateOrderExistingCustomerInputRequestMeta.from_map(
+            Inttegro.Customers.CreateOrderExistingCustomerInputRequestMeta.from_map(
               Map.get(map, "request_meta")
             )
         ),
@@ -4804,19 +4841,20 @@ defmodule Inttegro.CreateOrderExistingCustomerInput do
         if(is_nil(Map.get(map, "checkout_settings")),
           do: nil,
           else:
-            Inttegro.CreateOrderExistingCustomerInputCheckoutSettings.from_map(
+            Inttegro.Checkout.CreateOrderExistingCustomerInputCheckoutSettings.from_map(
               Map.get(map, "checkout_settings")
             )
         ),
       invoice_settings:
         if(is_nil(Map.get(map, "invoice_settings")),
           do: nil,
-          else: Inttegro.InvoiceSettingsInput.from_map(Map.get(map, "invoice_settings"))
+          else: Inttegro.Invoices.InvoiceSettingsInput.from_map(Map.get(map, "invoice_settings"))
         ),
       payout_settings:
         if(is_nil(Map.get(map, "payout_settings")),
           do: nil,
-          else: Inttegro.OrderPayoutSettingsRequest.from_map(Map.get(map, "payout_settings"))
+          else:
+            Inttegro.Orders.OrderPayoutSettingsRequest.from_map(Map.get(map, "payout_settings"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -4826,12 +4864,12 @@ defmodule Inttegro.CreateOrderExistingCustomerInput do
       billing_details:
         if(is_nil(Map.get(map, "billing_details")),
           do: nil,
-          else: Inttegro.BillingDetailsInput.from_map(Map.get(map, "billing_details"))
+          else: Inttegro.Orders.BillingDetailsInput.from_map(Map.get(map, "billing_details"))
         ),
       shipping:
         if(is_nil(Map.get(map, "shipping")),
           do: nil,
-          else: Inttegro.ShippingInput.from_map(Map.get(map, "shipping"))
+          else: Inttegro.Orders.ShippingInput.from_map(Map.get(map, "shipping"))
         ),
       customer_id: Map.fetch!(map, "customer_id"),
       line_items: Enum.map(Map.fetch!(map, "line_items"), fn item -> item end)
@@ -4913,7 +4951,7 @@ defmodule Inttegro.CreateOrderExistingCustomerInput do
   end
 end
 
-defmodule Inttegro.CreateOrderExistingCustomerInputCheckoutSettings do
+defmodule Inttegro.Checkout.CreateOrderExistingCustomerInputCheckoutSettings do
   @moduledoc "Typed Inttegro request parameters."
   defstruct redirect_url: nil, cancel_url: nil
 
@@ -4946,7 +4984,7 @@ defmodule Inttegro.CreateOrderExistingCustomerInputCheckoutSettings do
   end
 end
 
-defmodule Inttegro.CreateOrderExistingCustomerInputRequestMeta do
+defmodule Inttegro.Customers.CreateOrderExistingCustomerInputRequestMeta do
   @moduledoc "Typed Inttegro request parameters."
   defstruct idempotency_key: nil
 
@@ -4980,7 +5018,7 @@ defmodule Inttegro.CreateOrderExistingCustomerInputRequestMeta do
   end
 end
 
-defmodule Inttegro.CreateOrderNewCustomerInput do
+defmodule Inttegro.Customers.CreateOrderNewCustomerInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:customer_data, :line_items]
   defstruct number: nil,
@@ -5007,15 +5045,16 @@ defmodule Inttegro.CreateOrderNewCustomerInput do
           statement_descriptor_prefix: String.t() | nil,
           execute_payment: boolean() | nil,
           finalize: boolean() | nil,
-          request_meta: Inttegro.CreateOrderNewCustomerInputRequestMeta.t() | nil,
-          checkout_settings: Inttegro.CreateOrderNewCustomerInputCheckoutSettings.t() | nil,
-          invoice_settings: Inttegro.InvoiceSettingsInput.t() | nil,
-          payout_settings: Inttegro.OrderPayoutSettingsRequest.t() | nil,
+          request_meta: Inttegro.Customers.CreateOrderNewCustomerInputRequestMeta.t() | nil,
+          checkout_settings:
+            Inttegro.Checkout.CreateOrderNewCustomerInputCheckoutSettings.t() | nil,
+          invoice_settings: Inttegro.Invoices.InvoiceSettingsInput.t() | nil,
+          payout_settings: Inttegro.Orders.OrderPayoutSettingsRequest.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          billing_details: Inttegro.BillingDetailsInput.t() | nil,
-          shipping: Inttegro.ShippingInput.t() | nil,
-          payment_method_data: Inttegro.PaymentMethodDataInput.t() | nil,
-          customer_data: Inttegro.CustomerDataInput.t(),
+          billing_details: Inttegro.Orders.BillingDetailsInput.t() | nil,
+          shipping: Inttegro.Orders.ShippingInput.t() | nil,
+          payment_method_data: Inttegro.PaymentMethods.PaymentMethodDataInput.t() | nil,
+          customer_data: Inttegro.Customers.CustomerDataInput.t(),
           line_items: [term()]
         }
   @spec new!(map() | keyword()) :: t()
@@ -5046,25 +5085,28 @@ defmodule Inttegro.CreateOrderNewCustomerInput do
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
           else:
-            Inttegro.CreateOrderNewCustomerInputRequestMeta.from_map(Map.get(map, "request_meta"))
+            Inttegro.Customers.CreateOrderNewCustomerInputRequestMeta.from_map(
+              Map.get(map, "request_meta")
+            )
         ),
       checkout_settings:
         if(is_nil(Map.get(map, "checkout_settings")),
           do: nil,
           else:
-            Inttegro.CreateOrderNewCustomerInputCheckoutSettings.from_map(
+            Inttegro.Checkout.CreateOrderNewCustomerInputCheckoutSettings.from_map(
               Map.get(map, "checkout_settings")
             )
         ),
       invoice_settings:
         if(is_nil(Map.get(map, "invoice_settings")),
           do: nil,
-          else: Inttegro.InvoiceSettingsInput.from_map(Map.get(map, "invoice_settings"))
+          else: Inttegro.Invoices.InvoiceSettingsInput.from_map(Map.get(map, "invoice_settings"))
         ),
       payout_settings:
         if(is_nil(Map.get(map, "payout_settings")),
           do: nil,
-          else: Inttegro.OrderPayoutSettingsRequest.from_map(Map.get(map, "payout_settings"))
+          else:
+            Inttegro.Orders.OrderPayoutSettingsRequest.from_map(Map.get(map, "payout_settings"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -5074,19 +5116,23 @@ defmodule Inttegro.CreateOrderNewCustomerInput do
       billing_details:
         if(is_nil(Map.get(map, "billing_details")),
           do: nil,
-          else: Inttegro.BillingDetailsInput.from_map(Map.get(map, "billing_details"))
+          else: Inttegro.Orders.BillingDetailsInput.from_map(Map.get(map, "billing_details"))
         ),
       shipping:
         if(is_nil(Map.get(map, "shipping")),
           do: nil,
-          else: Inttegro.ShippingInput.from_map(Map.get(map, "shipping"))
+          else: Inttegro.Orders.ShippingInput.from_map(Map.get(map, "shipping"))
         ),
       payment_method_data:
         if(is_nil(Map.get(map, "payment_method_data")),
           do: nil,
-          else: Inttegro.PaymentMethodDataInput.from_map(Map.get(map, "payment_method_data"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodDataInput.from_map(
+              Map.get(map, "payment_method_data")
+            )
         ),
-      customer_data: Inttegro.CustomerDataInput.from_map(Map.fetch!(map, "customer_data")),
+      customer_data:
+        Inttegro.Customers.CustomerDataInput.from_map(Map.fetch!(map, "customer_data")),
       line_items: Enum.map(Map.fetch!(map, "line_items"), fn item -> item end)
     }
   end
@@ -5162,7 +5208,7 @@ defmodule Inttegro.CreateOrderNewCustomerInput do
   end
 end
 
-defmodule Inttegro.CreateOrderNewCustomerInputCheckoutSettings do
+defmodule Inttegro.Checkout.CreateOrderNewCustomerInputCheckoutSettings do
   @moduledoc "Typed Inttegro request parameters."
   defstruct redirect_url: nil, cancel_url: nil
 
@@ -5195,7 +5241,7 @@ defmodule Inttegro.CreateOrderNewCustomerInputCheckoutSettings do
   end
 end
 
-defmodule Inttegro.CreateOrderNewCustomerInputRequestMeta do
+defmodule Inttegro.Customers.CreateOrderNewCustomerInputRequestMeta do
   @moduledoc "Typed Inttegro request parameters."
   defstruct idempotency_key: nil
 
@@ -5229,7 +5275,7 @@ defmodule Inttegro.CreateOrderNewCustomerInputRequestMeta do
   end
 end
 
-defmodule Inttegro.CreateProductRequest do
+defmodule Inttegro.Products.CreateProductRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type, :name]
   defstruct reference: nil,
@@ -5253,14 +5299,14 @@ defmodule Inttegro.CreateProductRequest do
           about: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
-          shipment: Inttegro.ProductShipmentInput.t() | nil,
-          dimensions: Inttegro.ProductDimensionsInput.t() | nil,
+          shipment: Inttegro.Products.ProductShipmentInput.t() | nil,
+          dimensions: Inttegro.Products.ProductDimensionsInput.t() | nil,
           unit_dimension: String.t() | nil,
-          media: Inttegro.ProductMediaInput.t() | nil,
-          attributes: [Inttegro.ProductAttributeInput.t()] | nil,
+          media: Inttegro.Products.ProductMediaInput.t() | nil,
+          attributes: [Inttegro.Products.ProductAttributeInput.t()] | nil,
           publish: boolean() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          type: Inttegro.ProductType.t(),
+          type: Inttegro.Products.ProductType.t(),
           name: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -5277,26 +5323,26 @@ defmodule Inttegro.CreateProductRequest do
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Inttegro.ProductShipmentInput.from_map(Map.get(map, "shipment"))
+          else: Inttegro.Products.ProductShipmentInput.from_map(Map.get(map, "shipment"))
         ),
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.ProductDimensionsInput.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.ProductDimensionsInput.from_map(Map.get(map, "dimensions"))
         ),
       unit_dimension:
         if(is_nil(Map.get(map, "unit_dimension")), do: nil, else: Map.get(map, "unit_dimension")),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.ProductMediaInput.from_map(Map.get(map, "media"))
+          else: Inttegro.Products.ProductMediaInput.from_map(Map.get(map, "media"))
         ),
       attributes:
         if(is_nil(Map.get(map, "attributes")),
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.ProductAttributeInput.from_map(item)
+              Inttegro.Products.ProductAttributeInput.from_map(item)
             end)
         ),
       publish: if(is_nil(Map.get(map, "publish")), do: nil, else: Map.get(map, "publish")),
@@ -5305,7 +5351,7 @@ defmodule Inttegro.CreateProductRequest do
           do: nil,
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
-      type: Inttegro.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
       name: Map.fetch!(map, "name")
     }
   end
@@ -5346,7 +5392,7 @@ defmodule Inttegro.CreateProductRequest do
               {to_string(key), Inttegro.Codec.encode(value)}
             end)
         ),
-      "type" => Inttegro.ProductType.encode(value.type),
+      "type" => Inttegro.Products.ProductType.encode(value.type),
       "name" => Inttegro.Codec.encode(value.name)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -5354,7 +5400,7 @@ defmodule Inttegro.CreateProductRequest do
   end
 end
 
-defmodule Inttegro.CreatePurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:quantity]
   defstruct product: nil,
@@ -5366,13 +5412,13 @@ defmodule Inttegro.CreatePurchaseIntentRequest do
             quantity: nil
 
   @type t :: %__MODULE__{
-          product: Inttegro.CreatePurchaseIntentRequestProduct.t() | nil,
+          product: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct.t() | nil,
           product_id: String.t() | nil,
-          price: Inttegro.CreatePurchaseIntentRequestPrice.t() | nil,
+          price: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice.t() | nil,
           price_id: String.t() | nil,
-          usage: Inttegro.CreatePurchaseIntentRequestUsage.t() | nil,
+          usage: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage.t() | nil,
           expires_at: String.t() | nil,
-          quantity: Inttegro.CreatePurchaseIntentRequestQuantity.t()
+          quantity: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -5382,24 +5428,36 @@ defmodule Inttegro.CreatePurchaseIntentRequest do
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.CreatePurchaseIntentRequestProduct.from_map(Map.get(map, "product"))
+          else:
+            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct.from_map(
+              Map.get(map, "product")
+            )
         ),
       product_id:
         if(is_nil(Map.get(map, "product_id")), do: nil, else: Map.get(map, "product_id")),
       price:
         if(is_nil(Map.get(map, "price")),
           do: nil,
-          else: Inttegro.CreatePurchaseIntentRequestPrice.from_map(Map.get(map, "price"))
+          else:
+            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice.from_map(
+              Map.get(map, "price")
+            )
         ),
       price_id: if(is_nil(Map.get(map, "price_id")), do: nil, else: Map.get(map, "price_id")),
       usage:
         if(is_nil(Map.get(map, "usage")),
           do: nil,
-          else: Inttegro.CreatePurchaseIntentRequestUsage.from_map(Map.get(map, "usage"))
+          else:
+            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage.from_map(
+              Map.get(map, "usage")
+            )
         ),
       expires_at:
         if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
-      quantity: Inttegro.CreatePurchaseIntentRequestQuantity.from_map(Map.fetch!(map, "quantity"))
+      quantity:
+        Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity.from_map(
+          Map.fetch!(map, "quantity")
+        )
     }
   end
 
@@ -5422,14 +5480,14 @@ defmodule Inttegro.CreatePurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.CreatePurchaseIntentRequestPrice do
+defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice do
   @moduledoc "Typed Inttegro request parameters."
   defstruct id: nil, nominal: nil, original: nil, original_id: nil
 
   @type t :: %__MODULE__{
           id: String.t() | nil,
-          nominal: Inttegro.PriceParams.t() | nil,
-          original: Inttegro.CreatePurchaseIntentRequestPriceOriginal.t() | nil,
+          nominal: Inttegro.Prices.PriceParams.t() | nil,
+          original: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal.t() | nil,
           original_id: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -5441,13 +5499,15 @@ defmodule Inttegro.CreatePurchaseIntentRequestPrice do
       nominal:
         if(is_nil(Map.get(map, "nominal")),
           do: nil,
-          else: Inttegro.PriceParams.from_map(Map.get(map, "nominal"))
+          else: Inttegro.Prices.PriceParams.from_map(Map.get(map, "nominal"))
         ),
       original:
         if(is_nil(Map.get(map, "original")),
           do: nil,
           else:
-            Inttegro.CreatePurchaseIntentRequestPriceOriginal.from_map(Map.get(map, "original"))
+            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal.from_map(
+              Map.get(map, "original")
+            )
         ),
       original_id:
         if(is_nil(Map.get(map, "original_id")), do: nil, else: Map.get(map, "original_id"))
@@ -5469,13 +5529,13 @@ defmodule Inttegro.CreatePurchaseIntentRequestPrice do
   end
 end
 
-defmodule Inttegro.CreatePurchaseIntentRequestPriceOriginal do
+defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal do
   @moduledoc "Typed Inttegro request parameters."
   defstruct id: nil, nominal: nil
 
   @type t :: %__MODULE__{
           id: String.t() | nil,
-          nominal: Inttegro.PriceParams.t() | nil
+          nominal: Inttegro.Prices.PriceParams.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -5486,7 +5546,7 @@ defmodule Inttegro.CreatePurchaseIntentRequestPriceOriginal do
       nominal:
         if(is_nil(Map.get(map, "nominal")),
           do: nil,
-          else: Inttegro.PriceParams.from_map(Map.get(map, "nominal"))
+          else: Inttegro.Prices.PriceParams.from_map(Map.get(map, "nominal"))
         )
     }
   end
@@ -5502,7 +5562,7 @@ defmodule Inttegro.CreatePurchaseIntentRequestPriceOriginal do
   end
 end
 
-defmodule Inttegro.CreatePurchaseIntentRequestProduct do
+defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct variant_set_id: nil, id: nil
@@ -5537,7 +5597,7 @@ defmodule Inttegro.CreatePurchaseIntentRequestProduct do
   end
 end
 
-defmodule Inttegro.CreatePurchaseIntentRequestQuantity do
+defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:min]
   defstruct max: nil, min: nil
@@ -5567,7 +5627,7 @@ defmodule Inttegro.CreatePurchaseIntentRequestQuantity do
   end
 end
 
-defmodule Inttegro.CreatePurchaseIntentRequestUsage do
+defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage do
   @moduledoc "Typed Inttegro request parameters."
   defstruct single_use: nil, multi_use: nil
 
@@ -5599,16 +5659,16 @@ defmodule Inttegro.CreatePurchaseIntentRequestUsage do
   end
 end
 
-defmodule Inttegro.CreateRefundLineItemInput do
+defmodule Inttegro.Orders.CreateRefundLineItemInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_line_item_id, :refund_amount]
   defstruct reason: nil, reason_details: nil, order_line_item_id: nil, refund_amount: nil
 
   @type t :: %__MODULE__{
-          reason: Inttegro.RefundReason.t() | nil,
+          reason: Inttegro.Refunds.RefundReason.t() | nil,
           reason_details: String.t() | nil,
           order_line_item_id: String.t(),
-          refund_amount: Inttegro.AmountParams.t()
+          refund_amount: Inttegro.Money.AmountParams.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -5618,12 +5678,12 @@ defmodule Inttegro.CreateRefundLineItemInput do
       reason:
         if(is_nil(Map.get(map, "reason")),
           do: nil,
-          else: Inttegro.RefundReason.decode(Map.get(map, "reason"))
+          else: Inttegro.Refunds.RefundReason.decode(Map.get(map, "reason"))
         ),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
       order_line_item_id: Map.fetch!(map, "order_line_item_id"),
-      refund_amount: Inttegro.AmountParams.from_map(Map.fetch!(map, "refund_amount"))
+      refund_amount: Inttegro.Money.AmountParams.from_map(Map.fetch!(map, "refund_amount"))
     }
   end
 
@@ -5631,7 +5691,10 @@ defmodule Inttegro.CreateRefundLineItemInput do
   def to_map(value) do
     %{
       "reason" =>
-        if(is_nil(value.reason), do: nil, else: Inttegro.RefundReason.encode(value.reason)),
+        if(is_nil(value.reason),
+          do: nil,
+          else: Inttegro.Refunds.RefundReason.encode(value.reason)
+        ),
       "reason_details" =>
         if(is_nil(value.reason_details),
           do: nil,
@@ -5645,7 +5708,7 @@ defmodule Inttegro.CreateRefundLineItemInput do
   end
 end
 
-defmodule Inttegro.CreateRefundRequest do
+defmodule Inttegro.Refunds.CreateRefundRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:line_items, :order_id, :reason]
   defstruct custom_data: nil,
@@ -5660,10 +5723,10 @@ defmodule Inttegro.CreateRefundRequest do
           custom_data: %{optional(String.t()) => String.t()} | nil,
           reason_details: String.t() | nil,
           reference: String.t() | nil,
-          request_meta: Inttegro.RefundRequestMetaInput.t() | nil,
-          line_items: [Inttegro.CreateRefundLineItemInput.t()],
+          request_meta: Inttegro.Refunds.RefundRequestMetaInput.t() | nil,
+          line_items: [Inttegro.Orders.CreateRefundLineItemInput.t()],
           order_id: String.t(),
-          reason: Inttegro.RefundReason.t()
+          reason: Inttegro.Refunds.RefundReason.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -5681,14 +5744,14 @@ defmodule Inttegro.CreateRefundRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.RefundRequestMetaInput.from_map(Map.get(map, "request_meta"))
+          else: Inttegro.Refunds.RefundRequestMetaInput.from_map(Map.get(map, "request_meta"))
         ),
       line_items:
         Enum.map(Map.fetch!(map, "line_items"), fn item ->
-          Inttegro.CreateRefundLineItemInput.from_map(item)
+          Inttegro.Orders.CreateRefundLineItemInput.from_map(item)
         end),
       order_id: Map.fetch!(map, "order_id"),
-      reason: Inttegro.RefundReason.decode(Map.fetch!(map, "reason"))
+      reason: Inttegro.Refunds.RefundReason.decode(Map.fetch!(map, "reason"))
     }
   end
 
@@ -5714,14 +5777,14 @@ defmodule Inttegro.CreateRefundRequest do
         if(is_nil(value.request_meta), do: nil, else: Inttegro.Codec.encode(value.request_meta)),
       "line_items" => Enum.map(value.line_items, fn item -> Inttegro.Codec.encode(item) end),
       "order_id" => Inttegro.Codec.encode(value.order_id),
-      "reason" => Inttegro.RefundReason.encode(value.reason)
+      "reason" => Inttegro.Refunds.RefundReason.encode(value.reason)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.CreateSMSMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:channel, :name, :purpose, :sms]
   defstruct about: nil,
@@ -5735,11 +5798,11 @@ defmodule Inttegro.CreateSMSMessageTemplateRequest do
   @type t :: %__MODULE__{
           about: String.t() | nil,
           locale: String.t() | nil,
-          variables: [Inttegro.MessageTemplateVariableInput.t()] | nil,
-          channel: Inttegro.MessageTemplateChannel.t(),
+          variables: [Inttegro.MessageTemplates.MessageTemplateVariableInput.t()] | nil,
+          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
           name: String.t(),
           purpose: String.t(),
-          sms: Inttegro.MessageTemplateSMSContentInput.t()
+          sms: Inttegro.MessageTemplates.MessageTemplateSMSContentInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -5753,13 +5816,15 @@ defmodule Inttegro.CreateSMSMessageTemplateRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplateVariableInput.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateVariableInput.from_map(item)
             end)
         ),
-      channel: Inttegro.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      channel:
+        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
       name: Map.fetch!(map, "name"),
       purpose: Map.fetch!(map, "purpose"),
-      sms: Inttegro.MessageTemplateSMSContentInput.from_map(Map.fetch!(map, "sms"))
+      sms:
+        Inttegro.MessageTemplates.MessageTemplateSMSContentInput.from_map(Map.fetch!(map, "sms"))
     }
   end
 
@@ -5773,7 +5838,7 @@ defmodule Inttegro.CreateSMSMessageTemplateRequest do
           do: nil,
           else: Enum.map(value.variables, fn item -> Inttegro.Codec.encode(item) end)
         ),
-      "channel" => Inttegro.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
       "name" => Inttegro.Codec.encode(value.name),
       "purpose" => Inttegro.Codec.encode(value.purpose),
       "sms" => Inttegro.Codec.encode(value.sms)
@@ -5783,7 +5848,7 @@ defmodule Inttegro.CreateSMSMessageTemplateRequest do
   end
 end
 
-defmodule Inttegro.CreateUploadRequestRequest do
+defmodule Inttegro.UploadRequests.CreateUploadRequestRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:purpose]
   defstruct constraints: nil,
@@ -5798,13 +5863,13 @@ defmodule Inttegro.CreateUploadRequestRequest do
             purpose: nil
 
   @type t :: %__MODULE__{
-          constraints: Inttegro.UploadRequestConstraintsInput.t() | nil,
-          display: Inttegro.UploadRequestDisplayInput.t() | nil,
-          subject: Inttegro.FilePartyInput.t() | nil,
-          recipient: Inttegro.FilePartyInput.t() | nil,
-          resource: Inttegro.FileResourceInput.t() | nil,
-          requester: Inttegro.FileActorInput.t() | nil,
-          attempts: Inttegro.UploadRequestAttemptsRequest.t() | nil,
+          constraints: Inttegro.UploadRequests.UploadRequestConstraintsInput.t() | nil,
+          display: Inttegro.UploadRequests.UploadRequestDisplayInput.t() | nil,
+          subject: Inttegro.Files.FilePartyInput.t() | nil,
+          recipient: Inttegro.Files.FilePartyInput.t() | nil,
+          resource: Inttegro.Files.FileResourceInput.t() | nil,
+          requester: Inttegro.Files.FileActorInput.t() | nil,
+          attempts: Inttegro.UploadRequests.UploadRequestAttemptsRequest.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           expires_at: String.t() | nil,
           purpose: String.t()
@@ -5817,37 +5882,44 @@ defmodule Inttegro.CreateUploadRequestRequest do
       constraints:
         if(is_nil(Map.get(map, "constraints")),
           do: nil,
-          else: Inttegro.UploadRequestConstraintsInput.from_map(Map.get(map, "constraints"))
+          else:
+            Inttegro.UploadRequests.UploadRequestConstraintsInput.from_map(
+              Map.get(map, "constraints")
+            )
         ),
       display:
         if(is_nil(Map.get(map, "display")),
           do: nil,
-          else: Inttegro.UploadRequestDisplayInput.from_map(Map.get(map, "display"))
+          else:
+            Inttegro.UploadRequests.UploadRequestDisplayInput.from_map(Map.get(map, "display"))
         ),
       subject:
         if(is_nil(Map.get(map, "subject")),
           do: nil,
-          else: Inttegro.FilePartyInput.from_map(Map.get(map, "subject"))
+          else: Inttegro.Files.FilePartyInput.from_map(Map.get(map, "subject"))
         ),
       recipient:
         if(is_nil(Map.get(map, "recipient")),
           do: nil,
-          else: Inttegro.FilePartyInput.from_map(Map.get(map, "recipient"))
+          else: Inttegro.Files.FilePartyInput.from_map(Map.get(map, "recipient"))
         ),
       resource:
         if(is_nil(Map.get(map, "resource")),
           do: nil,
-          else: Inttegro.FileResourceInput.from_map(Map.get(map, "resource"))
+          else: Inttegro.Files.FileResourceInput.from_map(Map.get(map, "resource"))
         ),
       requester:
         if(is_nil(Map.get(map, "requester")),
           do: nil,
-          else: Inttegro.FileActorInput.from_map(Map.get(map, "requester"))
+          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "requester"))
         ),
       attempts:
         if(is_nil(Map.get(map, "attempts")),
           do: nil,
-          else: Inttegro.UploadRequestAttemptsRequest.from_map(Map.get(map, "attempts"))
+          else:
+            Inttegro.UploadRequests.UploadRequestAttemptsRequest.from_map(
+              Map.get(map, "attempts")
+            )
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -5892,7 +5964,7 @@ defmodule Inttegro.CreateUploadRequestRequest do
   end
 end
 
-defmodule Inttegro.CurrencyBalanceSnapshot do
+defmodule Inttegro.Balances.CurrencyBalanceSnapshot do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:available, :includes_transactions_before, :pending, :refund, :reserved]
   defstruct available: nil,
@@ -5902,22 +5974,23 @@ defmodule Inttegro.CurrencyBalanceSnapshot do
             reserved: nil
 
   @type t :: %__MODULE__{
-          available: Inttegro.BalanceValue.t(),
+          available: Inttegro.Balances.BalanceValue.t(),
           includes_transactions_before: String.t(),
-          pending: Inttegro.BalanceValue.t(),
-          refund: Inttegro.CurrencyBalanceSnapshotRefund.t(),
-          reserved: Inttegro.CurrencyBalanceSnapshotReserved.t()
+          pending: Inttegro.Balances.BalanceValue.t(),
+          refund: Inttegro.Balances.CurrencyBalanceSnapshotRefund.t(),
+          reserved: Inttegro.Balances.CurrencyBalanceSnapshotReserved.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      available: Inttegro.BalanceValue.from_map(Map.fetch!(map, "available")),
+      available: Inttegro.Balances.BalanceValue.from_map(Map.fetch!(map, "available")),
       includes_transactions_before: Map.fetch!(map, "includes_transactions_before"),
-      pending: Inttegro.BalanceValue.from_map(Map.fetch!(map, "pending")),
-      refund: Inttegro.CurrencyBalanceSnapshotRefund.from_map(Map.fetch!(map, "refund")),
-      reserved: Inttegro.CurrencyBalanceSnapshotReserved.from_map(Map.fetch!(map, "reserved"))
+      pending: Inttegro.Balances.BalanceValue.from_map(Map.fetch!(map, "pending")),
+      refund: Inttegro.Balances.CurrencyBalanceSnapshotRefund.from_map(Map.fetch!(map, "refund")),
+      reserved:
+        Inttegro.Balances.CurrencyBalanceSnapshotReserved.from_map(Map.fetch!(map, "reserved"))
     }
   end
 
@@ -5935,7 +6008,7 @@ defmodule Inttegro.CurrencyBalanceSnapshot do
   end
 end
 
-defmodule Inttegro.CurrencyBalanceSnapshotRefund do
+defmodule Inttegro.Balances.CurrencyBalanceSnapshotRefund do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:amount]
   defstruct amount: nil
@@ -5962,7 +6035,7 @@ defmodule Inttegro.CurrencyBalanceSnapshotRefund do
   end
 end
 
-defmodule Inttegro.CurrencyBalanceSnapshotReserved do
+defmodule Inttegro.Balances.CurrencyBalanceSnapshotReserved do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:amount]
   defstruct amount: nil
@@ -5989,7 +6062,7 @@ defmodule Inttegro.CurrencyBalanceSnapshotReserved do
   end
 end
 
-defmodule Inttegro.Customer do
+defmodule Inttegro.Customers.Customer do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:balance, :created_at, :guest, :id, :name]
   defstruct balance: nil,
@@ -6008,8 +6081,8 @@ defmodule Inttegro.Customer do
             updated_at: nil
 
   @type t :: %__MODULE__{
-          balance: %{optional(String.t()) => Inttegro.CustomerBalanceValue.t()},
-          billing_address: Inttegro.CustomerAddress.t() | nil,
+          balance: %{optional(String.t()) => Inttegro.Customers.CustomerBalanceValue.t()},
+          billing_address: Inttegro.Customers.CustomerAddress.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           email_address: String.t() | nil,
@@ -6018,7 +6091,7 @@ defmodule Inttegro.Customer do
           name: String.t(),
           phone_number: String.t() | nil,
           reference: String.t() | nil,
-          shipping_address: Inttegro.CustomerAddress.t() | nil,
+          shipping_address: Inttegro.Customers.CustomerAddress.t() | nil,
           suffix: String.t() | nil,
           title: String.t() | nil,
           updated_at: String.t() | nil
@@ -6030,12 +6103,12 @@ defmodule Inttegro.Customer do
     %__MODULE__{
       balance:
         Map.new(Map.fetch!(map, "balance"), fn {key, value} ->
-          {key, Inttegro.CustomerBalanceValue.from_map(value)}
+          {key, Inttegro.Customers.CustomerBalanceValue.from_map(value)}
         end),
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.CustomerAddress.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Customers.CustomerAddress.from_map(Map.get(map, "billing_address"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       custom_data:
@@ -6054,7 +6127,7 @@ defmodule Inttegro.Customer do
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.CustomerAddress.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Customers.CustomerAddress.from_map(Map.get(map, "shipping_address"))
         ),
       suffix: if(is_nil(Map.get(map, "suffix")), do: nil, else: Map.get(map, "suffix")),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),
@@ -6108,7 +6181,7 @@ defmodule Inttegro.Customer do
   end
 end
 
-defmodule Inttegro.CustomerAddress do
+defmodule Inttegro.Customers.CustomerAddress do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:country]
   defstruct city: nil,
@@ -6166,7 +6239,7 @@ defmodule Inttegro.CustomerAddress do
   end
 end
 
-defmodule Inttegro.CustomerAddressInput do
+defmodule Inttegro.Customers.CustomerAddressInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:country]
   defstruct city: nil,
@@ -6224,14 +6297,14 @@ defmodule Inttegro.CustomerAddressInput do
   end
 end
 
-defmodule Inttegro.CustomerBalanceValue do
+defmodule Inttegro.Customers.CustomerBalanceValue do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:as_of, :available]
   defstruct as_of: nil, available: nil
 
   @type t :: %__MODULE__{
           as_of: String.t(),
-          available: Inttegro.Amount.t()
+          available: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -6239,7 +6312,7 @@ defmodule Inttegro.CustomerBalanceValue do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       as_of: Map.fetch!(map, "as_of"),
-      available: Inttegro.Amount.from_map(Map.fetch!(map, "available"))
+      available: Inttegro.Money.Amount.from_map(Map.fetch!(map, "available"))
     }
   end
 
@@ -6254,7 +6327,7 @@ defmodule Inttegro.CustomerBalanceValue do
   end
 end
 
-defmodule Inttegro.CustomerDataInput do
+defmodule Inttegro.Customers.CustomerDataInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :email_address, :phone_number]
   defstruct reference: nil, custom_data: nil, name: nil, email_address: nil, phone_number: nil
@@ -6305,13 +6378,13 @@ defmodule Inttegro.CustomerDataInput do
   end
 end
 
-defmodule Inttegro.CustomerPage do
+defmodule Inttegro.Customers.CustomerPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:customers, :number, :size]
   defstruct customers: nil, number: nil, size: nil
 
   @type t :: %__MODULE__{
-          customers: [Inttegro.Customer.t()],
+          customers: [Inttegro.Customers.Customer.t()],
           number: integer(),
           size: integer()
         }
@@ -6321,7 +6394,9 @@ defmodule Inttegro.CustomerPage do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       customers:
-        Enum.map(Map.fetch!(map, "customers"), fn item -> Inttegro.Customer.from_map(item) end),
+        Enum.map(Map.fetch!(map, "customers"), fn item ->
+          Inttegro.Customers.Customer.from_map(item)
+        end),
       number: Map.fetch!(map, "number"),
       size: Map.fetch!(map, "size")
     }
@@ -6339,7 +6414,7 @@ defmodule Inttegro.CustomerPage do
   end
 end
 
-defmodule Inttegro.DeleteFileRequest do
+defmodule Inttegro.Files.DeleteFileRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:file_id]
   defstruct file_id: nil
@@ -6366,7 +6441,7 @@ defmodule Inttegro.DeleteFileRequest do
   end
 end
 
-defmodule Inttegro.DestroySecretKeyRequest do
+defmodule Inttegro.Keys.DestroySecretKeyRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:secret_key_id]
   defstruct secret_key_id: nil
@@ -6393,7 +6468,7 @@ defmodule Inttegro.DestroySecretKeyRequest do
   end
 end
 
-defmodule Inttegro.DisableAutomaticPayoutsRequest do
+defmodule Inttegro.Payouts.DisableAutomaticPayoutsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct []
   @type t :: %__MODULE__{}
@@ -6410,7 +6485,7 @@ defmodule Inttegro.DisableAutomaticPayoutsRequest do
   end
 end
 
-defmodule Inttegro.DisactivatePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.DisactivatePaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -6437,7 +6512,7 @@ defmodule Inttegro.DisactivatePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.EnableAutomaticPayoutsRequest do
+defmodule Inttegro.Payouts.EnableAutomaticPayoutsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct []
   @type t :: %__MODULE__{}
@@ -6454,7 +6529,7 @@ defmodule Inttegro.EnableAutomaticPayoutsRequest do
   end
 end
 
-defmodule Inttegro.Error do
+defmodule Inttegro.Errors.Error do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type, :code, :url]
   defstruct message: nil, fix_code: nil, detail: nil, cause: nil, type: nil, code: nil, url: nil
@@ -6500,7 +6575,7 @@ defmodule Inttegro.Error do
   end
 end
 
-defmodule Inttegro.FeeDetailsInput do
+defmodule Inttegro.Orders.FeeDetailsInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:amount]
   defstruct id: nil, label: nil, tax_code: nil, description: nil, custom_data: nil, amount: nil
@@ -6511,7 +6586,7 @@ defmodule Inttegro.FeeDetailsInput do
           tax_code: String.t() | nil,
           description: String.t() | nil,
           custom_data: %{optional(String.t()) => term()} | nil,
-          amount: Inttegro.AmountParams.t()
+          amount: Inttegro.Money.AmountParams.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -6528,7 +6603,7 @@ defmodule Inttegro.FeeDetailsInput do
           do: nil,
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
-      amount: Inttegro.AmountParams.from_map(Map.fetch!(map, "amount"))
+      amount: Inttegro.Money.AmountParams.from_map(Map.fetch!(map, "amount"))
     }
   end
 
@@ -6556,29 +6631,29 @@ defmodule Inttegro.FeeDetailsInput do
   end
 end
 
-defmodule Inttegro.FeeLineItemInput do
+defmodule Inttegro.Orders.FeeLineItemInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type, :fee]
   defstruct type: nil, fee: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.LineItemType.t(),
-          fee: Inttegro.FeeDetailsInput.t()
+          type: Inttegro.Orders.LineItemType.t(),
+          fee: Inttegro.Orders.FeeDetailsInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.LineItemType.decode(Map.fetch!(map, "type")),
-      fee: Inttegro.FeeDetailsInput.from_map(Map.fetch!(map, "fee"))
+      type: Inttegro.Orders.LineItemType.decode(Map.fetch!(map, "type")),
+      fee: Inttegro.Orders.FeeDetailsInput.from_map(Map.fetch!(map, "fee"))
     }
   end
 
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.LineItemType.encode(value.type),
+      "type" => Inttegro.Orders.LineItemType.encode(value.type),
       "fee" => Inttegro.Codec.encode(value.fee)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -6586,7 +6661,7 @@ defmodule Inttegro.FeeLineItemInput do
   end
 end
 
-defmodule Inttegro.File do
+defmodule Inttegro.Files.File do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [
     :id,
@@ -6627,19 +6702,19 @@ defmodule Inttegro.File do
   @type t :: %__MODULE__{
           id: String.t(),
           purpose: String.t(),
-          status: Inttegro.FileStatus.t(),
-          scan_status: Inttegro.FileScanStatus.t(),
+          status: Inttegro.Files.FileStatus.t(),
+          scan_status: Inttegro.Files.FileScanStatus.t(),
           name: String.t() | nil,
           filename: String.t() | nil,
           content_type: String.t(),
           size: integer(),
           checksum_sha256: String.t(),
-          created_by: Inttegro.FileActor.t(),
-          source: Inttegro.FileSource.t(),
-          media: Inttegro.FileMedia.t() | nil,
-          storage: Inttegro.PublicFileStorage.t(),
-          delivery: Inttegro.FileDeliveryDetails.t() | nil,
-          latest_error: Inttegro.FileLatestError.t() | nil,
+          created_by: Inttegro.Files.FileActor.t(),
+          source: Inttegro.Files.FileSource.t(),
+          media: Inttegro.Files.FileMedia.t() | nil,
+          storage: Inttegro.Files.PublicFileStorage.t(),
+          delivery: Inttegro.Files.FileDeliveryDetails.t() | nil,
+          latest_error: Inttegro.Files.FileLatestError.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
           created_at: String.t(),
@@ -6654,30 +6729,30 @@ defmodule Inttegro.File do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       purpose: Map.fetch!(map, "purpose"),
-      status: Inttegro.FileStatus.decode(Map.fetch!(map, "status")),
-      scan_status: Inttegro.FileScanStatus.decode(Map.fetch!(map, "scan_status")),
+      status: Inttegro.Files.FileStatus.decode(Map.fetch!(map, "status")),
+      scan_status: Inttegro.Files.FileScanStatus.decode(Map.fetch!(map, "scan_status")),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       content_type: Map.fetch!(map, "content_type"),
       size: Map.fetch!(map, "size"),
       checksum_sha256: Map.fetch!(map, "checksum_sha256"),
-      created_by: Inttegro.FileActor.from_map(Map.fetch!(map, "created_by")),
-      source: Inttegro.FileSource.from_map(Map.fetch!(map, "source")),
+      created_by: Inttegro.Files.FileActor.from_map(Map.fetch!(map, "created_by")),
+      source: Inttegro.Files.FileSource.from_map(Map.fetch!(map, "source")),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.FileMedia.from_map(Map.get(map, "media"))
+          else: Inttegro.Files.FileMedia.from_map(Map.get(map, "media"))
         ),
-      storage: Inttegro.PublicFileStorage.from_map(Map.fetch!(map, "storage")),
+      storage: Inttegro.Files.PublicFileStorage.from_map(Map.fetch!(map, "storage")),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.FileDeliveryDetails.from_map(Map.get(map, "delivery"))
+          else: Inttegro.Files.FileDeliveryDetails.from_map(Map.get(map, "delivery"))
         ),
       latest_error:
         if(is_nil(Map.get(map, "latest_error")),
           do: nil,
-          else: Inttegro.FileLatestError.from_map(Map.get(map, "latest_error"))
+          else: Inttegro.Files.FileLatestError.from_map(Map.get(map, "latest_error"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -6703,8 +6778,8 @@ defmodule Inttegro.File do
     %{
       "id" => Inttegro.Codec.encode(value.id),
       "purpose" => Inttegro.Codec.encode(value.purpose),
-      "status" => Inttegro.FileStatus.encode(value.status),
-      "scan_status" => Inttegro.FileScanStatus.encode(value.scan_status),
+      "status" => Inttegro.Files.FileStatus.encode(value.status),
+      "scan_status" => Inttegro.Files.FileScanStatus.encode(value.scan_status),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "filename" =>
         if(is_nil(value.filename), do: nil, else: Inttegro.Codec.encode(value.filename)),
@@ -6747,7 +6822,7 @@ defmodule Inttegro.File do
   end
 end
 
-defmodule Inttegro.FileActor do
+defmodule Inttegro.Files.FileActor do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct type: nil, id: nil, name: nil, email: nil
@@ -6783,7 +6858,7 @@ defmodule Inttegro.FileActor do
   end
 end
 
-defmodule Inttegro.FileActorInput do
+defmodule Inttegro.Files.FileActorInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct email: nil, id: nil, name: nil, type: nil
 
@@ -6818,14 +6893,14 @@ defmodule Inttegro.FileActorInput do
   end
 end
 
-defmodule Inttegro.FileContentsRequest do
+defmodule Inttegro.Files.FileContentsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:file_id]
   defstruct disposition: nil, delivery: nil, file_id: nil
 
   @type t :: %__MODULE__{
-          disposition: Inttegro.FileDisposition.t() | nil,
-          delivery: Inttegro.FileDelivery.t() | nil,
+          disposition: Inttegro.Files.FileDisposition.t() | nil,
+          delivery: Inttegro.Files.FileDelivery.t() | nil,
           file_id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -6836,12 +6911,12 @@ defmodule Inttegro.FileContentsRequest do
       disposition:
         if(is_nil(Map.get(map, "disposition")),
           do: nil,
-          else: Inttegro.FileDisposition.decode(Map.get(map, "disposition"))
+          else: Inttegro.Files.FileDisposition.decode(Map.get(map, "disposition"))
         ),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.FileDelivery.decode(Map.get(map, "delivery"))
+          else: Inttegro.Files.FileDelivery.decode(Map.get(map, "delivery"))
         ),
       file_id: Map.fetch!(map, "file_id")
     }
@@ -6853,10 +6928,13 @@ defmodule Inttegro.FileContentsRequest do
       "disposition" =>
         if(is_nil(value.disposition),
           do: nil,
-          else: Inttegro.FileDisposition.encode(value.disposition)
+          else: Inttegro.Files.FileDisposition.encode(value.disposition)
         ),
       "delivery" =>
-        if(is_nil(value.delivery), do: nil, else: Inttegro.FileDelivery.encode(value.delivery)),
+        if(is_nil(value.delivery),
+          do: nil,
+          else: Inttegro.Files.FileDelivery.encode(value.delivery)
+        ),
       "file_id" => Inttegro.Codec.encode(value.file_id)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -6864,7 +6942,7 @@ defmodule Inttegro.FileContentsRequest do
   end
 end
 
-defmodule Inttegro.FileDeliveryDetails do
+defmodule Inttegro.Files.FileDeliveryDetails do
   @moduledoc "Typed Inttegro domain value."
   defstruct public_url: nil, cache_control: nil, content_type: nil
 
@@ -6902,7 +6980,7 @@ defmodule Inttegro.FileDeliveryDetails do
   end
 end
 
-defmodule Inttegro.FileLatestError do
+defmodule Inttegro.Files.FileLatestError do
   @moduledoc "Typed Inttegro domain value."
   defstruct code: nil, message: nil, retryable: nil, at: nil
 
@@ -6938,7 +7016,7 @@ defmodule Inttegro.FileLatestError do
   end
 end
 
-defmodule Inttegro.FileLink do
+defmodule Inttegro.FileLinks.FileLink do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [
     :id,
@@ -6973,15 +7051,15 @@ defmodule Inttegro.FileLink do
 
   @type t :: %__MODULE__{
           id: String.t(),
-          kind: Inttegro.FileLinkKind.t(),
+          kind: Inttegro.FileLinks.FileLinkKind.t(),
           file_id: String.t(),
           purpose: String.t(),
-          status: Inttegro.FileLinkStatus.t(),
+          status: Inttegro.FileLinks.FileLinkStatus.t(),
           active: boolean(),
-          delivery: Inttegro.FileLinkDelivery.t(),
-          access: Inttegro.FileLinkAccess.t(),
-          created_by: Inttegro.FileLinkActor.t(),
-          revoked_by: Inttegro.FileLinkActor.t() | nil,
+          delivery: Inttegro.FileLinks.FileLinkDelivery.t(),
+          access: Inttegro.FileLinks.FileLinkAccess.t(),
+          created_by: Inttegro.FileLinks.FileLinkActor.t(),
+          revoked_by: Inttegro.FileLinks.FileLinkActor.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
           created_at: String.t(),
@@ -6995,18 +7073,18 @@ defmodule Inttegro.FileLink do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      kind: Inttegro.FileLinkKind.decode(Map.fetch!(map, "kind")),
+      kind: Inttegro.FileLinks.FileLinkKind.decode(Map.fetch!(map, "kind")),
       file_id: Map.fetch!(map, "file_id"),
       purpose: Map.fetch!(map, "purpose"),
-      status: Inttegro.FileLinkStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.FileLinks.FileLinkStatus.decode(Map.fetch!(map, "status")),
       active: Map.fetch!(map, "active"),
-      delivery: Inttegro.FileLinkDelivery.from_map(Map.fetch!(map, "delivery")),
-      access: Inttegro.FileLinkAccess.from_map(Map.fetch!(map, "access")),
-      created_by: Inttegro.FileLinkActor.from_map(Map.fetch!(map, "created_by")),
+      delivery: Inttegro.FileLinks.FileLinkDelivery.from_map(Map.fetch!(map, "delivery")),
+      access: Inttegro.FileLinks.FileLinkAccess.from_map(Map.fetch!(map, "access")),
+      created_by: Inttegro.FileLinks.FileLinkActor.from_map(Map.fetch!(map, "created_by")),
       revoked_by:
         if(is_nil(Map.get(map, "revoked_by")),
           do: nil,
-          else: Inttegro.FileLinkActor.from_map(Map.get(map, "revoked_by"))
+          else: Inttegro.FileLinks.FileLinkActor.from_map(Map.get(map, "revoked_by"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -7030,10 +7108,10 @@ defmodule Inttegro.FileLink do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "kind" => Inttegro.FileLinkKind.encode(value.kind),
+      "kind" => Inttegro.FileLinks.FileLinkKind.encode(value.kind),
       "file_id" => Inttegro.Codec.encode(value.file_id),
       "purpose" => Inttegro.Codec.encode(value.purpose),
-      "status" => Inttegro.FileLinkStatus.encode(value.status),
+      "status" => Inttegro.FileLinks.FileLinkStatus.encode(value.status),
       "active" => Inttegro.Codec.encode(value.active),
       "delivery" => Inttegro.Codec.encode(value.delivery),
       "access" => Inttegro.Codec.encode(value.access),
@@ -7067,7 +7145,7 @@ defmodule Inttegro.FileLink do
   end
 end
 
-defmodule Inttegro.FileLinkAccess do
+defmodule Inttegro.FileLinks.FileLinkAccess do
   @moduledoc "Typed Inttegro domain value."
   defstruct max_accesses: nil,
             access_count: nil,
@@ -7134,7 +7212,7 @@ defmodule Inttegro.FileLinkAccess do
   end
 end
 
-defmodule Inttegro.FileLinkAccessRequest do
+defmodule Inttegro.FileLinks.FileLinkAccessRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct max_accesses: nil, allow_download: nil, allowed_origins: nil, allowed_ip_ranges: nil
 
@@ -7192,7 +7270,7 @@ defmodule Inttegro.FileLinkAccessRequest do
   end
 end
 
-defmodule Inttegro.FileLinkActor do
+defmodule Inttegro.FileLinks.FileLinkActor do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct email: nil, id: nil, name: nil, type: nil
@@ -7228,13 +7306,13 @@ defmodule Inttegro.FileLinkActor do
   end
 end
 
-defmodule Inttegro.FileLinkCreation do
+defmodule Inttegro.FileLinks.FileLinkCreation do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:file_link, :url]
   defstruct file_link: nil, url: nil
 
   @type t :: %__MODULE__{
-          file_link: Inttegro.FileLink.t(),
+          file_link: Inttegro.FileLinks.FileLink.t(),
           url: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -7242,7 +7320,7 @@ defmodule Inttegro.FileLinkCreation do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      file_link: Inttegro.FileLink.from_map(Map.fetch!(map, "file_link")),
+      file_link: Inttegro.FileLinks.FileLink.from_map(Map.fetch!(map, "file_link")),
       url: Map.fetch!(map, "url")
     }
   end
@@ -7258,12 +7336,12 @@ defmodule Inttegro.FileLinkCreation do
   end
 end
 
-defmodule Inttegro.FileLinkDelivery do
+defmodule Inttegro.FileLinks.FileLinkDelivery do
   @moduledoc "Typed Inttegro domain value."
   defstruct mode: nil, filename: nil, content_type: nil, disposition: nil
 
   @type t :: %__MODULE__{
-          mode: Inttegro.FileLinkDeliveryMode.t() | nil,
+          mode: Inttegro.FileLinks.FileLinkDeliveryMode.t() | nil,
           filename: String.t() | nil,
           content_type: String.t() | nil,
           disposition: String.t() | nil
@@ -7276,7 +7354,7 @@ defmodule Inttegro.FileLinkDelivery do
       mode:
         if(is_nil(Map.get(map, "mode")),
           do: nil,
-          else: Inttegro.FileLinkDeliveryMode.decode(Map.get(map, "mode"))
+          else: Inttegro.FileLinks.FileLinkDeliveryMode.decode(Map.get(map, "mode"))
         ),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       content_type:
@@ -7290,7 +7368,10 @@ defmodule Inttegro.FileLinkDelivery do
   def to_map(value) do
     %{
       "mode" =>
-        if(is_nil(value.mode), do: nil, else: Inttegro.FileLinkDeliveryMode.encode(value.mode)),
+        if(is_nil(value.mode),
+          do: nil,
+          else: Inttegro.FileLinks.FileLinkDeliveryMode.encode(value.mode)
+        ),
       "filename" =>
         if(is_nil(value.filename), do: nil, else: Inttegro.Codec.encode(value.filename)),
       "content_type" =>
@@ -7303,12 +7384,12 @@ defmodule Inttegro.FileLinkDelivery do
   end
 end
 
-defmodule Inttegro.FileLinkDeliveryInput do
+defmodule Inttegro.FileLinks.FileLinkDeliveryInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct mode: nil, filename: nil, content_type: nil, disposition: nil
 
   @type t :: %__MODULE__{
-          mode: Inttegro.FileLinkDeliveryMode.t() | nil,
+          mode: Inttegro.FileLinks.FileLinkDeliveryMode.t() | nil,
           filename: String.t() | nil,
           content_type: String.t() | nil,
           disposition: String.t() | nil
@@ -7321,7 +7402,7 @@ defmodule Inttegro.FileLinkDeliveryInput do
       mode:
         if(is_nil(Map.get(map, "mode")),
           do: nil,
-          else: Inttegro.FileLinkDeliveryMode.decode(Map.get(map, "mode"))
+          else: Inttegro.FileLinks.FileLinkDeliveryMode.decode(Map.get(map, "mode"))
         ),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       content_type:
@@ -7335,7 +7416,10 @@ defmodule Inttegro.FileLinkDeliveryInput do
   def to_map(value) do
     %{
       "mode" =>
-        if(is_nil(value.mode), do: nil, else: Inttegro.FileLinkDeliveryMode.encode(value.mode)),
+        if(is_nil(value.mode),
+          do: nil,
+          else: Inttegro.FileLinks.FileLinkDeliveryMode.encode(value.mode)
+        ),
       "filename" =>
         if(is_nil(value.filename), do: nil, else: Inttegro.Codec.encode(value.filename)),
       "content_type" =>
@@ -7348,7 +7432,7 @@ defmodule Inttegro.FileLinkDeliveryInput do
   end
 end
 
-defmodule Inttegro.FileLinkPage do
+defmodule Inttegro.FileLinks.FileLinkPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :file_links]
   defstruct number: nil, size: nil, file_links: nil
@@ -7356,7 +7440,7 @@ defmodule Inttegro.FileLinkPage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          file_links: [Inttegro.FileLink.t()]
+          file_links: [Inttegro.FileLinks.FileLink.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -7366,7 +7450,9 @@ defmodule Inttegro.FileLinkPage do
       number: Map.fetch!(map, "number"),
       size: Map.fetch!(map, "size"),
       file_links:
-        Enum.map(Map.fetch!(map, "file_links"), fn item -> Inttegro.FileLink.from_map(item) end)
+        Enum.map(Map.fetch!(map, "file_links"), fn item ->
+          Inttegro.FileLinks.FileLink.from_map(item)
+        end)
     }
   end
 
@@ -7382,7 +7468,7 @@ defmodule Inttegro.FileLinkPage do
   end
 end
 
-defmodule Inttegro.FileMedia do
+defmodule Inttegro.Files.FileMedia do
   @moduledoc "Typed Inttegro domain value."
   defstruct kind: nil,
             width: nil,
@@ -7455,7 +7541,7 @@ defmodule Inttegro.FileMedia do
   end
 end
 
-defmodule Inttegro.FilePage do
+defmodule Inttegro.Files.FilePage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :files]
   defstruct number: nil, size: nil, files: nil
@@ -7463,7 +7549,7 @@ defmodule Inttegro.FilePage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          files: [Inttegro.File.t()]
+          files: [Inttegro.Files.File.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -7472,7 +7558,7 @@ defmodule Inttegro.FilePage do
     %__MODULE__{
       number: Map.fetch!(map, "number"),
       size: Map.fetch!(map, "size"),
-      files: Enum.map(Map.fetch!(map, "files"), fn item -> Inttegro.File.from_map(item) end)
+      files: Enum.map(Map.fetch!(map, "files"), fn item -> Inttegro.Files.File.from_map(item) end)
     }
   end
 
@@ -7488,7 +7574,7 @@ defmodule Inttegro.FilePage do
   end
 end
 
-defmodule Inttegro.FileParty do
+defmodule Inttegro.Files.FileParty do
   @moduledoc "Typed Inttegro domain value."
   defstruct type: nil, id: nil, name: nil, email: nil
 
@@ -7523,7 +7609,7 @@ defmodule Inttegro.FileParty do
   end
 end
 
-defmodule Inttegro.FilePartyInput do
+defmodule Inttegro.Files.FilePartyInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct type: nil, id: nil, name: nil, email: nil
 
@@ -7558,7 +7644,7 @@ defmodule Inttegro.FilePartyInput do
   end
 end
 
-defmodule Inttegro.FileReferenceInput do
+defmodule Inttegro.FileReferences.FileReferenceInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:file_id, :field]
   defstruct reference: nil, reference_kind: nil, purpose: nil, file_id: nil, field: nil
@@ -7603,13 +7689,13 @@ defmodule Inttegro.FileReferenceInput do
   end
 end
 
-defmodule Inttegro.FileReferenceReconcileRequest do
+defmodule Inttegro.FileReferences.FileReferenceReconcileRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:resource_type, :resource_id]
   defstruct references: nil, resource_type: nil, resource_id: nil
 
   @type t :: %__MODULE__{
-          references: [Inttegro.FileReferenceInput.t()] | nil,
+          references: [Inttegro.FileReferences.FileReferenceInput.t()] | nil,
           resource_type: String.t(),
           resource_id: String.t()
         }
@@ -7623,7 +7709,7 @@ defmodule Inttegro.FileReferenceReconcileRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "references"), fn item ->
-              Inttegro.FileReferenceInput.from_map(item)
+              Inttegro.FileReferences.FileReferenceInput.from_map(item)
             end)
         ),
       resource_type: Map.fetch!(map, "resource_type"),
@@ -7647,7 +7733,7 @@ defmodule Inttegro.FileReferenceReconcileRequest do
   end
 end
 
-defmodule Inttegro.FileReferenceReconciliation do
+defmodule Inttegro.FileReferences.FileReferenceReconciliation do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:reconciled]
   defstruct reconciled: nil
@@ -7674,7 +7760,7 @@ defmodule Inttegro.FileReferenceReconciliation do
   end
 end
 
-defmodule Inttegro.FileResource do
+defmodule Inttegro.Files.FileResource do
   @moduledoc "Typed Inttegro domain value."
   defstruct type: nil, id: nil, name: nil
 
@@ -7706,7 +7792,7 @@ defmodule Inttegro.FileResource do
   end
 end
 
-defmodule Inttegro.FileResourceInput do
+defmodule Inttegro.Files.FileResourceInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct type: nil, id: nil, name: nil
 
@@ -7738,12 +7824,12 @@ defmodule Inttegro.FileResourceInput do
   end
 end
 
-defmodule Inttegro.FileSource do
+defmodule Inttegro.Files.FileSource do
   @moduledoc "Typed Inttegro domain value."
   defstruct type: nil, service: nil, upload_request_id: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.FileSourceType.t() | nil,
+          type: Inttegro.Files.FileSourceType.t() | nil,
           service: String.t() | nil,
           upload_request_id: String.t() | nil
         }
@@ -7755,7 +7841,7 @@ defmodule Inttegro.FileSource do
       type:
         if(is_nil(Map.get(map, "type")),
           do: nil,
-          else: Inttegro.FileSourceType.decode(Map.get(map, "type"))
+          else: Inttegro.Files.FileSourceType.decode(Map.get(map, "type"))
         ),
       service: if(is_nil(Map.get(map, "service")), do: nil, else: Map.get(map, "service")),
       upload_request_id:
@@ -7769,7 +7855,8 @@ defmodule Inttegro.FileSource do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => if(is_nil(value.type), do: nil, else: Inttegro.FileSourceType.encode(value.type)),
+      "type" =>
+        if(is_nil(value.type), do: nil, else: Inttegro.Files.FileSourceType.encode(value.type)),
       "service" => if(is_nil(value.service), do: nil, else: Inttegro.Codec.encode(value.service)),
       "upload_request_id" =>
         if(is_nil(value.upload_request_id),
@@ -7782,7 +7869,7 @@ defmodule Inttegro.FileSource do
   end
 end
 
-defmodule Inttegro.FileUploadReceipt do
+defmodule Inttegro.Files.FileUploadReceipt do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content_type, :created_at, :id, :size, :status]
   defstruct content_type: nil,
@@ -7800,7 +7887,7 @@ defmodule Inttegro.FileUploadReceipt do
           id: String.t(),
           name: String.t() | nil,
           size: integer(),
-          status: Inttegro.FileStatus.t()
+          status: Inttegro.Files.FileStatus.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -7813,7 +7900,7 @@ defmodule Inttegro.FileUploadReceipt do
       id: Map.fetch!(map, "id"),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       size: Map.fetch!(map, "size"),
-      status: Inttegro.FileStatus.decode(Map.fetch!(map, "status"))
+      status: Inttegro.Files.FileStatus.decode(Map.fetch!(map, "status"))
     }
   end
 
@@ -7827,14 +7914,14 @@ defmodule Inttegro.FileUploadReceipt do
       "id" => Inttegro.Codec.encode(value.id),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "size" => Inttegro.Codec.encode(value.size),
-      "status" => Inttegro.FileStatus.encode(value.status)
+      "status" => Inttegro.Files.FileStatus.encode(value.status)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.FinalizeOrderRequest do
+defmodule Inttegro.Orders.FinalizeOrderRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct order_id: nil
@@ -7861,12 +7948,10 @@ defmodule Inttegro.FinalizeOrderRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccount do
+defmodule Inttegro.FinancialAccounts.FinancialAccount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :currency, :id, :type]
-  defstruct app_customer_local_fingerprint: nil,
-            app_local_fingerprint: nil,
-            archived_at: nil,
+  defstruct archived_at: nil,
             created_at: nil,
             currency: nil,
             custom_data: nil,
@@ -7879,7 +7964,6 @@ defmodule Inttegro.FinancialAccount do
             reference: nil,
             supplied: nil,
             type: nil,
-            universal_fingerprint: nil,
             verification: nil,
             bank_account: nil,
             disconnected_at: nil,
@@ -7888,44 +7972,33 @@ defmodule Inttegro.FinancialAccount do
             wallet: nil
 
   @type t :: %__MODULE__{
-          app_customer_local_fingerprint: String.t() | nil,
-          app_local_fingerprint: String.t() | nil,
           archived_at: String.t() | nil,
           created_at: String.t(),
           currency: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           description: String.t() | nil,
           id: String.t(),
-          institution: Inttegro.FinancialInstitution.t() | nil,
+          institution: Inttegro.FinancialAccounts.FinancialInstitution.t() | nil,
           label: String.t() | nil,
-          pull_configuration: Inttegro.FinancialAccountPullConfiguration.t() | nil,
-          push_configuration: Inttegro.FinancialAccountPushConfiguration.t() | nil,
+          pull_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountPullConfiguration.t() | nil,
+          push_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountPushConfiguration.t() | nil,
           reference: String.t() | nil,
-          supplied: Inttegro.ResourceSupply.t() | nil,
-          type: Inttegro.FinancialAccountType.t(),
-          universal_fingerprint: String.t() | nil,
+          supplied: Inttegro.Shared.ResourceSupply.t() | nil,
+          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
           verification: %{optional(String.t()) => term()} | nil,
-          bank_account: Inttegro.FinancialAccountBank.t() | nil,
+          bank_account: Inttegro.FinancialAccounts.FinancialAccountBank.t() | nil,
           disconnected_at: String.t() | nil,
           dosh_account: %{optional(String.t()) => term()} | nil,
-          owner: Inttegro.FinancialAccountOwner.t() | nil,
-          wallet: Inttegro.FinancialAccountWallet.t() | nil
+          owner: Inttegro.FinancialAccounts.FinancialAccountOwner.t() | nil,
+          wallet: Inttegro.FinancialAccounts.FinancialAccountWallet.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      app_customer_local_fingerprint:
-        if(is_nil(Map.get(map, "app_customer_local_fingerprint")),
-          do: nil,
-          else: Map.get(map, "app_customer_local_fingerprint")
-        ),
-      app_local_fingerprint:
-        if(is_nil(Map.get(map, "app_local_fingerprint")),
-          do: nil,
-          else: Map.get(map, "app_local_fingerprint")
-        ),
       archived_at:
         if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
       created_at: Map.fetch!(map, "created_at"),
@@ -7941,14 +8014,15 @@ defmodule Inttegro.FinancialAccount do
       institution:
         if(is_nil(Map.get(map, "institution")),
           do: nil,
-          else: Inttegro.FinancialInstitution.from_map(Map.get(map, "institution"))
+          else:
+            Inttegro.FinancialAccounts.FinancialInstitution.from_map(Map.get(map, "institution"))
         ),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       pull_configuration:
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -7956,7 +8030,7 @@ defmodule Inttegro.FinancialAccount do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
@@ -7964,14 +8038,9 @@ defmodule Inttegro.FinancialAccount do
       supplied:
         if(is_nil(Map.get(map, "supplied")),
           do: nil,
-          else: Inttegro.ResourceSupply.from_map(Map.get(map, "supplied"))
+          else: Inttegro.Shared.ResourceSupply.from_map(Map.get(map, "supplied"))
         ),
-      type: Inttegro.FinancialAccountType.decode(Map.fetch!(map, "type")),
-      universal_fingerprint:
-        if(is_nil(Map.get(map, "universal_fingerprint")),
-          do: nil,
-          else: Map.get(map, "universal_fingerprint")
-        ),
+      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
       verification:
         if(is_nil(Map.get(map, "verification")),
           do: nil,
@@ -7980,7 +8049,8 @@ defmodule Inttegro.FinancialAccount do
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else: Inttegro.FinancialAccountBank.from_map(Map.get(map, "bank_account"))
+          else:
+            Inttegro.FinancialAccounts.FinancialAccountBank.from_map(Map.get(map, "bank_account"))
         ),
       disconnected_at:
         if(is_nil(Map.get(map, "disconnected_at")),
@@ -7995,12 +8065,12 @@ defmodule Inttegro.FinancialAccount do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.FinancialAccountOwner.from_map(Map.get(map, "owner"))
+          else: Inttegro.FinancialAccounts.FinancialAccountOwner.from_map(Map.get(map, "owner"))
         ),
       wallet:
         if(is_nil(Map.get(map, "wallet")),
           do: nil,
-          else: Inttegro.FinancialAccountWallet.from_map(Map.get(map, "wallet"))
+          else: Inttegro.FinancialAccounts.FinancialAccountWallet.from_map(Map.get(map, "wallet"))
         )
     }
   end
@@ -8008,16 +8078,6 @@ defmodule Inttegro.FinancialAccount do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "app_customer_local_fingerprint" =>
-        if(is_nil(value.app_customer_local_fingerprint),
-          do: nil,
-          else: Inttegro.Codec.encode(value.app_customer_local_fingerprint)
-        ),
-      "app_local_fingerprint" =>
-        if(is_nil(value.app_local_fingerprint),
-          do: nil,
-          else: Inttegro.Codec.encode(value.app_local_fingerprint)
-        ),
       "archived_at" =>
         if(is_nil(value.archived_at), do: nil, else: Inttegro.Codec.encode(value.archived_at)),
       "created_at" => Inttegro.Codec.encode(value.created_at),
@@ -8050,12 +8110,7 @@ defmodule Inttegro.FinancialAccount do
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "supplied" =>
         if(is_nil(value.supplied), do: nil, else: Inttegro.Codec.encode(value.supplied)),
-      "type" => Inttegro.FinancialAccountType.encode(value.type),
-      "universal_fingerprint" =>
-        if(is_nil(value.universal_fingerprint),
-          do: nil,
-          else: Inttegro.Codec.encode(value.universal_fingerprint)
-        ),
+      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
       "verification" =>
         if(is_nil(value.verification),
           do: nil,
@@ -8087,7 +8142,7 @@ defmodule Inttegro.FinancialAccount do
   end
 end
 
-defmodule Inttegro.FinancialAccountAddress do
+defmodule Inttegro.FinancialAccounts.FinancialAccountAddress do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:city, :country, :line_1, :region]
   defstruct city: nil,
@@ -8143,25 +8198,26 @@ defmodule Inttegro.FinancialAccountAddress do
   end
 end
 
-defmodule Inttegro.FinancialAccountBank do
+defmodule Inttegro.FinancialAccounts.FinancialAccountBank do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct type: nil, ghana_bank_account: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.BankAccountType.t(),
-          ghana_bank_account: Inttegro.GhanaBankAccount.t() | nil
+          type: Inttegro.BankAccounts.BankAccountType.t(),
+          ghana_bank_account: Inttegro.BankAccounts.GhanaBankAccount.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.BankAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.BankAccounts.BankAccountType.decode(Map.fetch!(map, "type")),
       ghana_bank_account:
         if(is_nil(Map.get(map, "ghana_bank_account")),
           do: nil,
-          else: Inttegro.GhanaBankAccount.from_map(Map.get(map, "ghana_bank_account"))
+          else:
+            Inttegro.BankAccounts.GhanaBankAccount.from_map(Map.get(map, "ghana_bank_account"))
         )
     }
   end
@@ -8169,7 +8225,7 @@ defmodule Inttegro.FinancialAccountBank do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.BankAccountType.encode(value.type),
+      "type" => Inttegro.BankAccounts.BankAccountType.encode(value.type),
       "ghana_bank_account" =>
         if(is_nil(value.ghana_bank_account),
           do: nil,
@@ -8181,7 +8237,7 @@ defmodule Inttegro.FinancialAccountBank do
   end
 end
 
-defmodule Inttegro.FinancialAccountBankRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:currency, :label, :reference, :type, :bank_account]
   defstruct custom_data: nil,
@@ -8198,14 +8254,16 @@ defmodule Inttegro.FinancialAccountBankRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
-          owner: Inttegro.FinancialAccountOwnerInput.t() | nil,
-          pull_configuration: Inttegro.FinancialAccountBankRequestPullConfiguration.t() | nil,
-          push_configuration: Inttegro.FinancialAccountBankRequestPushConfiguration.t() | nil,
+          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t() | nil,
+          pull_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguration.t() | nil,
+          push_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguration.t() | nil,
           currency: String.t(),
           label: String.t(),
           reference: String.t(),
-          type: Inttegro.FinancialAccountType.t(),
-          bank_account: Inttegro.FinancialAccountBankRequestBankAccount.t()
+          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
+          bank_account: Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -8222,13 +8280,14 @@ defmodule Inttegro.FinancialAccountBankRequest do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.FinancialAccountOwnerInput.from_map(Map.get(map, "owner"))
+          else:
+            Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.get(map, "owner"))
         ),
       pull_configuration:
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountBankRequestPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -8236,16 +8295,18 @@ defmodule Inttegro.FinancialAccountBankRequest do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountBankRequestPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
       currency: Map.fetch!(map, "currency"),
       label: Map.fetch!(map, "label"),
       reference: Map.fetch!(map, "reference"),
-      type: Inttegro.FinancialAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
       bank_account:
-        Inttegro.FinancialAccountBankRequestBankAccount.from_map(Map.fetch!(map, "bank_account"))
+        Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount.from_map(
+          Map.fetch!(map, "bank_account")
+        )
     }
   end
 
@@ -8276,7 +8337,7 @@ defmodule Inttegro.FinancialAccountBankRequest do
       "currency" => Inttegro.Codec.encode(value.currency),
       "label" => Inttegro.Codec.encode(value.label),
       "reference" => Inttegro.Codec.encode(value.reference),
-      "type" => Inttegro.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
       "bank_account" => Inttegro.Codec.encode(value.bank_account)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -8284,23 +8345,24 @@ defmodule Inttegro.FinancialAccountBankRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountBankRequestBankAccount do
+defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type, :ghana_bank_account]
   defstruct type: nil, ghana_bank_account: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.BankAccountType.t(),
-          ghana_bank_account: Inttegro.FinancialAccountBankRequestBankAccountGhanaBankAccount.t()
+          type: Inttegro.BankAccounts.BankAccountType.t(),
+          ghana_bank_account:
+            Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhanaBankAccount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.BankAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.BankAccounts.BankAccountType.decode(Map.fetch!(map, "type")),
       ghana_bank_account:
-        Inttegro.FinancialAccountBankRequestBankAccountGhanaBankAccount.from_map(
+        Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhanaBankAccount.from_map(
           Map.fetch!(map, "ghana_bank_account")
         )
     }
@@ -8309,7 +8371,7 @@ defmodule Inttegro.FinancialAccountBankRequestBankAccount do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.BankAccountType.encode(value.type),
+      "type" => Inttegro.BankAccounts.BankAccountType.encode(value.type),
       "ghana_bank_account" => Inttegro.Codec.encode(value.ghana_bank_account)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -8317,7 +8379,7 @@ defmodule Inttegro.FinancialAccountBankRequestBankAccount do
   end
 end
 
-defmodule Inttegro.FinancialAccountBankRequestBankAccountGhanaBankAccount do
+defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhanaBankAccount do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:number]
   defstruct bank_name: nil, branch: nil, sort_code: nil, swift_code: nil, holder: nil, number: nil
@@ -8327,7 +8389,7 @@ defmodule Inttegro.FinancialAccountBankRequestBankAccountGhanaBankAccount do
           branch: String.t() | nil,
           sort_code: String.t() | nil,
           swift_code: String.t() | nil,
-          holder: Inttegro.FinancialAccountOwnerInput.t() | nil,
+          holder: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t() | nil,
           number: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -8343,7 +8405,8 @@ defmodule Inttegro.FinancialAccountBankRequestBankAccountGhanaBankAccount do
       holder:
         if(is_nil(Map.get(map, "holder")),
           do: nil,
-          else: Inttegro.FinancialAccountOwnerInput.from_map(Map.get(map, "holder"))
+          else:
+            Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.get(map, "holder"))
         ),
       number: Map.fetch!(map, "number")
     }
@@ -8367,7 +8430,7 @@ defmodule Inttegro.FinancialAccountBankRequestBankAccountGhanaBankAccount do
   end
 end
 
-defmodule Inttegro.FinancialAccountBankRequestPullConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguration do
   @moduledoc "Typed Inttegro request parameters."
   defstruct enabled: nil
 
@@ -8393,7 +8456,7 @@ defmodule Inttegro.FinancialAccountBankRequestPullConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountBankRequestPushConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguration do
   @moduledoc "Typed Inttegro request parameters."
   defstruct enabled: nil
 
@@ -8419,7 +8482,7 @@ defmodule Inttegro.FinancialAccountBankRequestPushConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountDisableRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountDisableRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:account_id]
   defstruct unset_as_payout_destination: nil, account_id: nil
@@ -8457,7 +8520,7 @@ defmodule Inttegro.FinancialAccountDisableRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountDoshRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:currency, :label, :owner, :reference, :type, :dosh_account]
   defstruct custom_data: nil,
@@ -8474,13 +8537,15 @@ defmodule Inttegro.FinancialAccountDoshRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
-          pull_configuration: Inttegro.FinancialAccountDoshRequestPullConfiguration.t() | nil,
-          push_configuration: Inttegro.FinancialAccountDoshRequestPushConfiguration.t() | nil,
+          pull_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguration.t() | nil,
+          push_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguration.t() | nil,
           currency: String.t(),
           label: String.t(),
-          owner: Inttegro.FinancialAccountOwnerInput.t(),
+          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t(),
           reference: String.t(),
-          type: Inttegro.FinancialAccountType.t(),
+          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
           dosh_account: %{optional(String.t()) => term()}
         }
   @spec new!(map() | keyword()) :: t()
@@ -8499,7 +8564,7 @@ defmodule Inttegro.FinancialAccountDoshRequest do
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountDoshRequestPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -8507,15 +8572,16 @@ defmodule Inttegro.FinancialAccountDoshRequest do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountDoshRequestPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
       currency: Map.fetch!(map, "currency"),
       label: Map.fetch!(map, "label"),
-      owner: Inttegro.FinancialAccountOwnerInput.from_map(Map.fetch!(map, "owner")),
+      owner:
+        Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.fetch!(map, "owner")),
       reference: Map.fetch!(map, "reference"),
-      type: Inttegro.FinancialAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
       dosh_account: Map.new(Map.fetch!(map, "dosh_account"), fn {key, value} -> {key, value} end)
     }
   end
@@ -8547,7 +8613,7 @@ defmodule Inttegro.FinancialAccountDoshRequest do
       "label" => Inttegro.Codec.encode(value.label),
       "owner" => Inttegro.Codec.encode(value.owner),
       "reference" => Inttegro.Codec.encode(value.reference),
-      "type" => Inttegro.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
       "dosh_account" =>
         Map.new(value.dosh_account, fn {key, value} ->
           {to_string(key), Inttegro.Codec.encode(value)}
@@ -8558,7 +8624,7 @@ defmodule Inttegro.FinancialAccountDoshRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountDoshRequestPullConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguration do
   @moduledoc "Typed Inttegro request parameters."
   defstruct enabled: nil
 
@@ -8584,7 +8650,7 @@ defmodule Inttegro.FinancialAccountDoshRequestPullConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountDoshRequestPushConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguration do
   @moduledoc "Typed Inttegro request parameters."
   defstruct enabled: nil
 
@@ -8610,7 +8676,7 @@ defmodule Inttegro.FinancialAccountDoshRequestPushConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountEnablePullRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountEnablePullRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:account_id]
   defstruct ip_address: nil, user_agent: nil, account_id: nil
@@ -8647,7 +8713,7 @@ defmodule Inttegro.FinancialAccountEnablePullRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountIDRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountIDRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:account_id]
   defstruct account_id: nil
@@ -8674,13 +8740,13 @@ defmodule Inttegro.FinancialAccountIDRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountOwner do
+defmodule Inttegro.FinancialAccounts.FinancialAccountOwner do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:address, :name]
   defstruct address: nil, name: nil
 
   @type t :: %__MODULE__{
-          address: Inttegro.FinancialAccountAddress.t(),
+          address: Inttegro.FinancialAccounts.FinancialAccountAddress.t(),
           name: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -8688,7 +8754,8 @@ defmodule Inttegro.FinancialAccountOwner do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      address: Inttegro.FinancialAccountAddress.from_map(Map.fetch!(map, "address")),
+      address:
+        Inttegro.FinancialAccounts.FinancialAccountAddress.from_map(Map.fetch!(map, "address")),
       name: Map.fetch!(map, "name")
     }
   end
@@ -8704,14 +8771,14 @@ defmodule Inttegro.FinancialAccountOwner do
   end
 end
 
-defmodule Inttegro.FinancialAccountOwnerInput do
+defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :address]
   defstruct name: nil, address: nil
 
   @type t :: %__MODULE__{
           name: String.t(),
-          address: Inttegro.FinancialAccountOwnerInputAddress.t()
+          address: Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -8719,7 +8786,10 @@ defmodule Inttegro.FinancialAccountOwnerInput do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       name: Map.fetch!(map, "name"),
-      address: Inttegro.FinancialAccountOwnerInputAddress.from_map(Map.fetch!(map, "address"))
+      address:
+        Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress.from_map(
+          Map.fetch!(map, "address")
+        )
     }
   end
 
@@ -8734,7 +8804,7 @@ defmodule Inttegro.FinancialAccountOwnerInput do
   end
 end
 
-defmodule Inttegro.FinancialAccountOwnerInputAddress do
+defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:country]
   defstruct city: nil,
@@ -8790,13 +8860,13 @@ defmodule Inttegro.FinancialAccountOwnerInputAddress do
   end
 end
 
-defmodule Inttegro.FinancialAccountOwnerUpdateInput do
+defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct name: nil, address: nil
 
   @type t :: %__MODULE__{
           name: String.t() | nil,
-          address: Inttegro.FinancialAccountOwnerUpdateInputAddress.t() | nil
+          address: Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -8807,7 +8877,10 @@ defmodule Inttegro.FinancialAccountOwnerUpdateInput do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else: Inttegro.FinancialAccountOwnerUpdateInputAddress.from_map(Map.get(map, "address"))
+          else:
+            Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress.from_map(
+              Map.get(map, "address")
+            )
         )
     }
   end
@@ -8823,7 +8896,7 @@ defmodule Inttegro.FinancialAccountOwnerUpdateInput do
   end
 end
 
-defmodule Inttegro.FinancialAccountOwnerUpdateInputAddress do
+defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress do
   @moduledoc "Typed Inttegro request parameters."
   defstruct city: nil,
             country: nil,
@@ -8878,13 +8951,13 @@ defmodule Inttegro.FinancialAccountOwnerUpdateInputAddress do
   end
 end
 
-defmodule Inttegro.FinancialAccountPage do
+defmodule Inttegro.FinancialAccounts.FinancialAccountPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:accounts, :number, :size]
   defstruct accounts: nil, number: nil, size: nil
 
   @type t :: %__MODULE__{
-          accounts: [Inttegro.FinancialAccount.t()],
+          accounts: [Inttegro.FinancialAccounts.FinancialAccount.t()],
           number: integer(),
           size: integer()
         }
@@ -8895,7 +8968,7 @@ defmodule Inttegro.FinancialAccountPage do
     %__MODULE__{
       accounts:
         Enum.map(Map.fetch!(map, "accounts"), fn item ->
-          Inttegro.FinancialAccount.from_map(item)
+          Inttegro.FinancialAccounts.FinancialAccount.from_map(item)
         end),
       number: Map.fetch!(map, "number"),
       size: Map.fetch!(map, "size")
@@ -8914,7 +8987,7 @@ defmodule Inttegro.FinancialAccountPage do
   end
 end
 
-defmodule Inttegro.FinancialAccountPageRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountPageRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -8945,14 +9018,14 @@ defmodule Inttegro.FinancialAccountPageRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountPullConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfiguration do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:enabled_at, :mandate]
   defstruct enabled_at: nil, mandate: nil
 
   @type t :: %__MODULE__{
           enabled_at: String.t(),
-          mandate: Inttegro.FinancialAccountPullConfigurationMandate.t()
+          mandate: Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -8961,7 +9034,9 @@ defmodule Inttegro.FinancialAccountPullConfiguration do
     %__MODULE__{
       enabled_at: Map.fetch!(map, "enabled_at"),
       mandate:
-        Inttegro.FinancialAccountPullConfigurationMandate.from_map(Map.fetch!(map, "mandate"))
+        Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate.from_map(
+          Map.fetch!(map, "mandate")
+        )
     }
   end
 
@@ -8976,7 +9051,7 @@ defmodule Inttegro.FinancialAccountPullConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountPullConfigurationMandate do
+defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :id, :ip_address, :user_agent]
   defstruct created_at: nil, id: nil, ip_address: nil, user_agent: nil
@@ -9012,7 +9087,7 @@ defmodule Inttegro.FinancialAccountPullConfigurationMandate do
   end
 end
 
-defmodule Inttegro.FinancialAccountPushConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountPushConfiguration do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:enabled_at]
   defstruct enabled_at: nil
@@ -9039,7 +9114,7 @@ defmodule Inttegro.FinancialAccountPushConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountUpdateRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountUpdateRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:account_id]
   defstruct custom_data: nil,
@@ -9053,7 +9128,7 @@ defmodule Inttegro.FinancialAccountUpdateRequest do
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
           label: String.t() | nil,
-          owner: Inttegro.FinancialAccountOwnerUpdateInput.t() | nil,
+          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput.t() | nil,
           reference: String.t() | nil,
           account_id: String.t()
         }
@@ -9073,7 +9148,10 @@ defmodule Inttegro.FinancialAccountUpdateRequest do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.FinancialAccountOwnerUpdateInput.from_map(Map.get(map, "owner"))
+          else:
+            Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput.from_map(
+              Map.get(map, "owner")
+            )
         ),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       account_id: Map.fetch!(map, "account_id")
@@ -9104,15 +9182,15 @@ defmodule Inttegro.FinancialAccountUpdateRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountWallet do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWallet do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :type]
   defstruct id: nil, type: nil, mobile_money: nil
 
   @type t :: %__MODULE__{
           id: String.t(),
-          type: Inttegro.WalletType.t(),
-          mobile_money: Inttegro.FinancialAccountWalletMobileMoney.t() | nil
+          type: Inttegro.Wallets.WalletType.t(),
+          mobile_money: Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -9120,11 +9198,14 @@ defmodule Inttegro.FinancialAccountWallet do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      type: Inttegro.WalletType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Wallets.WalletType.decode(Map.fetch!(map, "type")),
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else: Inttegro.FinancialAccountWalletMobileMoney.from_map(Map.get(map, "mobile_money"))
+          else:
+            Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney.from_map(
+              Map.get(map, "mobile_money")
+            )
         )
     }
   end
@@ -9133,7 +9214,7 @@ defmodule Inttegro.FinancialAccountWallet do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "type" => Inttegro.WalletType.encode(value.type),
+      "type" => Inttegro.Wallets.WalletType.encode(value.type),
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money))
     }
@@ -9142,14 +9223,14 @@ defmodule Inttegro.FinancialAccountWallet do
   end
 end
 
-defmodule Inttegro.FinancialAccountWalletMobileMoney do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:account_number, :network]
   defstruct account_number: nil, network: nil
 
   @type t :: %__MODULE__{
           account_number: String.t(),
-          network: Inttegro.MobileMoneyNetwork.t()
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -9157,7 +9238,7 @@ defmodule Inttegro.FinancialAccountWalletMobileMoney do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       account_number: Map.fetch!(map, "account_number"),
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
     }
   end
 
@@ -9165,14 +9246,14 @@ defmodule Inttegro.FinancialAccountWalletMobileMoney do
   def to_map(value) do
     %{
       "account_number" => Inttegro.Codec.encode(value.account_number),
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network)
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.FinancialAccountWalletRequest do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:currency, :label, :owner, :reference, :type, :wallet]
   defstruct custom_data: nil,
@@ -9189,14 +9270,16 @@ defmodule Inttegro.FinancialAccountWalletRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
-          pull_configuration: Inttegro.FinancialAccountWalletRequestPullConfiguration.t() | nil,
-          push_configuration: Inttegro.FinancialAccountWalletRequestPushConfiguration.t() | nil,
+          pull_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfiguration.t() | nil,
+          push_configuration:
+            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfiguration.t() | nil,
           currency: String.t(),
           label: String.t(),
-          owner: Inttegro.FinancialAccountOwnerInput.t(),
+          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t(),
           reference: String.t(),
-          type: Inttegro.FinancialAccountType.t(),
-          wallet: Inttegro.FinancialAccountWalletRequestWallet.t()
+          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
+          wallet: Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -9214,7 +9297,7 @@ defmodule Inttegro.FinancialAccountWalletRequest do
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountWalletRequestPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -9222,16 +9305,20 @@ defmodule Inttegro.FinancialAccountWalletRequest do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccountWalletRequestPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
       currency: Map.fetch!(map, "currency"),
       label: Map.fetch!(map, "label"),
-      owner: Inttegro.FinancialAccountOwnerInput.from_map(Map.fetch!(map, "owner")),
+      owner:
+        Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.fetch!(map, "owner")),
       reference: Map.fetch!(map, "reference"),
-      type: Inttegro.FinancialAccountType.decode(Map.fetch!(map, "type")),
-      wallet: Inttegro.FinancialAccountWalletRequestWallet.from_map(Map.fetch!(map, "wallet"))
+      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
+      wallet:
+        Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet.from_map(
+          Map.fetch!(map, "wallet")
+        )
     }
   end
 
@@ -9262,7 +9349,7 @@ defmodule Inttegro.FinancialAccountWalletRequest do
       "label" => Inttegro.Codec.encode(value.label),
       "owner" => Inttegro.Codec.encode(value.owner),
       "reference" => Inttegro.Codec.encode(value.reference),
-      "type" => Inttegro.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
       "wallet" => Inttegro.Codec.encode(value.wallet)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -9270,7 +9357,7 @@ defmodule Inttegro.FinancialAccountWalletRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccountWalletRequestPullConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfiguration do
   @moduledoc "Typed Inttegro request parameters."
   defstruct enabled: nil
 
@@ -9296,7 +9383,7 @@ defmodule Inttegro.FinancialAccountWalletRequestPullConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountWalletRequestPushConfiguration do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfiguration do
   @moduledoc "Typed Inttegro request parameters."
   defstruct enabled: nil
 
@@ -9322,23 +9409,24 @@ defmodule Inttegro.FinancialAccountWalletRequestPushConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccountWalletRequestWallet do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type, :mobile_money]
   defstruct type: nil, mobile_money: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.WalletType.t(),
-          mobile_money: Inttegro.FinancialAccountWalletRequestWalletMobileMoney.t()
+          type: Inttegro.Wallets.WalletType.t(),
+          mobile_money:
+            Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.WalletType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Wallets.WalletType.decode(Map.fetch!(map, "type")),
       mobile_money:
-        Inttegro.FinancialAccountWalletRequestWalletMobileMoney.from_map(
+        Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney.from_map(
           Map.fetch!(map, "mobile_money")
         )
     }
@@ -9347,7 +9435,7 @@ defmodule Inttegro.FinancialAccountWalletRequestWallet do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.WalletType.encode(value.type),
+      "type" => Inttegro.Wallets.WalletType.encode(value.type),
       "mobile_money" => Inttegro.Codec.encode(value.mobile_money)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -9355,14 +9443,14 @@ defmodule Inttegro.FinancialAccountWalletRequestWallet do
   end
 end
 
-defmodule Inttegro.FinancialAccountWalletRequestWalletMobileMoney do
+defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:account_number, :network]
   defstruct account_number: nil, network: nil
 
   @type t :: %__MODULE__{
           account_number: String.t(),
-          network: Inttegro.MobileMoneyNetwork.t()
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -9370,7 +9458,7 @@ defmodule Inttegro.FinancialAccountWalletRequestWalletMobileMoney do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       account_number: Map.fetch!(map, "account_number"),
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
     }
   end
 
@@ -9378,23 +9466,24 @@ defmodule Inttegro.FinancialAccountWalletRequestWalletMobileMoney do
   def to_map(value) do
     %{
       "account_number" => Inttegro.Codec.encode(value.account_number),
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network)
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.FinancialInstitution do
+defmodule Inttegro.FinancialAccounts.FinancialInstitution do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:country, :id, :name, :type]
   defstruct bank: nil, country: nil, id: nil, mobile_money_provider: nil, name: nil, type: nil
 
   @type t :: %__MODULE__{
-          bank: Inttegro.FinancialInstitutionBank.t() | nil,
+          bank: Inttegro.FinancialAccounts.FinancialInstitutionBank.t() | nil,
           country: String.t(),
           id: String.t(),
-          mobile_money_provider: Inttegro.FinancialInstitutionMobileMoneyProvider.t() | nil,
+          mobile_money_provider:
+            Inttegro.FinancialAccounts.FinancialInstitutionMobileMoneyProvider.t() | nil,
           name: String.t(),
           type: String.t()
         }
@@ -9406,7 +9495,7 @@ defmodule Inttegro.FinancialInstitution do
       bank:
         if(is_nil(Map.get(map, "bank")),
           do: nil,
-          else: Inttegro.FinancialInstitutionBank.from_map(Map.get(map, "bank"))
+          else: Inttegro.FinancialAccounts.FinancialInstitutionBank.from_map(Map.get(map, "bank"))
         ),
       country: Map.fetch!(map, "country"),
       id: Map.fetch!(map, "id"),
@@ -9414,7 +9503,7 @@ defmodule Inttegro.FinancialInstitution do
         if(is_nil(Map.get(map, "mobile_money_provider")),
           do: nil,
           else:
-            Inttegro.FinancialInstitutionMobileMoneyProvider.from_map(
+            Inttegro.FinancialAccounts.FinancialInstitutionMobileMoneyProvider.from_map(
               Map.get(map, "mobile_money_provider")
             )
         ),
@@ -9442,7 +9531,7 @@ defmodule Inttegro.FinancialInstitution do
   end
 end
 
-defmodule Inttegro.FinancialInstitutionBank do
+defmodule Inttegro.FinancialAccounts.FinancialInstitutionBank do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:bank_account_type, :code_scheme]
   defstruct bank_account_type: nil,
@@ -9453,7 +9542,7 @@ defmodule Inttegro.FinancialInstitutionBank do
 
   @type t :: %__MODULE__{
           bank_account_type: String.t(),
-          branch: Inttegro.FinancialInstitutionBankBranch.t() | nil,
+          branch: Inttegro.FinancialAccounts.FinancialInstitutionBankBranch.t() | nil,
           code_scheme: String.t(),
           sort_code_prefix: String.t() | nil,
           swift_code: String.t() | nil
@@ -9467,7 +9556,10 @@ defmodule Inttegro.FinancialInstitutionBank do
       branch:
         if(is_nil(Map.get(map, "branch")),
           do: nil,
-          else: Inttegro.FinancialInstitutionBankBranch.from_map(Map.get(map, "branch"))
+          else:
+            Inttegro.FinancialAccounts.FinancialInstitutionBankBranch.from_map(
+              Map.get(map, "branch")
+            )
         ),
       code_scheme: Map.fetch!(map, "code_scheme"),
       sort_code_prefix:
@@ -9499,7 +9591,7 @@ defmodule Inttegro.FinancialInstitutionBank do
   end
 end
 
-defmodule Inttegro.FinancialInstitutionBankBranch do
+defmodule Inttegro.FinancialAccounts.FinancialInstitutionBankBranch do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :name, :sort_code]
   defstruct id: nil, name: nil, sort_code: nil
@@ -9532,7 +9624,7 @@ defmodule Inttegro.FinancialInstitutionBankBranch do
   end
 end
 
-defmodule Inttegro.FinancialInstitutionMobileMoneyProvider do
+defmodule Inttegro.FinancialAccounts.FinancialInstitutionMobileMoneyProvider do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:provider]
   defstruct provider: nil
@@ -9559,7 +9651,7 @@ defmodule Inttegro.FinancialInstitutionMobileMoneyProvider do
   end
 end
 
-defmodule Inttegro.GenerateSecretKeyRequest do
+defmodule Inttegro.Keys.GenerateSecretKeyRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct label: nil
 
@@ -9585,7 +9677,7 @@ defmodule Inttegro.GenerateSecretKeyRequest do
   end
 end
 
-defmodule Inttegro.GeneratedSecretKey do
+defmodule Inttegro.Keys.GeneratedSecretKey do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :token_type, :issued_at, :token]
   defstruct id: nil, label: nil, token_type: nil, issued_at: nil, token: nil
@@ -9593,7 +9685,7 @@ defmodule Inttegro.GeneratedSecretKey do
   @type t :: %__MODULE__{
           id: String.t(),
           label: String.t() | nil,
-          token_type: Inttegro.SecretKeyTokenType.t(),
+          token_type: Inttegro.Keys.SecretKeyTokenType.t(),
           issued_at: String.t(),
           token: String.t()
         }
@@ -9604,7 +9696,7 @@ defmodule Inttegro.GeneratedSecretKey do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
-      token_type: Inttegro.SecretKeyTokenType.decode(Map.fetch!(map, "token_type")),
+      token_type: Inttegro.Keys.SecretKeyTokenType.decode(Map.fetch!(map, "token_type")),
       issued_at: Map.fetch!(map, "issued_at"),
       token: Map.fetch!(map, "token")
     }
@@ -9615,7 +9707,7 @@ defmodule Inttegro.GeneratedSecretKey do
     %{
       "id" => Inttegro.Codec.encode(value.id),
       "label" => if(is_nil(value.label), do: nil, else: Inttegro.Codec.encode(value.label)),
-      "token_type" => Inttegro.SecretKeyTokenType.encode(value.token_type),
+      "token_type" => Inttegro.Keys.SecretKeyTokenType.encode(value.token_type),
       "issued_at" => Inttegro.Codec.encode(value.issued_at),
       "token" => Inttegro.Codec.encode(value.token)
     }
@@ -9624,7 +9716,7 @@ defmodule Inttegro.GeneratedSecretKey do
   end
 end
 
-defmodule Inttegro.GetPaymentMethodSettingsRequest do
+defmodule Inttegro.PaymentMethods.GetPaymentMethodSettingsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct []
   @type t :: %__MODULE__{}
@@ -9641,7 +9733,7 @@ defmodule Inttegro.GetPaymentMethodSettingsRequest do
   end
 end
 
-defmodule Inttegro.GetPayoutSettingsRequest do
+defmodule Inttegro.Payouts.GetPayoutSettingsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct []
   @type t :: %__MODULE__{}
@@ -9658,14 +9750,14 @@ defmodule Inttegro.GetPayoutSettingsRequest do
   end
 end
 
-defmodule Inttegro.GhanaBankAccount do
+defmodule Inttegro.BankAccounts.GhanaBankAccount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:holder, :number]
   defstruct branch: nil, holder: nil, name: nil, number: nil, sort_code: nil, swift_code: nil
 
   @type t :: %__MODULE__{
           branch: String.t() | nil,
-          holder: Inttegro.FinancialAccountOwner.t(),
+          holder: Inttegro.FinancialAccounts.FinancialAccountOwner.t(),
           name: String.t() | nil,
           number: String.t(),
           sort_code: String.t() | nil,
@@ -9677,7 +9769,8 @@ defmodule Inttegro.GhanaBankAccount do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       branch: if(is_nil(Map.get(map, "branch")), do: nil, else: Map.get(map, "branch")),
-      holder: Inttegro.FinancialAccountOwner.from_map(Map.fetch!(map, "holder")),
+      holder:
+        Inttegro.FinancialAccounts.FinancialAccountOwner.from_map(Map.fetch!(map, "holder")),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       number: Map.fetch!(map, "number"),
       sort_code: if(is_nil(Map.get(map, "sort_code")), do: nil, else: Map.get(map, "sort_code")),
@@ -9703,7 +9796,7 @@ defmodule Inttegro.GhanaBankAccount do
   end
 end
 
-defmodule Inttegro.InitiateOTPRequest do
+defmodule Inttegro.Otp.InitiateOTPRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:recipient, :service_name, :token_size]
   defstruct async_delivery: nil,
@@ -9723,7 +9816,7 @@ defmodule Inttegro.InitiateOTPRequest do
           purpose: String.t() | nil,
           sender: String.t() | nil,
           token_alphabet: String.t() | nil,
-          token_alphabet_type: Inttegro.OTPAlphabetType.t() | nil,
+          token_alphabet_type: Inttegro.Otp.OTPAlphabetType.t() | nil,
           validity_duration_in_minutes: integer() | nil,
           recipient: String.t(),
           service_name: String.t(),
@@ -9748,7 +9841,7 @@ defmodule Inttegro.InitiateOTPRequest do
       token_alphabet_type:
         if(is_nil(Map.get(map, "token_alphabet_type")),
           do: nil,
-          else: Inttegro.OTPAlphabetType.decode(Map.get(map, "token_alphabet_type"))
+          else: Inttegro.Otp.OTPAlphabetType.decode(Map.get(map, "token_alphabet_type"))
         ),
       validity_duration_in_minutes:
         if(is_nil(Map.get(map, "validity_duration_in_minutes")),
@@ -9784,7 +9877,7 @@ defmodule Inttegro.InitiateOTPRequest do
       "token_alphabet_type" =>
         if(is_nil(value.token_alphabet_type),
           do: nil,
-          else: Inttegro.OTPAlphabetType.encode(value.token_alphabet_type)
+          else: Inttegro.Otp.OTPAlphabetType.encode(value.token_alphabet_type)
         ),
       "validity_duration_in_minutes" =>
         if(is_nil(value.validity_duration_in_minutes),
@@ -9800,7 +9893,7 @@ defmodule Inttegro.InitiateOTPRequest do
   end
 end
 
-defmodule Inttegro.InlineProductDetailsInput do
+defmodule Inttegro.Products.InlineProductDetailsInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :price, :quantity, :type]
   defstruct about: nil,
@@ -9818,9 +9911,9 @@ defmodule Inttegro.InlineProductDetailsInput do
           reference: String.t() | nil,
           tax_code: String.t() | nil,
           name: String.t(),
-          price: Inttegro.PriceParams.t(),
+          price: Inttegro.Prices.PriceParams.t(),
           quantity: integer(),
-          type: Inttegro.ProductType.t()
+          type: Inttegro.Products.ProductType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -9836,9 +9929,9 @@ defmodule Inttegro.InlineProductDetailsInput do
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
       name: Map.fetch!(map, "name"),
-      price: Inttegro.PriceParams.from_map(Map.fetch!(map, "price")),
+      price: Inttegro.Prices.PriceParams.from_map(Map.fetch!(map, "price")),
       quantity: Map.fetch!(map, "quantity"),
-      type: Inttegro.ProductType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -9861,14 +9954,14 @@ defmodule Inttegro.InlineProductDetailsInput do
       "name" => Inttegro.Codec.encode(value.name),
       "price" => Inttegro.Codec.encode(value.price),
       "quantity" => Inttegro.Codec.encode(value.quantity),
-      "type" => Inttegro.ProductType.encode(value.type)
+      "type" => Inttegro.Products.ProductType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.InvoiceSettings do
+defmodule Inttegro.Invoices.InvoiceSettings do
   @moduledoc "Typed Inttegro domain value."
   defstruct number: nil, memo: nil, footer: nil, custom_data: nil
 
@@ -9914,7 +10007,7 @@ defmodule Inttegro.InvoiceSettings do
   end
 end
 
-defmodule Inttegro.InvoiceSettingsInput do
+defmodule Inttegro.Invoices.InvoiceSettingsInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct number: nil, memo: nil, footer: nil, custom_data: nil
 
@@ -9960,7 +10053,7 @@ defmodule Inttegro.InvoiceSettingsInput do
   end
 end
 
-defmodule Inttegro.ListCountrySpecsRequest do
+defmodule Inttegro.Specifications.ListCountrySpecsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct []
   @type t :: %__MODULE__{}
@@ -9977,7 +10070,7 @@ defmodule Inttegro.ListCountrySpecsRequest do
   end
 end
 
-defmodule Inttegro.LookupBalanceTransactionRequest do
+defmodule Inttegro.BalanceTransactions.LookupBalanceTransactionRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:transaction_id]
   defstruct transaction_id: nil
@@ -10004,7 +10097,7 @@ defmodule Inttegro.LookupBalanceTransactionRequest do
   end
 end
 
-defmodule Inttegro.LookupBalancesRequest do
+defmodule Inttegro.Balances.LookupBalancesRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct []
   @type t :: %__MODULE__{}
@@ -10021,7 +10114,7 @@ defmodule Inttegro.LookupBalancesRequest do
   end
 end
 
-defmodule Inttegro.LookupBroadcastRequest do
+defmodule Inttegro.Broadcasts.LookupBroadcastRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:broadcast_id]
   defstruct broadcast_id: nil
@@ -10048,7 +10141,7 @@ defmodule Inttegro.LookupBroadcastRequest do
   end
 end
 
-defmodule Inttegro.LookupChimeRequest do
+defmodule Inttegro.Chimes.LookupChimeRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:chime_id]
   defstruct chime_id: nil
@@ -10075,7 +10168,7 @@ defmodule Inttegro.LookupChimeRequest do
   end
 end
 
-defmodule Inttegro.LookupCustomerRequest do
+defmodule Inttegro.Customers.LookupCustomerRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:customer_id]
   defstruct customer_id: nil
@@ -10102,7 +10195,7 @@ defmodule Inttegro.LookupCustomerRequest do
   end
 end
 
-defmodule Inttegro.LookupFileLinkRequest do
+defmodule Inttegro.FileLinks.LookupFileLinkRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct id: nil
@@ -10129,7 +10222,7 @@ defmodule Inttegro.LookupFileLinkRequest do
   end
 end
 
-defmodule Inttegro.LookupFileRequest do
+defmodule Inttegro.Files.LookupFileRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:file_id]
   defstruct file_id: nil
@@ -10156,7 +10249,7 @@ defmodule Inttegro.LookupFileRequest do
   end
 end
 
-defmodule Inttegro.LookupOTPRequest do
+defmodule Inttegro.Otp.LookupOTPRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:transaction_id]
   defstruct transaction_id: nil
@@ -10183,7 +10276,7 @@ defmodule Inttegro.LookupOTPRequest do
   end
 end
 
-defmodule Inttegro.LookupOrderRequest do
+defmodule Inttegro.Orders.LookupOrderRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct order_id: nil
@@ -10210,7 +10303,7 @@ defmodule Inttegro.LookupOrderRequest do
   end
 end
 
-defmodule Inttegro.LookupPaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.LookupPaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -10237,7 +10330,7 @@ defmodule Inttegro.LookupPaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.LookupPayoutRequest do
+defmodule Inttegro.Payouts.LookupPayoutRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payout_id]
   defstruct payout_id: nil
@@ -10264,7 +10357,7 @@ defmodule Inttegro.LookupPayoutRequest do
   end
 end
 
-defmodule Inttegro.LookupPriceRequest do
+defmodule Inttegro.Prices.LookupPriceRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:price_id]
   defstruct price_id: nil
@@ -10291,7 +10384,7 @@ defmodule Inttegro.LookupPriceRequest do
   end
 end
 
-defmodule Inttegro.LookupProductRequest do
+defmodule Inttegro.Products.LookupProductRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:product_id]
   defstruct product_id: nil
@@ -10318,7 +10411,7 @@ defmodule Inttegro.LookupProductRequest do
   end
 end
 
-defmodule Inttegro.LookupPurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.LookupPurchaseIntentRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct id: nil
@@ -10345,7 +10438,7 @@ defmodule Inttegro.LookupPurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.LookupRefundRequest do
+defmodule Inttegro.Refunds.LookupRefundRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:refund_id]
   defstruct refund_id: nil
@@ -10372,7 +10465,7 @@ defmodule Inttegro.LookupRefundRequest do
   end
 end
 
-defmodule Inttegro.LookupScheduleRequest do
+defmodule Inttegro.Schedules.LookupScheduleRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:schedule_id]
   defstruct schedule_id: nil
@@ -10399,7 +10492,7 @@ defmodule Inttegro.LookupScheduleRequest do
   end
 end
 
-defmodule Inttegro.LookupSecretKeyRequest do
+defmodule Inttegro.Keys.LookupSecretKeyRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:secret_key_id]
   defstruct secret_key_id: nil
@@ -10426,7 +10519,7 @@ defmodule Inttegro.LookupSecretKeyRequest do
   end
 end
 
-defmodule Inttegro.LookupUploadRequestRequest do
+defmodule Inttegro.UploadRequests.LookupUploadRequestRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct id: nil
@@ -10453,7 +10546,7 @@ defmodule Inttegro.LookupUploadRequestRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplate do
+defmodule Inttegro.MessageTemplates.MessageTemplate do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [
     :id,
@@ -10492,17 +10585,17 @@ defmodule Inttegro.MessageTemplate do
           id: String.t(),
           name: String.t(),
           about: String.t() | nil,
-          channel: Inttegro.MessageTemplateChannel.t(),
+          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
           purpose: String.t(),
           locale: String.t(),
-          status: Inttegro.MessageTemplateStatus.t(),
+          status: Inttegro.MessageTemplates.MessageTemplateStatus.t(),
           version: integer(),
           published_version: integer() | nil,
           draft_version: integer(),
           has_unpublished_changes: boolean(),
-          variables: [Inttegro.MessageTemplateVariable.t()] | nil,
-          sms: Inttegro.MessageTemplateSMSContent.t() | nil,
-          email: Inttegro.MessageTemplateEmailContent.t() | nil,
+          variables: [Inttegro.MessageTemplates.MessageTemplateVariable.t()] | nil,
+          sms: Inttegro.MessageTemplates.MessageTemplateSMSContent.t() | nil,
+          email: Inttegro.MessageTemplates.MessageTemplateEmailContent.t() | nil,
           attachments: [String.t()] | nil,
           created_at: String.t(),
           updated_at: String.t(),
@@ -10517,10 +10610,11 @@ defmodule Inttegro.MessageTemplate do
       id: Map.fetch!(map, "id"),
       name: Map.fetch!(map, "name"),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
-      channel: Inttegro.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      channel:
+        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
       purpose: Map.fetch!(map, "purpose"),
       locale: Map.fetch!(map, "locale"),
-      status: Inttegro.MessageTemplateStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.MessageTemplates.MessageTemplateStatus.decode(Map.fetch!(map, "status")),
       version: Map.fetch!(map, "version"),
       published_version:
         if(is_nil(Map.get(map, "published_version")),
@@ -10534,18 +10628,19 @@ defmodule Inttegro.MessageTemplate do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplateVariable.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateVariable.from_map(item)
             end)
         ),
       sms:
         if(is_nil(Map.get(map, "sms")),
           do: nil,
-          else: Inttegro.MessageTemplateSMSContent.from_map(Map.get(map, "sms"))
+          else: Inttegro.MessageTemplates.MessageTemplateSMSContent.from_map(Map.get(map, "sms"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.MessageTemplateEmailContent.from_map(Map.get(map, "email"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateEmailContent.from_map(Map.get(map, "email"))
         ),
       attachments:
         if(is_nil(Map.get(map, "attachments")),
@@ -10567,10 +10662,10 @@ defmodule Inttegro.MessageTemplate do
       "id" => Inttegro.Codec.encode(value.id),
       "name" => Inttegro.Codec.encode(value.name),
       "about" => if(is_nil(value.about), do: nil, else: Inttegro.Codec.encode(value.about)),
-      "channel" => Inttegro.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
       "purpose" => Inttegro.Codec.encode(value.purpose),
       "locale" => Inttegro.Codec.encode(value.locale),
-      "status" => Inttegro.MessageTemplateStatus.encode(value.status),
+      "status" => Inttegro.MessageTemplates.MessageTemplateStatus.encode(value.status),
       "version" => Inttegro.Codec.encode(value.version),
       "published_version" =>
         if(is_nil(value.published_version),
@@ -10603,7 +10698,7 @@ defmodule Inttegro.MessageTemplate do
   end
 end
 
-defmodule Inttegro.MessageTemplateEmailContent do
+defmodule Inttegro.MessageTemplates.MessageTemplateEmailContent do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:subject, :html]
   defstruct subject: nil, html: nil, from_: nil, reply_to: nil, headers: nil
@@ -10611,8 +10706,8 @@ defmodule Inttegro.MessageTemplateEmailContent do
   @type t :: %__MODULE__{
           subject: String.t(),
           html: String.t(),
-          from_: Inttegro.MessageTemplateMailbox.t() | nil,
-          reply_to: Inttegro.MessageTemplateMailbox.t() | nil,
+          from_: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
+          reply_to: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -10625,12 +10720,13 @@ defmodule Inttegro.MessageTemplateEmailContent do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else: Inttegro.MessageTemplateMailbox.from_map(Map.get(map, "from"))
+          else: Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else: Inttegro.MessageTemplateMailbox.from_map(Map.get(map, "reply_to"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "reply_to"))
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -10662,14 +10758,14 @@ defmodule Inttegro.MessageTemplateEmailContent do
   end
 end
 
-defmodule Inttegro.MessageTemplateEmailContentInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateEmailContentInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:subject, :html]
   defstruct from_: nil, reply_to: nil, headers: nil, subject: nil, html: nil
 
   @type t :: %__MODULE__{
-          from_: Inttegro.MessageTemplateMailboxInput.t() | nil,
-          reply_to: Inttegro.MessageTemplateMailboxInput.t() | nil,
+          from_: Inttegro.MessageTemplates.MessageTemplateMailboxInput.t() | nil,
+          reply_to: Inttegro.MessageTemplates.MessageTemplateMailboxInput.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil,
           subject: String.t(),
           html: String.t()
@@ -10682,12 +10778,16 @@ defmodule Inttegro.MessageTemplateEmailContentInput do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else: Inttegro.MessageTemplateMailboxInput.from_map(Map.get(map, "from"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateMailboxInput.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else: Inttegro.MessageTemplateMailboxInput.from_map(Map.get(map, "reply_to"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateMailboxInput.from_map(
+              Map.get(map, "reply_to")
+            )
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -10721,7 +10821,7 @@ defmodule Inttegro.MessageTemplateEmailContentInput do
   end
 end
 
-defmodule Inttegro.MessageTemplateIDRequest do
+defmodule Inttegro.MessageTemplates.MessageTemplateIDRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct id: nil
@@ -10748,7 +10848,7 @@ defmodule Inttegro.MessageTemplateIDRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplateMailbox do
+defmodule Inttegro.MessageTemplates.MessageTemplateMailbox do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:address]
   defstruct address: nil, name: nil
@@ -10778,7 +10878,7 @@ defmodule Inttegro.MessageTemplateMailbox do
   end
 end
 
-defmodule Inttegro.MessageTemplateMailboxInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateMailboxInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:address]
   defstruct name: nil, address: nil
@@ -10808,22 +10908,24 @@ defmodule Inttegro.MessageTemplateMailboxInput do
   end
 end
 
-defmodule Inttegro.MessageTemplatePreview do
+defmodule Inttegro.MessageTemplates.MessageTemplatePreview do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:message_template, :rendered]
   defstruct message_template: nil, rendered: nil
 
   @type t :: %__MODULE__{
-          message_template: Inttegro.MessageTemplate.t(),
-          rendered: Inttegro.RenderedMessageTemplate.t()
+          message_template: Inttegro.MessageTemplates.MessageTemplate.t(),
+          rendered: Inttegro.MessageTemplates.RenderedMessageTemplate.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      message_template: Inttegro.MessageTemplate.from_map(Map.fetch!(map, "message_template")),
-      rendered: Inttegro.RenderedMessageTemplate.from_map(Map.fetch!(map, "rendered"))
+      message_template:
+        Inttegro.MessageTemplates.MessageTemplate.from_map(Map.fetch!(map, "message_template")),
+      rendered:
+        Inttegro.MessageTemplates.RenderedMessageTemplate.from_map(Map.fetch!(map, "rendered"))
     }
   end
 
@@ -10838,7 +10940,7 @@ defmodule Inttegro.MessageTemplatePreview do
   end
 end
 
-defmodule Inttegro.MessageTemplateReferenceInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateReferenceInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:template_id]
   defstruct variables: nil, template_id: nil
@@ -10879,7 +10981,7 @@ defmodule Inttegro.MessageTemplateReferenceInput do
   end
 end
 
-defmodule Inttegro.MessageTemplateSMSContent do
+defmodule Inttegro.MessageTemplates.MessageTemplateSMSContent do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:message_template]
   defstruct message_template: nil
@@ -10906,7 +11008,7 @@ defmodule Inttegro.MessageTemplateSMSContent do
   end
 end
 
-defmodule Inttegro.MessageTemplateSMSContentInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateSMSContentInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:message_template]
   defstruct message_template: nil
@@ -10933,7 +11035,7 @@ defmodule Inttegro.MessageTemplateSMSContentInput do
   end
 end
 
-defmodule Inttegro.MessageTemplateSafetyResult do
+defmodule Inttegro.MessageTemplates.MessageTemplateSafetyResult do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content_hash, :normalized_text, :scanner, :status]
   defstruct content_hash: nil,
@@ -10947,13 +11049,13 @@ defmodule Inttegro.MessageTemplateSafetyResult do
 
   @type t :: %__MODULE__{
           content_hash: String.t(),
-          links: [Inttegro.MessageTemplateScannedLink.t()] | nil,
+          links: [Inttegro.MessageTemplates.MessageTemplateScannedLink.t()] | nil,
           normalized_text: String.t(),
           quarantine_notes: String.t() | nil,
           reason_codes: [String.t()] | nil,
           sanitized_html: String.t() | nil,
           scanner: String.t(),
-          status: Inttegro.ContentSafetyStatus.t()
+          status: Inttegro.MessageTemplates.ContentSafetyStatus.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -10966,7 +11068,7 @@ defmodule Inttegro.MessageTemplateSafetyResult do
           do: nil,
           else:
             Enum.map(Map.get(map, "links"), fn item ->
-              Inttegro.MessageTemplateScannedLink.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateScannedLink.from_map(item)
             end)
         ),
       normalized_text: Map.fetch!(map, "normalized_text"),
@@ -10983,7 +11085,7 @@ defmodule Inttegro.MessageTemplateSafetyResult do
       sanitized_html:
         if(is_nil(Map.get(map, "sanitized_html")), do: nil, else: Map.get(map, "sanitized_html")),
       scanner: Map.fetch!(map, "scanner"),
-      status: Inttegro.ContentSafetyStatus.decode(Map.fetch!(map, "status"))
+      status: Inttegro.MessageTemplates.ContentSafetyStatus.decode(Map.fetch!(map, "status"))
     }
   end
 
@@ -11013,14 +11115,14 @@ defmodule Inttegro.MessageTemplateSafetyResult do
           else: Inttegro.Codec.encode(value.sanitized_html)
         ),
       "scanner" => Inttegro.Codec.encode(value.scanner),
-      "status" => Inttegro.ContentSafetyStatus.encode(value.status)
+      "status" => Inttegro.MessageTemplates.ContentSafetyStatus.encode(value.status)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplateScannedLink do
+defmodule Inttegro.MessageTemplates.MessageTemplateScannedLink do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:raw, :scheme, :status]
   defstruct host: nil, raw: nil, reason: nil, scheme: nil, status: nil
@@ -11059,7 +11161,7 @@ defmodule Inttegro.MessageTemplateScannedLink do
   end
 end
 
-defmodule Inttegro.MessageTemplateVariable do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariable do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name, :required, :type]
   defstruct about: nil, default: nil, items: nil, name: nil, required: nil, type: nil
@@ -11067,10 +11169,10 @@ defmodule Inttegro.MessageTemplateVariable do
   @type t :: %__MODULE__{
           about: String.t() | nil,
           default: term() | nil,
-          items: [Inttegro.MessageTemplateVariableItem.t()] | nil,
+          items: [Inttegro.MessageTemplates.MessageTemplateVariableItem.t()] | nil,
           name: String.t(),
           required: boolean(),
-          type: Inttegro.MessageTemplateVariableType.t()
+          type: Inttegro.MessageTemplates.MessageTemplateVariableType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11084,12 +11186,12 @@ defmodule Inttegro.MessageTemplateVariable do
           do: nil,
           else:
             Enum.map(Map.get(map, "items"), fn item ->
-              Inttegro.MessageTemplateVariableItem.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateVariableItem.from_map(item)
             end)
         ),
       name: Map.fetch!(map, "name"),
       required: Map.fetch!(map, "required"),
-      type: Inttegro.MessageTemplateVariableType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.MessageTemplates.MessageTemplateVariableType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -11105,14 +11207,14 @@ defmodule Inttegro.MessageTemplateVariable do
         ),
       "name" => Inttegro.Codec.encode(value.name),
       "required" => Inttegro.Codec.encode(value.required),
-      "type" => Inttegro.MessageTemplateVariableType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.MessageTemplateVariableType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplateVariableInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariableInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :type]
   defstruct required: nil, default: nil, about: nil, items: nil, name: nil, type: nil
@@ -11121,9 +11223,9 @@ defmodule Inttegro.MessageTemplateVariableInput do
           required: boolean() | nil,
           default: term() | nil,
           about: String.t() | nil,
-          items: [Inttegro.MessageTemplateVariableItemInput.t()] | nil,
+          items: [Inttegro.MessageTemplates.MessageTemplateVariableItemInput.t()] | nil,
           name: String.t(),
-          type: Inttegro.MessageTemplateVariableType.t()
+          type: Inttegro.MessageTemplates.MessageTemplateVariableType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11138,11 +11240,11 @@ defmodule Inttegro.MessageTemplateVariableInput do
           do: nil,
           else:
             Enum.map(Map.get(map, "items"), fn item ->
-              Inttegro.MessageTemplateVariableItemInput.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateVariableItemInput.from_map(item)
             end)
         ),
       name: Map.fetch!(map, "name"),
-      type: Inttegro.MessageTemplateVariableType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.MessageTemplates.MessageTemplateVariableType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -11159,14 +11261,14 @@ defmodule Inttegro.MessageTemplateVariableInput do
           else: Enum.map(value.items, fn item -> Inttegro.Codec.encode(item) end)
         ),
       "name" => Inttegro.Codec.encode(value.name),
-      "type" => Inttegro.MessageTemplateVariableType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.MessageTemplateVariableType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplateVariableItem do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariableItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name, :required, :type]
   defstruct about: nil, default: nil, name: nil, required: nil, type: nil
@@ -11176,7 +11278,7 @@ defmodule Inttegro.MessageTemplateVariableItem do
           default: term() | nil,
           name: String.t(),
           required: boolean(),
-          type: Inttegro.MessageTemplateVariableItemType.t()
+          type: Inttegro.MessageTemplates.MessageTemplateVariableItemType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11187,7 +11289,8 @@ defmodule Inttegro.MessageTemplateVariableItem do
       default: if(is_nil(Map.get(map, "default")), do: nil, else: Map.get(map, "default")),
       name: Map.fetch!(map, "name"),
       required: Map.fetch!(map, "required"),
-      type: Inttegro.MessageTemplateVariableItemType.decode(Map.fetch!(map, "type"))
+      type:
+        Inttegro.MessageTemplates.MessageTemplateVariableItemType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -11198,14 +11301,14 @@ defmodule Inttegro.MessageTemplateVariableItem do
       "default" => if(is_nil(value.default), do: nil, else: Inttegro.Codec.encode(value.default)),
       "name" => Inttegro.Codec.encode(value.name),
       "required" => Inttegro.Codec.encode(value.required),
-      "type" => Inttegro.MessageTemplateVariableItemType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.MessageTemplateVariableItemType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplateVariableItemInput do
+defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :type]
   defstruct about: nil, default: nil, required: nil, name: nil, type: nil
@@ -11215,7 +11318,7 @@ defmodule Inttegro.MessageTemplateVariableItemInput do
           default: term() | nil,
           required: boolean() | nil,
           name: String.t(),
-          type: Inttegro.MessageTemplateVariableItemType.t()
+          type: Inttegro.MessageTemplates.MessageTemplateVariableItemType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11226,7 +11329,8 @@ defmodule Inttegro.MessageTemplateVariableItemInput do
       default: if(is_nil(Map.get(map, "default")), do: nil, else: Map.get(map, "default")),
       required: if(is_nil(Map.get(map, "required")), do: nil, else: Map.get(map, "required")),
       name: Map.fetch!(map, "name"),
-      type: Inttegro.MessageTemplateVariableItemType.decode(Map.fetch!(map, "type"))
+      type:
+        Inttegro.MessageTemplates.MessageTemplateVariableItemType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -11238,14 +11342,14 @@ defmodule Inttegro.MessageTemplateVariableItemInput do
       "required" =>
         if(is_nil(value.required), do: nil, else: Inttegro.Codec.encode(value.required)),
       "name" => Inttegro.Codec.encode(value.name),
-      "type" => Inttegro.MessageTemplateVariableItemType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.MessageTemplateVariableItemType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplatesPage do
+defmodule Inttegro.MessageTemplates.MessageTemplatesPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :message_templates]
   defstruct number: nil, size: nil, message_templates: nil
@@ -11253,7 +11357,7 @@ defmodule Inttegro.MessageTemplatesPage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          message_templates: [Inttegro.MessageTemplate.t()]
+          message_templates: [Inttegro.MessageTemplates.MessageTemplate.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11264,7 +11368,7 @@ defmodule Inttegro.MessageTemplatesPage do
       size: Map.fetch!(map, "size"),
       message_templates:
         Enum.map(Map.fetch!(map, "message_templates"), fn item ->
-          Inttegro.MessageTemplate.from_map(item)
+          Inttegro.MessageTemplates.MessageTemplate.from_map(item)
         end)
     }
   end
@@ -11282,7 +11386,7 @@ defmodule Inttegro.MessageTemplatesPage do
   end
 end
 
-defmodule Inttegro.OTPTransaction do
+defmodule Inttegro.Otp.OTPTransaction do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:expires_at, :full_message, :id, :initiated_at, :status]
   defstruct cancel_reason: nil,
@@ -11301,8 +11405,8 @@ defmodule Inttegro.OTPTransaction do
           full_message: String.t(),
           id: String.t(),
           initiated_at: String.t(),
-          status: Inttegro.OTPStatus.t(),
-          transmission: Inttegro.OTPTransmission.t() | nil
+          status: Inttegro.Otp.OTPStatus.t(),
+          transmission: Inttegro.Otp.OTPTransmission.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11317,11 +11421,11 @@ defmodule Inttegro.OTPTransaction do
       full_message: Map.fetch!(map, "full_message"),
       id: Map.fetch!(map, "id"),
       initiated_at: Map.fetch!(map, "initiated_at"),
-      status: Inttegro.OTPStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Otp.OTPStatus.decode(Map.fetch!(map, "status")),
       transmission:
         if(is_nil(Map.get(map, "transmission")),
           do: nil,
-          else: Inttegro.OTPTransmission.from_map(Map.get(map, "transmission"))
+          else: Inttegro.Otp.OTPTransmission.from_map(Map.get(map, "transmission"))
         )
     }
   end
@@ -11337,7 +11441,7 @@ defmodule Inttegro.OTPTransaction do
       "full_message" => Inttegro.Codec.encode(value.full_message),
       "id" => Inttegro.Codec.encode(value.id),
       "initiated_at" => Inttegro.Codec.encode(value.initiated_at),
-      "status" => Inttegro.OTPStatus.encode(value.status),
+      "status" => Inttegro.Otp.OTPStatus.encode(value.status),
       "transmission" =>
         if(is_nil(value.transmission), do: nil, else: Inttegro.Codec.encode(value.transmission))
     }
@@ -11346,7 +11450,7 @@ defmodule Inttegro.OTPTransaction do
   end
 end
 
-defmodule Inttegro.OTPTransmission do
+defmodule Inttegro.Otp.OTPTransmission do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:recipient, :sender_id]
   defstruct recipient: nil, sender_id: nil, sent_at: nil, sent_via: nil, status: nil
@@ -11356,7 +11460,7 @@ defmodule Inttegro.OTPTransmission do
           sender_id: String.t(),
           sent_at: String.t() | nil,
           sent_via: String.t() | nil,
-          status: Inttegro.OTPTransmissionStatus.t() | nil
+          status: Inttegro.Otp.OTPTransmissionStatus.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11370,7 +11474,7 @@ defmodule Inttegro.OTPTransmission do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.OTPTransmissionStatus.decode(Map.get(map, "status"))
+          else: Inttegro.Otp.OTPTransmissionStatus.decode(Map.get(map, "status"))
         )
     }
   end
@@ -11386,7 +11490,7 @@ defmodule Inttegro.OTPTransmission do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.OTPTransmissionStatus.encode(value.status)
+          else: Inttegro.Otp.OTPTransmissionStatus.encode(value.status)
         )
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -11394,23 +11498,23 @@ defmodule Inttegro.OTPTransmission do
   end
 end
 
-defmodule Inttegro.OTPVerification do
+defmodule Inttegro.Otp.OTPVerification do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:transaction, :verification_attempt]
   defstruct transaction: nil, verification_attempt: nil
 
   @type t :: %__MODULE__{
-          transaction: Inttegro.OTPTransaction.t(),
-          verification_attempt: Inttegro.OTPVerificationAttempt.t()
+          transaction: Inttegro.Otp.OTPTransaction.t(),
+          verification_attempt: Inttegro.Otp.OTPVerificationAttempt.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      transaction: Inttegro.OTPTransaction.from_map(Map.fetch!(map, "transaction")),
+      transaction: Inttegro.Otp.OTPTransaction.from_map(Map.fetch!(map, "transaction")),
       verification_attempt:
-        Inttegro.OTPVerificationAttempt.from_map(Map.fetch!(map, "verification_attempt"))
+        Inttegro.Otp.OTPVerificationAttempt.from_map(Map.fetch!(map, "verification_attempt"))
     }
   end
 
@@ -11425,7 +11529,7 @@ defmodule Inttegro.OTPVerification do
   end
 end
 
-defmodule Inttegro.OTPVerificationAttempt do
+defmodule Inttegro.Otp.OTPVerificationAttempt do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:attempted_at, :id, :presented_token, :recipient, :result]
   defstruct attempted_at: nil, id: nil, presented_token: nil, recipient: nil, result: nil
@@ -11435,7 +11539,7 @@ defmodule Inttegro.OTPVerificationAttempt do
           id: String.t(),
           presented_token: String.t(),
           recipient: String.t(),
-          result: Inttegro.OTPVerificationAttemptResult.t()
+          result: Inttegro.Otp.OTPVerificationAttemptResult.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11446,7 +11550,7 @@ defmodule Inttegro.OTPVerificationAttempt do
       id: Map.fetch!(map, "id"),
       presented_token: Map.fetch!(map, "presented_token"),
       recipient: Map.fetch!(map, "recipient"),
-      result: Inttegro.OTPVerificationAttemptResult.from_map(Map.fetch!(map, "result"))
+      result: Inttegro.Otp.OTPVerificationAttemptResult.from_map(Map.fetch!(map, "result"))
     }
   end
 
@@ -11464,14 +11568,14 @@ defmodule Inttegro.OTPVerificationAttempt do
   end
 end
 
-defmodule Inttegro.OTPVerificationAttemptResult do
+defmodule Inttegro.Otp.OTPVerificationAttemptResult do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:verdict]
   defstruct detail: nil, verdict: nil
 
   @type t :: %__MODULE__{
           detail: String.t() | nil,
-          verdict: Inttegro.OTPVerificationVerdict.t()
+          verdict: Inttegro.Otp.OTPVerificationVerdict.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11479,7 +11583,7 @@ defmodule Inttegro.OTPVerificationAttemptResult do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       detail: if(is_nil(Map.get(map, "detail")), do: nil, else: Map.get(map, "detail")),
-      verdict: Inttegro.OTPVerificationVerdict.decode(Map.fetch!(map, "verdict"))
+      verdict: Inttegro.Otp.OTPVerificationVerdict.decode(Map.fetch!(map, "verdict"))
     }
   end
 
@@ -11487,14 +11591,14 @@ defmodule Inttegro.OTPVerificationAttemptResult do
   def to_map(value) do
     %{
       "detail" => if(is_nil(value.detail), do: nil, else: Inttegro.Codec.encode(value.detail)),
-      "verdict" => Inttegro.OTPVerificationVerdict.encode(value.verdict)
+      "verdict" => Inttegro.Otp.OTPVerificationVerdict.encode(value.verdict)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.Order do
+defmodule Inttegro.Orders.Order do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:customer, :id, :initiated_at, :status]
   defstruct canceled_at: nil,
@@ -11523,23 +11627,23 @@ defmodule Inttegro.Order do
 
   @type t :: %__MODULE__{
           canceled_at: String.t() | nil,
-          checkout_settings: Inttegro.OrderCheckoutSettings.t() | nil,
+          checkout_settings: Inttegro.Checkout.OrderCheckoutSettings.t() | nil,
           completed_at: String.t() | nil,
-          created_from: Inttegro.OrderCreatedFrom.t() | nil,
+          created_from: Inttegro.Orders.OrderCreatedFrom.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          customer: Inttegro.OrderCustomer.t(),
+          customer: Inttegro.Customers.OrderCustomer.t(),
           expires_at: String.t() | nil,
           id: String.t(),
           initiated_at: String.t(),
-          invoice: Inttegro.OrderInvoice.t() | nil,
+          invoice: Inttegro.Invoices.OrderInvoice.t() | nil,
           number: String.t() | nil,
           receipt_number: String.t() | nil,
-          refunds: [Inttegro.Refund.t()] | nil,
-          invoice_settings: Inttegro.InvoiceSettings.t() | nil,
-          status: Inttegro.OrderStatus.t(),
+          refunds: [Inttegro.Refunds.Refund.t()] | nil,
+          invoice_settings: Inttegro.Invoices.InvoiceSettings.t() | nil,
+          status: Inttegro.Orders.OrderStatus.t(),
           sealed_at: String.t() | nil,
-          line_item_group: Inttegro.OrderLineItemGroup.t() | nil,
-          payment: Inttegro.Payment.t() | nil,
+          line_item_group: Inttegro.Orders.OrderLineItemGroup.t() | nil,
+          payment: Inttegro.Payments.Payment.t() | nil,
           paid_at: String.t() | nil,
           payment_due_at: String.t() | nil,
           payout_settings: %{optional(String.t()) => term()} | nil,
@@ -11556,21 +11660,22 @@ defmodule Inttegro.Order do
       checkout_settings:
         if(is_nil(Map.get(map, "checkout_settings")),
           do: nil,
-          else: Inttegro.OrderCheckoutSettings.from_map(Map.get(map, "checkout_settings"))
+          else:
+            Inttegro.Checkout.OrderCheckoutSettings.from_map(Map.get(map, "checkout_settings"))
         ),
       completed_at:
         if(is_nil(Map.get(map, "completed_at")), do: nil, else: Map.get(map, "completed_at")),
       created_from:
         if(is_nil(Map.get(map, "created_from")),
           do: nil,
-          else: Inttegro.OrderCreatedFrom.from_map(Map.get(map, "created_from"))
+          else: Inttegro.Orders.OrderCreatedFrom.from_map(Map.get(map, "created_from"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
-      customer: Inttegro.OrderCustomer.from_map(Map.fetch!(map, "customer")),
+      customer: Inttegro.Customers.OrderCustomer.from_map(Map.fetch!(map, "customer")),
       expires_at:
         if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
       id: Map.fetch!(map, "id"),
@@ -11578,7 +11683,7 @@ defmodule Inttegro.Order do
       invoice:
         if(is_nil(Map.get(map, "invoice")),
           do: nil,
-          else: Inttegro.OrderInvoice.from_map(Map.get(map, "invoice"))
+          else: Inttegro.Invoices.OrderInvoice.from_map(Map.get(map, "invoice"))
         ),
       number: if(is_nil(Map.get(map, "number")), do: nil, else: Map.get(map, "number")),
       receipt_number:
@@ -11586,24 +11691,27 @@ defmodule Inttegro.Order do
       refunds:
         if(is_nil(Map.get(map, "refunds")),
           do: nil,
-          else: Enum.map(Map.get(map, "refunds"), fn item -> Inttegro.Refund.from_map(item) end)
+          else:
+            Enum.map(Map.get(map, "refunds"), fn item ->
+              Inttegro.Refunds.Refund.from_map(item)
+            end)
         ),
       invoice_settings:
         if(is_nil(Map.get(map, "invoice_settings")),
           do: nil,
-          else: Inttegro.InvoiceSettings.from_map(Map.get(map, "invoice_settings"))
+          else: Inttegro.Invoices.InvoiceSettings.from_map(Map.get(map, "invoice_settings"))
         ),
-      status: Inttegro.OrderStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Orders.OrderStatus.decode(Map.fetch!(map, "status")),
       sealed_at: if(is_nil(Map.get(map, "sealed_at")), do: nil, else: Map.get(map, "sealed_at")),
       line_item_group:
         if(is_nil(Map.get(map, "line_item_group")),
           do: nil,
-          else: Inttegro.OrderLineItemGroup.from_map(Map.get(map, "line_item_group"))
+          else: Inttegro.Orders.OrderLineItemGroup.from_map(Map.get(map, "line_item_group"))
         ),
       payment:
         if(is_nil(Map.get(map, "payment")),
           do: nil,
-          else: Inttegro.Payment.from_map(Map.get(map, "payment"))
+          else: Inttegro.Payments.Payment.from_map(Map.get(map, "payment"))
         ),
       paid_at: if(is_nil(Map.get(map, "paid_at")), do: nil, else: Map.get(map, "paid_at")),
       payment_due_at:
@@ -11666,7 +11774,7 @@ defmodule Inttegro.Order do
           do: nil,
           else: Inttegro.Codec.encode(value.invoice_settings)
         ),
-      "status" => Inttegro.OrderStatus.encode(value.status),
+      "status" => Inttegro.Orders.OrderStatus.encode(value.status),
       "sealed_at" =>
         if(is_nil(value.sealed_at), do: nil, else: Inttegro.Codec.encode(value.sealed_at)),
       "line_item_group" =>
@@ -11705,7 +11813,7 @@ defmodule Inttegro.Order do
   end
 end
 
-defmodule Inttegro.OrderAddress do
+defmodule Inttegro.Orders.OrderAddress do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:country]
   defstruct name: nil,
@@ -11763,7 +11871,7 @@ defmodule Inttegro.OrderAddress do
   end
 end
 
-defmodule Inttegro.OrderCheckoutSettings do
+defmodule Inttegro.Checkout.OrderCheckoutSettings do
   @moduledoc "Typed Inttegro domain value."
   defstruct redirect_url: nil, cancel_url: nil
 
@@ -11796,13 +11904,13 @@ defmodule Inttegro.OrderCheckoutSettings do
   end
 end
 
-defmodule Inttegro.OrderCreatedFrom do
+defmodule Inttegro.Orders.OrderCreatedFrom do
   @moduledoc "Typed Inttegro domain value."
   defstruct source: nil, resource_type: nil, resource_id: nil
 
   @type t :: %__MODULE__{
           source: String.t() | nil,
-          resource_type: Inttegro.OrderCreatedFromResourceType.t() | nil,
+          resource_type: Inttegro.Orders.OrderCreatedFromResourceType.t() | nil,
           resource_id: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -11814,7 +11922,7 @@ defmodule Inttegro.OrderCreatedFrom do
       resource_type:
         if(is_nil(Map.get(map, "resource_type")),
           do: nil,
-          else: Inttegro.OrderCreatedFromResourceType.decode(Map.get(map, "resource_type"))
+          else: Inttegro.Orders.OrderCreatedFromResourceType.decode(Map.get(map, "resource_type"))
         ),
       resource_id:
         if(is_nil(Map.get(map, "resource_id")), do: nil, else: Map.get(map, "resource_id"))
@@ -11828,7 +11936,7 @@ defmodule Inttegro.OrderCreatedFrom do
       "resource_type" =>
         if(is_nil(value.resource_type),
           do: nil,
-          else: Inttegro.OrderCreatedFromResourceType.encode(value.resource_type)
+          else: Inttegro.Orders.OrderCreatedFromResourceType.encode(value.resource_type)
         ),
       "resource_id" =>
         if(is_nil(value.resource_id), do: nil, else: Inttegro.Codec.encode(value.resource_id))
@@ -11838,7 +11946,7 @@ defmodule Inttegro.OrderCreatedFrom do
   end
 end
 
-defmodule Inttegro.OrderCustomer do
+defmodule Inttegro.Customers.OrderCustomer do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :guest, :name]
   defstruct id: nil,
@@ -11855,8 +11963,8 @@ defmodule Inttegro.OrderCustomer do
           name: String.t(),
           email_address: String.t() | nil,
           phone_number: String.t() | nil,
-          billing_address: Inttegro.OrderAddress.t() | nil,
-          shipping_address: Inttegro.OrderAddress.t() | nil
+          billing_address: Inttegro.Orders.OrderAddress.t() | nil,
+          shipping_address: Inttegro.Orders.OrderAddress.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -11873,12 +11981,12 @@ defmodule Inttegro.OrderCustomer do
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.OrderAddress.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Orders.OrderAddress.from_map(Map.get(map, "billing_address"))
         ),
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.OrderAddress.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Orders.OrderAddress.from_map(Map.get(map, "shipping_address"))
         )
     }
   end
@@ -11909,7 +12017,7 @@ defmodule Inttegro.OrderCustomer do
   end
 end
 
-defmodule Inttegro.OrderDocumentDelivery do
+defmodule Inttegro.Invoices.OrderDocumentDelivery do
   @moduledoc "Typed Inttegro domain value."
   defstruct deliveries: nil,
             document_kind: nil,
@@ -11919,11 +12027,11 @@ defmodule Inttegro.OrderDocumentDelivery do
             sent_channels: nil
 
   @type t :: %__MODULE__{
-          deliveries: [Inttegro.OrderDocumentDeliveryAttempt.t()] | nil,
-          document_kind: Inttegro.OrderDocumentKind.t() | nil,
+          deliveries: [Inttegro.Invoices.OrderDocumentDeliveryAttempt.t()] | nil,
+          document_kind: Inttegro.Invoices.OrderDocumentKind.t() | nil,
           document_url: String.t() | nil,
           failed_channels: [String.t()] | nil,
-          failures: [Inttegro.OrderDocumentDeliveryFailure.t()] | nil,
+          failures: [Inttegro.Invoices.OrderDocumentDeliveryFailure.t()] | nil,
           sent_channels: [String.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -11936,13 +12044,13 @@ defmodule Inttegro.OrderDocumentDelivery do
           do: nil,
           else:
             Enum.map(Map.get(map, "deliveries"), fn item ->
-              Inttegro.OrderDocumentDeliveryAttempt.from_map(item)
+              Inttegro.Invoices.OrderDocumentDeliveryAttempt.from_map(item)
             end)
         ),
       document_kind:
         if(is_nil(Map.get(map, "document_kind")),
           do: nil,
-          else: Inttegro.OrderDocumentKind.decode(Map.get(map, "document_kind"))
+          else: Inttegro.Invoices.OrderDocumentKind.decode(Map.get(map, "document_kind"))
         ),
       document_url:
         if(is_nil(Map.get(map, "document_url")), do: nil, else: Map.get(map, "document_url")),
@@ -11956,7 +12064,7 @@ defmodule Inttegro.OrderDocumentDelivery do
           do: nil,
           else:
             Enum.map(Map.get(map, "failures"), fn item ->
-              Inttegro.OrderDocumentDeliveryFailure.from_map(item)
+              Inttegro.Invoices.OrderDocumentDeliveryFailure.from_map(item)
             end)
         ),
       sent_channels:
@@ -11978,7 +12086,7 @@ defmodule Inttegro.OrderDocumentDelivery do
       "document_kind" =>
         if(is_nil(value.document_kind),
           do: nil,
-          else: Inttegro.OrderDocumentKind.encode(value.document_kind)
+          else: Inttegro.Invoices.OrderDocumentKind.encode(value.document_kind)
         ),
       "document_url" =>
         if(is_nil(value.document_url), do: nil, else: Inttegro.Codec.encode(value.document_url)),
@@ -12003,12 +12111,12 @@ defmodule Inttegro.OrderDocumentDelivery do
   end
 end
 
-defmodule Inttegro.OrderDocumentDeliveryAttempt do
+defmodule Inttegro.Invoices.OrderDocumentDeliveryAttempt do
   @moduledoc "Typed Inttegro domain value."
   defstruct channel: nil, chime_id: nil
 
   @type t :: %__MODULE__{
-          channel: Inttegro.DeliveryChannel.t() | nil,
+          channel: Inttegro.Invoices.DeliveryChannel.t() | nil,
           chime_id: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -12019,7 +12127,7 @@ defmodule Inttegro.OrderDocumentDeliveryAttempt do
       channel:
         if(is_nil(Map.get(map, "channel")),
           do: nil,
-          else: Inttegro.DeliveryChannel.decode(Map.get(map, "channel"))
+          else: Inttegro.Invoices.DeliveryChannel.decode(Map.get(map, "channel"))
         ),
       chime_id: if(is_nil(Map.get(map, "chime_id")), do: nil, else: Map.get(map, "chime_id"))
     }
@@ -12029,7 +12137,10 @@ defmodule Inttegro.OrderDocumentDeliveryAttempt do
   def to_map(value) do
     %{
       "channel" =>
-        if(is_nil(value.channel), do: nil, else: Inttegro.DeliveryChannel.encode(value.channel)),
+        if(is_nil(value.channel),
+          do: nil,
+          else: Inttegro.Invoices.DeliveryChannel.encode(value.channel)
+        ),
       "chime_id" =>
         if(is_nil(value.chime_id), do: nil, else: Inttegro.Codec.encode(value.chime_id))
     }
@@ -12038,12 +12149,12 @@ defmodule Inttegro.OrderDocumentDeliveryAttempt do
   end
 end
 
-defmodule Inttegro.OrderDocumentDeliveryFailure do
+defmodule Inttegro.Invoices.OrderDocumentDeliveryFailure do
   @moduledoc "Typed Inttegro domain value."
   defstruct channel: nil, error: nil
 
   @type t :: %__MODULE__{
-          channel: Inttegro.DeliveryChannel.t() | nil,
+          channel: Inttegro.Invoices.DeliveryChannel.t() | nil,
           error: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -12054,7 +12165,7 @@ defmodule Inttegro.OrderDocumentDeliveryFailure do
       channel:
         if(is_nil(Map.get(map, "channel")),
           do: nil,
-          else: Inttegro.DeliveryChannel.decode(Map.get(map, "channel"))
+          else: Inttegro.Invoices.DeliveryChannel.decode(Map.get(map, "channel"))
         ),
       error: if(is_nil(Map.get(map, "error")), do: nil, else: Map.get(map, "error"))
     }
@@ -12064,7 +12175,10 @@ defmodule Inttegro.OrderDocumentDeliveryFailure do
   def to_map(value) do
     %{
       "channel" =>
-        if(is_nil(value.channel), do: nil, else: Inttegro.DeliveryChannel.encode(value.channel)),
+        if(is_nil(value.channel),
+          do: nil,
+          else: Inttegro.Invoices.DeliveryChannel.encode(value.channel)
+        ),
       "error" => if(is_nil(value.error), do: nil, else: Inttegro.Codec.encode(value.error))
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -12072,7 +12186,7 @@ defmodule Inttegro.OrderDocumentDeliveryFailure do
   end
 end
 
-defmodule Inttegro.OrderDocumentDeliveryRequest do
+defmodule Inttegro.Orders.OrderDocumentDeliveryRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct order_id: nil
@@ -12099,14 +12213,14 @@ defmodule Inttegro.OrderDocumentDeliveryRequest do
   end
 end
 
-defmodule Inttegro.OrderDocumentDeliveryResult do
+defmodule Inttegro.Orders.OrderDocumentDeliveryResult do
   @moduledoc "Typed Inttegro domain value."
   defstruct delivery: nil, error: nil, order: nil
 
   @type t :: %__MODULE__{
-          delivery: Inttegro.OrderDocumentDelivery.t() | nil,
-          error: Inttegro.Error.t() | nil,
-          order: Inttegro.Order.t() | nil
+          delivery: Inttegro.Invoices.OrderDocumentDelivery.t() | nil,
+          error: Inttegro.Errors.Error.t() | nil,
+          order: Inttegro.Orders.Order.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12116,17 +12230,17 @@ defmodule Inttegro.OrderDocumentDeliveryResult do
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.OrderDocumentDelivery.from_map(Map.get(map, "delivery"))
+          else: Inttegro.Invoices.OrderDocumentDelivery.from_map(Map.get(map, "delivery"))
         ),
       error:
         if(is_nil(Map.get(map, "error")),
           do: nil,
-          else: Inttegro.Error.from_map(Map.get(map, "error"))
+          else: Inttegro.Errors.Error.from_map(Map.get(map, "error"))
         ),
       order:
         if(is_nil(Map.get(map, "order")),
           do: nil,
-          else: Inttegro.Order.from_map(Map.get(map, "order"))
+          else: Inttegro.Orders.Order.from_map(Map.get(map, "order"))
         )
     }
   end
@@ -12144,7 +12258,7 @@ defmodule Inttegro.OrderDocumentDeliveryResult do
   end
 end
 
-defmodule Inttegro.OrderDocumentFormat do
+defmodule Inttegro.Invoices.OrderDocumentFormat do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:url]
   defstruct url: nil
@@ -12171,14 +12285,14 @@ defmodule Inttegro.OrderDocumentFormat do
   end
 end
 
-defmodule Inttegro.OrderFeeLineItem do
+defmodule Inttegro.Orders.OrderFeeLineItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type, :fee]
   defstruct type: nil, fee: nil
 
   @type t :: %__MODULE__{
           type: String.t(),
-          fee: Inttegro.OrderFeeLineItemFee.t()
+          fee: Inttegro.Orders.OrderFeeLineItemFee.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12186,7 +12300,7 @@ defmodule Inttegro.OrderFeeLineItem do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       type: Map.fetch!(map, "type"),
-      fee: Inttegro.OrderFeeLineItemFee.from_map(Map.fetch!(map, "fee"))
+      fee: Inttegro.Orders.OrderFeeLineItemFee.from_map(Map.fetch!(map, "fee"))
     }
   end
 
@@ -12201,7 +12315,7 @@ defmodule Inttegro.OrderFeeLineItem do
   end
 end
 
-defmodule Inttegro.OrderFeeLineItemFee do
+defmodule Inttegro.Orders.OrderFeeLineItemFee do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :amount, :label]
   defstruct id: nil, description: nil, tax_code: nil, amount: nil, label: nil
@@ -12210,7 +12324,7 @@ defmodule Inttegro.OrderFeeLineItemFee do
           id: String.t(),
           description: String.t() | nil,
           tax_code: String.t() | nil,
-          amount: Inttegro.Amount.t(),
+          amount: Inttegro.Money.Amount.t(),
           label: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -12222,7 +12336,7 @@ defmodule Inttegro.OrderFeeLineItemFee do
       description:
         if(is_nil(Map.get(map, "description")), do: nil, else: Map.get(map, "description")),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
-      amount: Inttegro.Amount.from_map(Map.fetch!(map, "amount")),
+      amount: Inttegro.Money.Amount.from_map(Map.fetch!(map, "amount")),
       label: Map.fetch!(map, "label")
     }
   end
@@ -12243,13 +12357,13 @@ defmodule Inttegro.OrderFeeLineItemFee do
   end
 end
 
-defmodule Inttegro.OrderInvoice do
+defmodule Inttegro.Invoices.OrderInvoice do
   @moduledoc "Typed Inttegro domain value."
   defstruct number: nil, format: nil
 
   @type t :: %__MODULE__{
           number: String.t() | nil,
-          format: Inttegro.OrderInvoiceFormat.t() | nil
+          format: Inttegro.Invoices.OrderInvoiceFormat.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12260,7 +12374,7 @@ defmodule Inttegro.OrderInvoice do
       format:
         if(is_nil(Map.get(map, "format")),
           do: nil,
-          else: Inttegro.OrderInvoiceFormat.from_map(Map.get(map, "format"))
+          else: Inttegro.Invoices.OrderInvoiceFormat.from_map(Map.get(map, "format"))
         )
     }
   end
@@ -12276,27 +12390,27 @@ defmodule Inttegro.OrderInvoice do
   end
 end
 
-defmodule Inttegro.OrderInvoiceFormat do
+defmodule Inttegro.Invoices.OrderInvoiceFormat do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:web, :pdf]
   defstruct web: nil, pdf: nil, receipt: nil
 
   @type t :: %__MODULE__{
-          web: Inttegro.OrderDocumentFormat.t(),
-          pdf: Inttegro.OrderDocumentFormat.t(),
-          receipt: Inttegro.OrderDocumentFormat.t() | nil
+          web: Inttegro.Invoices.OrderDocumentFormat.t(),
+          pdf: Inttegro.Invoices.OrderDocumentFormat.t(),
+          receipt: Inttegro.Invoices.OrderDocumentFormat.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      web: Inttegro.OrderDocumentFormat.from_map(Map.fetch!(map, "web")),
-      pdf: Inttegro.OrderDocumentFormat.from_map(Map.fetch!(map, "pdf")),
+      web: Inttegro.Invoices.OrderDocumentFormat.from_map(Map.fetch!(map, "web")),
+      pdf: Inttegro.Invoices.OrderDocumentFormat.from_map(Map.fetch!(map, "pdf")),
       receipt:
         if(is_nil(Map.get(map, "receipt")),
           do: nil,
-          else: Inttegro.OrderDocumentFormat.from_map(Map.get(map, "receipt"))
+          else: Inttegro.Invoices.OrderDocumentFormat.from_map(Map.get(map, "receipt"))
         )
     }
   end
@@ -12313,14 +12427,14 @@ defmodule Inttegro.OrderInvoiceFormat do
   end
 end
 
-defmodule Inttegro.OrderLineItemGroup do
+defmodule Inttegro.Orders.OrderLineItemGroup do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:line_items, :total]
   defstruct line_items: nil, total: nil
 
   @type t :: %__MODULE__{
           line_items: [term()],
-          total: Inttegro.Amount.t()
+          total: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12328,7 +12442,7 @@ defmodule Inttegro.OrderLineItemGroup do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       line_items: Enum.map(Map.fetch!(map, "line_items"), fn item -> item end),
-      total: Inttegro.Amount.from_map(Map.fetch!(map, "total"))
+      total: Inttegro.Money.Amount.from_map(Map.fetch!(map, "total"))
     }
   end
 
@@ -12343,14 +12457,14 @@ defmodule Inttegro.OrderLineItemGroup do
   end
 end
 
-defmodule Inttegro.OrderPage do
+defmodule Inttegro.Orders.OrderPage do
   @moduledoc "Typed Inttegro domain value."
   defstruct number: nil, size: nil, orders: nil
 
   @type t :: %__MODULE__{
           number: integer() | nil,
           size: integer() | nil,
-          orders: [Inttegro.Order.t()] | nil
+          orders: [Inttegro.Orders.Order.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12362,7 +12476,8 @@ defmodule Inttegro.OrderPage do
       orders:
         if(is_nil(Map.get(map, "orders")),
           do: nil,
-          else: Enum.map(Map.get(map, "orders"), fn item -> Inttegro.Order.from_map(item) end)
+          else:
+            Enum.map(Map.get(map, "orders"), fn item -> Inttegro.Orders.Order.from_map(item) end)
         )
     }
   end
@@ -12383,12 +12498,12 @@ defmodule Inttegro.OrderPage do
   end
 end
 
-defmodule Inttegro.OrderPayoutSettingsRequest do
+defmodule Inttegro.Orders.OrderPayoutSettingsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct destination: nil, enable_fx: nil
 
   @type t :: %__MODULE__{
-          destination: Inttegro.OrderPayoutSettingsRequestDestination.t() | nil,
+          destination: Inttegro.Orders.OrderPayoutSettingsRequestDestination.t() | nil,
           enable_fx: boolean() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -12400,7 +12515,9 @@ defmodule Inttegro.OrderPayoutSettingsRequest do
         if(is_nil(Map.get(map, "destination")),
           do: nil,
           else:
-            Inttegro.OrderPayoutSettingsRequestDestination.from_map(Map.get(map, "destination"))
+            Inttegro.Orders.OrderPayoutSettingsRequestDestination.from_map(
+              Map.get(map, "destination")
+            )
         ),
       enable_fx: if(is_nil(Map.get(map, "enable_fx")), do: nil, else: Map.get(map, "enable_fx"))
     }
@@ -12419,7 +12536,7 @@ defmodule Inttegro.OrderPayoutSettingsRequest do
   end
 end
 
-defmodule Inttegro.OrderPayoutSettingsRequestDestination do
+defmodule Inttegro.Orders.OrderPayoutSettingsRequestDestination do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:financial_account_id]
   defstruct financial_account_id: nil
@@ -12446,14 +12563,14 @@ defmodule Inttegro.OrderPayoutSettingsRequestDestination do
   end
 end
 
-defmodule Inttegro.OrderProductLineItem do
+defmodule Inttegro.Orders.OrderProductLineItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type, :product]
   defstruct type: nil, product: nil
 
   @type t :: %__MODULE__{
           type: String.t(),
-          product: Inttegro.OrderProductLineItemProduct.t()
+          product: Inttegro.Orders.OrderProductLineItemProduct.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12461,7 +12578,7 @@ defmodule Inttegro.OrderProductLineItem do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       type: Map.fetch!(map, "type"),
-      product: Inttegro.OrderProductLineItemProduct.from_map(Map.fetch!(map, "product"))
+      product: Inttegro.Orders.OrderProductLineItemProduct.from_map(Map.fetch!(map, "product"))
     }
   end
 
@@ -12476,7 +12593,7 @@ defmodule Inttegro.OrderProductLineItem do
   end
 end
 
-defmodule Inttegro.OrderProductLineItemProduct do
+defmodule Inttegro.Orders.OrderProductLineItemProduct do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :name, :price, :quantity]
   defstruct id: nil,
@@ -12503,7 +12620,7 @@ defmodule Inttegro.OrderProductLineItemProduct do
           name: String.t(),
           category: String.t() | nil,
           type: String.t() | nil,
-          price: Inttegro.Price.t(),
+          price: Inttegro.Prices.Price.t(),
           quantity: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -12526,7 +12643,7 @@ defmodule Inttegro.OrderProductLineItemProduct do
       name: Map.fetch!(map, "name"),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
       type: if(is_nil(Map.get(map, "type")), do: nil, else: Map.get(map, "type")),
-      price: Inttegro.Price.from_map(Map.fetch!(map, "price")),
+      price: Inttegro.Prices.Price.from_map(Map.fetch!(map, "price")),
       quantity: Map.fetch!(map, "quantity")
     }
   end
@@ -12564,14 +12681,14 @@ defmodule Inttegro.OrderProductLineItemProduct do
   end
 end
 
-defmodule Inttegro.OrderShippingLineItem do
+defmodule Inttegro.Orders.OrderShippingLineItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type, :shipping]
   defstruct type: nil, shipping: nil
 
   @type t :: %__MODULE__{
           type: String.t(),
-          shipping: Inttegro.OrderShippingLineItemShipping.t()
+          shipping: Inttegro.Orders.OrderShippingLineItemShipping.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12579,7 +12696,8 @@ defmodule Inttegro.OrderShippingLineItem do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       type: Map.fetch!(map, "type"),
-      shipping: Inttegro.OrderShippingLineItemShipping.from_map(Map.fetch!(map, "shipping"))
+      shipping:
+        Inttegro.Orders.OrderShippingLineItemShipping.from_map(Map.fetch!(map, "shipping"))
     }
   end
 
@@ -12594,7 +12712,7 @@ defmodule Inttegro.OrderShippingLineItem do
   end
 end
 
-defmodule Inttegro.OrderShippingLineItemShipping do
+defmodule Inttegro.Orders.OrderShippingLineItemShipping do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :fee]
   defstruct id: nil, tax_code: nil, label: nil, fee: nil
@@ -12603,7 +12721,7 @@ defmodule Inttegro.OrderShippingLineItemShipping do
           id: String.t(),
           tax_code: String.t() | nil,
           label: String.t() | nil,
-          fee: Inttegro.Amount.t()
+          fee: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -12613,7 +12731,7 @@ defmodule Inttegro.OrderShippingLineItemShipping do
       id: Map.fetch!(map, "id"),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
-      fee: Inttegro.Amount.from_map(Map.fetch!(map, "fee"))
+      fee: Inttegro.Money.Amount.from_map(Map.fetch!(map, "fee"))
     }
   end
 
@@ -12631,7 +12749,7 @@ defmodule Inttegro.OrderShippingLineItemShipping do
   end
 end
 
-defmodule Inttegro.PageBalanceTransactionsRequest do
+defmodule Inttegro.BalanceTransactions.PageBalanceTransactionsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number, :page_size]
   defstruct page_number: nil, page_size: nil
@@ -12661,7 +12779,7 @@ defmodule Inttegro.PageBalanceTransactionsRequest do
   end
 end
 
-defmodule Inttegro.PageChimesRequest do
+defmodule Inttegro.Chimes.PageChimesRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct customer_id: nil, page_number: nil, page_size: nil, recipient: nil
 
@@ -12702,7 +12820,7 @@ defmodule Inttegro.PageChimesRequest do
   end
 end
 
-defmodule Inttegro.PageCustomersRequest do
+defmodule Inttegro.Customers.PageCustomersRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -12733,13 +12851,13 @@ defmodule Inttegro.PageCustomersRequest do
   end
 end
 
-defmodule Inttegro.PageFileLinksRequest do
+defmodule Inttegro.FileLinks.PageFileLinksRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct file_id: nil, status: nil, page_number: nil, page_size: nil
 
   @type t :: %__MODULE__{
           file_id: String.t() | nil,
-          status: Inttegro.FileLinkStatus.t() | nil,
+          status: Inttegro.FileLinks.FileLinkStatus.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil
         }
@@ -12752,7 +12870,7 @@ defmodule Inttegro.PageFileLinksRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.FileLinkStatus.decode(Map.get(map, "status"))
+          else: Inttegro.FileLinks.FileLinkStatus.decode(Map.get(map, "status"))
         ),
       page_number:
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
@@ -12765,7 +12883,10 @@ defmodule Inttegro.PageFileLinksRequest do
     %{
       "file_id" => if(is_nil(value.file_id), do: nil, else: Inttegro.Codec.encode(value.file_id)),
       "status" =>
-        if(is_nil(value.status), do: nil, else: Inttegro.FileLinkStatus.encode(value.status)),
+        if(is_nil(value.status),
+          do: nil,
+          else: Inttegro.FileLinks.FileLinkStatus.encode(value.status)
+        ),
       "page_number" =>
         if(is_nil(value.page_number), do: nil, else: Inttegro.Codec.encode(value.page_number)),
       "page_size" =>
@@ -12776,7 +12897,7 @@ defmodule Inttegro.PageFileLinksRequest do
   end
 end
 
-defmodule Inttegro.PageFilesRequest do
+defmodule Inttegro.Files.PageFilesRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct purpose: nil,
             status: nil,
@@ -12787,7 +12908,7 @@ defmodule Inttegro.PageFilesRequest do
 
   @type t :: %__MODULE__{
           purpose: String.t() | nil,
-          status: Inttegro.FileStatus.t() | nil,
+          status: Inttegro.Files.FileStatus.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil,
           created_after: String.t() | nil,
@@ -12802,7 +12923,7 @@ defmodule Inttegro.PageFilesRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.FileStatus.decode(Map.get(map, "status"))
+          else: Inttegro.Files.FileStatus.decode(Map.get(map, "status"))
         ),
       page_number:
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
@@ -12819,7 +12940,7 @@ defmodule Inttegro.PageFilesRequest do
     %{
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "status" =>
-        if(is_nil(value.status), do: nil, else: Inttegro.FileStatus.encode(value.status)),
+        if(is_nil(value.status), do: nil, else: Inttegro.Files.FileStatus.encode(value.status)),
       "page_number" =>
         if(is_nil(value.page_number), do: nil, else: Inttegro.Codec.encode(value.page_number)),
       "page_size" =>
@@ -12837,15 +12958,15 @@ defmodule Inttegro.PageFilesRequest do
   end
 end
 
-defmodule Inttegro.PageMessageTemplatesRequest do
+defmodule Inttegro.MessageTemplates.PageMessageTemplatesRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct page: nil, size: nil, status: nil, channel: nil, purpose: nil, locale: nil
 
   @type t :: %__MODULE__{
           page: integer() | nil,
           size: integer() | nil,
-          status: Inttegro.MessageTemplateStatus.t() | nil,
-          channel: Inttegro.MessageTemplateChannel.t() | nil,
+          status: Inttegro.MessageTemplates.MessageTemplateStatus.t() | nil,
+          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t() | nil,
           purpose: String.t() | nil,
           locale: String.t() | nil
         }
@@ -12859,12 +12980,12 @@ defmodule Inttegro.PageMessageTemplatesRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.MessageTemplateStatus.decode(Map.get(map, "status"))
+          else: Inttegro.MessageTemplates.MessageTemplateStatus.decode(Map.get(map, "status"))
         ),
       channel:
         if(is_nil(Map.get(map, "channel")),
           do: nil,
-          else: Inttegro.MessageTemplateChannel.decode(Map.get(map, "channel"))
+          else: Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.get(map, "channel"))
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       locale: if(is_nil(Map.get(map, "locale")), do: nil, else: Map.get(map, "locale"))
@@ -12879,12 +13000,12 @@ defmodule Inttegro.PageMessageTemplatesRequest do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.MessageTemplateStatus.encode(value.status)
+          else: Inttegro.MessageTemplates.MessageTemplateStatus.encode(value.status)
         ),
       "channel" =>
         if(is_nil(value.channel),
           do: nil,
-          else: Inttegro.MessageTemplateChannel.encode(value.channel)
+          else: Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel)
         ),
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "locale" => if(is_nil(value.locale), do: nil, else: Inttegro.Codec.encode(value.locale))
@@ -12894,7 +13015,7 @@ defmodule Inttegro.PageMessageTemplatesRequest do
   end
 end
 
-defmodule Inttegro.PageOrdersRequest do
+defmodule Inttegro.Orders.PageOrdersRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_size]
   defstruct page_number: nil, customer_id: nil, page_size: nil
@@ -12931,7 +13052,7 @@ defmodule Inttegro.PageOrdersRequest do
   end
 end
 
-defmodule Inttegro.PagePayoutsRequest do
+defmodule Inttegro.Payouts.PagePayoutsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -12962,7 +13083,7 @@ defmodule Inttegro.PagePayoutsRequest do
   end
 end
 
-defmodule Inttegro.PageProductsRequest do
+defmodule Inttegro.Products.PageProductsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -12993,7 +13114,7 @@ defmodule Inttegro.PageProductsRequest do
   end
 end
 
-defmodule Inttegro.PagePurchaseIntentsRequest do
+defmodule Inttegro.PurchaseIntents.PagePurchaseIntentsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number, :page_size]
   defstruct page_number: nil, page_size: nil
@@ -13023,7 +13144,7 @@ defmodule Inttegro.PagePurchaseIntentsRequest do
   end
 end
 
-defmodule Inttegro.PageRefundsRequest do
+defmodule Inttegro.Refunds.PageRefundsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -13054,7 +13175,7 @@ defmodule Inttegro.PageRefundsRequest do
   end
 end
 
-defmodule Inttegro.PageSecretKeysRequest do
+defmodule Inttegro.Keys.PageSecretKeysRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct page: nil, number: nil, size: nil
 
@@ -13086,14 +13207,14 @@ defmodule Inttegro.PageSecretKeysRequest do
   end
 end
 
-defmodule Inttegro.PageUploadRequestsRequest do
+defmodule Inttegro.UploadRequests.PageUploadRequestsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct purpose: nil, status: nil, resource: nil, page_number: nil, page_size: nil
 
   @type t :: %__MODULE__{
           purpose: String.t() | nil,
-          status: Inttegro.UploadRequestStatus.t() | nil,
-          resource: Inttegro.FileResourceInput.t() | nil,
+          status: Inttegro.UploadRequests.UploadRequestStatus.t() | nil,
+          resource: Inttegro.Files.FileResourceInput.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil
         }
@@ -13106,12 +13227,12 @@ defmodule Inttegro.PageUploadRequestsRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.UploadRequestStatus.decode(Map.get(map, "status"))
+          else: Inttegro.UploadRequests.UploadRequestStatus.decode(Map.get(map, "status"))
         ),
       resource:
         if(is_nil(Map.get(map, "resource")),
           do: nil,
-          else: Inttegro.FileResourceInput.from_map(Map.get(map, "resource"))
+          else: Inttegro.Files.FileResourceInput.from_map(Map.get(map, "resource"))
         ),
       page_number:
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
@@ -13124,7 +13245,10 @@ defmodule Inttegro.PageUploadRequestsRequest do
     %{
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "status" =>
-        if(is_nil(value.status), do: nil, else: Inttegro.UploadRequestStatus.encode(value.status)),
+        if(is_nil(value.status),
+          do: nil,
+          else: Inttegro.UploadRequests.UploadRequestStatus.encode(value.status)
+        ),
       "resource" =>
         if(is_nil(value.resource), do: nil, else: Inttegro.Codec.encode(value.resource)),
       "page_number" =>
@@ -13137,13 +13261,13 @@ defmodule Inttegro.PageUploadRequestsRequest do
   end
 end
 
-defmodule Inttegro.PayOrderRequest do
+defmodule Inttegro.Orders.PayOrderRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct payment_method_data: nil, payment_method_id: nil, paid_out_of_band: nil, order_id: nil
 
   @type t :: %__MODULE__{
-          payment_method_data: Inttegro.PaymentMethodDataInput.t() | nil,
+          payment_method_data: Inttegro.PaymentMethods.PaymentMethodDataInput.t() | nil,
           payment_method_id: String.t() | nil,
           paid_out_of_band: boolean() | nil,
           order_id: String.t()
@@ -13156,7 +13280,10 @@ defmodule Inttegro.PayOrderRequest do
       payment_method_data:
         if(is_nil(Map.get(map, "payment_method_data")),
           do: nil,
-          else: Inttegro.PaymentMethodDataInput.from_map(Map.get(map, "payment_method_data"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodDataInput.from_map(
+              Map.get(map, "payment_method_data")
+            )
         ),
       payment_method_id:
         if(is_nil(Map.get(map, "payment_method_id")),
@@ -13197,7 +13324,7 @@ defmodule Inttegro.PayOrderRequest do
   end
 end
 
-defmodule Inttegro.Payment do
+defmodule Inttegro.Payments.Payment do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :status, :statement_descriptor, :amount, :initiated_at]
   defstruct id: nil,
@@ -13221,13 +13348,13 @@ defmodule Inttegro.Payment do
 
   @type t :: %__MODULE__{
           id: String.t(),
-          status: Inttegro.PaymentStatus.t(),
+          status: Inttegro.Payments.PaymentStatus.t(),
           statement_descriptor: String.t(),
-          amount: Inttegro.Amount.t(),
-          balance_transaction: Inttegro.BalanceTransaction.t() | nil,
-          payment_method: Inttegro.PaymentMethodSnapshot.t() | nil,
-          latest_attempt: Inttegro.PaymentAttempt.t() | nil,
-          next_action: Inttegro.PaymentNextAction.t() | nil,
+          amount: Inttegro.Money.Amount.t(),
+          balance_transaction: Inttegro.BalanceTransactions.BalanceTransaction.t() | nil,
+          payment_method: Inttegro.PaymentMethods.PaymentMethodSnapshot.t() | nil,
+          latest_attempt: Inttegro.Payments.PaymentAttempt.t() | nil,
+          next_action: Inttegro.Payments.PaymentNextAction.t() | nil,
           initiated_at: String.t(),
           executed_at: String.t() | nil,
           paid_at: String.t() | nil,
@@ -13237,7 +13364,7 @@ defmodule Inttegro.Payment do
           failed_at: String.t() | nil,
           paid_offline: boolean() | nil,
           payment_method_types: [String.t()] | nil,
-          payout_configuration: Inttegro.PaymentPayoutConfiguration.t() | nil
+          payout_configuration: Inttegro.Payments.PaymentPayoutConfiguration.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -13245,28 +13372,32 @@ defmodule Inttegro.Payment do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      status: Inttegro.PaymentStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Payments.PaymentStatus.decode(Map.fetch!(map, "status")),
       statement_descriptor: Map.fetch!(map, "statement_descriptor"),
-      amount: Inttegro.Amount.from_map(Map.fetch!(map, "amount")),
+      amount: Inttegro.Money.Amount.from_map(Map.fetch!(map, "amount")),
       balance_transaction:
         if(is_nil(Map.get(map, "balance_transaction")),
           do: nil,
-          else: Inttegro.BalanceTransaction.from_map(Map.get(map, "balance_transaction"))
+          else:
+            Inttegro.BalanceTransactions.BalanceTransaction.from_map(
+              Map.get(map, "balance_transaction")
+            )
         ),
       payment_method:
         if(is_nil(Map.get(map, "payment_method")),
           do: nil,
-          else: Inttegro.PaymentMethodSnapshot.from_map(Map.get(map, "payment_method"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodSnapshot.from_map(Map.get(map, "payment_method"))
         ),
       latest_attempt:
         if(is_nil(Map.get(map, "latest_attempt")),
           do: nil,
-          else: Inttegro.PaymentAttempt.from_map(Map.get(map, "latest_attempt"))
+          else: Inttegro.Payments.PaymentAttempt.from_map(Map.get(map, "latest_attempt"))
         ),
       next_action:
         if(is_nil(Map.get(map, "next_action")),
           do: nil,
-          else: Inttegro.PaymentNextAction.from_map(Map.get(map, "next_action"))
+          else: Inttegro.Payments.PaymentNextAction.from_map(Map.get(map, "next_action"))
         ),
       initiated_at: Map.fetch!(map, "initiated_at"),
       executed_at:
@@ -13288,7 +13419,10 @@ defmodule Inttegro.Payment do
       payout_configuration:
         if(is_nil(Map.get(map, "payout_configuration")),
           do: nil,
-          else: Inttegro.PaymentPayoutConfiguration.from_map(Map.get(map, "payout_configuration"))
+          else:
+            Inttegro.Payments.PaymentPayoutConfiguration.from_map(
+              Map.get(map, "payout_configuration")
+            )
         )
     }
   end
@@ -13297,7 +13431,7 @@ defmodule Inttegro.Payment do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "status" => Inttegro.PaymentStatus.encode(value.status),
+      "status" => Inttegro.Payments.PaymentStatus.encode(value.status),
       "statement_descriptor" => Inttegro.Codec.encode(value.statement_descriptor),
       "amount" => Inttegro.Codec.encode(value.amount),
       "balance_transaction" =>
@@ -13346,7 +13480,7 @@ defmodule Inttegro.Payment do
   end
 end
 
-defmodule Inttegro.PaymentAttempt do
+defmodule Inttegro.Payments.PaymentAttempt do
   @moduledoc "Typed Inttegro domain value."
   defstruct payment_method_type: nil,
             payment_method_id: nil,
@@ -13359,7 +13493,7 @@ defmodule Inttegro.PaymentAttempt do
           payment_method_type: String.t() | nil,
           payment_method_id: String.t() | nil,
           reference: String.t() | nil,
-          status: Inttegro.PaymentAttemptStatus.t() | nil,
+          status: Inttegro.Payments.PaymentAttemptStatus.t() | nil,
           initiated_at: String.t() | nil,
           succeeded_at: String.t() | nil
         }
@@ -13382,7 +13516,7 @@ defmodule Inttegro.PaymentAttempt do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.PaymentAttemptStatus.decode(Map.get(map, "status"))
+          else: Inttegro.Payments.PaymentAttemptStatus.decode(Map.get(map, "status"))
         ),
       initiated_at:
         if(is_nil(Map.get(map, "initiated_at")), do: nil, else: Map.get(map, "initiated_at")),
@@ -13409,7 +13543,7 @@ defmodule Inttegro.PaymentAttempt do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.PaymentAttemptStatus.encode(value.status)
+          else: Inttegro.Payments.PaymentAttemptStatus.encode(value.status)
         ),
       "initiated_at" =>
         if(is_nil(value.initiated_at), do: nil, else: Inttegro.Codec.encode(value.initiated_at)),
@@ -13421,12 +13555,10 @@ defmodule Inttegro.PaymentAttempt do
   end
 end
 
-defmodule Inttegro.PaymentMethod do
+defmodule Inttegro.PaymentMethods.PaymentMethod do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:active, :created_at, :customer_id, :id, :type]
   defstruct active: nil,
-            app_customer_local_fingerprint: nil,
-            app_local_fingerprint: nil,
             archived_at: nil,
             bank_account: nil,
             created_at: nil,
@@ -13439,28 +13571,24 @@ defmodule Inttegro.PaymentMethod do
             owner: nil,
             type: nil,
             supplied: nil,
-            universal_fingerprint: nil,
             verification: nil,
             verified_at: nil
 
   @type t :: %__MODULE__{
           active: boolean(),
-          app_customer_local_fingerprint: String.t() | nil,
-          app_local_fingerprint: String.t() | nil,
           archived_at: String.t() | nil,
-          bank_account: Inttegro.PaymentMethodBankAccount.t() | nil,
+          bank_account: Inttegro.PaymentMethods.PaymentMethodBankAccount.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer_id: String.t(),
           ephemeral: boolean() | nil,
           expires_on: String.t() | nil,
           id: String.t(),
-          mobile_money: Inttegro.PaymentMethodMobileMoney.t() | nil,
-          owner: Inttegro.PaymentMethodOwner.t() | nil,
-          type: Inttegro.PaymentMethodType.t(),
-          supplied: Inttegro.PaymentMethodSupplied.t() | nil,
-          universal_fingerprint: String.t() | nil,
-          verification: Inttegro.PaymentMethodVerification.t() | nil,
+          mobile_money: Inttegro.PaymentMethods.PaymentMethodMobileMoney.t() | nil,
+          owner: Inttegro.PaymentMethods.PaymentMethodOwner.t() | nil,
+          type: Inttegro.PaymentMethods.PaymentMethodType.t(),
+          supplied: Inttegro.PaymentMethods.PaymentMethodSupplied.t() | nil,
+          verification: Inttegro.PaymentMethods.PaymentMethodVerification.t() | nil,
           verified_at: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -13469,22 +13597,15 @@ defmodule Inttegro.PaymentMethod do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       active: Map.fetch!(map, "active"),
-      app_customer_local_fingerprint:
-        if(is_nil(Map.get(map, "app_customer_local_fingerprint")),
-          do: nil,
-          else: Map.get(map, "app_customer_local_fingerprint")
-        ),
-      app_local_fingerprint:
-        if(is_nil(Map.get(map, "app_local_fingerprint")),
-          do: nil,
-          else: Map.get(map, "app_local_fingerprint")
-        ),
       archived_at:
         if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else: Inttegro.PaymentMethodBankAccount.from_map(Map.get(map, "bank_account"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodBankAccount.from_map(
+              Map.get(map, "bank_account")
+            )
         ),
       created_at: Map.fetch!(map, "created_at"),
       custom_data:
@@ -13500,28 +13621,29 @@ defmodule Inttegro.PaymentMethod do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else: Inttegro.PaymentMethodMobileMoney.from_map(Map.get(map, "mobile_money"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodMobileMoney.from_map(
+              Map.get(map, "mobile_money")
+            )
         ),
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.PaymentMethodOwner.from_map(Map.get(map, "owner"))
+          else: Inttegro.PaymentMethods.PaymentMethodOwner.from_map(Map.get(map, "owner"))
         ),
-      type: Inttegro.PaymentMethodType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type")),
       supplied:
         if(is_nil(Map.get(map, "supplied")),
           do: nil,
-          else: Inttegro.PaymentMethodSupplied.from_map(Map.get(map, "supplied"))
-        ),
-      universal_fingerprint:
-        if(is_nil(Map.get(map, "universal_fingerprint")),
-          do: nil,
-          else: Map.get(map, "universal_fingerprint")
+          else: Inttegro.PaymentMethods.PaymentMethodSupplied.from_map(Map.get(map, "supplied"))
         ),
       verification:
         if(is_nil(Map.get(map, "verification")),
           do: nil,
-          else: Inttegro.PaymentMethodVerification.from_map(Map.get(map, "verification"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodVerification.from_map(
+              Map.get(map, "verification")
+            )
         ),
       verified_at:
         if(is_nil(Map.get(map, "verified_at")), do: nil, else: Map.get(map, "verified_at"))
@@ -13532,16 +13654,6 @@ defmodule Inttegro.PaymentMethod do
   def to_map(value) do
     %{
       "active" => Inttegro.Codec.encode(value.active),
-      "app_customer_local_fingerprint" =>
-        if(is_nil(value.app_customer_local_fingerprint),
-          do: nil,
-          else: Inttegro.Codec.encode(value.app_customer_local_fingerprint)
-        ),
-      "app_local_fingerprint" =>
-        if(is_nil(value.app_local_fingerprint),
-          do: nil,
-          else: Inttegro.Codec.encode(value.app_local_fingerprint)
-        ),
       "archived_at" =>
         if(is_nil(value.archived_at), do: nil, else: Inttegro.Codec.encode(value.archived_at)),
       "bank_account" =>
@@ -13564,14 +13676,9 @@ defmodule Inttegro.PaymentMethod do
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
       "owner" => if(is_nil(value.owner), do: nil, else: Inttegro.Codec.encode(value.owner)),
-      "type" => Inttegro.PaymentMethodType.encode(value.type),
+      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type),
       "supplied" =>
         if(is_nil(value.supplied), do: nil, else: Inttegro.Codec.encode(value.supplied)),
-      "universal_fingerprint" =>
-        if(is_nil(value.universal_fingerprint),
-          do: nil,
-          else: Inttegro.Codec.encode(value.universal_fingerprint)
-        ),
       "verification" =>
         if(is_nil(value.verification), do: nil, else: Inttegro.Codec.encode(value.verification)),
       "verified_at" =>
@@ -13582,14 +13689,15 @@ defmodule Inttegro.PaymentMethod do
   end
 end
 
-defmodule Inttegro.PaymentMethodBankAccount do
+defmodule Inttegro.PaymentMethods.PaymentMethodBankAccount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct ghana_bank_account: nil, type: nil
 
   @type t :: %__MODULE__{
-          ghana_bank_account: Inttegro.PaymentMethodBankAccountGhanaBankAccount.t() | nil,
-          type: Inttegro.BankAccountType.t()
+          ghana_bank_account:
+            Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount.t() | nil,
+          type: Inttegro.BankAccounts.BankAccountType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -13600,11 +13708,11 @@ defmodule Inttegro.PaymentMethodBankAccount do
         if(is_nil(Map.get(map, "ghana_bank_account")),
           do: nil,
           else:
-            Inttegro.PaymentMethodBankAccountGhanaBankAccount.from_map(
+            Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount.from_map(
               Map.get(map, "ghana_bank_account")
             )
         ),
-      type: Inttegro.BankAccountType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.BankAccounts.BankAccountType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -13616,14 +13724,14 @@ defmodule Inttegro.PaymentMethodBankAccount do
           do: nil,
           else: Inttegro.Codec.encode(value.ghana_bank_account)
         ),
-      "type" => Inttegro.BankAccountType.encode(value.type)
+      "type" => Inttegro.BankAccounts.BankAccountType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.PaymentMethodBankAccountGhanaBankAccount do
+defmodule Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:account_number]
   defstruct branch: nil, name: nil, account_number: nil, sort_code: nil, swift_code: nil
@@ -13665,14 +13773,14 @@ defmodule Inttegro.PaymentMethodBankAccountGhanaBankAccount do
   end
 end
 
-defmodule Inttegro.PaymentMethodDataInput do
+defmodule Inttegro.PaymentMethods.PaymentMethodDataInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type]
   defstruct mobile_money: nil, type: nil
 
   @type t :: %__MODULE__{
-          mobile_money: Inttegro.PaymentMethodDataInputMobileMoney.t() | nil,
-          type: Inttegro.PaymentMethodType.t()
+          mobile_money: Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney.t() | nil,
+          type: Inttegro.PaymentMethods.PaymentMethodType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -13682,9 +13790,12 @@ defmodule Inttegro.PaymentMethodDataInput do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else: Inttegro.PaymentMethodDataInputMobileMoney.from_map(Map.get(map, "mobile_money"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney.from_map(
+              Map.get(map, "mobile_money")
+            )
         ),
-      type: Inttegro.PaymentMethodType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -13693,20 +13804,20 @@ defmodule Inttegro.PaymentMethodDataInput do
     %{
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
-      "type" => Inttegro.PaymentMethodType.encode(value.type)
+      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.PaymentMethodDataInputMobileMoney do
+defmodule Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:network, :account_number]
   defstruct network: nil, account_number: nil
 
   @type t :: %__MODULE__{
-          network: Inttegro.MobileMoneyNetwork.t(),
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t(),
           account_number: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -13714,7 +13825,7 @@ defmodule Inttegro.PaymentMethodDataInputMobileMoney do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network")),
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network")),
       account_number: Map.fetch!(map, "account_number")
     }
   end
@@ -13722,7 +13833,7 @@ defmodule Inttegro.PaymentMethodDataInputMobileMoney do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network),
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network),
       "account_number" => Inttegro.Codec.encode(value.account_number)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -13730,7 +13841,7 @@ defmodule Inttegro.PaymentMethodDataInputMobileMoney do
   end
 end
 
-defmodule Inttegro.PaymentMethodDeletion do
+defmodule Inttegro.PaymentMethods.PaymentMethodDeletion do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:deleted, :payment_method_id]
   defstruct deleted: nil, payment_method_id: nil
@@ -13760,7 +13871,7 @@ defmodule Inttegro.PaymentMethodDeletion do
   end
 end
 
-defmodule Inttegro.PaymentMethodMobileMoney do
+defmodule Inttegro.PaymentMethods.PaymentMethodMobileMoney do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:account_number, :last4, :network]
   defstruct account_number: nil, last4: nil, network: nil
@@ -13768,7 +13879,7 @@ defmodule Inttegro.PaymentMethodMobileMoney do
   @type t :: %__MODULE__{
           account_number: String.t(),
           last4: String.t(),
-          network: Inttegro.MobileMoneyNetwork.t()
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -13777,7 +13888,7 @@ defmodule Inttegro.PaymentMethodMobileMoney do
     %__MODULE__{
       account_number: Map.fetch!(map, "account_number"),
       last4: Map.fetch!(map, "last4"),
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
     }
   end
 
@@ -13786,20 +13897,20 @@ defmodule Inttegro.PaymentMethodMobileMoney do
     %{
       "account_number" => Inttegro.Codec.encode(value.account_number),
       "last4" => Inttegro.Codec.encode(value.last4),
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network)
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.PaymentMethodOwner do
+defmodule Inttegro.PaymentMethods.PaymentMethodOwner do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name]
   defstruct address: nil, name: nil
 
   @type t :: %__MODULE__{
-          address: Inttegro.PaymentMethodOwnerAddress.t() | nil,
+          address: Inttegro.PaymentMethods.PaymentMethodOwnerAddress.t() | nil,
           name: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -13810,7 +13921,8 @@ defmodule Inttegro.PaymentMethodOwner do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else: Inttegro.PaymentMethodOwnerAddress.from_map(Map.get(map, "address"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodOwnerAddress.from_map(Map.get(map, "address"))
         ),
       name: Map.fetch!(map, "name")
     }
@@ -13827,7 +13939,7 @@ defmodule Inttegro.PaymentMethodOwner do
   end
 end
 
-defmodule Inttegro.PaymentMethodOwnerAddress do
+defmodule Inttegro.PaymentMethods.PaymentMethodOwnerAddress do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:country]
   defstruct city: nil,
@@ -13885,13 +13997,13 @@ defmodule Inttegro.PaymentMethodOwnerAddress do
   end
 end
 
-defmodule Inttegro.PaymentMethodOwnerInput do
+defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:address, :name]
   defstruct address: nil, name: nil
 
   @type t :: %__MODULE__{
-          address: Inttegro.PaymentMethodOwnerInputAddress.t(),
+          address: Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress.t(),
           name: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -13899,7 +14011,10 @@ defmodule Inttegro.PaymentMethodOwnerInput do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      address: Inttegro.PaymentMethodOwnerInputAddress.from_map(Map.fetch!(map, "address")),
+      address:
+        Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress.from_map(
+          Map.fetch!(map, "address")
+        ),
       name: Map.fetch!(map, "name")
     }
   end
@@ -13915,7 +14030,7 @@ defmodule Inttegro.PaymentMethodOwnerInput do
   end
 end
 
-defmodule Inttegro.PaymentMethodOwnerInputAddress do
+defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:country]
   defstruct city: nil,
@@ -13973,14 +14088,14 @@ defmodule Inttegro.PaymentMethodOwnerInputAddress do
   end
 end
 
-defmodule Inttegro.PaymentMethodPage do
+defmodule Inttegro.PaymentMethods.PaymentMethodPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :payment_methods, :size]
   defstruct number: nil, payment_methods: nil, size: nil
 
   @type t :: %__MODULE__{
           number: integer(),
-          payment_methods: [Inttegro.PaymentMethod.t()],
+          payment_methods: [Inttegro.PaymentMethods.PaymentMethod.t()],
           size: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -13991,7 +14106,7 @@ defmodule Inttegro.PaymentMethodPage do
       number: Map.fetch!(map, "number"),
       payment_methods:
         Enum.map(Map.fetch!(map, "payment_methods"), fn item ->
-          Inttegro.PaymentMethod.from_map(item)
+          Inttegro.PaymentMethods.PaymentMethod.from_map(item)
         end),
       size: Map.fetch!(map, "size")
     }
@@ -14010,7 +14125,7 @@ defmodule Inttegro.PaymentMethodPage do
   end
 end
 
-defmodule Inttegro.PaymentMethodPageRequest do
+defmodule Inttegro.PaymentMethods.PaymentMethodPageRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct customer_id: nil, page_number: nil, page_size: nil
 
@@ -14047,15 +14162,15 @@ defmodule Inttegro.PaymentMethodPageRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethodSettings do
+defmodule Inttegro.PaymentMethods.PaymentMethodSettings do
   @moduledoc "Typed Inttegro domain value."
   defstruct mobile_money: nil, bank_account: nil, card: nil, motito: nil
 
   @type t :: %__MODULE__{
-          mobile_money: Inttegro.PaymentMethodTypeSetting.t() | nil,
-          bank_account: Inttegro.PaymentMethodTypeSetting.t() | nil,
-          card: Inttegro.PaymentMethodTypeSetting.t() | nil,
-          motito: Inttegro.PaymentMethodTypeSetting.t() | nil
+          mobile_money: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil,
+          bank_account: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil,
+          card: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil,
+          motito: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -14065,22 +14180,28 @@ defmodule Inttegro.PaymentMethodSettings do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else: Inttegro.PaymentMethodTypeSetting.from_map(Map.get(map, "mobile_money"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(
+              Map.get(map, "mobile_money")
+            )
         ),
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else: Inttegro.PaymentMethodTypeSetting.from_map(Map.get(map, "bank_account"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(
+              Map.get(map, "bank_account")
+            )
         ),
       card:
         if(is_nil(Map.get(map, "card")),
           do: nil,
-          else: Inttegro.PaymentMethodTypeSetting.from_map(Map.get(map, "card"))
+          else: Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(Map.get(map, "card"))
         ),
       motito:
         if(is_nil(Map.get(map, "motito")),
           do: nil,
-          else: Inttegro.PaymentMethodTypeSetting.from_map(Map.get(map, "motito"))
+          else: Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(Map.get(map, "motito"))
         )
     }
   end
@@ -14100,7 +14221,7 @@ defmodule Inttegro.PaymentMethodSettings do
   end
 end
 
-defmodule Inttegro.PaymentMethodSnapshot do
+defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :created_at, :customer_id, :type, :verified]
   defstruct id: nil,
@@ -14116,13 +14237,13 @@ defmodule Inttegro.PaymentMethodSnapshot do
 
   @type t :: %__MODULE__{
           id: String.t(),
-          bank_account: Inttegro.PaymentMethodSnapshotBankAccount.t() | nil,
+          bank_account: Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount.t() | nil,
           card: %{optional(String.t()) => term()} | nil,
           created_at: String.t(),
           customer_id: String.t(),
-          mobile_money: Inttegro.PaymentMethodSnapshotMobileMoney.t() | nil,
-          owner: Inttegro.PaymentMethodSnapshotOwner.t() | nil,
-          type: Inttegro.PaymentMethodType.t(),
+          mobile_money: Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney.t() | nil,
+          owner: Inttegro.PaymentMethods.PaymentMethodSnapshotOwner.t() | nil,
+          type: Inttegro.PaymentMethods.PaymentMethodType.t(),
           verified: boolean(),
           verified_at: String.t() | nil
         }
@@ -14135,7 +14256,10 @@ defmodule Inttegro.PaymentMethodSnapshot do
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else: Inttegro.PaymentMethodSnapshotBankAccount.from_map(Map.get(map, "bank_account"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount.from_map(
+              Map.get(map, "bank_account")
+            )
         ),
       card:
         if(is_nil(Map.get(map, "card")),
@@ -14147,14 +14271,17 @@ defmodule Inttegro.PaymentMethodSnapshot do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else: Inttegro.PaymentMethodSnapshotMobileMoney.from_map(Map.get(map, "mobile_money"))
+          else:
+            Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney.from_map(
+              Map.get(map, "mobile_money")
+            )
         ),
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.PaymentMethodSnapshotOwner.from_map(Map.get(map, "owner"))
+          else: Inttegro.PaymentMethods.PaymentMethodSnapshotOwner.from_map(Map.get(map, "owner"))
         ),
-      type: Inttegro.PaymentMethodType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type")),
       verified: Map.fetch!(map, "verified"),
       verified_at:
         if(is_nil(Map.get(map, "verified_at")), do: nil, else: Map.get(map, "verified_at"))
@@ -14180,7 +14307,7 @@ defmodule Inttegro.PaymentMethodSnapshot do
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
       "owner" => if(is_nil(value.owner), do: nil, else: Inttegro.Codec.encode(value.owner)),
-      "type" => Inttegro.PaymentMethodType.encode(value.type),
+      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type),
       "verified" => Inttegro.Codec.encode(value.verified),
       "verified_at" =>
         if(is_nil(value.verified_at), do: nil, else: Inttegro.Codec.encode(value.verified_at))
@@ -14190,14 +14317,15 @@ defmodule Inttegro.PaymentMethodSnapshot do
   end
 end
 
-defmodule Inttegro.PaymentMethodSnapshotBankAccount do
+defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct type: nil, ghana_bank_account: nil
 
   @type t :: %__MODULE__{
           type: String.t(),
-          ghana_bank_account: Inttegro.PaymentMethodSnapshotGhanaBankAccount.t() | nil
+          ghana_bank_account:
+            Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -14209,7 +14337,7 @@ defmodule Inttegro.PaymentMethodSnapshotBankAccount do
         if(is_nil(Map.get(map, "ghana_bank_account")),
           do: nil,
           else:
-            Inttegro.PaymentMethodSnapshotGhanaBankAccount.from_map(
+            Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount.from_map(
               Map.get(map, "ghana_bank_account")
             )
         )
@@ -14231,7 +14359,7 @@ defmodule Inttegro.PaymentMethodSnapshotBankAccount do
   end
 end
 
-defmodule Inttegro.PaymentMethodSnapshotGhanaBankAccount do
+defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:account_number]
   defstruct account_number: nil, branch: nil, name: nil, sort_code: nil, swift_code: nil
@@ -14273,13 +14401,13 @@ defmodule Inttegro.PaymentMethodSnapshotGhanaBankAccount do
   end
 end
 
-defmodule Inttegro.PaymentMethodSnapshotMobileMoney do
+defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:network, :account_number, :last4]
   defstruct network: nil, account_number: nil, last4: nil
 
   @type t :: %__MODULE__{
-          network: Inttegro.MobileMoneyNetwork.t(),
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t(),
           account_number: String.t(),
           last4: String.t()
         }
@@ -14288,7 +14416,7 @@ defmodule Inttegro.PaymentMethodSnapshotMobileMoney do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network")),
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network")),
       account_number: Map.fetch!(map, "account_number"),
       last4: Map.fetch!(map, "last4")
     }
@@ -14297,7 +14425,7 @@ defmodule Inttegro.PaymentMethodSnapshotMobileMoney do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network),
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network),
       "account_number" => Inttegro.Codec.encode(value.account_number),
       "last4" => Inttegro.Codec.encode(value.last4)
     }
@@ -14306,14 +14434,14 @@ defmodule Inttegro.PaymentMethodSnapshotMobileMoney do
   end
 end
 
-defmodule Inttegro.PaymentMethodSnapshotOwner do
+defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotOwner do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name]
   defstruct name: nil, address: nil
 
   @type t :: %__MODULE__{
           name: String.t(),
-          address: Inttegro.OrderAddress.t() | nil
+          address: Inttegro.Orders.OrderAddress.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -14324,7 +14452,7 @@ defmodule Inttegro.PaymentMethodSnapshotOwner do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else: Inttegro.OrderAddress.from_map(Map.get(map, "address"))
+          else: Inttegro.Orders.OrderAddress.from_map(Map.get(map, "address"))
         )
     }
   end
@@ -14340,7 +14468,7 @@ defmodule Inttegro.PaymentMethodSnapshotOwner do
   end
 end
 
-defmodule Inttegro.PaymentMethodSupplied do
+defmodule Inttegro.PaymentMethods.PaymentMethodSupplied do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:by, :supplied_at]
   defstruct attempt_id: nil,
@@ -14393,13 +14521,13 @@ defmodule Inttegro.PaymentMethodSupplied do
   end
 end
 
-defmodule Inttegro.PaymentMethodTypeSetting do
+defmodule Inttegro.PaymentMethods.PaymentMethodTypeSetting do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:enabled, :confirms_use]
   defstruct type: nil, name: nil, description: nil, enabled: nil, confirms_use: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.PaymentMethodType.t() | nil,
+          type: Inttegro.PaymentMethods.PaymentMethodType.t() | nil,
           name: String.t() | nil,
           description: String.t() | nil,
           enabled: boolean(),
@@ -14413,7 +14541,7 @@ defmodule Inttegro.PaymentMethodTypeSetting do
       type:
         if(is_nil(Map.get(map, "type")),
           do: nil,
-          else: Inttegro.PaymentMethodType.decode(Map.get(map, "type"))
+          else: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.get(map, "type"))
         ),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       description:
@@ -14427,7 +14555,10 @@ defmodule Inttegro.PaymentMethodTypeSetting do
   def to_map(value) do
     %{
       "type" =>
-        if(is_nil(value.type), do: nil, else: Inttegro.PaymentMethodType.encode(value.type)),
+        if(is_nil(value.type),
+          do: nil,
+          else: Inttegro.PaymentMethods.PaymentMethodType.encode(value.type)
+        ),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "description" =>
         if(is_nil(value.description), do: nil, else: Inttegro.Codec.encode(value.description)),
@@ -14439,7 +14570,7 @@ defmodule Inttegro.PaymentMethodTypeSetting do
   end
 end
 
-defmodule Inttegro.PaymentMethodVerification do
+defmodule Inttegro.PaymentMethods.PaymentMethodVerification do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:initiated_at, :request_id, :type]
   defstruct completed_at: nil, initiated_at: nil, mechanism: nil, request_id: nil, type: nil
@@ -14481,7 +14612,7 @@ defmodule Inttegro.PaymentMethodVerification do
   end
 end
 
-defmodule Inttegro.PaymentMethodVerificationSession do
+defmodule Inttegro.PaymentMethods.PaymentMethodVerificationSession do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:payment_method_id, :status]
   defstruct payment_method_id: nil,
@@ -14539,28 +14670,31 @@ defmodule Inttegro.PaymentMethodVerificationSession do
   end
 end
 
-defmodule Inttegro.PaymentNextAction do
+defmodule Inttegro.Payments.PaymentNextAction do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct type: nil, confirm_payment: nil, execute: nil, redirect: nil, authorize: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.PaymentNextActionType.t(),
-          confirm_payment: Inttegro.PaymentNextActionConfirmPayment.t() | nil,
+          type: Inttegro.Payments.PaymentNextActionType.t(),
+          confirm_payment: Inttegro.Payments.PaymentNextActionConfirmPayment.t() | nil,
           execute: %{optional(String.t()) => term()} | nil,
-          redirect: Inttegro.PaymentNextActionRedirect.t() | nil,
-          authorize: Inttegro.PaymentNextActionAuthorize.t() | nil
+          redirect: Inttegro.Payments.PaymentNextActionRedirect.t() | nil,
+          authorize: Inttegro.Payments.PaymentNextActionAuthorize.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.PaymentNextActionType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Payments.PaymentNextActionType.decode(Map.fetch!(map, "type")),
       confirm_payment:
         if(is_nil(Map.get(map, "confirm_payment")),
           do: nil,
-          else: Inttegro.PaymentNextActionConfirmPayment.from_map(Map.get(map, "confirm_payment"))
+          else:
+            Inttegro.Payments.PaymentNextActionConfirmPayment.from_map(
+              Map.get(map, "confirm_payment")
+            )
         ),
       execute:
         if(is_nil(Map.get(map, "execute")),
@@ -14570,12 +14704,12 @@ defmodule Inttegro.PaymentNextAction do
       redirect:
         if(is_nil(Map.get(map, "redirect")),
           do: nil,
-          else: Inttegro.PaymentNextActionRedirect.from_map(Map.get(map, "redirect"))
+          else: Inttegro.Payments.PaymentNextActionRedirect.from_map(Map.get(map, "redirect"))
         ),
       authorize:
         if(is_nil(Map.get(map, "authorize")),
           do: nil,
-          else: Inttegro.PaymentNextActionAuthorize.from_map(Map.get(map, "authorize"))
+          else: Inttegro.Payments.PaymentNextActionAuthorize.from_map(Map.get(map, "authorize"))
         )
     }
   end
@@ -14583,7 +14717,7 @@ defmodule Inttegro.PaymentNextAction do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.PaymentNextActionType.encode(value.type),
+      "type" => Inttegro.Payments.PaymentNextActionType.encode(value.type),
       "confirm_payment" =>
         if(is_nil(value.confirm_payment),
           do: nil,
@@ -14607,7 +14741,7 @@ defmodule Inttegro.PaymentNextAction do
   end
 end
 
-defmodule Inttegro.PaymentNextActionAuthorize do
+defmodule Inttegro.Payments.PaymentNextActionAuthorize do
   @moduledoc "Typed Inttegro domain value."
   defstruct beneficiary: nil, scheme: nil, expires_at: nil
 
@@ -14643,15 +14777,15 @@ defmodule Inttegro.PaymentNextActionAuthorize do
   end
 end
 
-defmodule Inttegro.PaymentNextActionConfirmPayment do
+defmodule Inttegro.Payments.PaymentNextActionConfirmPayment do
   @moduledoc "Typed Inttegro domain value."
   defstruct expires_at: nil, scheme: nil, request: nil, attempt: nil, confirmed: nil, status: nil
 
   @type t :: %__MODULE__{
           expires_at: String.t() | nil,
           scheme: String.t() | nil,
-          request: Inttegro.PaymentNextActionConfirmPaymentRequest.t() | nil,
-          attempt: Inttegro.PaymentNextActionConfirmPaymentAttempt.t() | nil,
+          request: Inttegro.Payments.PaymentNextActionConfirmPaymentRequest.t() | nil,
+          attempt: Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt.t() | nil,
           confirmed: boolean() | nil,
           status: String.t() | nil
         }
@@ -14666,12 +14800,18 @@ defmodule Inttegro.PaymentNextActionConfirmPayment do
       request:
         if(is_nil(Map.get(map, "request")),
           do: nil,
-          else: Inttegro.PaymentNextActionConfirmPaymentRequest.from_map(Map.get(map, "request"))
+          else:
+            Inttegro.Payments.PaymentNextActionConfirmPaymentRequest.from_map(
+              Map.get(map, "request")
+            )
         ),
       attempt:
         if(is_nil(Map.get(map, "attempt")),
           do: nil,
-          else: Inttegro.PaymentNextActionConfirmPaymentAttempt.from_map(Map.get(map, "attempt"))
+          else:
+            Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt.from_map(
+              Map.get(map, "attempt")
+            )
         ),
       confirmed: if(is_nil(Map.get(map, "confirmed")), do: nil, else: Map.get(map, "confirmed")),
       status: if(is_nil(Map.get(map, "status")), do: nil, else: Map.get(map, "status"))
@@ -14695,7 +14835,7 @@ defmodule Inttegro.PaymentNextActionConfirmPayment do
   end
 end
 
-defmodule Inttegro.PaymentNextActionConfirmPaymentAttempt do
+defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt do
   @moduledoc "Typed Inttegro domain value."
   defstruct status: nil,
             confirmed: nil,
@@ -14746,14 +14886,14 @@ defmodule Inttegro.PaymentNextActionConfirmPaymentAttempt do
   end
 end
 
-defmodule Inttegro.PaymentNextActionConfirmPaymentRequest do
+defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentRequest do
   @moduledoc "Typed Inttegro domain value."
   defstruct id: nil, recipient: nil, sent_via: nil, token_size: nil, sender_id: nil
 
   @type t :: %__MODULE__{
           id: String.t() | nil,
           recipient: String.t() | nil,
-          sent_via: Inttegro.PaymentConfirmationChannel.t() | nil,
+          sent_via: Inttegro.Payments.PaymentConfirmationChannel.t() | nil,
           token_size: integer() | nil,
           sender_id: String.t() | nil
         }
@@ -14767,7 +14907,7 @@ defmodule Inttegro.PaymentNextActionConfirmPaymentRequest do
       sent_via:
         if(is_nil(Map.get(map, "sent_via")),
           do: nil,
-          else: Inttegro.PaymentConfirmationChannel.decode(Map.get(map, "sent_via"))
+          else: Inttegro.Payments.PaymentConfirmationChannel.decode(Map.get(map, "sent_via"))
         ),
       token_size:
         if(is_nil(Map.get(map, "token_size")), do: nil, else: Map.get(map, "token_size")),
@@ -14784,7 +14924,7 @@ defmodule Inttegro.PaymentNextActionConfirmPaymentRequest do
       "sent_via" =>
         if(is_nil(value.sent_via),
           do: nil,
-          else: Inttegro.PaymentConfirmationChannel.encode(value.sent_via)
+          else: Inttegro.Payments.PaymentConfirmationChannel.encode(value.sent_via)
         ),
       "token_size" =>
         if(is_nil(value.token_size), do: nil, else: Inttegro.Codec.encode(value.token_size)),
@@ -14796,14 +14936,14 @@ defmodule Inttegro.PaymentNextActionConfirmPaymentRequest do
   end
 end
 
-defmodule Inttegro.PaymentNextActionRedirect do
+defmodule Inttegro.Payments.PaymentNextActionRedirect do
   @moduledoc "Typed Inttegro domain value."
   defstruct redirect_url: nil, valid_until: nil, latest_visit: nil
 
   @type t :: %__MODULE__{
           redirect_url: String.t() | nil,
           valid_until: String.t() | nil,
-          latest_visit: Inttegro.PaymentNextActionRedirectLatestVisit.t() | nil
+          latest_visit: Inttegro.Payments.PaymentNextActionRedirectLatestVisit.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -14818,7 +14958,9 @@ defmodule Inttegro.PaymentNextActionRedirect do
         if(is_nil(Map.get(map, "latest_visit")),
           do: nil,
           else:
-            Inttegro.PaymentNextActionRedirectLatestVisit.from_map(Map.get(map, "latest_visit"))
+            Inttegro.Payments.PaymentNextActionRedirectLatestVisit.from_map(
+              Map.get(map, "latest_visit")
+            )
         )
     }
   end
@@ -14838,7 +14980,7 @@ defmodule Inttegro.PaymentNextActionRedirect do
   end
 end
 
-defmodule Inttegro.PaymentNextActionRedirectLatestVisit do
+defmodule Inttegro.Payments.PaymentNextActionRedirectLatestVisit do
   @moduledoc "Typed Inttegro domain value."
   defstruct user_agent: nil, ip_address: nil, at: nil
 
@@ -14874,13 +15016,13 @@ defmodule Inttegro.PaymentNextActionRedirectLatestVisit do
   end
 end
 
-defmodule Inttegro.PaymentPayoutConfiguration do
+defmodule Inttegro.Payments.PaymentPayoutConfiguration do
   @moduledoc "Typed Inttegro domain value."
   defstruct enable_fx: nil, destination: nil
 
   @type t :: %__MODULE__{
           enable_fx: boolean() | nil,
-          destination: Inttegro.PaymentPayoutConfigurationDestination.t() | nil
+          destination: Inttegro.Payments.PaymentPayoutConfigurationDestination.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -14892,7 +15034,9 @@ defmodule Inttegro.PaymentPayoutConfiguration do
         if(is_nil(Map.get(map, "destination")),
           do: nil,
           else:
-            Inttegro.PaymentPayoutConfigurationDestination.from_map(Map.get(map, "destination"))
+            Inttegro.Payments.PaymentPayoutConfigurationDestination.from_map(
+              Map.get(map, "destination")
+            )
         )
     }
   end
@@ -14910,7 +15054,7 @@ defmodule Inttegro.PaymentPayoutConfiguration do
   end
 end
 
-defmodule Inttegro.PaymentPayoutConfigurationDestination do
+defmodule Inttegro.Payments.PaymentPayoutConfigurationDestination do
   @moduledoc "Typed Inttegro domain value."
   defstruct financial_account_id: nil
 
@@ -14944,7 +15088,7 @@ defmodule Inttegro.PaymentPayoutConfigurationDestination do
   end
 end
 
-defmodule Inttegro.Payout do
+defmodule Inttegro.Payouts.Payout do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:destination_id, :execute_after, :id, :initiated_at, :max_amount, :status]
   defstruct amount: nil,
@@ -14971,12 +15115,12 @@ defmodule Inttegro.Payout do
             succeeded_at: nil
 
   @type t :: %__MODULE__{
-          amount: Inttegro.Amount.t() | nil,
+          amount: Inttegro.Money.Amount.t() | nil,
           balance_transactions: [String.t()] | nil,
           canceled_at: String.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           destination_id: String.t(),
-          error: Inttegro.PayoutError.t() | nil,
+          error: Inttegro.Payouts.PayoutError.t() | nil,
           execute_after: String.t(),
           executed_by: String.t() | nil,
           expected_at: String.t() | nil,
@@ -14984,14 +15128,14 @@ defmodule Inttegro.Payout do
           id: String.t(),
           initiated_at: String.t(),
           initiated_by: String.t() | nil,
-          max_amount: Inttegro.Amount.t(),
+          max_amount: Inttegro.Money.Amount.t(),
           reference: String.t() | nil,
           schedule_id: String.t() | nil,
           scheduled_at: String.t() | nil,
           scheduled_by: String.t() | nil,
           sent_at: String.t() | nil,
           source_id: String.t() | nil,
-          status: Inttegro.PayoutStatus.t(),
+          status: Inttegro.Payouts.PayoutStatus.t(),
           succeeded_at: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -15002,7 +15146,7 @@ defmodule Inttegro.Payout do
       amount:
         if(is_nil(Map.get(map, "amount")),
           do: nil,
-          else: Inttegro.Amount.from_map(Map.get(map, "amount"))
+          else: Inttegro.Money.Amount.from_map(Map.get(map, "amount"))
         ),
       balance_transactions:
         if(is_nil(Map.get(map, "balance_transactions")),
@@ -15020,7 +15164,7 @@ defmodule Inttegro.Payout do
       error:
         if(is_nil(Map.get(map, "error")),
           do: nil,
-          else: Inttegro.PayoutError.from_map(Map.get(map, "error"))
+          else: Inttegro.Payouts.PayoutError.from_map(Map.get(map, "error"))
         ),
       execute_after: Map.fetch!(map, "execute_after"),
       executed_by:
@@ -15032,7 +15176,7 @@ defmodule Inttegro.Payout do
       initiated_at: Map.fetch!(map, "initiated_at"),
       initiated_by:
         if(is_nil(Map.get(map, "initiated_by")), do: nil, else: Map.get(map, "initiated_by")),
-      max_amount: Inttegro.Amount.from_map(Map.fetch!(map, "max_amount")),
+      max_amount: Inttegro.Money.Amount.from_map(Map.fetch!(map, "max_amount")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       schedule_id:
         if(is_nil(Map.get(map, "schedule_id")), do: nil, else: Map.get(map, "schedule_id")),
@@ -15042,7 +15186,7 @@ defmodule Inttegro.Payout do
         if(is_nil(Map.get(map, "scheduled_by")), do: nil, else: Map.get(map, "scheduled_by")),
       sent_at: if(is_nil(Map.get(map, "sent_at")), do: nil, else: Map.get(map, "sent_at")),
       source_id: if(is_nil(Map.get(map, "source_id")), do: nil, else: Map.get(map, "source_id")),
-      status: Inttegro.PayoutStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Payouts.PayoutStatus.decode(Map.fetch!(map, "status")),
       succeeded_at:
         if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at"))
     }
@@ -15092,7 +15236,7 @@ defmodule Inttegro.Payout do
       "sent_at" => if(is_nil(value.sent_at), do: nil, else: Inttegro.Codec.encode(value.sent_at)),
       "source_id" =>
         if(is_nil(value.source_id), do: nil, else: Inttegro.Codec.encode(value.source_id)),
-      "status" => Inttegro.PayoutStatus.encode(value.status),
+      "status" => Inttegro.Payouts.PayoutStatus.encode(value.status),
       "succeeded_at" =>
         if(is_nil(value.succeeded_at), do: nil, else: Inttegro.Codec.encode(value.succeeded_at))
     }
@@ -15101,7 +15245,7 @@ defmodule Inttegro.Payout do
   end
 end
 
-defmodule Inttegro.PayoutError do
+defmodule Inttegro.Payouts.PayoutError do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:cause, :message, :occurred_at, :type]
   defstruct cause: nil, message: nil, occurred_at: nil, type: nil
@@ -15137,7 +15281,7 @@ defmodule Inttegro.PayoutError do
   end
 end
 
-defmodule Inttegro.PayoutPage do
+defmodule Inttegro.Payouts.PayoutPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size]
   defstruct number: nil, size: nil, payouts: nil
@@ -15145,7 +15289,7 @@ defmodule Inttegro.PayoutPage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          payouts: [Inttegro.Payout.t()] | nil
+          payouts: [Inttegro.Payouts.Payout.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -15157,7 +15301,10 @@ defmodule Inttegro.PayoutPage do
       payouts:
         if(is_nil(Map.get(map, "payouts")),
           do: nil,
-          else: Enum.map(Map.get(map, "payouts"), fn item -> Inttegro.Payout.from_map(item) end)
+          else:
+            Enum.map(Map.get(map, "payouts"), fn item ->
+              Inttegro.Payouts.Payout.from_map(item)
+            end)
         )
     }
   end
@@ -15178,7 +15325,7 @@ defmodule Inttegro.PayoutPage do
   end
 end
 
-defmodule Inttegro.PayoutSettingsLookup do
+defmodule Inttegro.Payouts.PayoutSettingsLookup do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:destinations]
   defstruct destinations: nil, fx_enabled: nil, schedule: nil
@@ -15186,7 +15333,7 @@ defmodule Inttegro.PayoutSettingsLookup do
   @type t :: %__MODULE__{
           destinations: %{optional(String.t()) => String.t()},
           fx_enabled: boolean() | nil,
-          schedule: Inttegro.PayoutSettingsLookupSchedule.t() | nil
+          schedule: Inttegro.Payouts.PayoutSettingsLookupSchedule.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -15199,7 +15346,7 @@ defmodule Inttegro.PayoutSettingsLookup do
       schedule:
         if(is_nil(Map.get(map, "schedule")),
           do: nil,
-          else: Inttegro.PayoutSettingsLookupSchedule.from_map(Map.get(map, "schedule"))
+          else: Inttegro.Payouts.PayoutSettingsLookupSchedule.from_map(Map.get(map, "schedule"))
         )
     }
   end
@@ -15221,7 +15368,7 @@ defmodule Inttegro.PayoutSettingsLookup do
   end
 end
 
-defmodule Inttegro.PayoutSettingsLookupSchedule do
+defmodule Inttegro.Payouts.PayoutSettingsLookupSchedule do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:aging_spec, :description, :interval, :name, :schedule_on, :type]
   defstruct aging_spec: nil,
@@ -15232,7 +15379,7 @@ defmodule Inttegro.PayoutSettingsLookupSchedule do
             type: nil
 
   @type t :: %__MODULE__{
-          aging_spec: Inttegro.PayoutSettingsLookupScheduleAgingSpec.t(),
+          aging_spec: Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec.t(),
           description: String.t(),
           interval: String.t(),
           name: String.t(),
@@ -15245,7 +15392,9 @@ defmodule Inttegro.PayoutSettingsLookupSchedule do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       aging_spec:
-        Inttegro.PayoutSettingsLookupScheduleAgingSpec.from_map(Map.fetch!(map, "aging_spec")),
+        Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec.from_map(
+          Map.fetch!(map, "aging_spec")
+        ),
       description: Map.fetch!(map, "description"),
       interval: Map.fetch!(map, "interval"),
       name: Map.fetch!(map, "name"),
@@ -15269,7 +15418,7 @@ defmodule Inttegro.PayoutSettingsLookupSchedule do
   end
 end
 
-defmodule Inttegro.PayoutSettingsLookupScheduleAgingSpec do
+defmodule Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:abide, :label, :t_plus]
   defstruct abide: nil, label: nil, t_plus: nil
@@ -15302,14 +15451,14 @@ defmodule Inttegro.PayoutSettingsLookupScheduleAgingSpec do
   end
 end
 
-defmodule Inttegro.PayoutSettingsMutation do
+defmodule Inttegro.Payouts.PayoutSettingsMutation do
   @moduledoc "Typed Inttegro domain value."
   defstruct destinations: nil, id: nil, schedule: nil
 
   @type t :: %__MODULE__{
           destinations: %{optional(String.t()) => String.t()} | nil,
           id: String.t() | nil,
-          schedule: Inttegro.PayoutSettingsMutationSchedule.t() | nil
+          schedule: Inttegro.Payouts.PayoutSettingsMutationSchedule.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -15325,7 +15474,7 @@ defmodule Inttegro.PayoutSettingsMutation do
       schedule:
         if(is_nil(Map.get(map, "schedule")),
           do: nil,
-          else: Inttegro.PayoutSettingsMutationSchedule.from_map(Map.get(map, "schedule"))
+          else: Inttegro.Payouts.PayoutSettingsMutationSchedule.from_map(Map.get(map, "schedule"))
         )
     }
   end
@@ -15350,7 +15499,7 @@ defmodule Inttegro.PayoutSettingsMutation do
   end
 end
 
-defmodule Inttegro.PayoutSettingsMutationSchedule do
+defmodule Inttegro.Payouts.PayoutSettingsMutationSchedule do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:description, :id, :interval, :name, :schedule_on, :spec, :type]
   defstruct description: nil,
@@ -15367,7 +15516,7 @@ defmodule Inttegro.PayoutSettingsMutationSchedule do
           interval: String.t(),
           name: String.t(),
           schedule_on: String.t(),
-          spec: Inttegro.PayoutSettingsMutationScheduleSpec.t(),
+          spec: Inttegro.Payouts.PayoutSettingsMutationScheduleSpec.t(),
           type: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -15380,7 +15529,7 @@ defmodule Inttegro.PayoutSettingsMutationSchedule do
       interval: Map.fetch!(map, "interval"),
       name: Map.fetch!(map, "name"),
       schedule_on: Map.fetch!(map, "schedule_on"),
-      spec: Inttegro.PayoutSettingsMutationScheduleSpec.from_map(Map.fetch!(map, "spec")),
+      spec: Inttegro.Payouts.PayoutSettingsMutationScheduleSpec.from_map(Map.fetch!(map, "spec")),
       type: Map.fetch!(map, "type")
     }
   end
@@ -15401,7 +15550,7 @@ defmodule Inttegro.PayoutSettingsMutationSchedule do
   end
 end
 
-defmodule Inttegro.PayoutSettingsMutationScheduleSpec do
+defmodule Inttegro.Payouts.PayoutSettingsMutationScheduleSpec do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:abide, :id, :label, :t_plus]
   defstruct abide: nil, id: nil, label: nil, t_plus: nil
@@ -15437,13 +15586,13 @@ defmodule Inttegro.PayoutSettingsMutationScheduleSpec do
   end
 end
 
-defmodule Inttegro.Price do
+defmodule Inttegro.Prices.Price do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
 
   @type t :: %__MODULE__{
-          currency: Inttegro.Currency.t(),
+          currency: Inttegro.Money.Currency.t(),
           value: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -15451,7 +15600,7 @@ defmodule Inttegro.Price do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      currency: Inttegro.Currency.decode(Map.fetch!(map, "currency")),
+      currency: Inttegro.Money.Currency.decode(Map.fetch!(map, "currency")),
       value: Map.fetch!(map, "value")
     }
   end
@@ -15459,7 +15608,7 @@ defmodule Inttegro.Price do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "currency" => Inttegro.Currency.encode(value.currency),
+      "currency" => Inttegro.Money.Currency.encode(value.currency),
       "value" => Inttegro.Codec.encode(value.value)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -15467,7 +15616,7 @@ defmodule Inttegro.Price do
   end
 end
 
-defmodule Inttegro.PriceActionRequest do
+defmodule Inttegro.Prices.PriceActionRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:price_id]
   defstruct price_id: nil
@@ -15494,7 +15643,7 @@ defmodule Inttegro.PriceActionRequest do
   end
 end
 
-defmodule Inttegro.PriceEmbeddedProduct do
+defmodule Inttegro.Prices.PriceEmbeddedProduct do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :active, :created_at, :name, :type]
   defstruct id: nil,
@@ -15522,7 +15671,7 @@ defmodule Inttegro.PriceEmbeddedProduct do
           about: String.t() | nil,
           active: boolean(),
           archived_at: String.t() | nil,
-          attributes: [Inttegro.PriceEmbeddedProductAttributesItem.t()] | nil,
+          attributes: [Inttegro.Prices.PriceEmbeddedProductAttributesItem.t()] | nil,
           category: String.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
@@ -15534,7 +15683,7 @@ defmodule Inttegro.PriceEmbeddedProduct do
           reference: String.t() | nil,
           shipment: %{optional(String.t()) => term()} | nil,
           tax_code: String.t() | nil,
-          type: Inttegro.ProductType.t(),
+          type: Inttegro.Products.ProductType.t(),
           unit_dim: String.t() | nil,
           updated_at: String.t() | nil
         }
@@ -15553,7 +15702,7 @@ defmodule Inttegro.PriceEmbeddedProduct do
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.PriceEmbeddedProductAttributesItem.from_map(item)
+              Inttegro.Prices.PriceEmbeddedProductAttributesItem.from_map(item)
             end)
         ),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
@@ -15585,7 +15734,7 @@ defmodule Inttegro.PriceEmbeddedProduct do
           else: Map.new(Map.get(map, "shipment"), fn {key, value} -> {key, value} end)
         ),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
-      type: Inttegro.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at"))
@@ -15649,7 +15798,7 @@ defmodule Inttegro.PriceEmbeddedProduct do
         ),
       "tax_code" =>
         if(is_nil(value.tax_code), do: nil, else: Inttegro.Codec.encode(value.tax_code)),
-      "type" => Inttegro.ProductType.encode(value.type),
+      "type" => Inttegro.Products.ProductType.encode(value.type),
       "unit_dim" =>
         if(is_nil(value.unit_dim), do: nil, else: Inttegro.Codec.encode(value.unit_dim)),
       "updated_at" =>
@@ -15660,7 +15809,7 @@ defmodule Inttegro.PriceEmbeddedProduct do
   end
 end
 
-defmodule Inttegro.PriceEmbeddedProductAttributesItem do
+defmodule Inttegro.Prices.PriceEmbeddedProductAttributesItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -15690,14 +15839,14 @@ defmodule Inttegro.PriceEmbeddedProductAttributesItem do
   end
 end
 
-defmodule Inttegro.PricePage do
+defmodule Inttegro.Prices.PricePage do
   @moduledoc "Typed Inttegro domain value."
   defstruct number: nil, size: nil, prices: nil
 
   @type t :: %__MODULE__{
           number: integer() | nil,
           size: integer() | nil,
-          prices: [Inttegro.CatalogPrice.t()] | nil
+          prices: [Inttegro.Prices.CatalogPrice.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -15710,7 +15859,9 @@ defmodule Inttegro.PricePage do
         if(is_nil(Map.get(map, "prices")),
           do: nil,
           else:
-            Enum.map(Map.get(map, "prices"), fn item -> Inttegro.CatalogPrice.from_map(item) end)
+            Enum.map(Map.get(map, "prices"), fn item ->
+              Inttegro.Prices.CatalogPrice.from_map(item)
+            end)
         )
     }
   end
@@ -15731,7 +15882,7 @@ defmodule Inttegro.PricePage do
   end
 end
 
-defmodule Inttegro.PricePageItem do
+defmodule Inttegro.Prices.PricePageItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :active, :nominal, :created_at]
   defstruct id: nil,
@@ -15750,9 +15901,9 @@ defmodule Inttegro.PricePageItem do
           label: String.t() | nil,
           about: String.t() | nil,
           active: boolean(),
-          nominal: Inttegro.Amount.t(),
+          nominal: Inttegro.Money.Amount.t(),
           product_id: String.t() | nil,
-          product: Inttegro.PriceEmbeddedProduct.t() | nil,
+          product: Inttegro.Prices.PriceEmbeddedProduct.t() | nil,
           created_at: String.t(),
           updated_at: String.t() | nil,
           archived_at: String.t() | nil
@@ -15766,13 +15917,13 @@ defmodule Inttegro.PricePageItem do
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
       active: Map.fetch!(map, "active"),
-      nominal: Inttegro.Amount.from_map(Map.fetch!(map, "nominal")),
+      nominal: Inttegro.Money.Amount.from_map(Map.fetch!(map, "nominal")),
       product_id:
         if(is_nil(Map.get(map, "product_id")), do: nil, else: Map.get(map, "product_id")),
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.PriceEmbeddedProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.Prices.PriceEmbeddedProduct.from_map(Map.get(map, "product"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       updated_at:
@@ -15804,7 +15955,7 @@ defmodule Inttegro.PricePageItem do
   end
 end
 
-defmodule Inttegro.PricePageRequest do
+defmodule Inttegro.Prices.PricePageRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct page_number: nil, page_size: nil, product_id: nil
 
@@ -15841,13 +15992,13 @@ defmodule Inttegro.PricePageRequest do
   end
 end
 
-defmodule Inttegro.PriceParams do
+defmodule Inttegro.Prices.PriceParams do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
 
   @type t :: %__MODULE__{
-          currency: Inttegro.Currency.t(),
+          currency: Inttegro.Money.Currency.t(),
           value: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -15855,7 +16006,7 @@ defmodule Inttegro.PriceParams do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      currency: Inttegro.Currency.decode(Map.fetch!(map, "currency")),
+      currency: Inttegro.Money.Currency.decode(Map.fetch!(map, "currency")),
       value: Map.fetch!(map, "value")
     }
   end
@@ -15863,7 +16014,7 @@ defmodule Inttegro.PriceParams do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "currency" => Inttegro.Currency.encode(value.currency),
+      "currency" => Inttegro.Money.Currency.encode(value.currency),
       "value" => Inttegro.Codec.encode(value.value)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -15871,7 +16022,7 @@ defmodule Inttegro.PriceParams do
   end
 end
 
-defmodule Inttegro.Product do
+defmodule Inttegro.Products.Product do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :type, :name, :active, :created_at]
   defstruct id: nil,
@@ -15897,18 +16048,18 @@ defmodule Inttegro.Product do
 
   @type t :: %__MODULE__{
           id: String.t(),
-          type: Inttegro.ProductType.t(),
+          type: Inttegro.Products.ProductType.t(),
           reference: String.t() | nil,
           name: String.t(),
           description: String.t() | nil,
           about: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
-          prices: [Inttegro.ProductPriceSummary.t()] | nil,
-          shipment: Inttegro.ProductShipment.t() | nil,
-          media: Inttegro.ProductMedia.t() | nil,
-          attributes: [Inttegro.ProductAttribute.t()] | nil,
-          dimensions: Inttegro.ProductDimensions.t() | nil,
+          prices: [Inttegro.Products.ProductPriceSummary.t()] | nil,
+          shipment: Inttegro.Products.ProductShipment.t() | nil,
+          media: Inttegro.Products.ProductMedia.t() | nil,
+          attributes: [Inttegro.Products.ProductAttribute.t()] | nil,
+          dimensions: Inttegro.Products.ProductDimensions.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           active: boolean(),
           created_at: String.t(),
@@ -15923,7 +16074,7 @@ defmodule Inttegro.Product do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      type: Inttegro.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       name: Map.fetch!(map, "name"),
       description:
@@ -15936,31 +16087,31 @@ defmodule Inttegro.Product do
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.ProductPriceSummary.from_map(item)
+              Inttegro.Products.ProductPriceSummary.from_map(item)
             end)
         ),
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Inttegro.ProductShipment.from_map(Map.get(map, "shipment"))
+          else: Inttegro.Products.ProductShipment.from_map(Map.get(map, "shipment"))
         ),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.ProductMedia.from_map(Map.get(map, "media"))
+          else: Inttegro.Products.ProductMedia.from_map(Map.get(map, "media"))
         ),
       attributes:
         if(is_nil(Map.get(map, "attributes")),
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.ProductAttribute.from_map(item)
+              Inttegro.Products.ProductAttribute.from_map(item)
             end)
         ),
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.ProductDimensions.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.ProductDimensions.from_map(Map.get(map, "dimensions"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -15983,7 +16134,7 @@ defmodule Inttegro.Product do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "type" => Inttegro.ProductType.encode(value.type),
+      "type" => Inttegro.Products.ProductType.encode(value.type),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "name" => Inttegro.Codec.encode(value.name),
@@ -16033,7 +16184,7 @@ defmodule Inttegro.Product do
   end
 end
 
-defmodule Inttegro.ProductActionRequest do
+defmodule Inttegro.Products.ProductActionRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:product_id]
   defstruct product_id: nil
@@ -16060,7 +16211,7 @@ defmodule Inttegro.ProductActionRequest do
   end
 end
 
-defmodule Inttegro.ProductAttribute do
+defmodule Inttegro.Products.ProductAttribute do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -16090,7 +16241,7 @@ defmodule Inttegro.ProductAttribute do
   end
 end
 
-defmodule Inttegro.ProductAttributeInput do
+defmodule Inttegro.Products.ProductAttributeInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -16120,14 +16271,14 @@ defmodule Inttegro.ProductAttributeInput do
   end
 end
 
-defmodule Inttegro.ProductDimensions do
+defmodule Inttegro.Products.ProductDimensions do
   @moduledoc "Typed Inttegro domain value."
   defstruct physical: nil, digital: nil, custom: nil
 
   @type t :: %__MODULE__{
-          physical: Inttegro.ProductDimensionsPhysical.t() | nil,
-          digital: Inttegro.ProductDimensionsDigital.t() | nil,
-          custom: Inttegro.ProductDimensionsCustom.t() | nil
+          physical: Inttegro.Products.ProductDimensionsPhysical.t() | nil,
+          digital: Inttegro.Products.ProductDimensionsDigital.t() | nil,
+          custom: Inttegro.Products.ProductDimensionsCustom.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -16137,17 +16288,17 @@ defmodule Inttegro.ProductDimensions do
       physical:
         if(is_nil(Map.get(map, "physical")),
           do: nil,
-          else: Inttegro.ProductDimensionsPhysical.from_map(Map.get(map, "physical"))
+          else: Inttegro.Products.ProductDimensionsPhysical.from_map(Map.get(map, "physical"))
         ),
       digital:
         if(is_nil(Map.get(map, "digital")),
           do: nil,
-          else: Inttegro.ProductDimensionsDigital.from_map(Map.get(map, "digital"))
+          else: Inttegro.Products.ProductDimensionsDigital.from_map(Map.get(map, "digital"))
         ),
       custom:
         if(is_nil(Map.get(map, "custom")),
           do: nil,
-          else: Inttegro.ProductDimensionsCustom.from_map(Map.get(map, "custom"))
+          else: Inttegro.Products.ProductDimensionsCustom.from_map(Map.get(map, "custom"))
         )
     }
   end
@@ -16165,7 +16316,7 @@ defmodule Inttegro.ProductDimensions do
   end
 end
 
-defmodule Inttegro.ProductDimensionsCustom do
+defmodule Inttegro.Products.ProductDimensionsCustom do
   @moduledoc "Typed Inttegro domain value."
   defstruct size_unit: nil, size: nil, details: nil
 
@@ -16209,7 +16360,7 @@ defmodule Inttegro.ProductDimensionsCustom do
   end
 end
 
-defmodule Inttegro.ProductDimensionsDigital do
+defmodule Inttegro.Products.ProductDimensionsDigital do
   @moduledoc "Typed Inttegro domain value."
   defstruct bytes: nil, size_unit: nil, size: nil
 
@@ -16242,14 +16393,14 @@ defmodule Inttegro.ProductDimensionsDigital do
   end
 end
 
-defmodule Inttegro.ProductDimensionsInput do
+defmodule Inttegro.Products.ProductDimensionsInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct physical: nil, digital: nil, custom: nil
 
   @type t :: %__MODULE__{
-          physical: Inttegro.ProductDimensionsInputPhysical.t() | nil,
-          digital: Inttegro.ProductDimensionsInputDigital.t() | nil,
-          custom: Inttegro.ProductDimensionsInputCustom.t() | nil
+          physical: Inttegro.Products.ProductDimensionsInputPhysical.t() | nil,
+          digital: Inttegro.Products.ProductDimensionsInputDigital.t() | nil,
+          custom: Inttegro.Products.ProductDimensionsInputCustom.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -16259,17 +16410,18 @@ defmodule Inttegro.ProductDimensionsInput do
       physical:
         if(is_nil(Map.get(map, "physical")),
           do: nil,
-          else: Inttegro.ProductDimensionsInputPhysical.from_map(Map.get(map, "physical"))
+          else:
+            Inttegro.Products.ProductDimensionsInputPhysical.from_map(Map.get(map, "physical"))
         ),
       digital:
         if(is_nil(Map.get(map, "digital")),
           do: nil,
-          else: Inttegro.ProductDimensionsInputDigital.from_map(Map.get(map, "digital"))
+          else: Inttegro.Products.ProductDimensionsInputDigital.from_map(Map.get(map, "digital"))
         ),
       custom:
         if(is_nil(Map.get(map, "custom")),
           do: nil,
-          else: Inttegro.ProductDimensionsInputCustom.from_map(Map.get(map, "custom"))
+          else: Inttegro.Products.ProductDimensionsInputCustom.from_map(Map.get(map, "custom"))
         )
     }
   end
@@ -16287,7 +16439,7 @@ defmodule Inttegro.ProductDimensionsInput do
   end
 end
 
-defmodule Inttegro.ProductDimensionsInputCustom do
+defmodule Inttegro.Products.ProductDimensionsInputCustom do
   @moduledoc "Typed Inttegro request parameters."
   defstruct size_unit: nil, size: nil, details: nil
 
@@ -16331,7 +16483,7 @@ defmodule Inttegro.ProductDimensionsInputCustom do
   end
 end
 
-defmodule Inttegro.ProductDimensionsInputDigital do
+defmodule Inttegro.Products.ProductDimensionsInputDigital do
   @moduledoc "Typed Inttegro request parameters."
   defstruct bytes: nil, size_unit: nil, size: nil
 
@@ -16364,7 +16516,7 @@ defmodule Inttegro.ProductDimensionsInputDigital do
   end
 end
 
-defmodule Inttegro.ProductDimensionsInputPhysical do
+defmodule Inttegro.Products.ProductDimensionsInputPhysical do
   @moduledoc "Typed Inttegro request parameters."
   defstruct weight_unit: nil,
             weight: nil,
@@ -16422,7 +16574,7 @@ defmodule Inttegro.ProductDimensionsInputPhysical do
   end
 end
 
-defmodule Inttegro.ProductDimensionsPhysical do
+defmodule Inttegro.Products.ProductDimensionsPhysical do
   @moduledoc "Typed Inttegro domain value."
   defstruct weight_unit: nil,
             weight: nil,
@@ -16480,29 +16632,29 @@ defmodule Inttegro.ProductDimensionsPhysical do
   end
 end
 
-defmodule Inttegro.ProductLineItemInput do
+defmodule Inttegro.Orders.ProductLineItemInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type, :product]
   defstruct type: nil, product: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.LineItemType.t(),
-          product: Inttegro.ProductLineItemInputProduct.t()
+          type: Inttegro.Orders.LineItemType.t(),
+          product: Inttegro.Orders.ProductLineItemInputProduct.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.LineItemType.decode(Map.fetch!(map, "type")),
-      product: Inttegro.ProductLineItemInputProduct.decode(Map.fetch!(map, "product"))
+      type: Inttegro.Orders.LineItemType.decode(Map.fetch!(map, "type")),
+      product: Inttegro.Orders.ProductLineItemInputProduct.decode(Map.fetch!(map, "product"))
     }
   end
 
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.LineItemType.encode(value.type),
+      "type" => Inttegro.Orders.LineItemType.encode(value.type),
       "product" => Inttegro.Codec.encode(value.product)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -16510,7 +16662,7 @@ defmodule Inttegro.ProductLineItemInput do
   end
 end
 
-defmodule Inttegro.ProductMedia do
+defmodule Inttegro.Products.ProductMedia do
   @moduledoc "Typed Inttegro domain value."
   defstruct hero_image: nil,
             thumbnail: nil,
@@ -16597,7 +16749,7 @@ defmodule Inttegro.ProductMedia do
   end
 end
 
-defmodule Inttegro.ProductMediaInput do
+defmodule Inttegro.Products.ProductMediaInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct hero_image: nil,
             thumbnail: nil,
@@ -16684,14 +16836,14 @@ defmodule Inttegro.ProductMediaInput do
   end
 end
 
-defmodule Inttegro.ProductPage do
+defmodule Inttegro.Products.ProductPage do
   @moduledoc "Typed Inttegro domain value."
   defstruct number: nil, size: nil, products: nil
 
   @type t :: %__MODULE__{
           number: integer() | nil,
           size: integer() | nil,
-          products: [Inttegro.Product.t()] | nil
+          products: [Inttegro.Products.Product.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -16703,7 +16855,10 @@ defmodule Inttegro.ProductPage do
       products:
         if(is_nil(Map.get(map, "products")),
           do: nil,
-          else: Enum.map(Map.get(map, "products"), fn item -> Inttegro.Product.from_map(item) end)
+          else:
+            Enum.map(Map.get(map, "products"), fn item ->
+              Inttegro.Products.Product.from_map(item)
+            end)
         )
     }
   end
@@ -16724,7 +16879,7 @@ defmodule Inttegro.ProductPage do
   end
 end
 
-defmodule Inttegro.ProductPriceSummary do
+defmodule Inttegro.Products.ProductPriceSummary do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :active, :nominal]
   defstruct id: nil, active: nil, label: nil, nominal: nil
@@ -16733,7 +16888,7 @@ defmodule Inttegro.ProductPriceSummary do
           id: String.t(),
           active: boolean(),
           label: String.t() | nil,
-          nominal: Inttegro.Amount.t()
+          nominal: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -16743,7 +16898,7 @@ defmodule Inttegro.ProductPriceSummary do
       id: Map.fetch!(map, "id"),
       active: Map.fetch!(map, "active"),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
-      nominal: Inttegro.Amount.from_map(Map.fetch!(map, "nominal"))
+      nominal: Inttegro.Money.Amount.from_map(Map.fetch!(map, "nominal"))
     }
   end
 
@@ -16760,13 +16915,13 @@ defmodule Inttegro.ProductPriceSummary do
   end
 end
 
-defmodule Inttegro.ProductShipment do
+defmodule Inttegro.Products.ProductShipment do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct type: nil, delivery: nil, download: nil, render: nil, service: nil, stream: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.ProductShipmentType.t(),
+          type: Inttegro.Products.ProductShipmentType.t(),
           delivery: %{optional(String.t()) => term()} | nil,
           download: %{optional(String.t()) => term()} | nil,
           render: %{optional(String.t()) => term()} | nil,
@@ -16778,7 +16933,7 @@ defmodule Inttegro.ProductShipment do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.ProductShipmentType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ProductShipmentType.decode(Map.fetch!(map, "type")),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
@@ -16810,7 +16965,7 @@ defmodule Inttegro.ProductShipment do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.ProductShipmentType.encode(value.type),
+      "type" => Inttegro.Products.ProductShipmentType.encode(value.type),
       "delivery" =>
         if(is_nil(value.delivery),
           do: nil,
@@ -16857,40 +17012,40 @@ defmodule Inttegro.ProductShipment do
   end
 end
 
-defmodule Inttegro.ProductShipmentInput do
+defmodule Inttegro.Products.ProductShipmentInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type]
   defstruct type: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.ProductShipmentInputType.t()
+          type: Inttegro.Products.ProductShipmentInputType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.ProductShipmentInputType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.Products.ProductShipmentInputType.decode(Map.fetch!(map, "type"))
     }
   end
 
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.ProductShipmentInputType.encode(value.type)
+      "type" => Inttegro.Products.ProductShipmentInputType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.PublicFileStorage do
+defmodule Inttegro.Files.PublicFileStorage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:encoding, :stored_size]
   defstruct encoding: nil, stored_size: nil
 
   @type t :: %__MODULE__{
-          encoding: Inttegro.FileStorageEncoding.t(),
+          encoding: Inttegro.Files.FileStorageEncoding.t(),
           stored_size: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -16898,7 +17053,7 @@ defmodule Inttegro.PublicFileStorage do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      encoding: Inttegro.FileStorageEncoding.decode(Map.fetch!(map, "encoding")),
+      encoding: Inttegro.Files.FileStorageEncoding.decode(Map.fetch!(map, "encoding")),
       stored_size: Map.fetch!(map, "stored_size")
     }
   end
@@ -16906,7 +17061,7 @@ defmodule Inttegro.PublicFileStorage do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "encoding" => Inttegro.FileStorageEncoding.encode(value.encoding),
+      "encoding" => Inttegro.Files.FileStorageEncoding.encode(value.encoding),
       "stored_size" => Inttegro.Codec.encode(value.stored_size)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -16914,7 +17069,7 @@ defmodule Inttegro.PublicFileStorage do
   end
 end
 
-defmodule Inttegro.PurchaseIntent do
+defmodule Inttegro.PurchaseIntents.PurchaseIntent do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:allow_variants, :created_at, :id, :quantity, :status, :usage]
   defstruct activity: nil,
@@ -16933,20 +17088,20 @@ defmodule Inttegro.PurchaseIntent do
             variant_set: nil
 
   @type t :: %__MODULE__{
-          activity: Inttegro.PurchaseIntentActivity.t() | nil,
+          activity: Inttegro.PurchaseIntents.PurchaseIntentActivity.t() | nil,
           allow_variants: boolean(),
           created_at: String.t(),
           expires_at: String.t() | nil,
           id: String.t(),
           inactive_at: String.t() | nil,
-          merchant: Inttegro.PurchaseIntentMerchant.t() | nil,
-          price: Inttegro.PurchaseIntentPrice.t() | nil,
-          product: Inttegro.PurchaseIntentProduct.t() | nil,
-          quantity: Inttegro.PurchaseIntentQuantity.t(),
-          status: Inttegro.PurchaseIntentStatus.t(),
+          merchant: Inttegro.PurchaseIntents.PurchaseIntentMerchant.t() | nil,
+          price: Inttegro.PurchaseIntents.PurchaseIntentPrice.t() | nil,
+          product: Inttegro.PurchaseIntents.PurchaseIntentProduct.t() | nil,
+          quantity: Inttegro.PurchaseIntents.PurchaseIntentQuantity.t(),
+          status: Inttegro.PurchaseIntents.PurchaseIntentStatus.t(),
           updated_at: String.t() | nil,
-          usage: Inttegro.PurchaseIntentUsage.t(),
-          variant_set: Inttegro.PurchaseIntentVariantSet.t() | nil
+          usage: Inttegro.PurchaseIntents.PurchaseIntentUsage.t(),
+          variant_set: Inttegro.PurchaseIntents.PurchaseIntentVariantSet.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -16956,7 +17111,7 @@ defmodule Inttegro.PurchaseIntent do
       activity:
         if(is_nil(Map.get(map, "activity")),
           do: nil,
-          else: Inttegro.PurchaseIntentActivity.from_map(Map.get(map, "activity"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentActivity.from_map(Map.get(map, "activity"))
         ),
       allow_variants: Map.fetch!(map, "allow_variants"),
       created_at: Map.fetch!(map, "created_at"),
@@ -16968,27 +17123,31 @@ defmodule Inttegro.PurchaseIntent do
       merchant:
         if(is_nil(Map.get(map, "merchant")),
           do: nil,
-          else: Inttegro.PurchaseIntentMerchant.from_map(Map.get(map, "merchant"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentMerchant.from_map(Map.get(map, "merchant"))
         ),
       price:
         if(is_nil(Map.get(map, "price")),
           do: nil,
-          else: Inttegro.PurchaseIntentPrice.from_map(Map.get(map, "price"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentPrice.from_map(Map.get(map, "price"))
         ),
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.PurchaseIntentProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentProduct.from_map(Map.get(map, "product"))
         ),
-      quantity: Inttegro.PurchaseIntentQuantity.from_map(Map.fetch!(map, "quantity")),
-      status: Inttegro.PurchaseIntentStatus.decode(Map.fetch!(map, "status")),
+      quantity:
+        Inttegro.PurchaseIntents.PurchaseIntentQuantity.from_map(Map.fetch!(map, "quantity")),
+      status: Inttegro.PurchaseIntents.PurchaseIntentStatus.decode(Map.fetch!(map, "status")),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
-      usage: Inttegro.PurchaseIntentUsage.from_map(Map.fetch!(map, "usage")),
+      usage: Inttegro.PurchaseIntents.PurchaseIntentUsage.from_map(Map.fetch!(map, "usage")),
       variant_set:
         if(is_nil(Map.get(map, "variant_set")),
           do: nil,
-          else: Inttegro.PurchaseIntentVariantSet.from_map(Map.get(map, "variant_set"))
+          else:
+            Inttegro.PurchaseIntents.PurchaseIntentVariantSet.from_map(
+              Map.get(map, "variant_set")
+            )
         )
     }
   end
@@ -17010,7 +17169,7 @@ defmodule Inttegro.PurchaseIntent do
       "price" => if(is_nil(value.price), do: nil, else: Inttegro.Codec.encode(value.price)),
       "product" => if(is_nil(value.product), do: nil, else: Inttegro.Codec.encode(value.product)),
       "quantity" => Inttegro.Codec.encode(value.quantity),
-      "status" => Inttegro.PurchaseIntentStatus.encode(value.status),
+      "status" => Inttegro.PurchaseIntents.PurchaseIntentStatus.encode(value.status),
       "updated_at" =>
         if(is_nil(value.updated_at), do: nil, else: Inttegro.Codec.encode(value.updated_at)),
       "usage" => Inttegro.Codec.encode(value.usage),
@@ -17022,12 +17181,12 @@ defmodule Inttegro.PurchaseIntent do
   end
 end
 
-defmodule Inttegro.PurchaseIntentActivity do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentActivity do
   @moduledoc "Typed Inttegro domain value."
   defstruct recent: nil
 
   @type t :: %__MODULE__{
-          recent: [Inttegro.PurchaseIntentActivity.t()] | nil
+          recent: [Inttegro.PurchaseIntents.PurchaseIntentActivity.t()] | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17039,7 +17198,7 @@ defmodule Inttegro.PurchaseIntentActivity do
           do: nil,
           else:
             Enum.map(Map.get(map, "recent"), fn item ->
-              Inttegro.PurchaseIntentActivity.from_map(item)
+              Inttegro.PurchaseIntents.PurchaseIntentActivity.from_map(item)
             end)
         )
     }
@@ -17059,7 +17218,7 @@ defmodule Inttegro.PurchaseIntentActivity do
   end
 end
 
-defmodule Inttegro.PurchaseIntentMerchant do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentMerchant do
   @moduledoc "Typed Inttegro domain value."
   defstruct app_id: nil, app_name: nil, organization_id: nil, organization_name: nil
 
@@ -17111,7 +17270,7 @@ defmodule Inttegro.PurchaseIntentMerchant do
   end
 end
 
-defmodule Inttegro.PurchaseIntentOriginalPrice do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:active, :nominal]
   defstruct active: nil, id: nil, label: nil, nominal: nil
@@ -17120,7 +17279,7 @@ defmodule Inttegro.PurchaseIntentOriginalPrice do
           active: boolean(),
           id: String.t() | nil,
           label: String.t() | nil,
-          nominal: Inttegro.Amount.t()
+          nominal: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17130,7 +17289,7 @@ defmodule Inttegro.PurchaseIntentOriginalPrice do
       active: Map.fetch!(map, "active"),
       id: if(is_nil(Map.get(map, "id")), do: nil, else: Map.get(map, "id")),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
-      nominal: Inttegro.Amount.from_map(Map.fetch!(map, "nominal"))
+      nominal: Inttegro.Money.Amount.from_map(Map.fetch!(map, "nominal"))
     }
   end
 
@@ -17147,14 +17306,14 @@ defmodule Inttegro.PurchaseIntentOriginalPrice do
   end
 end
 
-defmodule Inttegro.PurchaseIntentPage do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :purchase_intents, :size]
   defstruct number: nil, purchase_intents: nil, size: nil
 
   @type t :: %__MODULE__{
           number: integer(),
-          purchase_intents: [Inttegro.PurchaseIntent.t()],
+          purchase_intents: [Inttegro.PurchaseIntents.PurchaseIntent.t()],
           size: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -17165,7 +17324,7 @@ defmodule Inttegro.PurchaseIntentPage do
       number: Map.fetch!(map, "number"),
       purchase_intents:
         Enum.map(Map.fetch!(map, "purchase_intents"), fn item ->
-          Inttegro.PurchaseIntent.from_map(item)
+          Inttegro.PurchaseIntents.PurchaseIntent.from_map(item)
         end),
       size: Map.fetch!(map, "size")
     }
@@ -17184,7 +17343,7 @@ defmodule Inttegro.PurchaseIntentPage do
   end
 end
 
-defmodule Inttegro.PurchaseIntentPrice do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentPrice do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:active, :nominal]
   defstruct active: nil, id: nil, label: nil, nominal: nil, original: nil
@@ -17193,8 +17352,8 @@ defmodule Inttegro.PurchaseIntentPrice do
           active: boolean(),
           id: String.t() | nil,
           label: String.t() | nil,
-          nominal: Inttegro.Amount.t(),
-          original: Inttegro.PurchaseIntentOriginalPrice.t() | nil
+          nominal: Inttegro.Money.Amount.t(),
+          original: Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17204,11 +17363,14 @@ defmodule Inttegro.PurchaseIntentPrice do
       active: Map.fetch!(map, "active"),
       id: if(is_nil(Map.get(map, "id")), do: nil, else: Map.get(map, "id")),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
-      nominal: Inttegro.Amount.from_map(Map.fetch!(map, "nominal")),
+      nominal: Inttegro.Money.Amount.from_map(Map.fetch!(map, "nominal")),
       original:
         if(is_nil(Map.get(map, "original")),
           do: nil,
-          else: Inttegro.PurchaseIntentOriginalPrice.from_map(Map.get(map, "original"))
+          else:
+            Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice.from_map(
+              Map.get(map, "original")
+            )
         )
     }
   end
@@ -17228,7 +17390,7 @@ defmodule Inttegro.PurchaseIntentPrice do
   end
 end
 
-defmodule Inttegro.PurchaseIntentProduct do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :active, :created_at, :name, :type]
   defstruct id: nil,
@@ -17258,7 +17420,7 @@ defmodule Inttegro.PurchaseIntentProduct do
           about: String.t() | nil,
           active: boolean(),
           archived_at: String.t() | nil,
-          attributes: [Inttegro.PurchaseIntentProductAttributesItem.t()] | nil,
+          attributes: [Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem.t()] | nil,
           category: String.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
@@ -17270,10 +17432,10 @@ defmodule Inttegro.PurchaseIntentProduct do
           reference: String.t() | nil,
           shipment: %{optional(String.t()) => term()} | nil,
           tax_code: String.t() | nil,
-          type: Inttegro.ProductType.t(),
+          type: Inttegro.Products.ProductType.t(),
           unit_dim: String.t() | nil,
           updated_at: String.t() | nil,
-          prices: [Inttegro.ProductPriceSummary.t()] | nil,
+          prices: [Inttegro.Products.ProductPriceSummary.t()] | nil,
           variant_set_id: String.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -17291,7 +17453,7 @@ defmodule Inttegro.PurchaseIntentProduct do
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.PurchaseIntentProductAttributesItem.from_map(item)
+              Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem.from_map(item)
             end)
         ),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
@@ -17323,7 +17485,7 @@ defmodule Inttegro.PurchaseIntentProduct do
           else: Map.new(Map.get(map, "shipment"), fn {key, value} -> {key, value} end)
         ),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
-      type: Inttegro.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
@@ -17332,7 +17494,7 @@ defmodule Inttegro.PurchaseIntentProduct do
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.ProductPriceSummary.from_map(item)
+              Inttegro.Products.ProductPriceSummary.from_map(item)
             end)
         ),
       variant_set_id:
@@ -17397,7 +17559,7 @@ defmodule Inttegro.PurchaseIntentProduct do
         ),
       "tax_code" =>
         if(is_nil(value.tax_code), do: nil, else: Inttegro.Codec.encode(value.tax_code)),
-      "type" => Inttegro.ProductType.encode(value.type),
+      "type" => Inttegro.Products.ProductType.encode(value.type),
       "unit_dim" =>
         if(is_nil(value.unit_dim), do: nil, else: Inttegro.Codec.encode(value.unit_dim)),
       "updated_at" =>
@@ -17418,7 +17580,7 @@ defmodule Inttegro.PurchaseIntentProduct do
   end
 end
 
-defmodule Inttegro.PurchaseIntentProductAttributesItem do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -17448,7 +17610,7 @@ defmodule Inttegro.PurchaseIntentProductAttributesItem do
   end
 end
 
-defmodule Inttegro.PurchaseIntentQuantity do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentQuantity do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:min]
   defstruct min: nil, max: nil
@@ -17478,13 +17640,13 @@ defmodule Inttegro.PurchaseIntentQuantity do
   end
 end
 
-defmodule Inttegro.PurchaseIntentUsage do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentUsage do
   @moduledoc "Typed Inttegro domain value."
   defstruct multi_use: nil, order: nil, single_use: nil
 
   @type t :: %__MODULE__{
           multi_use: boolean() | nil,
-          order: Inttegro.PurchaseIntentUsageOrder.t() | nil,
+          order: Inttegro.PurchaseIntents.PurchaseIntentUsageOrder.t() | nil,
           single_use: boolean() | nil
         }
   @spec new!(map() | keyword()) :: t()
@@ -17496,7 +17658,7 @@ defmodule Inttegro.PurchaseIntentUsage do
       order:
         if(is_nil(Map.get(map, "order")),
           do: nil,
-          else: Inttegro.PurchaseIntentUsageOrder.from_map(Map.get(map, "order"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentUsageOrder.from_map(Map.get(map, "order"))
         ),
       single_use:
         if(is_nil(Map.get(map, "single_use")), do: nil, else: Map.get(map, "single_use"))
@@ -17517,7 +17679,7 @@ defmodule Inttegro.PurchaseIntentUsage do
   end
 end
 
-defmodule Inttegro.PurchaseIntentUsageOrder do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentUsageOrder do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :id]
   defstruct created_at: nil, id: nil
@@ -17547,7 +17709,7 @@ defmodule Inttegro.PurchaseIntentUsageOrder do
   end
 end
 
-defmodule Inttegro.PurchaseIntentVariant do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentVariant do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:active, :product_id, :variant_values]
   defstruct active: nil,
@@ -17560,8 +17722,8 @@ defmodule Inttegro.PurchaseIntentVariant do
   @type t :: %__MODULE__{
           active: boolean(),
           position: integer() | nil,
-          price: Inttegro.PurchaseIntentPrice.t() | nil,
-          product: Inttegro.PurchaseIntentProduct.t() | nil,
+          price: Inttegro.PurchaseIntents.PurchaseIntentPrice.t() | nil,
+          product: Inttegro.PurchaseIntents.PurchaseIntentProduct.t() | nil,
           product_id: String.t(),
           variant_values: %{optional(String.t()) => String.t()}
         }
@@ -17575,12 +17737,12 @@ defmodule Inttegro.PurchaseIntentVariant do
       price:
         if(is_nil(Map.get(map, "price")),
           do: nil,
-          else: Inttegro.PurchaseIntentPrice.from_map(Map.get(map, "price"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentPrice.from_map(Map.get(map, "price"))
         ),
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.PurchaseIntentProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.PurchaseIntents.PurchaseIntentProduct.from_map(Map.get(map, "product"))
         ),
       product_id: Map.fetch!(map, "product_id"),
       variant_values:
@@ -17607,7 +17769,7 @@ defmodule Inttegro.PurchaseIntentVariant do
   end
 end
 
-defmodule Inttegro.PurchaseIntentVariantAxis do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantAxis do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:key, :label, :position]
   defstruct key: nil, label: nil, position: nil
@@ -17640,7 +17802,7 @@ defmodule Inttegro.PurchaseIntentVariantAxis do
   end
 end
 
-defmodule Inttegro.PurchaseIntentVariantSet do
+defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantSet do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:active, :id, :name, :variant_axes, :variants]
   defstruct active: nil,
@@ -17659,8 +17821,8 @@ defmodule Inttegro.PurchaseIntentVariantSet do
           id: String.t(),
           name: String.t(),
           reference: String.t() | nil,
-          variant_axes: [Inttegro.PurchaseIntentVariantAxis.t()],
-          variants: [Inttegro.PurchaseIntentVariant.t()]
+          variant_axes: [Inttegro.PurchaseIntents.PurchaseIntentVariantAxis.t()],
+          variants: [Inttegro.PurchaseIntents.PurchaseIntentVariant.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17680,11 +17842,11 @@ defmodule Inttegro.PurchaseIntentVariantSet do
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       variant_axes:
         Enum.map(Map.fetch!(map, "variant_axes"), fn item ->
-          Inttegro.PurchaseIntentVariantAxis.from_map(item)
+          Inttegro.PurchaseIntents.PurchaseIntentVariantAxis.from_map(item)
         end),
       variants:
         Enum.map(Map.fetch!(map, "variants"), fn item ->
-          Inttegro.PurchaseIntentVariant.from_map(item)
+          Inttegro.PurchaseIntents.PurchaseIntentVariant.from_map(item)
         end)
     }
   end
@@ -17712,7 +17874,7 @@ defmodule Inttegro.PurchaseIntentVariantSet do
   end
 end
 
-defmodule Inttegro.Refund do
+defmodule Inttegro.Refunds.Refund do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :id, :line_items, :order_id, :reason, :status, :total]
   defstruct canceled_at: nil,
@@ -17736,15 +17898,15 @@ defmodule Inttegro.Refund do
           custom_data: %{optional(String.t()) => String.t()} | nil,
           failed_at: String.t() | nil,
           id: String.t(),
-          line_items: [Inttegro.RefundLineItem.t()],
+          line_items: [Inttegro.Orders.RefundLineItem.t()],
           order_id: String.t(),
           processing_at: String.t() | nil,
-          reason: Inttegro.RefundReason.t(),
+          reason: Inttegro.Refunds.RefundReason.t(),
           reason_details: String.t() | nil,
           reference: String.t() | nil,
-          status: Inttegro.RefundStatus.t(),
+          status: Inttegro.Refunds.RefundStatus.t(),
           succeeded_at: String.t() | nil,
-          total: Inttegro.Amount.t()
+          total: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17763,19 +17925,19 @@ defmodule Inttegro.Refund do
       id: Map.fetch!(map, "id"),
       line_items:
         Enum.map(Map.fetch!(map, "line_items"), fn item ->
-          Inttegro.RefundLineItem.from_map(item)
+          Inttegro.Orders.RefundLineItem.from_map(item)
         end),
       order_id: Map.fetch!(map, "order_id"),
       processing_at:
         if(is_nil(Map.get(map, "processing_at")), do: nil, else: Map.get(map, "processing_at")),
-      reason: Inttegro.RefundReason.decode(Map.fetch!(map, "reason")),
+      reason: Inttegro.Refunds.RefundReason.decode(Map.fetch!(map, "reason")),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
-      status: Inttegro.RefundStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Refunds.RefundStatus.decode(Map.fetch!(map, "status")),
       succeeded_at:
         if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at")),
-      total: Inttegro.Amount.from_map(Map.fetch!(map, "total"))
+      total: Inttegro.Money.Amount.from_map(Map.fetch!(map, "total"))
     }
   end
 
@@ -17800,7 +17962,7 @@ defmodule Inttegro.Refund do
       "order_id" => Inttegro.Codec.encode(value.order_id),
       "processing_at" =>
         if(is_nil(value.processing_at), do: nil, else: Inttegro.Codec.encode(value.processing_at)),
-      "reason" => Inttegro.RefundReason.encode(value.reason),
+      "reason" => Inttegro.Refunds.RefundReason.encode(value.reason),
       "reason_details" =>
         if(is_nil(value.reason_details),
           do: nil,
@@ -17808,7 +17970,7 @@ defmodule Inttegro.Refund do
         ),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
-      "status" => Inttegro.RefundStatus.encode(value.status),
+      "status" => Inttegro.Refunds.RefundStatus.encode(value.status),
       "succeeded_at" =>
         if(is_nil(value.succeeded_at), do: nil, else: Inttegro.Codec.encode(value.succeeded_at)),
       "total" => Inttegro.Codec.encode(value.total)
@@ -17818,7 +17980,7 @@ defmodule Inttegro.Refund do
   end
 end
 
-defmodule Inttegro.RefundLineItem do
+defmodule Inttegro.Orders.RefundLineItem do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :order_line_item_id, :original_amount_paid, :refund_amount]
   defstruct id: nil,
@@ -17831,10 +17993,10 @@ defmodule Inttegro.RefundLineItem do
   @type t :: %__MODULE__{
           id: String.t(),
           order_line_item_id: String.t(),
-          original_amount_paid: Inttegro.Amount.t(),
-          reason: Inttegro.RefundReason.t() | nil,
+          original_amount_paid: Inttegro.Money.Amount.t(),
+          reason: Inttegro.Refunds.RefundReason.t() | nil,
           reason_details: String.t() | nil,
-          refund_amount: Inttegro.Amount.t()
+          refund_amount: Inttegro.Money.Amount.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17843,15 +18005,16 @@ defmodule Inttegro.RefundLineItem do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       order_line_item_id: Map.fetch!(map, "order_line_item_id"),
-      original_amount_paid: Inttegro.Amount.from_map(Map.fetch!(map, "original_amount_paid")),
+      original_amount_paid:
+        Inttegro.Money.Amount.from_map(Map.fetch!(map, "original_amount_paid")),
       reason:
         if(is_nil(Map.get(map, "reason")),
           do: nil,
-          else: Inttegro.RefundReason.decode(Map.get(map, "reason"))
+          else: Inttegro.Refunds.RefundReason.decode(Map.get(map, "reason"))
         ),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
-      refund_amount: Inttegro.Amount.from_map(Map.fetch!(map, "refund_amount"))
+      refund_amount: Inttegro.Money.Amount.from_map(Map.fetch!(map, "refund_amount"))
     }
   end
 
@@ -17862,7 +18025,10 @@ defmodule Inttegro.RefundLineItem do
       "order_line_item_id" => Inttegro.Codec.encode(value.order_line_item_id),
       "original_amount_paid" => Inttegro.Codec.encode(value.original_amount_paid),
       "reason" =>
-        if(is_nil(value.reason), do: nil, else: Inttegro.RefundReason.encode(value.reason)),
+        if(is_nil(value.reason),
+          do: nil,
+          else: Inttegro.Refunds.RefundReason.encode(value.reason)
+        ),
       "reason_details" =>
         if(is_nil(value.reason_details),
           do: nil,
@@ -17875,14 +18041,14 @@ defmodule Inttegro.RefundLineItem do
   end
 end
 
-defmodule Inttegro.RefundPage do
+defmodule Inttegro.Refunds.RefundPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :refunds, :size]
   defstruct number: nil, refunds: nil, size: nil
 
   @type t :: %__MODULE__{
           number: integer(),
-          refunds: [Inttegro.Refund.t()],
+          refunds: [Inttegro.Refunds.Refund.t()],
           size: integer()
         }
   @spec new!(map() | keyword()) :: t()
@@ -17892,7 +18058,7 @@ defmodule Inttegro.RefundPage do
     %__MODULE__{
       number: Map.fetch!(map, "number"),
       refunds:
-        Enum.map(Map.fetch!(map, "refunds"), fn item -> Inttegro.Refund.from_map(item) end),
+        Enum.map(Map.fetch!(map, "refunds"), fn item -> Inttegro.Refunds.Refund.from_map(item) end),
       size: Map.fetch!(map, "size")
     }
   end
@@ -17909,7 +18075,7 @@ defmodule Inttegro.RefundPage do
   end
 end
 
-defmodule Inttegro.RefundRequestMetaInput do
+defmodule Inttegro.Refunds.RefundRequestMetaInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct idempotency_key: nil
 
@@ -17943,13 +18109,13 @@ defmodule Inttegro.RefundRequestMetaInput do
   end
 end
 
-defmodule Inttegro.RenderMessageTemplatePreviewRequest do
+defmodule Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:message_template]
   defstruct message_template: nil
 
   @type t :: %__MODULE__{
-          message_template: Inttegro.MessageTemplateReferenceInput.t()
+          message_template: Inttegro.MessageTemplates.MessageTemplateReferenceInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -17957,7 +18123,9 @@ defmodule Inttegro.RenderMessageTemplatePreviewRequest do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       message_template:
-        Inttegro.MessageTemplateReferenceInput.from_map(Map.fetch!(map, "message_template"))
+        Inttegro.MessageTemplates.MessageTemplateReferenceInput.from_map(
+          Map.fetch!(map, "message_template")
+        )
     }
   end
 
@@ -17971,7 +18139,7 @@ defmodule Inttegro.RenderMessageTemplatePreviewRequest do
   end
 end
 
-defmodule Inttegro.RenderedEmailMessageTemplate do
+defmodule Inttegro.MessageTemplates.RenderedEmailMessageTemplate do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:subject, :text]
   defstruct subject: nil,
@@ -17986,10 +18154,10 @@ defmodule Inttegro.RenderedEmailMessageTemplate do
           subject: String.t(),
           text: String.t(),
           html: String.t() | nil,
-          from_: Inttegro.MessageTemplateMailbox.t() | nil,
-          reply_to: Inttegro.MessageTemplateMailbox.t() | nil,
+          from_: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
+          reply_to: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil,
-          safety: Inttegro.MessageTemplateSafetyResult.t() | nil
+          safety: Inttegro.MessageTemplates.MessageTemplateSafetyResult.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -18002,12 +18170,13 @@ defmodule Inttegro.RenderedEmailMessageTemplate do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else: Inttegro.MessageTemplateMailbox.from_map(Map.get(map, "from"))
+          else: Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else: Inttegro.MessageTemplateMailbox.from_map(Map.get(map, "reply_to"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "reply_to"))
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -18017,7 +18186,8 @@ defmodule Inttegro.RenderedEmailMessageTemplate do
       safety:
         if(is_nil(Map.get(map, "safety")),
           do: nil,
-          else: Inttegro.MessageTemplateSafetyResult.from_map(Map.get(map, "safety"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateSafetyResult.from_map(Map.get(map, "safety"))
         )
     }
   end
@@ -18046,23 +18216,24 @@ defmodule Inttegro.RenderedEmailMessageTemplate do
   end
 end
 
-defmodule Inttegro.RenderedMessageTemplate do
+defmodule Inttegro.MessageTemplates.RenderedMessageTemplate do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:channel]
   defstruct channel: nil, attachments: nil, sms: nil, email: nil
 
   @type t :: %__MODULE__{
-          channel: Inttegro.MessageTemplateChannel.t(),
+          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
           attachments: [String.t()] | nil,
-          sms: Inttegro.RenderedSMSMessageTemplate.t() | nil,
-          email: Inttegro.RenderedEmailMessageTemplate.t() | nil
+          sms: Inttegro.MessageTemplates.RenderedSMSMessageTemplate.t() | nil,
+          email: Inttegro.MessageTemplates.RenderedEmailMessageTemplate.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      channel: Inttegro.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      channel:
+        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
       attachments:
         if(is_nil(Map.get(map, "attachments")),
           do: nil,
@@ -18071,12 +18242,13 @@ defmodule Inttegro.RenderedMessageTemplate do
       sms:
         if(is_nil(Map.get(map, "sms")),
           do: nil,
-          else: Inttegro.RenderedSMSMessageTemplate.from_map(Map.get(map, "sms"))
+          else: Inttegro.MessageTemplates.RenderedSMSMessageTemplate.from_map(Map.get(map, "sms"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.RenderedEmailMessageTemplate.from_map(Map.get(map, "email"))
+          else:
+            Inttegro.MessageTemplates.RenderedEmailMessageTemplate.from_map(Map.get(map, "email"))
         )
     }
   end
@@ -18084,7 +18256,7 @@ defmodule Inttegro.RenderedMessageTemplate do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "channel" => Inttegro.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
       "attachments" =>
         if(is_nil(value.attachments),
           do: nil,
@@ -18098,7 +18270,7 @@ defmodule Inttegro.RenderedMessageTemplate do
   end
 end
 
-defmodule Inttegro.RenderedSMSMessageTemplate do
+defmodule Inttegro.MessageTemplates.RenderedSMSMessageTemplate do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:full_message]
   defstruct full_message: nil
@@ -18125,7 +18297,7 @@ defmodule Inttegro.RenderedSMSMessageTemplate do
   end
 end
 
-defmodule Inttegro.RequestConfirmationRequest do
+defmodule Inttegro.Orders.RequestConfirmationRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct order_id: nil
@@ -18152,7 +18324,7 @@ defmodule Inttegro.RequestConfirmationRequest do
   end
 end
 
-defmodule Inttegro.ResourceSupply do
+defmodule Inttegro.Shared.ResourceSupply do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:by, :supplied_at]
   defstruct attempt_id: nil,
@@ -18205,16 +18377,16 @@ defmodule Inttegro.ResourceSupply do
   end
 end
 
-defmodule Inttegro.ReviewUploadRequestAttemptByIDRequest do
+defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:attempt_id, :decision, :id]
   defstruct public_message: nil, reasons: nil, attempt_id: nil, decision: nil, id: nil
 
   @type t :: %__MODULE__{
           public_message: String.t() | nil,
-          reasons: [Inttegro.UploadRequestReviewReasonInput.t()] | nil,
+          reasons: [Inttegro.UploadRequests.UploadRequestReviewReasonInput.t()] | nil,
           attempt_id: String.t(),
-          decision: Inttegro.UploadReviewDecision.t(),
+          decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -18229,11 +18401,11 @@ defmodule Inttegro.ReviewUploadRequestAttemptByIDRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "reasons"), fn item ->
-              Inttegro.UploadRequestReviewReasonInput.from_map(item)
+              Inttegro.UploadRequests.UploadRequestReviewReasonInput.from_map(item)
             end)
         ),
       attempt_id: Map.fetch!(map, "attempt_id"),
-      decision: Inttegro.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
+      decision: Inttegro.UploadRequests.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
       id: Map.fetch!(map, "id")
     }
   end
@@ -18252,7 +18424,7 @@ defmodule Inttegro.ReviewUploadRequestAttemptByIDRequest do
           else: Enum.map(value.reasons, fn item -> Inttegro.Codec.encode(item) end)
         ),
       "attempt_id" => Inttegro.Codec.encode(value.attempt_id),
-      "decision" => Inttegro.UploadReviewDecision.encode(value.decision),
+      "decision" => Inttegro.UploadRequests.UploadReviewDecision.encode(value.decision),
       "id" => Inttegro.Codec.encode(value.id)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -18260,16 +18432,16 @@ defmodule Inttegro.ReviewUploadRequestAttemptByIDRequest do
   end
 end
 
-defmodule Inttegro.ReviewUploadRequestAttemptByOrdinalRequest do
+defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:attempt_ordinal, :decision, :id]
   defstruct public_message: nil, reasons: nil, attempt_ordinal: nil, decision: nil, id: nil
 
   @type t :: %__MODULE__{
           public_message: String.t() | nil,
-          reasons: [Inttegro.UploadRequestReviewReasonInput.t()] | nil,
+          reasons: [Inttegro.UploadRequests.UploadRequestReviewReasonInput.t()] | nil,
           attempt_ordinal: integer(),
-          decision: Inttegro.UploadReviewDecision.t(),
+          decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -18284,11 +18456,11 @@ defmodule Inttegro.ReviewUploadRequestAttemptByOrdinalRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "reasons"), fn item ->
-              Inttegro.UploadRequestReviewReasonInput.from_map(item)
+              Inttegro.UploadRequests.UploadRequestReviewReasonInput.from_map(item)
             end)
         ),
       attempt_ordinal: Map.fetch!(map, "attempt_ordinal"),
-      decision: Inttegro.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
+      decision: Inttegro.UploadRequests.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
       id: Map.fetch!(map, "id")
     }
   end
@@ -18307,7 +18479,7 @@ defmodule Inttegro.ReviewUploadRequestAttemptByOrdinalRequest do
           else: Enum.map(value.reasons, fn item -> Inttegro.Codec.encode(item) end)
         ),
       "attempt_ordinal" => Inttegro.Codec.encode(value.attempt_ordinal),
-      "decision" => Inttegro.UploadReviewDecision.encode(value.decision),
+      "decision" => Inttegro.UploadRequests.UploadReviewDecision.encode(value.decision),
       "id" => Inttegro.Codec.encode(value.id)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -18315,13 +18487,13 @@ defmodule Inttegro.ReviewUploadRequestAttemptByOrdinalRequest do
   end
 end
 
-defmodule Inttegro.RevokeFileLinkRequest do
+defmodule Inttegro.FileLinks.RevokeFileLinkRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct revoked_by: nil, id: nil
 
   @type t :: %__MODULE__{
-          revoked_by: Inttegro.FileActorInput.t() | nil,
+          revoked_by: Inttegro.Files.FileActorInput.t() | nil,
           id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -18332,7 +18504,7 @@ defmodule Inttegro.RevokeFileLinkRequest do
       revoked_by:
         if(is_nil(Map.get(map, "revoked_by")),
           do: nil,
-          else: Inttegro.FileActorInput.from_map(Map.get(map, "revoked_by"))
+          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "revoked_by"))
         ),
       id: Map.fetch!(map, "id")
     }
@@ -18350,7 +18522,7 @@ defmodule Inttegro.RevokeFileLinkRequest do
   end
 end
 
-defmodule Inttegro.ScheduleCancelDetail do
+defmodule Inttegro.Schedules.ScheduleCancelDetail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -18373,8 +18545,8 @@ defmodule Inttegro.ScheduleCancelDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.ScheduleError.t()] | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
+          errors: [Inttegro.Schedules.ScheduleError.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -18404,13 +18576,15 @@ defmodule Inttegro.ScheduleCancelDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
-            Enum.map(Map.get(map, "errors"), fn item -> Inttegro.ScheduleError.from_map(item) end)
+            Enum.map(Map.get(map, "errors"), fn item ->
+              Inttegro.Schedules.ScheduleError.from_map(item)
+            end)
         ),
       executed_at:
         if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
@@ -18470,7 +18644,7 @@ defmodule Inttegro.ScheduleCancelDetail do
   end
 end
 
-defmodule Inttegro.ScheduleChimeRequest do
+defmodule Inttegro.Chimes.ScheduleChimeRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:recipients, :send_after]
   defstruct request_meta: nil,
@@ -18483,10 +18657,10 @@ defmodule Inttegro.ScheduleChimeRequest do
             send_after: nil
 
   @type t :: %__MODULE__{
-          request_meta: Inttegro.ScheduleChimeRequestRequestMeta.t() | nil,
+          request_meta: Inttegro.Chimes.ScheduleChimeRequestRequestMeta.t() | nil,
           full_message: String.t() | nil,
-          email: Inttegro.ChimeEmailMessageInput.t() | nil,
-          message_template: Inttegro.MessageTemplateReferenceInput.t() | nil,
+          email: Inttegro.Chimes.ChimeEmailMessageInput.t() | nil,
+          message_template: Inttegro.MessageTemplates.MessageTemplateReferenceInput.t() | nil,
           sender_id: String.t() | nil,
           purpose: String.t() | nil,
           recipients: [term()],
@@ -18500,19 +18674,23 @@ defmodule Inttegro.ScheduleChimeRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.ScheduleChimeRequestRequestMeta.from_map(Map.get(map, "request_meta"))
+          else:
+            Inttegro.Chimes.ScheduleChimeRequestRequestMeta.from_map(Map.get(map, "request_meta"))
         ),
       full_message:
         if(is_nil(Map.get(map, "full_message")), do: nil, else: Map.get(map, "full_message")),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessageInput.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessageInput.from_map(Map.get(map, "email"))
         ),
       message_template:
         if(is_nil(Map.get(map, "message_template")),
           do: nil,
-          else: Inttegro.MessageTemplateReferenceInput.from_map(Map.get(map, "message_template"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateReferenceInput.from_map(
+              Map.get(map, "message_template")
+            )
         ),
       sender_id: if(is_nil(Map.get(map, "sender_id")), do: nil, else: Map.get(map, "sender_id")),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
@@ -18545,7 +18723,7 @@ defmodule Inttegro.ScheduleChimeRequest do
   end
 end
 
-defmodule Inttegro.ScheduleChimeRequestRequestMeta do
+defmodule Inttegro.Chimes.ScheduleChimeRequestRequestMeta do
   @moduledoc "Typed Inttegro request parameters."
   defstruct idempotency_key: nil
 
@@ -18579,7 +18757,7 @@ defmodule Inttegro.ScheduleChimeRequestRequestMeta do
   end
 end
 
-defmodule Inttegro.ScheduleCreationDetail do
+defmodule Inttegro.Chimes.ScheduleCreationDetail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :full_message, :id, :send_after, :sender_id]
   defstruct created_at: nil,
@@ -18597,7 +18775,7 @@ defmodule Inttegro.ScheduleCreationDetail do
   @type t :: %__MODULE__{
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
           executed_at: String.t() | nil,
           full_message: String.t(),
           id: String.t(),
@@ -18621,7 +18799,7 @@ defmodule Inttegro.ScheduleCreationDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       executed_at:
         if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
@@ -18676,7 +18854,7 @@ defmodule Inttegro.ScheduleCreationDetail do
   end
 end
 
-defmodule Inttegro.ScheduleDetail do
+defmodule Inttegro.Schedules.ScheduleDetail do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -18698,8 +18876,8 @@ defmodule Inttegro.ScheduleDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.ScheduleError.t()] | nil,
+          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
+          errors: [Inttegro.Schedules.ScheduleError.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -18728,13 +18906,15 @@ defmodule Inttegro.ScheduleDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
-            Enum.map(Map.get(map, "errors"), fn item -> Inttegro.ScheduleError.from_map(item) end)
+            Enum.map(Map.get(map, "errors"), fn item ->
+              Inttegro.Schedules.ScheduleError.from_map(item)
+            end)
         ),
       executed_at:
         if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
@@ -18790,7 +18970,7 @@ defmodule Inttegro.ScheduleDetail do
   end
 end
 
-defmodule Inttegro.ScheduleError do
+defmodule Inttegro.Schedules.ScheduleError do
   @moduledoc "Typed Inttegro domain value."
   defstruct recipient: nil, fix_code: nil, type: nil
 
@@ -18824,7 +19004,7 @@ defmodule Inttegro.ScheduleError do
   end
 end
 
-defmodule Inttegro.SchedulePayoutRequest do
+defmodule Inttegro.Payouts.SchedulePayoutRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:destination_id, :reference]
   defstruct execute_after: nil, max_amount: nil, destination_id: nil, reference: nil
@@ -18864,7 +19044,7 @@ defmodule Inttegro.SchedulePayoutRequest do
   end
 end
 
-defmodule Inttegro.SecretKey do
+defmodule Inttegro.Keys.SecretKey do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :token_type, :issued_at, :status, :active]
   defstruct id: nil,
@@ -18882,11 +19062,11 @@ defmodule Inttegro.SecretKey do
   @type t :: %__MODULE__{
           id: String.t(),
           label: String.t() | nil,
-          token_type: Inttegro.SecretKeyTokenType.t(),
+          token_type: Inttegro.Keys.SecretKeyTokenType.t(),
           issued_at: String.t(),
           updated_at: String.t() | nil,
           expires_at: String.t() | nil,
-          status: Inttegro.SecretKeyStatus.t(),
+          status: Inttegro.Keys.SecretKeyStatus.t(),
           active: boolean(),
           revoked_at: String.t() | nil,
           last_used_at: String.t() | nil,
@@ -18899,13 +19079,13 @@ defmodule Inttegro.SecretKey do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
-      token_type: Inttegro.SecretKeyTokenType.decode(Map.fetch!(map, "token_type")),
+      token_type: Inttegro.Keys.SecretKeyTokenType.decode(Map.fetch!(map, "token_type")),
       issued_at: Map.fetch!(map, "issued_at"),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
       expires_at:
         if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
-      status: Inttegro.SecretKeyStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Keys.SecretKeyStatus.decode(Map.fetch!(map, "status")),
       active: Map.fetch!(map, "active"),
       revoked_at:
         if(is_nil(Map.get(map, "revoked_at")), do: nil, else: Map.get(map, "revoked_at")),
@@ -18921,13 +19101,13 @@ defmodule Inttegro.SecretKey do
     %{
       "id" => Inttegro.Codec.encode(value.id),
       "label" => if(is_nil(value.label), do: nil, else: Inttegro.Codec.encode(value.label)),
-      "token_type" => Inttegro.SecretKeyTokenType.encode(value.token_type),
+      "token_type" => Inttegro.Keys.SecretKeyTokenType.encode(value.token_type),
       "issued_at" => Inttegro.Codec.encode(value.issued_at),
       "updated_at" =>
         if(is_nil(value.updated_at), do: nil, else: Inttegro.Codec.encode(value.updated_at)),
       "expires_at" =>
         if(is_nil(value.expires_at), do: nil, else: Inttegro.Codec.encode(value.expires_at)),
-      "status" => Inttegro.SecretKeyStatus.encode(value.status),
+      "status" => Inttegro.Keys.SecretKeyStatus.encode(value.status),
       "active" => Inttegro.Codec.encode(value.active),
       "revoked_at" =>
         if(is_nil(value.revoked_at), do: nil, else: Inttegro.Codec.encode(value.revoked_at)),
@@ -18941,7 +19121,7 @@ defmodule Inttegro.SecretKey do
   end
 end
 
-defmodule Inttegro.SecretKeyPage do
+defmodule Inttegro.Keys.SecretKeyPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :count, :total, :has_more, :keys]
   defstruct number: nil, size: nil, count: nil, total: nil, has_more: nil, keys: nil
@@ -18952,7 +19132,7 @@ defmodule Inttegro.SecretKeyPage do
           count: integer(),
           total: integer(),
           has_more: boolean(),
-          keys: [Inttegro.SecretKey.t()]
+          keys: [Inttegro.Keys.SecretKey.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -18964,7 +19144,8 @@ defmodule Inttegro.SecretKeyPage do
       count: Map.fetch!(map, "count"),
       total: Map.fetch!(map, "total"),
       has_more: Map.fetch!(map, "has_more"),
-      keys: Enum.map(Map.fetch!(map, "keys"), fn item -> Inttegro.SecretKey.from_map(item) end)
+      keys:
+        Enum.map(Map.fetch!(map, "keys"), fn item -> Inttegro.Keys.SecretKey.from_map(item) end)
     }
   end
 
@@ -18983,22 +19164,22 @@ defmodule Inttegro.SecretKeyPage do
   end
 end
 
-defmodule Inttegro.SecretKeyUsage do
+defmodule Inttegro.Keys.SecretKeyUsage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:key, :usage]
   defstruct key: nil, usage: nil
 
   @type t :: %__MODULE__{
-          key: Inttegro.SecretKey.t(),
-          usage: Inttegro.SecretKeyUsagePage.t()
+          key: Inttegro.Keys.SecretKey.t(),
+          usage: Inttegro.Keys.SecretKeyUsagePage.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      key: Inttegro.SecretKey.from_map(Map.fetch!(map, "key")),
-      usage: Inttegro.SecretKeyUsagePage.from_map(Map.fetch!(map, "usage"))
+      key: Inttegro.Keys.SecretKey.from_map(Map.fetch!(map, "key")),
+      usage: Inttegro.Keys.SecretKeyUsagePage.from_map(Map.fetch!(map, "usage"))
     }
   end
 
@@ -19013,7 +19194,7 @@ defmodule Inttegro.SecretKeyUsage do
   end
 end
 
-defmodule Inttegro.SecretKeyUsagePage do
+defmodule Inttegro.Keys.SecretKeyUsagePage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :count, :total, :has_more, :rows]
   defstruct number: nil, size: nil, count: nil, total: nil, has_more: nil, rows: nil
@@ -19024,7 +19205,7 @@ defmodule Inttegro.SecretKeyUsagePage do
           count: integer(),
           total: integer(),
           has_more: boolean(),
-          rows: [Inttegro.SecretKeyUsageRow.t()]
+          rows: [Inttegro.Keys.SecretKeyUsageRow.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19037,7 +19218,9 @@ defmodule Inttegro.SecretKeyUsagePage do
       total: Map.fetch!(map, "total"),
       has_more: Map.fetch!(map, "has_more"),
       rows:
-        Enum.map(Map.fetch!(map, "rows"), fn item -> Inttegro.SecretKeyUsageRow.from_map(item) end)
+        Enum.map(Map.fetch!(map, "rows"), fn item ->
+          Inttegro.Keys.SecretKeyUsageRow.from_map(item)
+        end)
     }
   end
 
@@ -19056,7 +19239,7 @@ defmodule Inttegro.SecretKeyUsagePage do
   end
 end
 
-defmodule Inttegro.SecretKeyUsageRequest do
+defmodule Inttegro.Keys.SecretKeyUsageRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:secret_key_id]
   defstruct number: nil, page: nil, size: nil, secret_key_id: nil
@@ -19092,7 +19275,7 @@ defmodule Inttegro.SecretKeyUsageRequest do
   end
 end
 
-defmodule Inttegro.SecretKeyUsageRow do
+defmodule Inttegro.Keys.SecretKeyUsageRow do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:secret_key_id, :occurred_at, :auth_result]
   defstruct secret_key_id: nil, occurred_at: nil, auth_result: nil
@@ -19100,7 +19283,7 @@ defmodule Inttegro.SecretKeyUsageRow do
   @type t :: %__MODULE__{
           secret_key_id: String.t(),
           occurred_at: String.t(),
-          auth_result: Inttegro.SecretKeyAuthResult.t()
+          auth_result: Inttegro.Keys.SecretKeyAuthResult.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19109,7 +19292,7 @@ defmodule Inttegro.SecretKeyUsageRow do
     %__MODULE__{
       secret_key_id: Map.fetch!(map, "secret_key_id"),
       occurred_at: Map.fetch!(map, "occurred_at"),
-      auth_result: Inttegro.SecretKeyAuthResult.decode(Map.fetch!(map, "auth_result"))
+      auth_result: Inttegro.Keys.SecretKeyAuthResult.decode(Map.fetch!(map, "auth_result"))
     }
   end
 
@@ -19118,14 +19301,14 @@ defmodule Inttegro.SecretKeyUsageRow do
     %{
       "secret_key_id" => Inttegro.Codec.encode(value.secret_key_id),
       "occurred_at" => Inttegro.Codec.encode(value.occurred_at),
-      "auth_result" => Inttegro.SecretKeyAuthResult.encode(value.auth_result)
+      "auth_result" => Inttegro.Keys.SecretKeyAuthResult.encode(value.auth_result)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.SendChimeRequest do
+defmodule Inttegro.Chimes.SendChimeRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:recipient]
   defstruct full_message: nil,
@@ -19139,13 +19322,13 @@ defmodule Inttegro.SendChimeRequest do
 
   @type t :: %__MODULE__{
           full_message: String.t() | nil,
-          email: Inttegro.ChimeEmailMessageInput.t() | nil,
-          message_template: Inttegro.MessageTemplateReferenceInput.t() | nil,
+          email: Inttegro.Chimes.ChimeEmailMessageInput.t() | nil,
+          message_template: Inttegro.MessageTemplates.MessageTemplateReferenceInput.t() | nil,
           sender_id: String.t() | nil,
           purpose: String.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          request_meta: Inttegro.SendChimeRequestRequestMeta.t() | nil,
-          recipient: Inttegro.SendChimeRequestRecipient.t()
+          request_meta: Inttegro.Chimes.SendChimeRequestRequestMeta.t() | nil,
+          recipient: Inttegro.Chimes.SendChimeRequestRecipient.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19157,12 +19340,15 @@ defmodule Inttegro.SendChimeRequest do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.ChimeEmailMessageInput.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.ChimeEmailMessageInput.from_map(Map.get(map, "email"))
         ),
       message_template:
         if(is_nil(Map.get(map, "message_template")),
           do: nil,
-          else: Inttegro.MessageTemplateReferenceInput.from_map(Map.get(map, "message_template"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateReferenceInput.from_map(
+              Map.get(map, "message_template")
+            )
         ),
       sender_id: if(is_nil(Map.get(map, "sender_id")), do: nil, else: Map.get(map, "sender_id")),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
@@ -19174,9 +19360,9 @@ defmodule Inttegro.SendChimeRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.SendChimeRequestRequestMeta.from_map(Map.get(map, "request_meta"))
+          else: Inttegro.Chimes.SendChimeRequestRequestMeta.from_map(Map.get(map, "request_meta"))
         ),
-      recipient: Inttegro.SendChimeRequestRecipient.decode(Map.fetch!(map, "recipient"))
+      recipient: Inttegro.Chimes.SendChimeRequestRecipient.decode(Map.fetch!(map, "recipient"))
     }
   end
 
@@ -19211,7 +19397,7 @@ defmodule Inttegro.SendChimeRequest do
   end
 end
 
-defmodule Inttegro.SendChimeRequestRequestMeta do
+defmodule Inttegro.Chimes.SendChimeRequestRequestMeta do
   @moduledoc "Typed Inttegro request parameters."
   defstruct idempotency_key: nil
 
@@ -19245,7 +19431,7 @@ defmodule Inttegro.SendChimeRequestRequestMeta do
   end
 end
 
-defmodule Inttegro.SetPayoutDestinationsRequest do
+defmodule Inttegro.Payouts.SetPayoutDestinationsRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:destinations]
   defstruct destinations: nil
@@ -19275,7 +19461,7 @@ defmodule Inttegro.SetPayoutDestinationsRequest do
   end
 end
 
-defmodule Inttegro.ShippingDetailsInput do
+defmodule Inttegro.Orders.ShippingDetailsInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:fee]
   defstruct id: nil, tax_code: nil, custom_data: nil, fee: nil
@@ -19284,7 +19470,7 @@ defmodule Inttegro.ShippingDetailsInput do
           id: String.t() | nil,
           tax_code: String.t() | nil,
           custom_data: %{optional(String.t()) => term()} | nil,
-          fee: Inttegro.AmountParams.t()
+          fee: Inttegro.Money.AmountParams.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19298,7 +19484,7 @@ defmodule Inttegro.ShippingDetailsInput do
           do: nil,
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
-      fee: Inttegro.AmountParams.from_map(Map.fetch!(map, "fee"))
+      fee: Inttegro.Money.AmountParams.from_map(Map.fetch!(map, "fee"))
     }
   end
 
@@ -19323,20 +19509,20 @@ defmodule Inttegro.ShippingDetailsInput do
   end
 end
 
-defmodule Inttegro.ShippingInput do
+defmodule Inttegro.Orders.ShippingInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:address]
   defstruct address: nil
 
   @type t :: %__MODULE__{
-          address: Inttegro.AddressInput.t()
+          address: Inttegro.Orders.AddressInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      address: Inttegro.AddressInput.from_map(Map.fetch!(map, "address"))
+      address: Inttegro.Orders.AddressInput.from_map(Map.fetch!(map, "address"))
     }
   end
 
@@ -19350,29 +19536,29 @@ defmodule Inttegro.ShippingInput do
   end
 end
 
-defmodule Inttegro.ShippingLineItemInput do
+defmodule Inttegro.Orders.ShippingLineItemInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type, :shipping]
   defstruct type: nil, shipping: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.LineItemType.t(),
-          shipping: Inttegro.ShippingDetailsInput.t()
+          type: Inttegro.Orders.LineItemType.t(),
+          shipping: Inttegro.Orders.ShippingDetailsInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.LineItemType.decode(Map.fetch!(map, "type")),
-      shipping: Inttegro.ShippingDetailsInput.from_map(Map.fetch!(map, "shipping"))
+      type: Inttegro.Orders.LineItemType.decode(Map.fetch!(map, "type")),
+      shipping: Inttegro.Orders.ShippingDetailsInput.from_map(Map.fetch!(map, "shipping"))
     }
   end
 
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.LineItemType.encode(value.type),
+      "type" => Inttegro.Orders.LineItemType.encode(value.type),
       "shipping" => Inttegro.Codec.encode(value.shipping)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -19380,7 +19566,7 @@ defmodule Inttegro.ShippingLineItemInput do
   end
 end
 
-defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:customer_id, :type, :mobile_money, :owner]
   defstruct custom_data: nil, customer_id: nil, type: nil, mobile_money: nil, owner: nil
@@ -19388,9 +19574,10 @@ defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer_id: String.t(),
-          type: Inttegro.PaymentMethodType.t(),
-          mobile_money: Inttegro.TokenizeMobileMoneyPaymentMethodRequestMobileMoney.t(),
-          owner: Inttegro.PaymentMethodOwnerInput.t()
+          type: Inttegro.PaymentMethods.PaymentMethodType.t(),
+          mobile_money:
+            Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileMoney.t(),
+          owner: Inttegro.PaymentMethods.PaymentMethodOwnerInput.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19403,12 +19590,12 @@ defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequest do
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
       customer_id: Map.fetch!(map, "customer_id"),
-      type: Inttegro.PaymentMethodType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type")),
       mobile_money:
-        Inttegro.TokenizeMobileMoneyPaymentMethodRequestMobileMoney.from_map(
+        Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileMoney.from_map(
           Map.fetch!(map, "mobile_money")
         ),
-      owner: Inttegro.PaymentMethodOwnerInput.from_map(Map.fetch!(map, "owner"))
+      owner: Inttegro.PaymentMethods.PaymentMethodOwnerInput.from_map(Map.fetch!(map, "owner"))
     }
   end
 
@@ -19424,7 +19611,7 @@ defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequest do
             end)
         ),
       "customer_id" => Inttegro.Codec.encode(value.customer_id),
-      "type" => Inttegro.PaymentMethodType.encode(value.type),
+      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type),
       "mobile_money" => Inttegro.Codec.encode(value.mobile_money),
       "owner" => Inttegro.Codec.encode(value.owner)
     }
@@ -19433,14 +19620,14 @@ defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequestMobileMoney do
+defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileMoney do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:account_number, :network]
   defstruct account_number: nil, network: nil
 
   @type t :: %__MODULE__{
           account_number: String.t(),
-          network: Inttegro.MobileMoneyNetwork.t()
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19448,7 +19635,7 @@ defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequestMobileMoney do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       account_number: Map.fetch!(map, "account_number"),
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network"))
     }
   end
 
@@ -19456,14 +19643,14 @@ defmodule Inttegro.TokenizeMobileMoneyPaymentMethodRequestMobileMoney do
   def to_map(value) do
     %{
       "account_number" => Inttegro.Codec.encode(value.account_number),
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network)
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.UnarchivePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.UnarchivePaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -19490,7 +19677,7 @@ defmodule Inttegro.UnarchivePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.UpdateApplicationRequest do
+defmodule Inttegro.Apps.UpdateApplicationRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct name: nil, alias: nil, description: nil, legal_entity_type: nil
 
@@ -19535,7 +19722,7 @@ defmodule Inttegro.UpdateApplicationRequest do
   end
 end
 
-defmodule Inttegro.UpdateCustomerRequest do
+defmodule Inttegro.Customers.UpdateCustomerRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:customer_id]
   defstruct billing_address: nil,
@@ -19550,13 +19737,13 @@ defmodule Inttegro.UpdateCustomerRequest do
             customer_id: nil
 
   @type t :: %__MODULE__{
-          billing_address: Inttegro.CustomerAddressInput.t() | nil,
+          billing_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
           custom_data: %{optional(String.t()) => term()} | nil,
           email_address: String.t() | nil,
           name: String.t() | nil,
           phone_number: String.t() | nil,
           reference: String.t() | nil,
-          shipping_address: Inttegro.CustomerAddressInput.t() | nil,
+          shipping_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
           suffix: String.t() | nil,
           title: String.t() | nil,
           customer_id: String.t()
@@ -19569,7 +19756,7 @@ defmodule Inttegro.UpdateCustomerRequest do
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.CustomerAddressInput.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "billing_address"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -19585,7 +19772,7 @@ defmodule Inttegro.UpdateCustomerRequest do
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.CustomerAddressInput.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "shipping_address"))
         ),
       suffix: if(is_nil(Map.get(map, "suffix")), do: nil, else: Map.get(map, "suffix")),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),
@@ -19630,7 +19817,7 @@ defmodule Inttegro.UpdateCustomerRequest do
   end
 end
 
-defmodule Inttegro.UpdateMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.UpdateMessageTemplateRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:id]
   defstruct name: nil,
@@ -19647,12 +19834,12 @@ defmodule Inttegro.UpdateMessageTemplateRequest do
   @type t :: %__MODULE__{
           name: String.t() | nil,
           about: String.t() | nil,
-          channel: Inttegro.MessageTemplateChannel.t() | nil,
+          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t() | nil,
           purpose: String.t() | nil,
           locale: String.t() | nil,
-          variables: [Inttegro.MessageTemplateVariableInput.t()] | nil,
-          sms: Inttegro.MessageTemplateSMSContentInput.t() | nil,
-          email: Inttegro.MessageTemplateEmailContentInput.t() | nil,
+          variables: [Inttegro.MessageTemplates.MessageTemplateVariableInput.t()] | nil,
+          sms: Inttegro.MessageTemplates.MessageTemplateSMSContentInput.t() | nil,
+          email: Inttegro.MessageTemplates.MessageTemplateEmailContentInput.t() | nil,
           attachments: [String.t()] | nil,
           id: String.t()
         }
@@ -19666,7 +19853,7 @@ defmodule Inttegro.UpdateMessageTemplateRequest do
       channel:
         if(is_nil(Map.get(map, "channel")),
           do: nil,
-          else: Inttegro.MessageTemplateChannel.decode(Map.get(map, "channel"))
+          else: Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.get(map, "channel"))
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       locale: if(is_nil(Map.get(map, "locale")), do: nil, else: Map.get(map, "locale")),
@@ -19675,18 +19862,22 @@ defmodule Inttegro.UpdateMessageTemplateRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplateVariableInput.from_map(item)
+              Inttegro.MessageTemplates.MessageTemplateVariableInput.from_map(item)
             end)
         ),
       sms:
         if(is_nil(Map.get(map, "sms")),
           do: nil,
-          else: Inttegro.MessageTemplateSMSContentInput.from_map(Map.get(map, "sms"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateSMSContentInput.from_map(Map.get(map, "sms"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.MessageTemplateEmailContentInput.from_map(Map.get(map, "email"))
+          else:
+            Inttegro.MessageTemplates.MessageTemplateEmailContentInput.from_map(
+              Map.get(map, "email")
+            )
         ),
       attachments:
         if(is_nil(Map.get(map, "attachments")),
@@ -19705,7 +19896,7 @@ defmodule Inttegro.UpdateMessageTemplateRequest do
       "channel" =>
         if(is_nil(value.channel),
           do: nil,
-          else: Inttegro.MessageTemplateChannel.encode(value.channel)
+          else: Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel)
         ),
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "locale" => if(is_nil(value.locale), do: nil, else: Inttegro.Codec.encode(value.locale)),
@@ -19728,7 +19919,7 @@ defmodule Inttegro.UpdateMessageTemplateRequest do
   end
 end
 
-defmodule Inttegro.UpdateOrderRequest do
+defmodule Inttegro.Orders.UpdateOrderRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:order_id]
   defstruct clear_payment_method: nil,
@@ -19747,12 +19938,13 @@ defmodule Inttegro.UpdateOrderRequest do
   @type t :: %__MODULE__{
           clear_payment_method: boolean() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          invoice_settings: Inttegro.InvoiceSettingsInput.t() | nil,
+          invoice_settings: Inttegro.Invoices.InvoiceSettingsInput.t() | nil,
           finalize: boolean() | nil,
           line_items: [term()] | nil,
           number: String.t() | nil,
           receipt_number: String.t() | nil,
-          payment_method_data: Inttegro.UpdateOrderRequestPaymentMethodData.t() | nil,
+          payment_method_data:
+            Inttegro.PaymentMethods.UpdateOrderRequestPaymentMethodData.t() | nil,
           payment_method_id: String.t() | nil,
           statement_descriptor: String.t() | nil,
           statement_descriptor_prefix: String.t() | nil,
@@ -19776,7 +19968,7 @@ defmodule Inttegro.UpdateOrderRequest do
       invoice_settings:
         if(is_nil(Map.get(map, "invoice_settings")),
           do: nil,
-          else: Inttegro.InvoiceSettingsInput.from_map(Map.get(map, "invoice_settings"))
+          else: Inttegro.Invoices.InvoiceSettingsInput.from_map(Map.get(map, "invoice_settings"))
         ),
       finalize: if(is_nil(Map.get(map, "finalize")), do: nil, else: Map.get(map, "finalize")),
       line_items:
@@ -19791,7 +19983,7 @@ defmodule Inttegro.UpdateOrderRequest do
         if(is_nil(Map.get(map, "payment_method_data")),
           do: nil,
           else:
-            Inttegro.UpdateOrderRequestPaymentMethodData.from_map(
+            Inttegro.PaymentMethods.UpdateOrderRequestPaymentMethodData.from_map(
               Map.get(map, "payment_method_data")
             )
         ),
@@ -19875,14 +20067,15 @@ defmodule Inttegro.UpdateOrderRequest do
   end
 end
 
-defmodule Inttegro.UpdateOrderRequestPaymentMethodData do
+defmodule Inttegro.PaymentMethods.UpdateOrderRequestPaymentMethodData do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:type]
   defstruct mobile_money: nil, type: nil
 
   @type t :: %__MODULE__{
-          mobile_money: Inttegro.UpdateOrderRequestPaymentMethodDataMobileMoney.t() | nil,
-          type: Inttegro.PaymentMethodType.t()
+          mobile_money:
+            Inttegro.PaymentMethods.UpdateOrderRequestPaymentMethodDataMobileMoney.t() | nil,
+          type: Inttegro.PaymentMethods.PaymentMethodType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -19893,11 +20086,11 @@ defmodule Inttegro.UpdateOrderRequestPaymentMethodData do
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
           else:
-            Inttegro.UpdateOrderRequestPaymentMethodDataMobileMoney.from_map(
+            Inttegro.PaymentMethods.UpdateOrderRequestPaymentMethodDataMobileMoney.from_map(
               Map.get(map, "mobile_money")
             )
         ),
-      type: Inttegro.PaymentMethodType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -19906,20 +20099,20 @@ defmodule Inttegro.UpdateOrderRequestPaymentMethodData do
     %{
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
-      "type" => Inttegro.PaymentMethodType.encode(value.type)
+      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.UpdateOrderRequestPaymentMethodDataMobileMoney do
+defmodule Inttegro.PaymentMethods.UpdateOrderRequestPaymentMethodDataMobileMoney do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:network, :account_number]
   defstruct network: nil, account_number: nil
 
   @type t :: %__MODULE__{
-          network: Inttegro.MobileMoneyNetwork.t(),
+          network: Inttegro.PaymentMethods.MobileMoneyNetwork.t(),
           account_number: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -19927,7 +20120,7 @@ defmodule Inttegro.UpdateOrderRequestPaymentMethodDataMobileMoney do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      network: Inttegro.MobileMoneyNetwork.decode(Map.fetch!(map, "network")),
+      network: Inttegro.PaymentMethods.MobileMoneyNetwork.decode(Map.fetch!(map, "network")),
       account_number: Map.fetch!(map, "account_number")
     }
   end
@@ -19935,7 +20128,7 @@ defmodule Inttegro.UpdateOrderRequestPaymentMethodDataMobileMoney do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "network" => Inttegro.MobileMoneyNetwork.encode(value.network),
+      "network" => Inttegro.PaymentMethods.MobileMoneyNetwork.encode(value.network),
       "account_number" => Inttegro.Codec.encode(value.account_number)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -19943,7 +20136,7 @@ defmodule Inttegro.UpdateOrderRequestPaymentMethodDataMobileMoney do
   end
 end
 
-defmodule Inttegro.UpdatePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:payment_method_id]
   defstruct custom_data: nil, active: nil, archived: nil, owner: nil, payment_method_id: nil
@@ -19952,7 +20145,7 @@ defmodule Inttegro.UpdatePaymentMethodRequest do
           custom_data: %{optional(String.t()) => String.t() | nil} | nil,
           active: boolean() | nil,
           archived: boolean() | nil,
-          owner: Inttegro.UpdatePaymentMethodRequestOwner.t() | nil,
+          owner: Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner.t() | nil,
           payment_method_id: String.t()
         }
   @spec new!(map() | keyword()) :: t()
@@ -19973,7 +20166,10 @@ defmodule Inttegro.UpdatePaymentMethodRequest do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.UpdatePaymentMethodRequestOwner.from_map(Map.get(map, "owner"))
+          else:
+            Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner.from_map(
+              Map.get(map, "owner")
+            )
         ),
       payment_method_id: Map.fetch!(map, "payment_method_id")
     }
@@ -20001,13 +20197,13 @@ defmodule Inttegro.UpdatePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.UpdatePaymentMethodRequestOwner do
+defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner do
   @moduledoc "Typed Inttegro request parameters."
   defstruct name: nil, address: nil
 
   @type t :: %__MODULE__{
           name: String.t() | nil,
-          address: Inttegro.UpdatePaymentMethodRequestOwnerAddress.t() | nil
+          address: Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwnerAddress.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -20018,7 +20214,10 @@ defmodule Inttegro.UpdatePaymentMethodRequestOwner do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else: Inttegro.UpdatePaymentMethodRequestOwnerAddress.from_map(Map.get(map, "address"))
+          else:
+            Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwnerAddress.from_map(
+              Map.get(map, "address")
+            )
         )
     }
   end
@@ -20034,7 +20233,7 @@ defmodule Inttegro.UpdatePaymentMethodRequestOwner do
   end
 end
 
-defmodule Inttegro.UpdatePaymentMethodRequestOwnerAddress do
+defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwnerAddress do
   @moduledoc "Typed Inttegro request parameters."
   defstruct city: nil,
             country: nil,
@@ -20091,7 +20290,7 @@ defmodule Inttegro.UpdatePaymentMethodRequestOwnerAddress do
   end
 end
 
-defmodule Inttegro.UpdatePriceRequest do
+defmodule Inttegro.Prices.UpdatePriceRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:price_id]
   defstruct label: nil, about: nil, price_id: nil
@@ -20124,7 +20323,7 @@ defmodule Inttegro.UpdatePriceRequest do
   end
 end
 
-defmodule Inttegro.UpdateProductRequest do
+defmodule Inttegro.Products.UpdateProductRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:product_id]
   defstruct type: nil,
@@ -20143,18 +20342,18 @@ defmodule Inttegro.UpdateProductRequest do
             product_id: nil
 
   @type t :: %__MODULE__{
-          type: Inttegro.ProductType.t() | nil,
+          type: Inttegro.Products.ProductType.t() | nil,
           name: String.t() | nil,
           description: String.t() | nil,
           about: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
-          shipment: Inttegro.ProductShipmentInput.t() | nil,
-          dimensions: Inttegro.ProductDimensionsInput.t() | nil,
+          shipment: Inttegro.Products.ProductShipmentInput.t() | nil,
+          dimensions: Inttegro.Products.ProductDimensionsInput.t() | nil,
           unit_dimension: String.t() | nil,
-          media: Inttegro.ProductMediaInput.t() | nil,
+          media: Inttegro.Products.ProductMediaInput.t() | nil,
           images: [String.t()] | nil,
-          attributes: [Inttegro.ProductAttributeInput.t()] | nil,
+          attributes: [Inttegro.Products.ProductAttributeInput.t()] | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           product_id: String.t()
         }
@@ -20166,7 +20365,7 @@ defmodule Inttegro.UpdateProductRequest do
       type:
         if(is_nil(Map.get(map, "type")),
           do: nil,
-          else: Inttegro.ProductType.decode(Map.get(map, "type"))
+          else: Inttegro.Products.ProductType.decode(Map.get(map, "type"))
         ),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       description:
@@ -20177,19 +20376,19 @@ defmodule Inttegro.UpdateProductRequest do
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Inttegro.ProductShipmentInput.from_map(Map.get(map, "shipment"))
+          else: Inttegro.Products.ProductShipmentInput.from_map(Map.get(map, "shipment"))
         ),
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.ProductDimensionsInput.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.ProductDimensionsInput.from_map(Map.get(map, "dimensions"))
         ),
       unit_dimension:
         if(is_nil(Map.get(map, "unit_dimension")), do: nil, else: Map.get(map, "unit_dimension")),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.ProductMediaInput.from_map(Map.get(map, "media"))
+          else: Inttegro.Products.ProductMediaInput.from_map(Map.get(map, "media"))
         ),
       images:
         if(is_nil(Map.get(map, "images")),
@@ -20201,7 +20400,7 @@ defmodule Inttegro.UpdateProductRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.ProductAttributeInput.from_map(item)
+              Inttegro.Products.ProductAttributeInput.from_map(item)
             end)
         ),
       custom_data:
@@ -20216,7 +20415,8 @@ defmodule Inttegro.UpdateProductRequest do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => if(is_nil(value.type), do: nil, else: Inttegro.ProductType.encode(value.type)),
+      "type" =>
+        if(is_nil(value.type), do: nil, else: Inttegro.Products.ProductType.encode(value.type)),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "description" =>
         if(is_nil(value.description), do: nil, else: Inttegro.Codec.encode(value.description)),
@@ -20260,14 +20460,14 @@ defmodule Inttegro.UpdateProductRequest do
   end
 end
 
-defmodule Inttegro.UpdatePurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct expires_at: nil, id: nil, quantity: nil, purchase_intent_id: nil, reactivate: nil
 
   @type t :: %__MODULE__{
           expires_at: String.t() | nil,
           id: String.t() | nil,
-          quantity: Inttegro.UpdatePurchaseIntentRequestQuantity.t() | nil,
+          quantity: Inttegro.PurchaseIntents.UpdatePurchaseIntentRequestQuantity.t() | nil,
           purchase_intent_id: String.t() | nil,
           reactivate: boolean() | nil
         }
@@ -20282,7 +20482,10 @@ defmodule Inttegro.UpdatePurchaseIntentRequest do
       quantity:
         if(is_nil(Map.get(map, "quantity")),
           do: nil,
-          else: Inttegro.UpdatePurchaseIntentRequestQuantity.from_map(Map.get(map, "quantity"))
+          else:
+            Inttegro.PurchaseIntents.UpdatePurchaseIntentRequestQuantity.from_map(
+              Map.get(map, "quantity")
+            )
         ),
       purchase_intent_id:
         if(is_nil(Map.get(map, "purchase_intent_id")),
@@ -20315,7 +20518,7 @@ defmodule Inttegro.UpdatePurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.UpdatePurchaseIntentRequestQuantity do
+defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequestQuantity do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:min]
   defstruct max: nil, min: nil
@@ -20345,7 +20548,7 @@ defmodule Inttegro.UpdatePurchaseIntentRequestQuantity do
   end
 end
 
-defmodule Inttegro.UpdateSecretKeyRequest do
+defmodule Inttegro.Keys.UpdateSecretKeyRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:label, :secret_key_id]
   defstruct label: nil, secret_key_id: nil
@@ -20375,7 +20578,7 @@ defmodule Inttegro.UpdateSecretKeyRequest do
   end
 end
 
-defmodule Inttegro.UpdatedProduct do
+defmodule Inttegro.Products.UpdatedProduct do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:id, :name, :type, :created_at]
   defstruct id: nil,
@@ -20398,13 +20601,13 @@ defmodule Inttegro.UpdatedProduct do
           name: String.t(),
           description: String.t() | nil,
           about: String.t() | nil,
-          type: Inttegro.ProductType.t(),
+          type: Inttegro.Products.ProductType.t(),
           reference: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          dimensions: Inttegro.ProductDimensions.t() | nil,
-          prices: [Inttegro.ProductPriceSummary.t()] | nil,
+          dimensions: Inttegro.Products.ProductDimensions.t() | nil,
+          prices: [Inttegro.Products.ProductPriceSummary.t()] | nil,
           unit_dim: String.t() | nil,
           created_at: String.t(),
           updated_at: String.t() | nil
@@ -20419,7 +20622,7 @@ defmodule Inttegro.UpdatedProduct do
       description:
         if(is_nil(Map.get(map, "description")), do: nil, else: Map.get(map, "description")),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
-      type: Inttegro.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
@@ -20431,14 +20634,14 @@ defmodule Inttegro.UpdatedProduct do
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.ProductDimensions.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.ProductDimensions.from_map(Map.get(map, "dimensions"))
         ),
       prices:
         if(is_nil(Map.get(map, "prices")),
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.ProductPriceSummary.from_map(item)
+              Inttegro.Products.ProductPriceSummary.from_map(item)
             end)
         ),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
@@ -20456,7 +20659,7 @@ defmodule Inttegro.UpdatedProduct do
       "description" =>
         if(is_nil(value.description), do: nil, else: Inttegro.Codec.encode(value.description)),
       "about" => if(is_nil(value.about), do: nil, else: Inttegro.Codec.encode(value.about)),
-      "type" => Inttegro.ProductType.encode(value.type),
+      "type" => Inttegro.Products.ProductType.encode(value.type),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "tax_code" =>
@@ -20489,22 +20692,23 @@ defmodule Inttegro.UpdatedProduct do
   end
 end
 
-defmodule Inttegro.UploadFulfillment do
+defmodule Inttegro.UploadRequests.UploadFulfillment do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:upload_request, :file]
   defstruct upload_request: nil, file: nil
 
   @type t :: %__MODULE__{
-          upload_request: Inttegro.UploadRequest.t(),
-          file: Inttegro.FileUploadReceipt.t()
+          upload_request: Inttegro.UploadRequests.UploadRequest.t(),
+          file: Inttegro.Files.FileUploadReceipt.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      upload_request: Inttegro.UploadRequest.from_map(Map.fetch!(map, "upload_request")),
-      file: Inttegro.FileUploadReceipt.from_map(Map.fetch!(map, "file"))
+      upload_request:
+        Inttegro.UploadRequests.UploadRequest.from_map(Map.fetch!(map, "upload_request")),
+      file: Inttegro.Files.FileUploadReceipt.from_map(Map.fetch!(map, "file"))
     }
   end
 
@@ -20519,7 +20723,7 @@ defmodule Inttegro.UploadFulfillment do
   end
 end
 
-defmodule Inttegro.UploadRequest do
+defmodule Inttegro.UploadRequests.UploadRequest do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [
     :id,
@@ -20566,19 +20770,19 @@ defmodule Inttegro.UploadRequest do
   @type t :: %__MODULE__{
           id: String.t(),
           purpose: String.t(),
-          status: Inttegro.UploadRequestStatus.t(),
+          status: Inttegro.UploadRequests.UploadRequestStatus.t(),
           active: boolean(),
           file_id: String.t() | nil,
           upload_url: String.t() | nil,
-          constraints: Inttegro.UploadRequestConstraints.t(),
-          display: Inttegro.UploadRequestDisplay.t(),
-          subject: Inttegro.FileParty.t(),
-          recipient: Inttegro.FileParty.t(),
-          resource: Inttegro.FileResource.t(),
-          requester: Inttegro.UploadRequestActor.t(),
-          attempts: Inttegro.UploadRequestAttempts.t(),
-          latest_error: Inttegro.UploadRequestLatestError.t() | nil,
-          canceled_by: Inttegro.UploadRequestActor.t() | nil,
+          constraints: Inttegro.UploadRequests.UploadRequestConstraints.t(),
+          display: Inttegro.UploadRequests.UploadRequestDisplay.t(),
+          subject: Inttegro.Files.FileParty.t(),
+          recipient: Inttegro.Files.FileParty.t(),
+          resource: Inttegro.Files.FileResource.t(),
+          requester: Inttegro.UploadRequests.UploadRequestActor.t(),
+          attempts: Inttegro.UploadRequests.UploadRequestAttempts.t(),
+          latest_error: Inttegro.UploadRequests.UploadRequestLatestError.t() | nil,
+          canceled_by: Inttegro.UploadRequests.UploadRequestActor.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
           created_at: String.t(),
@@ -20588,7 +20792,7 @@ defmodule Inttegro.UploadRequest do
           fulfilled_at: String.t() | nil,
           expired_at: String.t() | nil,
           canceled_at: String.t() | nil,
-          attempt: Inttegro.UploadRequestAttempt.t() | nil
+          attempt: Inttegro.UploadRequests.UploadRequestAttempt.t() | nil
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -20597,27 +20801,33 @@ defmodule Inttegro.UploadRequest do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       purpose: Map.fetch!(map, "purpose"),
-      status: Inttegro.UploadRequestStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.UploadRequests.UploadRequestStatus.decode(Map.fetch!(map, "status")),
       active: Map.fetch!(map, "active"),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
       upload_url:
         if(is_nil(Map.get(map, "upload_url")), do: nil, else: Map.get(map, "upload_url")),
-      constraints: Inttegro.UploadRequestConstraints.from_map(Map.fetch!(map, "constraints")),
-      display: Inttegro.UploadRequestDisplay.from_map(Map.fetch!(map, "display")),
-      subject: Inttegro.FileParty.from_map(Map.fetch!(map, "subject")),
-      recipient: Inttegro.FileParty.from_map(Map.fetch!(map, "recipient")),
-      resource: Inttegro.FileResource.from_map(Map.fetch!(map, "resource")),
-      requester: Inttegro.UploadRequestActor.from_map(Map.fetch!(map, "requester")),
-      attempts: Inttegro.UploadRequestAttempts.from_map(Map.fetch!(map, "attempts")),
+      constraints:
+        Inttegro.UploadRequests.UploadRequestConstraints.from_map(Map.fetch!(map, "constraints")),
+      display: Inttegro.UploadRequests.UploadRequestDisplay.from_map(Map.fetch!(map, "display")),
+      subject: Inttegro.Files.FileParty.from_map(Map.fetch!(map, "subject")),
+      recipient: Inttegro.Files.FileParty.from_map(Map.fetch!(map, "recipient")),
+      resource: Inttegro.Files.FileResource.from_map(Map.fetch!(map, "resource")),
+      requester:
+        Inttegro.UploadRequests.UploadRequestActor.from_map(Map.fetch!(map, "requester")),
+      attempts:
+        Inttegro.UploadRequests.UploadRequestAttempts.from_map(Map.fetch!(map, "attempts")),
       latest_error:
         if(is_nil(Map.get(map, "latest_error")),
           do: nil,
-          else: Inttegro.UploadRequestLatestError.from_map(Map.get(map, "latest_error"))
+          else:
+            Inttegro.UploadRequests.UploadRequestLatestError.from_map(
+              Map.get(map, "latest_error")
+            )
         ),
       canceled_by:
         if(is_nil(Map.get(map, "canceled_by")),
           do: nil,
-          else: Inttegro.UploadRequestActor.from_map(Map.get(map, "canceled_by"))
+          else: Inttegro.UploadRequests.UploadRequestActor.from_map(Map.get(map, "canceled_by"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -20643,7 +20853,7 @@ defmodule Inttegro.UploadRequest do
       attempt:
         if(is_nil(Map.get(map, "attempt")),
           do: nil,
-          else: Inttegro.UploadRequestAttempt.from_map(Map.get(map, "attempt"))
+          else: Inttegro.UploadRequests.UploadRequestAttempt.from_map(Map.get(map, "attempt"))
         )
     }
   end
@@ -20653,7 +20863,7 @@ defmodule Inttegro.UploadRequest do
     %{
       "id" => Inttegro.Codec.encode(value.id),
       "purpose" => Inttegro.Codec.encode(value.purpose),
-      "status" => Inttegro.UploadRequestStatus.encode(value.status),
+      "status" => Inttegro.UploadRequests.UploadRequestStatus.encode(value.status),
       "active" => Inttegro.Codec.encode(value.active),
       "file_id" => if(is_nil(value.file_id), do: nil, else: Inttegro.Codec.encode(value.file_id)),
       "upload_url" =>
@@ -20703,7 +20913,7 @@ defmodule Inttegro.UploadRequest do
   end
 end
 
-defmodule Inttegro.UploadRequestActor do
+defmodule Inttegro.UploadRequests.UploadRequestActor do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:type]
   defstruct email: nil, id: nil, name: nil, type: nil
@@ -20739,7 +20949,7 @@ defmodule Inttegro.UploadRequestActor do
   end
 end
 
-defmodule Inttegro.UploadRequestAttempt do
+defmodule Inttegro.UploadRequests.UploadRequestAttempt do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:attempted_at, :id, :ordinal, :status, :upload_request_id]
   defstruct attempted_at: nil,
@@ -20760,13 +20970,13 @@ defmodule Inttegro.UploadRequestAttempt do
           attempted_at: String.t(),
           content_type: String.t() | nil,
           declared_size: integer() | nil,
-          error: Inttegro.UploadRequestLatestError.t() | nil,
+          error: Inttegro.UploadRequests.UploadRequestLatestError.t() | nil,
           failed_at: String.t() | nil,
           file_id: String.t() | nil,
           filename: String.t() | nil,
           id: String.t(),
           ordinal: integer(),
-          review: Inttegro.UploadRequestReview.t() | nil,
+          review: Inttegro.UploadRequests.UploadRequestReview.t() | nil,
           status: String.t(),
           succeeded_at: String.t() | nil,
           upload_request_id: String.t()
@@ -20784,7 +20994,7 @@ defmodule Inttegro.UploadRequestAttempt do
       error:
         if(is_nil(Map.get(map, "error")),
           do: nil,
-          else: Inttegro.UploadRequestLatestError.from_map(Map.get(map, "error"))
+          else: Inttegro.UploadRequests.UploadRequestLatestError.from_map(Map.get(map, "error"))
         ),
       failed_at: if(is_nil(Map.get(map, "failed_at")), do: nil, else: Map.get(map, "failed_at")),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
@@ -20794,7 +21004,7 @@ defmodule Inttegro.UploadRequestAttempt do
       review:
         if(is_nil(Map.get(map, "review")),
           do: nil,
-          else: Inttegro.UploadRequestReview.from_map(Map.get(map, "review"))
+          else: Inttegro.UploadRequests.UploadRequestReview.from_map(Map.get(map, "review"))
         ),
       status: Map.fetch!(map, "status"),
       succeeded_at:
@@ -20830,7 +21040,7 @@ defmodule Inttegro.UploadRequestAttempt do
   end
 end
 
-defmodule Inttegro.UploadRequestAttempts do
+defmodule Inttegro.UploadRequests.UploadRequestAttempts do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:attempt_count, :failed_attempt_count]
   defstruct max_attempts: nil,
@@ -20879,7 +21089,7 @@ defmodule Inttegro.UploadRequestAttempts do
   end
 end
 
-defmodule Inttegro.UploadRequestAttemptsRequest do
+defmodule Inttegro.UploadRequests.UploadRequestAttemptsRequest do
   @moduledoc "Typed Inttegro request parameters."
   defstruct max_attempts: nil
 
@@ -20907,7 +21117,7 @@ defmodule Inttegro.UploadRequestAttemptsRequest do
   end
 end
 
-defmodule Inttegro.UploadRequestConstraints do
+defmodule Inttegro.UploadRequests.UploadRequestConstraints do
   @moduledoc "Typed Inttegro domain value."
   defstruct min_size: nil,
             max_size: nil,
@@ -20974,7 +21184,7 @@ defmodule Inttegro.UploadRequestConstraints do
   end
 end
 
-defmodule Inttegro.UploadRequestConstraintsInput do
+defmodule Inttegro.UploadRequests.UploadRequestConstraintsInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct min_size: nil,
             max_size: nil,
@@ -21041,7 +21251,7 @@ defmodule Inttegro.UploadRequestConstraintsInput do
   end
 end
 
-defmodule Inttegro.UploadRequestDisplay do
+defmodule Inttegro.UploadRequests.UploadRequestDisplay do
   @moduledoc "Typed Inttegro domain value."
   defstruct title: nil, description: nil, help_text: nil
 
@@ -21076,7 +21286,7 @@ defmodule Inttegro.UploadRequestDisplay do
   end
 end
 
-defmodule Inttegro.UploadRequestDisplayInput do
+defmodule Inttegro.UploadRequests.UploadRequestDisplayInput do
   @moduledoc "Typed Inttegro request parameters."
   defstruct title: nil, description: nil, help_text: nil
 
@@ -21111,7 +21321,7 @@ defmodule Inttegro.UploadRequestDisplayInput do
   end
 end
 
-defmodule Inttegro.UploadRequestLatestError do
+defmodule Inttegro.UploadRequests.UploadRequestLatestError do
   @moduledoc "Typed Inttegro domain value."
   defstruct code: nil, param: nil, message: nil, retryable: nil, at: nil
 
@@ -21150,7 +21360,7 @@ defmodule Inttegro.UploadRequestLatestError do
   end
 end
 
-defmodule Inttegro.UploadRequestPage do
+defmodule Inttegro.UploadRequests.UploadRequestPage do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:number, :size, :upload_requests]
   defstruct number: nil, size: nil, upload_requests: nil
@@ -21158,7 +21368,7 @@ defmodule Inttegro.UploadRequestPage do
   @type t :: %__MODULE__{
           number: integer(),
           size: integer(),
-          upload_requests: [Inttegro.UploadRequest.t()]
+          upload_requests: [Inttegro.UploadRequests.UploadRequest.t()]
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -21169,7 +21379,7 @@ defmodule Inttegro.UploadRequestPage do
       size: Map.fetch!(map, "size"),
       upload_requests:
         Enum.map(Map.fetch!(map, "upload_requests"), fn item ->
-          Inttegro.UploadRequest.from_map(item)
+          Inttegro.UploadRequests.UploadRequest.from_map(item)
         end)
     }
   end
@@ -21187,7 +21397,7 @@ defmodule Inttegro.UploadRequestPage do
   end
 end
 
-defmodule Inttegro.UploadRequestReview do
+defmodule Inttegro.UploadRequests.UploadRequestReview do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:created_at, :decision, :reviewed_at, :type]
   defstruct created_at: nil,
@@ -21200,12 +21410,12 @@ defmodule Inttegro.UploadRequestReview do
 
   @type t :: %__MODULE__{
           created_at: String.t(),
-          decision: Inttegro.UploadReviewDecision.t(),
+          decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           file_id: String.t() | nil,
           public_message: String.t() | nil,
-          reasons: [Inttegro.UploadRequestReviewReason.t()] | nil,
+          reasons: [Inttegro.UploadRequests.UploadRequestReviewReason.t()] | nil,
           reviewed_at: String.t(),
-          type: Inttegro.UploadReviewType.t()
+          type: Inttegro.UploadRequests.UploadReviewType.t()
         }
   @spec new!(map() | keyword()) :: t()
   def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
@@ -21213,7 +21423,7 @@ defmodule Inttegro.UploadRequestReview do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       created_at: Map.fetch!(map, "created_at"),
-      decision: Inttegro.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
+      decision: Inttegro.UploadRequests.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
       public_message:
         if(is_nil(Map.get(map, "public_message")), do: nil, else: Map.get(map, "public_message")),
@@ -21222,11 +21432,11 @@ defmodule Inttegro.UploadRequestReview do
           do: nil,
           else:
             Enum.map(Map.get(map, "reasons"), fn item ->
-              Inttegro.UploadRequestReviewReason.from_map(item)
+              Inttegro.UploadRequests.UploadRequestReviewReason.from_map(item)
             end)
         ),
       reviewed_at: Map.fetch!(map, "reviewed_at"),
-      type: Inttegro.UploadReviewType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.UploadRequests.UploadReviewType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -21234,7 +21444,7 @@ defmodule Inttegro.UploadRequestReview do
   def to_map(value) do
     %{
       "created_at" => Inttegro.Codec.encode(value.created_at),
-      "decision" => Inttegro.UploadReviewDecision.encode(value.decision),
+      "decision" => Inttegro.UploadRequests.UploadReviewDecision.encode(value.decision),
       "file_id" => if(is_nil(value.file_id), do: nil, else: Inttegro.Codec.encode(value.file_id)),
       "public_message" =>
         if(is_nil(value.public_message),
@@ -21247,14 +21457,14 @@ defmodule Inttegro.UploadRequestReview do
           else: Enum.map(value.reasons, fn item -> Inttegro.Codec.encode(item) end)
         ),
       "reviewed_at" => Inttegro.Codec.encode(value.reviewed_at),
-      "type" => Inttegro.UploadReviewType.encode(value.type)
+      "type" => Inttegro.UploadRequests.UploadReviewType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.UploadRequestReviewReason do
+defmodule Inttegro.UploadRequests.UploadRequestReviewReason do
   @moduledoc "Typed Inttegro domain value."
   @enforce_keys [:code, :message]
   defstruct code: nil, message: nil, param: nil
@@ -21287,7 +21497,7 @@ defmodule Inttegro.UploadRequestReviewReason do
   end
 end
 
-defmodule Inttegro.UploadRequestReviewReasonInput do
+defmodule Inttegro.UploadRequests.UploadRequestReviewReasonInput do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:code, :message]
   defstruct param: nil, code: nil, message: nil
@@ -21320,7 +21530,7 @@ defmodule Inttegro.UploadRequestReviewReasonInput do
   end
 end
 
-defmodule Inttegro.VerifyOTPRequest do
+defmodule Inttegro.Otp.VerifyOTPRequest do
   @moduledoc "Typed Inttegro request parameters."
   @enforce_keys [:transaction_id, :recipient, :token]
   defstruct transaction_id: nil, recipient: nil, token: nil
