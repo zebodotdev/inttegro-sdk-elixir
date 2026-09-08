@@ -5,8 +5,8 @@ defmodule Inttegro.PublicAPITest do
     client = Inttegro.Client.new!("sk_test_example")
     assert %Inttegro.Client{} = client
 
-    assert %Inttegro.AmountParams{value: 5_000} =
-             Inttegro.AmountParams.new!(currency: :ghs, value: 5_000)
+    assert %Inttegro.Money.AmountParams{value: 5_000} =
+             Inttegro.Money.AmountParams.new!(currency: :ghs, value: 5_000)
   end
 
   test "wire envelopes are unwrapped into domain values" do
@@ -18,19 +18,19 @@ defmodule Inttegro.PublicAPITest do
 
     http = Req.new(base_url: "https://api.inttegro.test", plug: {Req.Test, __MODULE__})
     client = Inttegro.Client.new!("sk_test_example", http: http)
-    assert {:ok, %Inttegro.Application{id: "app_test"}} = Inttegro.Apps.lookup(client)
+    assert {:ok, %Inttegro.Apps.Application{id: "app_test"}} = Inttegro.Apps.lookup(client)
   end
 
   test "error reports encode with the shared camel-case schema" do
-    report = %Inttegro.ErrorReport{
+    report = %Inttegro.Telemetry.ErrorReport{
       schema_version: 1,
       event_id: "event_test",
       occurred_at: "2026-09-07T00:00:00Z",
       severity: "error",
       category: "api",
       operation: "orders.lookup",
-      sdk: %Inttegro.SDKReportContext{language: "elixir", version: "0.1.0"},
-      http: %Inttegro.HTTPReportContext{
+      sdk: %Inttegro.Telemetry.SDKContext{language: "elixir", version: "0.1.1"},
+      http: %Inttegro.Telemetry.HTTPContext{
         method: "POST",
         route: "/orders/lookup",
         server_address: "https://api.inttegro.com",
@@ -38,13 +38,13 @@ defmodule Inttegro.PublicAPITest do
         request_id: "request_test",
         duration_ms: 12
       },
-      api_error: %Inttegro.APIErrorReportContext{
+      api_error: %Inttegro.Telemetry.APIErrorContext{
         type: "api",
         code: "internal_error",
         fix_code: nil
       },
       trace: nil,
-      exception_type: "Inttegro.ApiError",
+      exception_type: "Inttegro.Errors.APIError",
       fingerprint: "inttegro:elixir:orders.lookup:api:500"
     }
 

@@ -1,10 +1,10 @@
-defmodule Inttegro.RequestOptions do
+defmodule Inttegro.Client.RequestOptions do
   @moduledoc "Per-request idempotency and header options."
   defstruct idempotency_key: nil, headers: []
   @type t :: %__MODULE__{idempotency_key: String.t() | nil, headers: [{String.t(), String.t()}]}
 end
 
-defmodule Inttegro.FileDownload do
+defmodule Inttegro.Files.Download do
   @moduledoc "Downloaded Inttegro file bytes and metadata."
   defstruct [:bytes, :content_type, :filename]
 
@@ -15,7 +15,7 @@ defmodule Inttegro.FileDownload do
         }
 end
 
-defmodule Inttegro.CreateFileRequest do
+defmodule Inttegro.Files.CreateRequest do
   @moduledoc "Parameters for uploading a file."
   @enforce_keys [:file_name, :bytes, :purpose]
   defstruct [:file_name, :bytes, :purpose, :title, :custom_data]
@@ -29,7 +29,7 @@ defmodule Inttegro.CreateFileRequest do
         }
 end
 
-defmodule Inttegro.FulfillUploadRequest do
+defmodule Inttegro.UploadRequests.FulfillRequest do
   @moduledoc "Parameters for fulfilling an upload request."
   @enforce_keys [:id, :token, :file_name, :bytes]
   defstruct [:id, :token, :file_name, :bytes]
@@ -42,32 +42,32 @@ defmodule Inttegro.FulfillUploadRequest do
         }
 end
 
-defmodule Inttegro.OpenFileLinkRequest do
+defmodule Inttegro.FileLinks.OpenRequest do
   @moduledoc "Parameters for opening a signed file link."
   @enforce_keys [:id, :token]
   defstruct [:id, :token]
   @type t :: %__MODULE__{id: String.t(), token: String.t()}
 end
 
-defmodule Inttegro.SDKReportContext do
+defmodule Inttegro.Telemetry.SDKContext do
   @moduledoc "Identifies the SDK that produced an error report."
   @enforce_keys [:language, :version]
   defstruct [:language, :version]
 end
 
-defimpl Jason.Encoder, for: Inttegro.SDKReportContext do
+defimpl Jason.Encoder, for: Inttegro.Telemetry.SDKContext do
   def encode(value, options) do
     Jason.Encode.map(%{"language" => value.language, "version" => value.version}, options)
   end
 end
 
-defmodule Inttegro.HTTPReportContext do
+defmodule Inttegro.Telemetry.HTTPContext do
   @moduledoc "Privacy-safe HTTP metadata included in an error report."
   @enforce_keys [:method, :server_address, :duration_ms]
   defstruct [:method, :route, :server_address, :status_code, :request_id, :duration_ms]
 end
 
-defimpl Jason.Encoder, for: Inttegro.HTTPReportContext do
+defimpl Jason.Encoder, for: Inttegro.Telemetry.HTTPContext do
   def encode(value, options) do
     Jason.Encode.map(
       %{
@@ -83,12 +83,12 @@ defimpl Jason.Encoder, for: Inttegro.HTTPReportContext do
   end
 end
 
-defmodule Inttegro.APIErrorReportContext do
+defmodule Inttegro.Telemetry.APIErrorContext do
   @moduledoc "Structured Inttegro API error details included in an error report."
   defstruct [:type, :code, :fix_code]
 end
 
-defimpl Jason.Encoder, for: Inttegro.APIErrorReportContext do
+defimpl Jason.Encoder, for: Inttegro.Telemetry.APIErrorContext do
   def encode(value, options) do
     Jason.Encode.map(
       %{"type" => value.type, "code" => value.code, "fixCode" => value.fix_code},
@@ -97,19 +97,19 @@ defimpl Jason.Encoder, for: Inttegro.APIErrorReportContext do
   end
 end
 
-defmodule Inttegro.TraceReportContext do
+defmodule Inttegro.Telemetry.TraceContext do
   @moduledoc "Optional distributed-trace identifiers attached by an integration."
   @enforce_keys [:trace_id, :span_id]
   defstruct [:trace_id, :span_id]
 end
 
-defimpl Jason.Encoder, for: Inttegro.TraceReportContext do
+defimpl Jason.Encoder, for: Inttegro.Telemetry.TraceContext do
   def encode(value, options) do
     Jason.Encode.map(%{"traceId" => value.trace_id, "spanId" => value.span_id}, options)
   end
 end
 
-defmodule Inttegro.ErrorReport do
+defmodule Inttegro.Telemetry.ErrorReport do
   @moduledoc "A ready-to-encode, privacy-safe report delivered to the configured error reporter."
   @enforce_keys [
     :schema_version,
@@ -139,7 +139,7 @@ defmodule Inttegro.ErrorReport do
   ]
 end
 
-defimpl Jason.Encoder, for: Inttegro.ErrorReport do
+defimpl Jason.Encoder, for: Inttegro.Telemetry.ErrorReport do
   def encode(value, options) do
     Jason.Encode.map(
       %{
@@ -161,7 +161,7 @@ defimpl Jason.Encoder, for: Inttegro.ErrorReport do
   end
 end
 
-defmodule Inttegro.ApiError do
+defmodule Inttegro.Errors.APIError do
   @moduledoc "An unsuccessful response returned by the Inttegro API."
   defexception [:status, :code, :type, :fix_code, :request_id, :report]
   @impl true
@@ -169,14 +169,14 @@ defmodule Inttegro.ApiError do
     do: "Inttegro API request failed with status #{error.status} (#{error.code})"
 end
 
-defmodule Inttegro.TransportError do
+defmodule Inttegro.Errors.TransportError do
   @moduledoc "A failure to communicate with the Inttegro API."
   defexception [:reason]
   @impl true
   def message(error), do: "Inttegro transport failed: #{inspect(error.reason)}"
 end
 
-defmodule Inttegro.DecodingError do
+defmodule Inttegro.Errors.DecodingError do
   @moduledoc "A response that could not be decoded into its documented domain type."
   defexception [:reason]
   @impl true
@@ -185,7 +185,7 @@ end
 
 defmodule Inttegro.Client do
   @moduledoc "The Inttegro server API client."
-  @version "0.1.0"
+  @version "0.1.1"
   @enforce_keys [:api_key, :base_url, :http]
   defstruct [
     :api_key,
@@ -236,7 +236,7 @@ defmodule Inttegro.Client do
             record(client, "inttegro.response.decoded", operation, method, path, status, started)
             result
 
-          {:error, %Inttegro.DecodingError{}} = result ->
+          {:error, %Inttegro.Errors.DecodingError{}} = result ->
             _ =
               finish_failure(
                 client,
@@ -280,7 +280,7 @@ defmodule Inttegro.Client do
           )
 
         {:error,
-         %Inttegro.ApiError{
+         %Inttegro.Errors.APIError{
            status: status,
            code: code,
            type: type,
@@ -304,7 +304,7 @@ defmodule Inttegro.Client do
             nil
           )
 
-        {:error, %Inttegro.TransportError{reason: reason}}
+        {:error, %Inttegro.Errors.TransportError{reason: reason}}
     end
   end
 
@@ -324,7 +324,7 @@ defmodule Inttegro.Client do
         record(client, "inttegro.response.received", operation, method, path, status, started)
 
         {:ok,
-         %Inttegro.FileDownload{
+         %Inttegro.Files.Download{
            bytes: bytes,
            content_type: header(response_headers, "content-type")
          }}
@@ -348,7 +348,7 @@ defmodule Inttegro.Client do
           )
 
         {:error,
-         %Inttegro.ApiError{
+         %Inttegro.Errors.APIError{
            status: status,
            code: "download_failed",
            request_id: request_id,
@@ -370,7 +370,7 @@ defmodule Inttegro.Client do
             nil
           )
 
-        {:error, %Inttegro.TransportError{reason: reason}}
+        {:error, %Inttegro.Errors.TransportError{reason: reason}}
     end
   end
 
@@ -418,7 +418,7 @@ defmodule Inttegro.Client do
         record(client, "inttegro.response.received", operation, "GET", path, status, started)
 
         {:ok,
-         %Inttegro.FileDownload{
+         %Inttegro.Files.Download{
            bytes: bytes,
            content_type: header(response_headers, "content-type")
          }}
@@ -442,7 +442,7 @@ defmodule Inttegro.Client do
           )
 
         {:error,
-         %Inttegro.ApiError{
+         %Inttegro.Errors.APIError{
            status: status,
            code: "file_link_failed",
            request_id: request_id,
@@ -464,7 +464,7 @@ defmodule Inttegro.Client do
             nil
           )
 
-        {:error, %Inttegro.TransportError{reason: reason}}
+        {:error, %Inttegro.Errors.TransportError{reason: reason}}
     end
   end
 
@@ -487,7 +487,7 @@ defmodule Inttegro.Client do
             record(client, "inttegro.response.decoded", operation, "POST", path, status, started)
             result
 
-          {:error, %Inttegro.DecodingError{}} = result ->
+          {:error, %Inttegro.Errors.DecodingError{}} = result ->
             _ =
               finish_failure(
                 client,
@@ -524,7 +524,7 @@ defmodule Inttegro.Client do
           )
 
         {:error,
-         %Inttegro.ApiError{
+         %Inttegro.Errors.APIError{
            status: status,
            code: "upload_failed",
            request_id: request_id,
@@ -546,7 +546,7 @@ defmodule Inttegro.Client do
             nil
           )
 
-        {:error, %Inttegro.TransportError{reason: reason}}
+        {:error, %Inttegro.Errors.TransportError{reason: reason}}
     end
   end
 
@@ -554,13 +554,16 @@ defmodule Inttegro.Client do
 
   defp select(value, field) when is_map(value) do
     case Map.fetch(value, field) do
-      {:ok, selected} -> {:ok, selected}
-      :error -> {:error, %Inttegro.DecodingError{reason: "missing #{field} in Inttegro response"}}
+      {:ok, selected} ->
+        {:ok, selected}
+
+      :error ->
+        {:error, %Inttegro.Errors.DecodingError{reason: "missing #{field} in Inttegro response"}}
     end
   end
 
   defp headers(client, options, authenticated) do
-    options = struct(Inttegro.RequestOptions, options)
+    options = struct(Inttegro.Client.RequestOptions, options)
     base = [{"user-agent", "inttegro-elixir/#{@version}"} | options.headers]
 
     base =
@@ -639,17 +642,17 @@ defmodule Inttegro.Client do
     else
       api_error =
         if status,
-          do: %Inttegro.APIErrorReportContext{type: category, code: code, fix_code: fix_code}
+          do: %Inttegro.Telemetry.APIErrorContext{type: category, code: code, fix_code: fix_code}
 
-      report = %Inttegro.ErrorReport{
+      report = %Inttegro.Telemetry.ErrorReport{
         schema_version: 1,
         event_id: Integer.to_string(System.unique_integer([:positive, :monotonic])),
         occurred_at: DateTime.utc_now() |> DateTime.to_iso8601(),
         severity: "error",
         category: category,
         operation: operation,
-        sdk: %Inttegro.SDKReportContext{language: "elixir", version: @version},
-        http: %Inttegro.HTTPReportContext{
+        sdk: %Inttegro.Telemetry.SDKContext{language: "elixir", version: @version},
+        http: %Inttegro.Telemetry.HTTPContext{
           method: String.upcase(method),
           route: route,
           server_address: client.base_url,
@@ -659,7 +662,8 @@ defmodule Inttegro.Client do
         },
         api_error: api_error,
         trace: nil,
-        exception_type: if(status, do: "Inttegro.ApiError", else: "Inttegro.TransportError"),
+        exception_type:
+          if(status, do: "Inttegro.Errors.APIError", else: "Inttegro.Errors.TransportError"),
         fingerprint: "inttegro:elixir:#{operation}:#{category}:#{status || "none"}"
       }
 
