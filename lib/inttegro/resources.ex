@@ -4,8 +4,8 @@ defmodule Inttegro.Apps do
   @moduledoc "Operations for Inttegro apps."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateApplicationRequest.t(), keyword()) ::
-          {:ok, Inttegro.Application.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Apps.CreateApplicationRequest.t(), keyword()) ::
+          {:ok, Inttegro.Apps.Application.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -18,11 +18,12 @@ defmodule Inttegro.Apps do
              "app",
              true
            ) do
-      {:ok, Inttegro.Application.from_map(value)}
+      {:ok, Inttegro.Apps.Application.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), keyword()) :: {:ok, Inttegro.Application.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), keyword()) ::
+          {:ok, Inttegro.Apps.Application.t()} | {:error, Exception.t()}
   def lookup(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -35,12 +36,12 @@ defmodule Inttegro.Apps do
              "app",
              true
            ) do
-      {:ok, Inttegro.Application.from_map(value)}
+      {:ok, Inttegro.Apps.Application.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdateApplicationRequest.t(), keyword()) ::
-          {:ok, Inttegro.Application.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Apps.UpdateApplicationRequest.t(), keyword()) ::
+          {:ok, Inttegro.Apps.Application.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -53,7 +54,7 @@ defmodule Inttegro.Apps do
              "app",
              true
            ) do
-      {:ok, Inttegro.Application.from_map(value)}
+      {:ok, Inttegro.Apps.Application.from_map(value)}
     end
   end
 end
@@ -62,8 +63,12 @@ defmodule Inttegro.BalanceTransactions do
   @moduledoc "Operations for Inttegro balance transactions."
   alias Inttegro.Client
 
-  @spec lookup(Client.t(), Inttegro.LookupBalanceTransactionRequest.t(), keyword()) ::
-          {:ok, Inttegro.BalanceTransaction.t()} | {:error, Exception.t()}
+  @spec lookup(
+          Client.t(),
+          Inttegro.BalanceTransactions.LookupBalanceTransactionRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.BalanceTransactions.BalanceTransaction.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -76,12 +81,16 @@ defmodule Inttegro.BalanceTransactions do
              "transaction",
              true
            ) do
-      {:ok, Inttegro.BalanceTransaction.from_map(value)}
+      {:ok, Inttegro.BalanceTransactions.BalanceTransaction.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageBalanceTransactionsRequest.t(), keyword()) ::
-          {:ok, Inttegro.BalanceTransactionPage.t()} | {:error, Exception.t()}
+  @spec page(
+          Client.t(),
+          Inttegro.BalanceTransactions.PageBalanceTransactionsRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.BalanceTransactions.BalanceTransactionPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -94,7 +103,7 @@ defmodule Inttegro.BalanceTransactions do
              "page",
              true
            ) do
-      {:ok, Inttegro.BalanceTransactionPage.from_map(value)}
+      {:ok, Inttegro.BalanceTransactions.BalanceTransactionPage.from_map(value)}
     end
   end
 end
@@ -104,7 +113,7 @@ defmodule Inttegro.Balances do
   alias Inttegro.Client
 
   @spec get(Client.t(), keyword()) ::
-          {:ok, %{optional(String.t()) => Inttegro.CurrencyBalanceSnapshot.t()}}
+          {:ok, %{optional(String.t()) => Inttegro.Balances.CurrencyBalanceSnapshot.t()}}
           | {:error, Exception.t()}
   def get(client, options \\ []) do
     with {:ok, value} <-
@@ -120,7 +129,7 @@ defmodule Inttegro.Balances do
            ) do
       {:ok,
        Map.new(value, fn {key, value} ->
-         {key, Inttegro.CurrencyBalanceSnapshot.from_map(value)}
+         {key, Inttegro.Balances.CurrencyBalanceSnapshot.from_map(value)}
        end)}
     end
   end
@@ -130,8 +139,8 @@ defmodule Inttegro.Broadcasts do
   @moduledoc "Operations for Inttegro broadcasts."
   alias Inttegro.Client
 
-  @spec lookup(Client.t(), Inttegro.LookupBroadcastRequest.t(), keyword()) ::
-          {:ok, Inttegro.BroadcastDetail.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Broadcasts.LookupBroadcastRequest.t(), keyword()) ::
+          {:ok, Inttegro.Broadcasts.BroadcastDetail.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -144,12 +153,12 @@ defmodule Inttegro.Broadcasts do
              "broadcast",
              true
            ) do
-      {:ok, Inttegro.BroadcastDetail.from_map(value)}
+      {:ok, Inttegro.Broadcasts.BroadcastDetail.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelBroadcastRequest.t(), keyword()) ::
-          {:ok, Inttegro.BroadcastDetail.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.Broadcasts.CancelBroadcastRequest.t(), keyword()) ::
+          {:ok, Inttegro.Broadcasts.BroadcastDetail.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -162,7 +171,7 @@ defmodule Inttegro.Broadcasts do
              "broadcast",
              true
            ) do
-      {:ok, Inttegro.BroadcastDetail.from_map(value)}
+      {:ok, Inttegro.Broadcasts.BroadcastDetail.from_map(value)}
     end
   end
 end
@@ -171,8 +180,8 @@ defmodule Inttegro.Chimes do
   @moduledoc "Operations for Inttegro chimes."
   alias Inttegro.Client
 
-  @spec send(Client.t(), Inttegro.SendChimeRequest.t(), keyword()) ::
-          {:ok, Inttegro.Chime.t()} | {:error, Exception.t()}
+  @spec send(Client.t(), Inttegro.Chimes.SendChimeRequest.t(), keyword()) ::
+          {:ok, Inttegro.Chimes.Chime.t()} | {:error, Exception.t()}
   def send(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -185,12 +194,12 @@ defmodule Inttegro.Chimes do
              "chime",
              true
            ) do
-      {:ok, Inttegro.Chime.from_map(value)}
+      {:ok, Inttegro.Chimes.Chime.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupChimeRequest.t(), keyword()) ::
-          {:ok, Inttegro.Chime.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Chimes.LookupChimeRequest.t(), keyword()) ::
+          {:ok, Inttegro.Chimes.Chime.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -203,12 +212,12 @@ defmodule Inttegro.Chimes do
              "chime",
              true
            ) do
-      {:ok, Inttegro.Chime.from_map(value)}
+      {:ok, Inttegro.Chimes.Chime.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageChimesRequest.t(), keyword()) ::
-          {:ok, Inttegro.ChimePage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Chimes.PageChimesRequest.t(), keyword()) ::
+          {:ok, Inttegro.Chimes.ChimePage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -221,12 +230,12 @@ defmodule Inttegro.Chimes do
              "page",
              true
            ) do
-      {:ok, Inttegro.ChimePage.from_map(value)}
+      {:ok, Inttegro.Chimes.ChimePage.from_map(value)}
     end
   end
 
-  @spec schedule(Client.t(), Inttegro.ScheduleChimeRequest.t(), keyword()) ::
-          {:ok, Inttegro.ScheduleCreationDetail.t()} | {:error, Exception.t()}
+  @spec schedule(Client.t(), Inttegro.Chimes.ScheduleChimeRequest.t(), keyword()) ::
+          {:ok, Inttegro.Chimes.ScheduleCreationDetail.t()} | {:error, Exception.t()}
   def schedule(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -239,12 +248,12 @@ defmodule Inttegro.Chimes do
              "scheduled_chime",
              true
            ) do
-      {:ok, Inttegro.ScheduleCreationDetail.from_map(value)}
+      {:ok, Inttegro.Chimes.ScheduleCreationDetail.from_map(value)}
     end
   end
 
-  @spec broadcast(Client.t(), Inttegro.BroadcastRequest.t(), keyword()) ::
-          {:ok, Inttegro.BroadcastCreationDetail.t()} | {:error, Exception.t()}
+  @spec broadcast(Client.t(), Inttegro.Chimes.BroadcastRequest.t(), keyword()) ::
+          {:ok, Inttegro.Chimes.BroadcastCreationDetail.t()} | {:error, Exception.t()}
   def broadcast(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -257,7 +266,7 @@ defmodule Inttegro.Chimes do
              "broadcast",
              true
            ) do
-      {:ok, Inttegro.BroadcastCreationDetail.from_map(value)}
+      {:ok, Inttegro.Chimes.BroadcastCreationDetail.from_map(value)}
     end
   end
 end
@@ -266,8 +275,8 @@ defmodule Inttegro.Customers do
   @moduledoc "Operations for Inttegro customers."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateCustomerRequest.t(), keyword()) ::
-          {:ok, Inttegro.Customer.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Customers.CreateCustomerRequest.t(), keyword()) ::
+          {:ok, Inttegro.Customers.Customer.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -280,12 +289,12 @@ defmodule Inttegro.Customers do
              "customer",
              true
            ) do
-      {:ok, Inttegro.Customer.from_map(value)}
+      {:ok, Inttegro.Customers.Customer.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupCustomerRequest.t(), keyword()) ::
-          {:ok, Inttegro.Customer.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Customers.LookupCustomerRequest.t(), keyword()) ::
+          {:ok, Inttegro.Customers.Customer.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -298,12 +307,12 @@ defmodule Inttegro.Customers do
              "customer",
              true
            ) do
-      {:ok, Inttegro.Customer.from_map(value)}
+      {:ok, Inttegro.Customers.Customer.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdateCustomerRequest.t(), keyword()) ::
-          {:ok, Inttegro.Customer.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Customers.UpdateCustomerRequest.t(), keyword()) ::
+          {:ok, Inttegro.Customers.Customer.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -316,12 +325,12 @@ defmodule Inttegro.Customers do
              "customer",
              true
            ) do
-      {:ok, Inttegro.Customer.from_map(value)}
+      {:ok, Inttegro.Customers.Customer.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageCustomersRequest.t(), keyword()) ::
-          {:ok, Inttegro.CustomerPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Customers.PageCustomersRequest.t(), keyword()) ::
+          {:ok, Inttegro.Customers.CustomerPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -334,7 +343,7 @@ defmodule Inttegro.Customers do
              "page",
              true
            ) do
-      {:ok, Inttegro.CustomerPage.from_map(value)}
+      {:ok, Inttegro.Customers.CustomerPage.from_map(value)}
     end
   end
 end
@@ -343,8 +352,8 @@ defmodule Inttegro.FileLinks do
   @moduledoc "Operations for Inttegro file links."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateFileLinkRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileLinkCreation.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.FileLinks.CreateFileLinkRequest.t(), keyword()) ::
+          {:ok, Inttegro.FileLinks.FileLinkCreation.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -357,12 +366,12 @@ defmodule Inttegro.FileLinks do
              nil,
              true
            ) do
-      {:ok, Inttegro.FileLinkCreation.from_map(value)}
+      {:ok, Inttegro.FileLinks.FileLinkCreation.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupFileLinkRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileLink.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.FileLinks.LookupFileLinkRequest.t(), keyword()) ::
+          {:ok, Inttegro.FileLinks.FileLink.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -375,12 +384,12 @@ defmodule Inttegro.FileLinks do
              "file_link",
              true
            ) do
-      {:ok, Inttegro.FileLink.from_map(value)}
+      {:ok, Inttegro.FileLinks.FileLink.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageFileLinksRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileLinkPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.FileLinks.PageFileLinksRequest.t(), keyword()) ::
+          {:ok, Inttegro.FileLinks.FileLinkPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -393,12 +402,12 @@ defmodule Inttegro.FileLinks do
              "page",
              true
            ) do
-      {:ok, Inttegro.FileLinkPage.from_map(value)}
+      {:ok, Inttegro.FileLinks.FileLinkPage.from_map(value)}
     end
   end
 
-  @spec revoke(Client.t(), Inttegro.RevokeFileLinkRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileLink.t()} | {:error, Exception.t()}
+  @spec revoke(Client.t(), Inttegro.FileLinks.RevokeFileLinkRequest.t(), keyword()) ::
+          {:ok, Inttegro.FileLinks.FileLink.t()} | {:error, Exception.t()}
   def revoke(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -411,12 +420,12 @@ defmodule Inttegro.FileLinks do
              "file_link",
              true
            ) do
-      {:ok, Inttegro.FileLink.from_map(value)}
+      {:ok, Inttegro.FileLinks.FileLink.from_map(value)}
     end
   end
 
-  @spec open(Client.t(), Inttegro.OpenFileLinkRequest.t()) ::
-          {:ok, Inttegro.FileDownload.t()} | {:error, Exception.t()}
+  @spec open(Client.t(), Inttegro.FileLinks.OpenRequest.t()) ::
+          {:ok, Inttegro.Files.Download.t()} | {:error, Exception.t()}
   def open(client, request) do
     with {:ok, value} <-
            Client.open_file_link(client, "/file_links/open", request, "file_links.open") do
@@ -429,8 +438,12 @@ defmodule Inttegro.FileReferences do
   @moduledoc "Operations for Inttegro file references."
   alias Inttegro.Client
 
-  @spec reconcile(Client.t(), Inttegro.FileReferenceReconcileRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileReferenceReconciliation.t()} | {:error, Exception.t()}
+  @spec reconcile(
+          Client.t(),
+          Inttegro.FileReferences.FileReferenceReconcileRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FileReferences.FileReferenceReconciliation.t()} | {:error, Exception.t()}
   def reconcile(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -443,7 +456,7 @@ defmodule Inttegro.FileReferences do
              nil,
              true
            ) do
-      {:ok, Inttegro.FileReferenceReconciliation.from_map(value)}
+      {:ok, Inttegro.FileReferences.FileReferenceReconciliation.from_map(value)}
     end
   end
 end
@@ -452,17 +465,17 @@ defmodule Inttegro.Files do
   @moduledoc "Operations for Inttegro files."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateFileRequest.t(), keyword()) ::
-          {:ok, Inttegro.File.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Files.CreateRequest.t(), keyword()) ::
+          {:ok, Inttegro.Files.File.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.upload_file(client, "/files/create", request, options, "files.create", "file") do
-      {:ok, Inttegro.File.from_map(value)}
+      {:ok, Inttegro.Files.File.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupFileRequest.t(), keyword()) ::
-          {:ok, Inttegro.File.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Files.LookupFileRequest.t(), keyword()) ::
+          {:ok, Inttegro.Files.File.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -475,12 +488,12 @@ defmodule Inttegro.Files do
              "file",
              true
            ) do
-      {:ok, Inttegro.File.from_map(value)}
+      {:ok, Inttegro.Files.File.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageFilesRequest.t(), keyword()) ::
-          {:ok, Inttegro.FilePage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Files.PageFilesRequest.t(), keyword()) ::
+          {:ok, Inttegro.Files.FilePage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -493,12 +506,12 @@ defmodule Inttegro.Files do
              "page",
              true
            ) do
-      {:ok, Inttegro.FilePage.from_map(value)}
+      {:ok, Inttegro.Files.FilePage.from_map(value)}
     end
   end
 
-  @spec contents(Client.t(), Inttegro.FileContentsRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileDownload.t()} | {:error, Exception.t()}
+  @spec contents(Client.t(), Inttegro.Files.FileContentsRequest.t(), keyword()) ::
+          {:ok, Inttegro.Files.Download.t()} | {:error, Exception.t()}
   def contents(client, request, options \\ []) do
     with {:ok, value} <-
            Client.download(
@@ -514,8 +527,8 @@ defmodule Inttegro.Files do
     end
   end
 
-  @spec delete(Client.t(), Inttegro.DeleteFileRequest.t(), keyword()) ::
-          {:ok, Inttegro.File.t()} | {:error, Exception.t()}
+  @spec delete(Client.t(), Inttegro.Files.DeleteFileRequest.t(), keyword()) ::
+          {:ok, Inttegro.Files.File.t()} | {:error, Exception.t()}
   def delete(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -528,7 +541,7 @@ defmodule Inttegro.Files do
              "file",
              true
            ) do
-      {:ok, Inttegro.File.from_map(value)}
+      {:ok, Inttegro.Files.File.from_map(value)}
     end
   end
 end
@@ -537,8 +550,12 @@ defmodule Inttegro.FinancialAccounts do
   @moduledoc "Operations for Inttegro financial accounts."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.FinancialAccountCreateRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec create(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountCreateRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -551,12 +568,12 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.FinancialAccountIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(), keyword()) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -569,12 +586,12 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.FinancialAccountPageRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccountPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.FinancialAccounts.FinancialAccountPageRequest.t(), keyword()) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccountPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -587,12 +604,16 @@ defmodule Inttegro.FinancialAccounts do
              "page",
              true
            ) do
-      {:ok, Inttegro.FinancialAccountPage.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccountPage.from_map(value)}
     end
   end
 
-  @spec connect(Client.t(), Inttegro.FinancialAccountCreateRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec connect(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountCreateRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def connect(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -605,12 +626,16 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.FinancialAccountUpdateRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec update(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountUpdateRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -623,12 +648,16 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec enable_push(Client.t(), Inttegro.FinancialAccountIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec enable_push(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def enable_push(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -641,12 +670,16 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec disable_push(Client.t(), Inttegro.FinancialAccountDisableRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec disable_push(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountDisableRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def disable_push(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -659,12 +692,16 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec disconnect(Client.t(), Inttegro.FinancialAccountDisableRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec disconnect(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountDisableRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def disconnect(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -677,12 +714,12 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec reconnect(Client.t(), Inttegro.FinancialAccountIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec reconnect(Client.t(), Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(), keyword()) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def reconnect(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -695,12 +732,16 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec enable_pull(Client.t(), Inttegro.FinancialAccountEnablePullRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec enable_pull(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountEnablePullRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def enable_pull(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -713,12 +754,16 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 
-  @spec disable_pull(Client.t(), Inttegro.FinancialAccountIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccount.t()} | {:error, Exception.t()}
+  @spec disable_pull(
+          Client.t(),
+          Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def disable_pull(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -731,7 +776,7 @@ defmodule Inttegro.FinancialAccounts do
              "account",
              true
            ) do
-      {:ok, Inttegro.FinancialAccount.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.FinancialAccount.from_map(value)}
     end
   end
 end
@@ -740,8 +785,8 @@ defmodule Inttegro.Keys do
   @moduledoc "Operations for Inttegro keys."
   alias Inttegro.Client
 
-  @spec generate(Client.t(), Inttegro.GenerateSecretKeyRequest.t(), keyword()) ::
-          {:ok, Inttegro.GeneratedSecretKey.t()} | {:error, Exception.t()}
+  @spec generate(Client.t(), Inttegro.Keys.GenerateSecretKeyRequest.t(), keyword()) ::
+          {:ok, Inttegro.Keys.GeneratedSecretKey.t()} | {:error, Exception.t()}
   def generate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -754,12 +799,12 @@ defmodule Inttegro.Keys do
              "key",
              true
            ) do
-      {:ok, Inttegro.GeneratedSecretKey.from_map(value)}
+      {:ok, Inttegro.Keys.GeneratedSecretKey.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageSecretKeysRequest.t(), keyword()) ::
-          {:ok, Inttegro.SecretKeyPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Keys.PageSecretKeysRequest.t(), keyword()) ::
+          {:ok, Inttegro.Keys.SecretKeyPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -772,12 +817,12 @@ defmodule Inttegro.Keys do
              "page",
              true
            ) do
-      {:ok, Inttegro.SecretKeyPage.from_map(value)}
+      {:ok, Inttegro.Keys.SecretKeyPage.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupSecretKeyRequest.t(), keyword()) ::
-          {:ok, Inttegro.SecretKey.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Keys.LookupSecretKeyRequest.t(), keyword()) ::
+          {:ok, Inttegro.Keys.SecretKey.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -790,12 +835,12 @@ defmodule Inttegro.Keys do
              "key",
              true
            ) do
-      {:ok, Inttegro.SecretKey.from_map(value)}
+      {:ok, Inttegro.Keys.SecretKey.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdateSecretKeyRequest.t(), keyword()) ::
-          {:ok, Inttegro.SecretKey.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Keys.UpdateSecretKeyRequest.t(), keyword()) ::
+          {:ok, Inttegro.Keys.SecretKey.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -808,12 +853,12 @@ defmodule Inttegro.Keys do
              "key",
              true
            ) do
-      {:ok, Inttegro.SecretKey.from_map(value)}
+      {:ok, Inttegro.Keys.SecretKey.from_map(value)}
     end
   end
 
-  @spec destroy(Client.t(), Inttegro.DestroySecretKeyRequest.t(), keyword()) ::
-          {:ok, Inttegro.SecretKey.t()} | {:error, Exception.t()}
+  @spec destroy(Client.t(), Inttegro.Keys.DestroySecretKeyRequest.t(), keyword()) ::
+          {:ok, Inttegro.Keys.SecretKey.t()} | {:error, Exception.t()}
   def destroy(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -826,12 +871,12 @@ defmodule Inttegro.Keys do
              "key",
              true
            ) do
-      {:ok, Inttegro.SecretKey.from_map(value)}
+      {:ok, Inttegro.Keys.SecretKey.from_map(value)}
     end
   end
 
-  @spec usage(Client.t(), Inttegro.SecretKeyUsageRequest.t(), keyword()) ::
-          {:ok, Inttegro.SecretKeyUsage.t()} | {:error, Exception.t()}
+  @spec usage(Client.t(), Inttegro.Keys.SecretKeyUsageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Keys.SecretKeyUsage.t()} | {:error, Exception.t()}
   def usage(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -844,7 +889,7 @@ defmodule Inttegro.Keys do
              nil,
              true
            ) do
-      {:ok, Inttegro.SecretKeyUsage.from_map(value)}
+      {:ok, Inttegro.Keys.SecretKeyUsage.from_map(value)}
     end
   end
 end
@@ -853,8 +898,8 @@ defmodule Inttegro.MessageTemplates do
   @moduledoc "Operations for Inttegro message templates."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateMessageTemplateRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplate.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.MessageTemplates.CreateMessageTemplateRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -867,12 +912,12 @@ defmodule Inttegro.MessageTemplates do
              "message_template",
              true
            ) do
-      {:ok, Inttegro.MessageTemplate.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplate.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdateMessageTemplateRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplate.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.MessageTemplates.UpdateMessageTemplateRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -885,12 +930,12 @@ defmodule Inttegro.MessageTemplates do
              "message_template",
              true
            ) do
-      {:ok, Inttegro.MessageTemplate.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplate.from_map(value)}
     end
   end
 
-  @spec publish(Client.t(), Inttegro.MessageTemplateIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplate.t()} | {:error, Exception.t()}
+  @spec publish(Client.t(), Inttegro.MessageTemplates.MessageTemplateIDRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def publish(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -903,12 +948,12 @@ defmodule Inttegro.MessageTemplates do
              "message_template",
              true
            ) do
-      {:ok, Inttegro.MessageTemplate.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplate.from_map(value)}
     end
   end
 
-  @spec archive(Client.t(), Inttegro.MessageTemplateIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplate.t()} | {:error, Exception.t()}
+  @spec archive(Client.t(), Inttegro.MessageTemplates.MessageTemplateIDRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -921,12 +966,12 @@ defmodule Inttegro.MessageTemplates do
              "message_template",
              true
            ) do
-      {:ok, Inttegro.MessageTemplate.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplate.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.MessageTemplateIDRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplate.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.MessageTemplates.MessageTemplateIDRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -939,12 +984,12 @@ defmodule Inttegro.MessageTemplates do
              "message_template",
              true
            ) do
-      {:ok, Inttegro.MessageTemplate.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplate.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageMessageTemplatesRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplatesPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.MessageTemplates.PageMessageTemplatesRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplatesPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -957,12 +1002,16 @@ defmodule Inttegro.MessageTemplates do
              "page",
              true
            ) do
-      {:ok, Inttegro.MessageTemplatesPage.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplatesPage.from_map(value)}
     end
   end
 
-  @spec render_preview(Client.t(), Inttegro.RenderMessageTemplatePreviewRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplatePreview.t()} | {:error, Exception.t()}
+  @spec render_preview(
+          Client.t(),
+          Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.MessageTemplates.MessageTemplatePreview.t()} | {:error, Exception.t()}
   def render_preview(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -975,7 +1024,7 @@ defmodule Inttegro.MessageTemplates do
              nil,
              true
            ) do
-      {:ok, Inttegro.MessageTemplatePreview.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.MessageTemplatePreview.from_map(value)}
     end
   end
 end
@@ -984,8 +1033,8 @@ defmodule Inttegro.Orders do
   @moduledoc "Operations for Inttegro orders."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Orders.CreateOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -998,12 +1047,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Orders.LookupOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1016,12 +1065,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdateOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Orders.UpdateOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1034,12 +1083,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec pay(Client.t(), Inttegro.PayOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec pay(Client.t(), Inttegro.Orders.PayOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def pay(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1052,12 +1101,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec confirm_payment(Client.t(), Inttegro.ConfirmPaymentRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec confirm_payment(Client.t(), Inttegro.Orders.ConfirmPaymentRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def confirm_payment(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1070,12 +1119,16 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec request_confirmation(Client.t(), Inttegro.RequestConfirmationRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec request_confirmation(
+          Client.t(),
+          Inttegro.Orders.RequestConfirmationRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def request_confirmation(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1088,12 +1141,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.Orders.CancelOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1106,12 +1159,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec finalize(Client.t(), Inttegro.FinalizeOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec finalize(Client.t(), Inttegro.Orders.FinalizeOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def finalize(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1124,12 +1177,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec complete(Client.t(), Inttegro.CompleteOrderRequest.t(), keyword()) ::
-          {:ok, Inttegro.Order.t()} | {:error, Exception.t()}
+  @spec complete(Client.t(), Inttegro.Orders.CompleteOrderRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def complete(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1142,12 +1195,12 @@ defmodule Inttegro.Orders do
              "order",
              true
            ) do
-      {:ok, Inttegro.Order.from_map(value)}
+      {:ok, Inttegro.Orders.Order.from_map(value)}
     end
   end
 
-  @spec send_invoice(Client.t(), Inttegro.OrderDocumentDeliveryRequest.t(), keyword()) ::
-          {:ok, Inttegro.OrderDocumentDeliveryResult.t()} | {:error, Exception.t()}
+  @spec send_invoice(Client.t(), Inttegro.Orders.OrderDocumentDeliveryRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.t()} | {:error, Exception.t()}
   def send_invoice(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1160,12 +1213,12 @@ defmodule Inttegro.Orders do
              nil,
              true
            ) do
-      {:ok, Inttegro.OrderDocumentDeliveryResult.from_map(value)}
+      {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.from_map(value)}
     end
   end
 
-  @spec send_receipt(Client.t(), Inttegro.OrderDocumentDeliveryRequest.t(), keyword()) ::
-          {:ok, Inttegro.OrderDocumentDeliveryResult.t()} | {:error, Exception.t()}
+  @spec send_receipt(Client.t(), Inttegro.Orders.OrderDocumentDeliveryRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.t()} | {:error, Exception.t()}
   def send_receipt(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1178,12 +1231,12 @@ defmodule Inttegro.Orders do
              nil,
              true
            ) do
-      {:ok, Inttegro.OrderDocumentDeliveryResult.from_map(value)}
+      {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageOrdersRequest.t(), keyword()) ::
-          {:ok, Inttegro.OrderPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Orders.PageOrdersRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.OrderPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1196,12 +1249,12 @@ defmodule Inttegro.Orders do
              "page",
              true
            ) do
-      {:ok, Inttegro.OrderPage.from_map(value)}
+      {:ok, Inttegro.Orders.OrderPage.from_map(value)}
     end
   end
 
-  @spec refund(Client.t(), Inttegro.CreateRefundRequest.t(), keyword()) ::
-          {:ok, Inttegro.Refund.t()} | {:error, Exception.t()}
+  @spec refund(Client.t(), Inttegro.Refunds.CreateRefundRequest.t(), keyword()) ::
+          {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def refund(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1214,7 +1267,7 @@ defmodule Inttegro.Orders do
              "refund",
              true
            ) do
-      {:ok, Inttegro.Refund.from_map(value)}
+      {:ok, Inttegro.Refunds.Refund.from_map(value)}
     end
   end
 end
@@ -1223,8 +1276,8 @@ defmodule Inttegro.Otp do
   @moduledoc "Operations for Inttegro otp."
   alias Inttegro.Client
 
-  @spec initiate(Client.t(), Inttegro.InitiateOTPRequest.t(), keyword()) ::
-          {:ok, Inttegro.OTPTransaction.t()} | {:error, Exception.t()}
+  @spec initiate(Client.t(), Inttegro.Otp.InitiateOTPRequest.t(), keyword()) ::
+          {:ok, Inttegro.Otp.OTPTransaction.t()} | {:error, Exception.t()}
   def initiate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1237,12 +1290,12 @@ defmodule Inttegro.Otp do
              "transaction",
              true
            ) do
-      {:ok, Inttegro.OTPTransaction.from_map(value)}
+      {:ok, Inttegro.Otp.OTPTransaction.from_map(value)}
     end
   end
 
-  @spec verify(Client.t(), Inttegro.VerifyOTPRequest.t(), keyword()) ::
-          {:ok, Inttegro.OTPVerification.t()} | {:error, Exception.t()}
+  @spec verify(Client.t(), Inttegro.Otp.VerifyOTPRequest.t(), keyword()) ::
+          {:ok, Inttegro.Otp.OTPVerification.t()} | {:error, Exception.t()}
   def verify(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1255,12 +1308,12 @@ defmodule Inttegro.Otp do
              nil,
              true
            ) do
-      {:ok, Inttegro.OTPVerification.from_map(value)}
+      {:ok, Inttegro.Otp.OTPVerification.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupOTPRequest.t(), keyword()) ::
-          {:ok, Inttegro.OTPTransaction.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Otp.LookupOTPRequest.t(), keyword()) ::
+          {:ok, Inttegro.Otp.OTPTransaction.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1273,7 +1326,7 @@ defmodule Inttegro.Otp do
              "transaction",
              true
            ) do
-      {:ok, Inttegro.OTPTransaction.from_map(value)}
+      {:ok, Inttegro.Otp.OTPTransaction.from_map(value)}
     end
   end
 end
@@ -1282,8 +1335,12 @@ defmodule Inttegro.PaymentMethods do
   @moduledoc "Operations for Inttegro payment methods."
   alias Inttegro.Client
 
-  @spec tokenize(Client.t(), Inttegro.TokenizeMobileMoneyPaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec tokenize(
+          Client.t(),
+          Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def tokenize(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1296,12 +1353,12 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupPaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.PaymentMethods.LookupPaymentMethodRequest.t(), keyword()) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1314,12 +1371,12 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PaymentMethodPageRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethodPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.PaymentMethods.PaymentMethodPageRequest.t(), keyword()) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethodPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1332,12 +1389,12 @@ defmodule Inttegro.PaymentMethods do
              "page",
              true
            ) do
-      {:ok, Inttegro.PaymentMethodPage.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethodPage.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdatePaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.PaymentMethods.UpdatePaymentMethodRequest.t(), keyword()) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1350,12 +1407,12 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
-  @spec activate(Client.t(), Inttegro.ActivatePaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec activate(Client.t(), Inttegro.PaymentMethods.ActivatePaymentMethodRequest.t(), keyword()) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def activate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1368,12 +1425,16 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
-  @spec deactivate(Client.t(), Inttegro.DisactivatePaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec deactivate(
+          Client.t(),
+          Inttegro.PaymentMethods.DisactivatePaymentMethodRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def deactivate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1386,12 +1447,12 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
-  @spec archive(Client.t(), Inttegro.ArchivePaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec archive(Client.t(), Inttegro.PaymentMethods.ArchivePaymentMethodRequest.t(), keyword()) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1404,12 +1465,16 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
-  @spec unarchive(Client.t(), Inttegro.UnarchivePaymentMethodRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethod.t()} | {:error, Exception.t()}
+  @spec unarchive(
+          Client.t(),
+          Inttegro.PaymentMethods.UnarchivePaymentMethodRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def unarchive(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1422,12 +1487,12 @@ defmodule Inttegro.PaymentMethods do
              "payment_method",
              true
            ) do
-      {:ok, Inttegro.PaymentMethod.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethod.from_map(value)}
     end
   end
 
   @spec settings(Client.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethodSettings.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.PaymentMethods.PaymentMethodSettings.t()} | {:error, Exception.t()}
   def settings(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1440,7 +1505,7 @@ defmodule Inttegro.PaymentMethods do
              "settings",
              true
            ) do
-      {:ok, Inttegro.PaymentMethodSettings.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.PaymentMethodSettings.from_map(value)}
     end
   end
 end
@@ -1449,8 +1514,8 @@ defmodule Inttegro.Payouts do
   @moduledoc "Operations for Inttegro payouts."
   alias Inttegro.Client
 
-  @spec schedule(Client.t(), Inttegro.SchedulePayoutRequest.t(), keyword()) ::
-          {:ok, Inttegro.Payout.t()} | {:error, Exception.t()}
+  @spec schedule(Client.t(), Inttegro.Payouts.SchedulePayoutRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.Payout.t()} | {:error, Exception.t()}
   def schedule(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1463,12 +1528,12 @@ defmodule Inttegro.Payouts do
              "payout",
              true
            ) do
-      {:ok, Inttegro.Payout.from_map(value)}
+      {:ok, Inttegro.Payouts.Payout.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupPayoutRequest.t(), keyword()) ::
-          {:ok, Inttegro.Payout.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Payouts.LookupPayoutRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.Payout.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1481,12 +1546,12 @@ defmodule Inttegro.Payouts do
              "payout",
              true
            ) do
-      {:ok, Inttegro.Payout.from_map(value)}
+      {:ok, Inttegro.Payouts.Payout.from_map(value)}
     end
   end
 
-  @spec set_destinations(Client.t(), Inttegro.SetPayoutDestinationsRequest.t(), keyword()) ::
-          {:ok, Inttegro.PayoutSettingsMutation.t()} | {:error, Exception.t()}
+  @spec set_destinations(Client.t(), Inttegro.Payouts.SetPayoutDestinationsRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.PayoutSettingsMutation.t()} | {:error, Exception.t()}
   def set_destinations(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1499,12 +1564,12 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.PayoutSettingsMutation.from_map(value)}
+      {:ok, Inttegro.Payouts.PayoutSettingsMutation.from_map(value)}
     end
   end
 
   @spec settings(Client.t(), keyword()) ::
-          {:ok, Inttegro.PayoutSettingsLookup.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.Payouts.PayoutSettingsLookup.t()} | {:error, Exception.t()}
   def settings(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1517,12 +1582,12 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.PayoutSettingsLookup.from_map(value)}
+      {:ok, Inttegro.Payouts.PayoutSettingsLookup.from_map(value)}
     end
   end
 
   @spec disable(Client.t(), keyword()) ::
-          {:ok, Inttegro.PayoutSettingsMutation.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.Payouts.PayoutSettingsMutation.t()} | {:error, Exception.t()}
   def disable(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1535,12 +1600,12 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.PayoutSettingsMutation.from_map(value)}
+      {:ok, Inttegro.Payouts.PayoutSettingsMutation.from_map(value)}
     end
   end
 
   @spec enable(Client.t(), keyword()) ::
-          {:ok, Inttegro.PayoutSettingsMutation.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.Payouts.PayoutSettingsMutation.t()} | {:error, Exception.t()}
   def enable(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1553,12 +1618,12 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.PayoutSettingsMutation.from_map(value)}
+      {:ok, Inttegro.Payouts.PayoutSettingsMutation.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PagePayoutsRequest.t(), keyword()) ::
-          {:ok, Inttegro.PayoutPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Payouts.PagePayoutsRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.PayoutPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1571,12 +1636,12 @@ defmodule Inttegro.Payouts do
              "page",
              true
            ) do
-      {:ok, Inttegro.PayoutPage.from_map(value)}
+      {:ok, Inttegro.Payouts.PayoutPage.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelPayoutRequest.t(), keyword()) ::
-          {:ok, Inttegro.Payout.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.Payouts.CancelPayoutRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.Payout.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1589,7 +1654,7 @@ defmodule Inttegro.Payouts do
              "payout",
              true
            ) do
-      {:ok, Inttegro.Payout.from_map(value)}
+      {:ok, Inttegro.Payouts.Payout.from_map(value)}
     end
   end
 end
@@ -1598,8 +1663,8 @@ defmodule Inttegro.Prices do
   @moduledoc "Operations for Inttegro prices."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CatalogPriceParams.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Prices.CatalogPriceParams.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1612,12 +1677,12 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupPriceRequest.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Prices.LookupPriceRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1630,12 +1695,12 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PricePageRequest.t(), keyword()) ::
-          {:ok, Inttegro.PricePage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Prices.PricePageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.PricePage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1648,12 +1713,12 @@ defmodule Inttegro.Prices do
              "page",
              true
            ) do
-      {:ok, Inttegro.PricePage.from_map(value)}
+      {:ok, Inttegro.Prices.PricePage.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdatePriceRequest.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Prices.UpdatePriceRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1666,12 +1731,12 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 
-  @spec activate(Client.t(), Inttegro.PriceActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec activate(Client.t(), Inttegro.Prices.PriceActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def activate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1684,12 +1749,12 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 
-  @spec deactivate(Client.t(), Inttegro.PriceActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec deactivate(Client.t(), Inttegro.Prices.PriceActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def deactivate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1702,12 +1767,12 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 
-  @spec archive(Client.t(), Inttegro.PriceActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec archive(Client.t(), Inttegro.Prices.PriceActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1720,7 +1785,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 end
@@ -1729,8 +1794,8 @@ defmodule Inttegro.Products do
   @moduledoc "Operations for Inttegro products."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateProductRequest.t(), keyword()) ::
-          {:ok, Inttegro.Product.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Products.CreateProductRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1743,12 +1808,12 @@ defmodule Inttegro.Products do
              "product",
              true
            ) do
-      {:ok, Inttegro.Product.from_map(value)}
+      {:ok, Inttegro.Products.Product.from_map(value)}
     end
   end
 
-  @spec add_price(Client.t(), Inttegro.AddProductPriceRequest.t(), keyword()) ::
-          {:ok, Inttegro.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec add_price(Client.t(), Inttegro.Products.AddProductPriceRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
   def add_price(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1761,12 +1826,12 @@ defmodule Inttegro.Products do
              "price",
              true
            ) do
-      {:ok, Inttegro.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupProductRequest.t(), keyword()) ::
-          {:ok, Inttegro.Product.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Products.LookupProductRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1779,12 +1844,12 @@ defmodule Inttegro.Products do
              "product",
              true
            ) do
-      {:ok, Inttegro.Product.from_map(value)}
+      {:ok, Inttegro.Products.Product.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdateProductRequest.t(), keyword()) ::
-          {:ok, Inttegro.Product.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Products.UpdateProductRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1797,12 +1862,12 @@ defmodule Inttegro.Products do
              "product",
              true
            ) do
-      {:ok, Inttegro.Product.from_map(value)}
+      {:ok, Inttegro.Products.Product.from_map(value)}
     end
   end
 
-  @spec publish(Client.t(), Inttegro.ProductActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.Product.t()} | {:error, Exception.t()}
+  @spec publish(Client.t(), Inttegro.Products.ProductActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def publish(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1815,12 +1880,12 @@ defmodule Inttegro.Products do
              "product",
              true
            ) do
-      {:ok, Inttegro.Product.from_map(value)}
+      {:ok, Inttegro.Products.Product.from_map(value)}
     end
   end
 
-  @spec unpublish(Client.t(), Inttegro.ProductActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.Product.t()} | {:error, Exception.t()}
+  @spec unpublish(Client.t(), Inttegro.Products.ProductActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def unpublish(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1833,12 +1898,12 @@ defmodule Inttegro.Products do
              "product",
              true
            ) do
-      {:ok, Inttegro.Product.from_map(value)}
+      {:ok, Inttegro.Products.Product.from_map(value)}
     end
   end
 
-  @spec archive(Client.t(), Inttegro.ProductActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.Product.t()} | {:error, Exception.t()}
+  @spec archive(Client.t(), Inttegro.Products.ProductActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1851,12 +1916,12 @@ defmodule Inttegro.Products do
              "product",
              true
            ) do
-      {:ok, Inttegro.Product.from_map(value)}
+      {:ok, Inttegro.Products.Product.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageProductsRequest.t(), keyword()) ::
-          {:ok, Inttegro.ProductPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Products.PageProductsRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.ProductPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1869,7 +1934,7 @@ defmodule Inttegro.Products do
              "page",
              true
            ) do
-      {:ok, Inttegro.ProductPage.from_map(value)}
+      {:ok, Inttegro.Products.ProductPage.from_map(value)}
     end
   end
 end
@@ -1878,8 +1943,8 @@ defmodule Inttegro.PurchaseIntents do
   @moduledoc "Operations for Inttegro purchase intents."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreatePurchaseIntentRequest.t(), keyword()) ::
-          {:ok, Inttegro.PurchaseIntent.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.PurchaseIntents.CreatePurchaseIntentRequest.t(), keyword()) ::
+          {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1892,12 +1957,12 @@ defmodule Inttegro.PurchaseIntents do
              "purchase_intent",
              true
            ) do
-      {:ok, Inttegro.PurchaseIntent.from_map(value)}
+      {:ok, Inttegro.PurchaseIntents.PurchaseIntent.from_map(value)}
     end
   end
 
-  @spec update(Client.t(), Inttegro.UpdatePurchaseIntentRequest.t(), keyword()) ::
-          {:ok, Inttegro.PurchaseIntent.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest.t(), keyword()) ::
+          {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1910,12 +1975,12 @@ defmodule Inttegro.PurchaseIntents do
              "purchase_intent",
              true
            ) do
-      {:ok, Inttegro.PurchaseIntent.from_map(value)}
+      {:ok, Inttegro.PurchaseIntents.PurchaseIntent.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelPurchaseIntentRequest.t(), keyword()) ::
-          {:ok, Inttegro.PurchaseIntent.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.PurchaseIntents.CancelPurchaseIntentRequest.t(), keyword()) ::
+          {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1928,12 +1993,12 @@ defmodule Inttegro.PurchaseIntents do
              "purchase_intent",
              true
            ) do
-      {:ok, Inttegro.PurchaseIntent.from_map(value)}
+      {:ok, Inttegro.PurchaseIntents.PurchaseIntent.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupPurchaseIntentRequest.t(), keyword()) ::
-          {:ok, Inttegro.PurchaseIntent.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.PurchaseIntents.LookupPurchaseIntentRequest.t(), keyword()) ::
+          {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1946,12 +2011,12 @@ defmodule Inttegro.PurchaseIntents do
              "purchase_intent",
              true
            ) do
-      {:ok, Inttegro.PurchaseIntent.from_map(value)}
+      {:ok, Inttegro.PurchaseIntents.PurchaseIntent.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PagePurchaseIntentsRequest.t(), keyword()) ::
-          {:ok, Inttegro.PurchaseIntentPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.PurchaseIntents.PagePurchaseIntentsRequest.t(), keyword()) ::
+          {:ok, Inttegro.PurchaseIntents.PurchaseIntentPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1964,7 +2029,7 @@ defmodule Inttegro.PurchaseIntents do
              "page",
              true
            ) do
-      {:ok, Inttegro.PurchaseIntentPage.from_map(value)}
+      {:ok, Inttegro.PurchaseIntents.PurchaseIntentPage.from_map(value)}
     end
   end
 end
@@ -1973,8 +2038,8 @@ defmodule Inttegro.Refunds do
   @moduledoc "Operations for Inttegro refunds."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateRefundRequest.t(), keyword()) ::
-          {:ok, Inttegro.Refund.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Refunds.CreateRefundRequest.t(), keyword()) ::
+          {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -1987,12 +2052,12 @@ defmodule Inttegro.Refunds do
              "refund",
              true
            ) do
-      {:ok, Inttegro.Refund.from_map(value)}
+      {:ok, Inttegro.Refunds.Refund.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelRefundRequest.t(), keyword()) ::
-          {:ok, Inttegro.Refund.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.Refunds.CancelRefundRequest.t(), keyword()) ::
+          {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2005,12 +2070,12 @@ defmodule Inttegro.Refunds do
              "refund",
              true
            ) do
-      {:ok, Inttegro.Refund.from_map(value)}
+      {:ok, Inttegro.Refunds.Refund.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupRefundRequest.t(), keyword()) ::
-          {:ok, Inttegro.Refund.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Refunds.LookupRefundRequest.t(), keyword()) ::
+          {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2023,12 +2088,12 @@ defmodule Inttegro.Refunds do
              "refund",
              true
            ) do
-      {:ok, Inttegro.Refund.from_map(value)}
+      {:ok, Inttegro.Refunds.Refund.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageRefundsRequest.t(), keyword()) ::
-          {:ok, Inttegro.RefundPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Refunds.PageRefundsRequest.t(), keyword()) ::
+          {:ok, Inttegro.Refunds.RefundPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2041,7 +2106,7 @@ defmodule Inttegro.Refunds do
              "page",
              true
            ) do
-      {:ok, Inttegro.RefundPage.from_map(value)}
+      {:ok, Inttegro.Refunds.RefundPage.from_map(value)}
     end
   end
 end
@@ -2050,8 +2115,8 @@ defmodule Inttegro.Schedules do
   @moduledoc "Operations for Inttegro schedules."
   alias Inttegro.Client
 
-  @spec lookup(Client.t(), Inttegro.LookupScheduleRequest.t(), keyword()) ::
-          {:ok, Inttegro.ScheduleDetail.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Schedules.LookupScheduleRequest.t(), keyword()) ::
+          {:ok, Inttegro.Schedules.ScheduleDetail.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2064,12 +2129,12 @@ defmodule Inttegro.Schedules do
              "scheduled_chime",
              true
            ) do
-      {:ok, Inttegro.ScheduleDetail.from_map(value)}
+      {:ok, Inttegro.Schedules.ScheduleDetail.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelScheduleRequest.t(), keyword()) ::
-          {:ok, Inttegro.ScheduleCancelDetail.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.Schedules.CancelScheduleRequest.t(), keyword()) ::
+          {:ok, Inttegro.Schedules.ScheduleCancelDetail.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2082,7 +2147,7 @@ defmodule Inttegro.Schedules do
              "scheduled_chime",
              true
            ) do
-      {:ok, Inttegro.ScheduleCancelDetail.from_map(value)}
+      {:ok, Inttegro.Schedules.ScheduleCancelDetail.from_map(value)}
     end
   end
 end
@@ -2092,7 +2157,7 @@ defmodule Inttegro.Specifications do
   alias Inttegro.Client
 
   @spec countries(Client.t(), keyword()) ::
-          {:ok, %{optional(String.t()) => Inttegro.CountrySpecification.t()}}
+          {:ok, %{optional(String.t()) => Inttegro.Specifications.CountrySpecification.t()}}
           | {:error, Exception.t()}
   def countries(client, options \\ []) do
     with {:ok, value} <-
@@ -2107,7 +2172,9 @@ defmodule Inttegro.Specifications do
              false
            ) do
       {:ok,
-       Map.new(value, fn {key, value} -> {key, Inttegro.CountrySpecification.from_map(value)} end)}
+       Map.new(value, fn {key, value} ->
+         {key, Inttegro.Specifications.CountrySpecification.from_map(value)}
+       end)}
     end
   end
 end
@@ -2116,8 +2183,8 @@ defmodule Inttegro.UploadRequests do
   @moduledoc "Operations for Inttegro upload requests."
   alias Inttegro.Client
 
-  @spec create(Client.t(), Inttegro.CreateUploadRequestRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadRequest.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.UploadRequests.CreateUploadRequestRequest.t(), keyword()) ::
+          {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2130,12 +2197,12 @@ defmodule Inttegro.UploadRequests do
              "upload_request",
              true
            ) do
-      {:ok, Inttegro.UploadRequest.from_map(value)}
+      {:ok, Inttegro.UploadRequests.UploadRequest.from_map(value)}
     end
   end
 
-  @spec lookup(Client.t(), Inttegro.LookupUploadRequestRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadRequest.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.UploadRequests.LookupUploadRequestRequest.t(), keyword()) ::
+          {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2148,12 +2215,12 @@ defmodule Inttegro.UploadRequests do
              "upload_request",
              true
            ) do
-      {:ok, Inttegro.UploadRequest.from_map(value)}
+      {:ok, Inttegro.UploadRequests.UploadRequest.from_map(value)}
     end
   end
 
-  @spec page(Client.t(), Inttegro.PageUploadRequestsRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadRequestPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.UploadRequests.PageUploadRequestsRequest.t(), keyword()) ::
+          {:ok, Inttegro.UploadRequests.UploadRequestPage.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2166,12 +2233,12 @@ defmodule Inttegro.UploadRequests do
              "page",
              true
            ) do
-      {:ok, Inttegro.UploadRequestPage.from_map(value)}
+      {:ok, Inttegro.UploadRequests.UploadRequestPage.from_map(value)}
     end
   end
 
-  @spec cancel(Client.t(), Inttegro.CancelUploadRequestRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadRequest.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.UploadRequests.CancelUploadRequestRequest.t(), keyword()) ::
+          {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2184,12 +2251,16 @@ defmodule Inttegro.UploadRequests do
              "upload_request",
              true
            ) do
-      {:ok, Inttegro.UploadRequest.from_map(value)}
+      {:ok, Inttegro.UploadRequests.UploadRequest.from_map(value)}
     end
   end
 
-  @spec review(Client.t(), Inttegro.ReviewUploadRequestAttemptRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadRequest.t()} | {:error, Exception.t()}
+  @spec review(
+          Client.t(),
+          Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest.t(),
+          keyword()
+        ) ::
+          {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def review(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -2202,12 +2273,12 @@ defmodule Inttegro.UploadRequests do
              "upload_request",
              true
            ) do
-      {:ok, Inttegro.UploadRequest.from_map(value)}
+      {:ok, Inttegro.UploadRequests.UploadRequest.from_map(value)}
     end
   end
 
-  @spec fulfill(Client.t(), Inttegro.FulfillUploadRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadFulfillment.t()} | {:error, Exception.t()}
+  @spec fulfill(Client.t(), Inttegro.UploadRequests.FulfillRequest.t(), keyword()) ::
+          {:ok, Inttegro.UploadRequests.UploadFulfillment.t()} | {:error, Exception.t()}
   def fulfill(client, request, options \\ []) do
     with {:ok, value} <-
            Client.fulfill_upload(
@@ -2217,7 +2288,7 @@ defmodule Inttegro.UploadRequests do
              options,
              "upload_requests.fulfill"
            ) do
-      {:ok, Inttegro.UploadFulfillment.from_map(value)}
+      {:ok, Inttegro.UploadRequests.UploadFulfillment.from_map(value)}
     end
   end
 end

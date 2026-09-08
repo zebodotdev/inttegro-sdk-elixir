@@ -10,11 +10,11 @@ end
 
 ```elixir
 client = Inttegro.Client.new!(System.fetch_env!("INTTEGRO_API_KEY"))
-request = Inttegro.LookupOrderRequest.new!(order_id: "order_...")
+request = Inttegro.Orders.LookupOrderRequest.new!(order_id: "order_...")
 {:ok, order} = Inttegro.Orders.lookup(client, request)
 ```
 
-Resource functions return domain values such as `Inttegro.Order`; HTTP response
+Resource functions return domain values such as `Inttegro.Orders.Order`; HTTP response
 envelopes remain private.
 
 ## Observability and error reporting
