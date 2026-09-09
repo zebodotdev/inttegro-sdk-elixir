@@ -1,0 +1,70 @@
+name: Retire Hex version
+
+permissions: read-all
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published inttegro version to retire
+        required: true
+        type: string
+      reason:
+        description: Hex retirement reason
+        required: true
+        default: invalid
+        type: choice
+        options:
+          - invalid
+          - security
+          - deprecated
+          - renamed
+          - other
+      message:
+        description: Public retirement message (140 characters maximum)
+        required: true
+        type: string
+
+concurrency:
+  group: retire-hex-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  retire:
+    if: github.repository == 'zebodotdev/inttegro-sdk-elixir'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: release
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Elixir and Erlang
+        uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
+        with:
+          otp-version: "27"
+          elixir-version: "1.18"
+      - name: Install Hex
+        run: mix local.hex --force
+      - name: Validate retirement request
+        env:
+          VERSION: ${{ inputs.version }}
+          REASON: ${{ inputs.reason }}
+          MESSAGE: ${{ inputs.message }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+([+-][0-9A-Za-z.-]+)?$ ]]
+          [[ "${REASON}" =~ ^(invalid|security|deprecated|renamed|other)$ ]]
+          test -n "${MESSAGE}"
+          test "${#MESSAGE}" -le 140
+      - name: Retire the published version
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+          VERSION: ${{ inputs.version }}
+          REASON: ${{ inputs.reason }}
+          MESSAGE: ${{ inputs.message }}
+        run: mix hex.retire inttegro "${VERSION}" "${REASON}" --message "${MESSAGE}"
