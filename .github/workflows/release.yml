@@ -5,9 +5,20 @@ permissions: read-all
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to rebuild
+        required: true
+        type: string
+      replace:
+        description: Replace the package and release artifacts within Hex's correction window
+        required: true
+        default: false
+        type: boolean
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.tag || github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -26,6 +37,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+          ref: ${{ inputs.tag || github.ref }}
       - name: Set up Elixir and Erlang
         uses: erlef/setup-beam@54075bcc5e249e4758d363f27d099f55d843f124 # v1.24.1
         with:
@@ -34,12 +46,14 @@ jobs:
       - name: Install Hex and Rebar
         run: mix local.hex --force && mix local.rebar --force
       - name: Verify the release tag
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         shell: bash
         run: |
           set -euo pipefail
           version="$(sed -n 's/.*@version "\([^"]*\)".*/\1/p' mix.exs)"
-          test "${GITHUB_REF_NAME}" = "v${version}"
-          test "$(git rev-list -n 1 "${GITHUB_REF_NAME}")" = "${GITHUB_SHA}"
+          test "${RELEASE_TAG}" = "v${version}"
+          test "$(git rev-list -n 1 "${RELEASE_TAG}")" = "$(git rev-parse HEAD)"
       - name: Run release checks and build the package
         shell: bash
         run: |
@@ -59,19 +73,22 @@ jobs:
         with:
           subject-path: artifacts/*.tar
       - name: Record release provenance and checksums
+        env:
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
         shell: bash
         run: |
           set -euo pipefail
           cp "${{ steps.attest.outputs.bundle-path }}" artifacts/ATTESTATIONS.sigstore
           {
             echo "repository=https://github.com/${GITHUB_REPOSITORY}"
-            echo "tag=${GITHUB_REF_NAME}"
-            echo "commit=${GITHUB_SHA}"
+            echo "tag=${RELEASE_TAG}"
+            echo "commit=$(git rev-parse HEAD)"
             echo "workflow=${GITHUB_WORKFLOW_REF}"
             echo "package=inttegro"
           } > artifacts/PROVENANCE.txt
           (cd artifacts && sha256sum ./*.tar ./ATTESTATIONS.sigstore ./PROVENANCE.txt > SHA256SUMS)
       - name: Create the draft GitHub release
+        if: ${{ github.event_name == 'push' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: >-
@@ -83,8 +100,25 @@ jobs:
       - name: Publish package and documentation to Hex
         env:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
-        run: mix hex.publish --yes
-      - name: Finalize the immutable GitHub release
+          REPLACE_RELEASE: ${{ inputs.replace || 'false' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${REPLACE_RELEASE}" == "true" ]]; then
+            mix hex.publish --yes --replace
+          else
+            mix hex.publish --yes
+          fi
+      - name: Publish GitHub release artifacts
         env:
+          EVENT_NAME: ${{ github.event_name }}
           GH_TOKEN: ${{ github.token }}
-        run: gh release edit "${GITHUB_REF_NAME}" --draft=false
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${EVENT_NAME}" == "workflow_dispatch" ]]; then
+            gh release upload "${RELEASE_TAG}" artifacts/* --clobber
+          else
+            gh release edit "${RELEASE_TAG}" --draft=false
+          fi
