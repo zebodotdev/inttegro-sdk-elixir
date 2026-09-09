@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Otp.OTPAlphabetType do
+defmodule Inttegro.Otp.AlphabetType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :numeric | :alpha | :alphanumeric | String.t()
@@ -22,7 +22,7 @@ defmodule Inttegro.Otp.OTPAlphabetType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Otp.OTPStatus do
+defmodule Inttegro.Otp.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -54,7 +54,7 @@ defmodule Inttegro.Otp.OTPStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Otp.OTPTransmissionStatus do
+defmodule Inttegro.Otp.TransmissionStatus do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :delivered | :failed | :submitted | String.t()
@@ -76,7 +76,7 @@ defmodule Inttegro.Otp.OTPTransmissionStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Otp.OTPVerificationVerdict do
+defmodule Inttegro.Otp.VerificationVerdict do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :fail | :pass | String.t()
@@ -97,7 +97,7 @@ defmodule Inttegro.Otp.OTPVerificationVerdict do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Otp.InitiateOTPRequest do
+defmodule Inttegro.Otp.InitiateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:recipient, :service_name, :token_size]
   defstruct async_delivery: nil,
@@ -118,7 +118,7 @@ defmodule Inttegro.Otp.InitiateOTPRequest do
           purpose: String.t() | nil,
           sender: String.t() | nil,
           token_alphabet: String.t() | nil,
-          token_alphabet_type: Inttegro.Otp.OTPAlphabetType.t() | nil,
+          token_alphabet_type: Inttegro.Otp.AlphabetType.t() | nil,
           validity_duration_in_minutes: integer() | nil,
           recipient: String.t(),
           service_name: String.t(),
@@ -145,7 +145,7 @@ defmodule Inttegro.Otp.InitiateOTPRequest do
       token_alphabet_type:
         if(is_nil(Map.get(map, "token_alphabet_type")),
           do: nil,
-          else: Inttegro.Otp.OTPAlphabetType.decode(Map.get(map, "token_alphabet_type"))
+          else: Inttegro.Otp.AlphabetType.decode(Map.get(map, "token_alphabet_type"))
         ),
       validity_duration_in_minutes:
         if(is_nil(Map.get(map, "validity_duration_in_minutes")),
@@ -182,7 +182,7 @@ defmodule Inttegro.Otp.InitiateOTPRequest do
       "token_alphabet_type" =>
         if(is_nil(value.token_alphabet_type),
           do: nil,
-          else: Inttegro.Otp.OTPAlphabetType.encode(value.token_alphabet_type)
+          else: Inttegro.Otp.AlphabetType.encode(value.token_alphabet_type)
         ),
       "validity_duration_in_minutes" =>
         if(is_nil(value.validity_duration_in_minutes),
@@ -198,7 +198,7 @@ defmodule Inttegro.Otp.InitiateOTPRequest do
   end
 end
 
-defmodule Inttegro.Otp.LookupOTPRequest do
+defmodule Inttegro.Otp.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:transaction_id]
   defstruct transaction_id: nil
@@ -229,7 +229,7 @@ defmodule Inttegro.Otp.LookupOTPRequest do
   end
 end
 
-defmodule Inttegro.Otp.OTPTransaction do
+defmodule Inttegro.Otp.Transaction do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:expires_at, :full_message, :id, :initiated_at, :status]
   defstruct cancel_reason: nil,
@@ -249,8 +249,8 @@ defmodule Inttegro.Otp.OTPTransaction do
           full_message: String.t(),
           id: String.t(),
           initiated_at: String.t(),
-          status: Inttegro.Otp.OTPStatus.t(),
-          transmission: Inttegro.Otp.OTPTransmission.t() | nil
+          status: Inttegro.Otp.Status.t(),
+          transmission: Inttegro.Otp.Transmission.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -267,11 +267,11 @@ defmodule Inttegro.Otp.OTPTransaction do
       full_message: Map.fetch!(map, "full_message"),
       id: Map.fetch!(map, "id"),
       initiated_at: Map.fetch!(map, "initiated_at"),
-      status: Inttegro.Otp.OTPStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Otp.Status.decode(Map.fetch!(map, "status")),
       transmission:
         if(is_nil(Map.get(map, "transmission")),
           do: nil,
-          else: Inttegro.Otp.OTPTransmission.from_map(Map.get(map, "transmission"))
+          else: Inttegro.Otp.Transmission.from_map(Map.get(map, "transmission"))
         )
     }
   end
@@ -288,7 +288,7 @@ defmodule Inttegro.Otp.OTPTransaction do
       "full_message" => Inttegro.Codec.encode(value.full_message),
       "id" => Inttegro.Codec.encode(value.id),
       "initiated_at" => Inttegro.Codec.encode(value.initiated_at),
-      "status" => Inttegro.Otp.OTPStatus.encode(value.status),
+      "status" => Inttegro.Otp.Status.encode(value.status),
       "transmission" =>
         if(is_nil(value.transmission), do: nil, else: Inttegro.Codec.encode(value.transmission))
     }
@@ -297,7 +297,7 @@ defmodule Inttegro.Otp.OTPTransaction do
   end
 end
 
-defmodule Inttegro.Otp.OTPTransmission do
+defmodule Inttegro.Otp.Transmission do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:recipient, :sender_id]
   defstruct recipient: nil, sender_id: nil, sent_at: nil, sent_via: nil, status: nil
@@ -308,7 +308,7 @@ defmodule Inttegro.Otp.OTPTransmission do
           sender_id: String.t(),
           sent_at: String.t() | nil,
           sent_via: String.t() | nil,
-          status: Inttegro.Otp.OTPTransmissionStatus.t() | nil
+          status: Inttegro.Otp.TransmissionStatus.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -324,7 +324,7 @@ defmodule Inttegro.Otp.OTPTransmission do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.Otp.OTPTransmissionStatus.decode(Map.get(map, "status"))
+          else: Inttegro.Otp.TransmissionStatus.decode(Map.get(map, "status"))
         )
     }
   end
@@ -341,7 +341,7 @@ defmodule Inttegro.Otp.OTPTransmission do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.Otp.OTPTransmissionStatus.encode(value.status)
+          else: Inttegro.Otp.TransmissionStatus.encode(value.status)
         )
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -349,15 +349,15 @@ defmodule Inttegro.Otp.OTPTransmission do
   end
 end
 
-defmodule Inttegro.Otp.OTPVerification do
+defmodule Inttegro.Otp.Verification do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:transaction, :verification_attempt]
   defstruct transaction: nil, verification_attempt: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          transaction: Inttegro.Otp.OTPTransaction.t(),
-          verification_attempt: Inttegro.Otp.OTPVerificationAttempt.t()
+          transaction: Inttegro.Otp.Transaction.t(),
+          verification_attempt: Inttegro.Otp.VerificationAttempt.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -366,9 +366,9 @@ defmodule Inttegro.Otp.OTPVerification do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      transaction: Inttegro.Otp.OTPTransaction.from_map(Map.fetch!(map, "transaction")),
+      transaction: Inttegro.Otp.Transaction.from_map(Map.fetch!(map, "transaction")),
       verification_attempt:
-        Inttegro.Otp.OTPVerificationAttempt.from_map(Map.fetch!(map, "verification_attempt"))
+        Inttegro.Otp.VerificationAttempt.from_map(Map.fetch!(map, "verification_attempt"))
     }
   end
 
@@ -384,7 +384,7 @@ defmodule Inttegro.Otp.OTPVerification do
   end
 end
 
-defmodule Inttegro.Otp.OTPVerificationAttempt do
+defmodule Inttegro.Otp.VerificationAttempt do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:attempted_at, :id, :presented_token, :recipient, :result]
   defstruct attempted_at: nil, id: nil, presented_token: nil, recipient: nil, result: nil
@@ -395,7 +395,7 @@ defmodule Inttegro.Otp.OTPVerificationAttempt do
           id: String.t(),
           presented_token: String.t(),
           recipient: String.t(),
-          result: Inttegro.Otp.OTPVerificationAttemptResult.t()
+          result: Inttegro.Otp.VerificationAttemptResult.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -408,7 +408,7 @@ defmodule Inttegro.Otp.OTPVerificationAttempt do
       id: Map.fetch!(map, "id"),
       presented_token: Map.fetch!(map, "presented_token"),
       recipient: Map.fetch!(map, "recipient"),
-      result: Inttegro.Otp.OTPVerificationAttemptResult.from_map(Map.fetch!(map, "result"))
+      result: Inttegro.Otp.VerificationAttemptResult.from_map(Map.fetch!(map, "result"))
     }
   end
 
@@ -427,7 +427,7 @@ defmodule Inttegro.Otp.OTPVerificationAttempt do
   end
 end
 
-defmodule Inttegro.Otp.OTPVerificationAttemptResult do
+defmodule Inttegro.Otp.VerificationAttemptResult do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:verdict]
   defstruct detail: nil, verdict: nil
@@ -435,7 +435,7 @@ defmodule Inttegro.Otp.OTPVerificationAttemptResult do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           detail: String.t() | nil,
-          verdict: Inttegro.Otp.OTPVerificationVerdict.t()
+          verdict: Inttegro.Otp.VerificationVerdict.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -445,7 +445,7 @@ defmodule Inttegro.Otp.OTPVerificationAttemptResult do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       detail: if(is_nil(Map.get(map, "detail")), do: nil, else: Map.get(map, "detail")),
-      verdict: Inttegro.Otp.OTPVerificationVerdict.decode(Map.fetch!(map, "verdict"))
+      verdict: Inttegro.Otp.VerificationVerdict.decode(Map.fetch!(map, "verdict"))
     }
   end
 
@@ -454,14 +454,14 @@ defmodule Inttegro.Otp.OTPVerificationAttemptResult do
   def to_map(value) do
     %{
       "detail" => if(is_nil(value.detail), do: nil, else: Inttegro.Codec.encode(value.detail)),
-      "verdict" => Inttegro.Otp.OTPVerificationVerdict.encode(value.verdict)
+      "verdict" => Inttegro.Otp.VerificationVerdict.encode(value.verdict)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.Otp.VerifyOTPRequest do
+defmodule Inttegro.Otp.VerifyRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:transaction_id, :recipient, :token]
   defstruct transaction_id: nil, recipient: nil, token: nil

@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Broadcasts.BroadcastCancelDetail do
+defmodule Inttegro.Broadcasts.CancelDetail do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -24,8 +24,8 @@ defmodule Inttegro.Broadcasts.BroadcastCancelDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.Broadcasts.BroadcastError.t()] | nil,
+          email: Inttegro.Chimes.EmailMessage.t() | nil,
+          errors: [Inttegro.Broadcasts.Error.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -57,14 +57,14 @@ defmodule Inttegro.Broadcasts.BroadcastCancelDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.EmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
             Enum.map(Map.get(map, "errors"), fn item ->
-              Inttegro.Broadcasts.BroadcastError.from_map(item)
+              Inttegro.Broadcasts.Error.from_map(item)
             end)
         ),
       executed_at:
@@ -126,7 +126,7 @@ defmodule Inttegro.Broadcasts.BroadcastCancelDetail do
   end
 end
 
-defmodule Inttegro.Broadcasts.BroadcastDetail do
+defmodule Inttegro.Broadcasts.Detail do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -149,8 +149,8 @@ defmodule Inttegro.Broadcasts.BroadcastDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.Broadcasts.BroadcastError.t()] | nil,
+          email: Inttegro.Chimes.EmailMessage.t() | nil,
+          errors: [Inttegro.Broadcasts.Error.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -181,14 +181,14 @@ defmodule Inttegro.Broadcasts.BroadcastDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.EmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
             Enum.map(Map.get(map, "errors"), fn item ->
-              Inttegro.Broadcasts.BroadcastError.from_map(item)
+              Inttegro.Broadcasts.Error.from_map(item)
             end)
         ),
       executed_at:
@@ -246,7 +246,7 @@ defmodule Inttegro.Broadcasts.BroadcastDetail do
   end
 end
 
-defmodule Inttegro.Broadcasts.BroadcastError do
+defmodule Inttegro.Broadcasts.Error do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct recipient: nil, fix_code: nil, type: nil
 
@@ -284,7 +284,7 @@ defmodule Inttegro.Broadcasts.BroadcastError do
   end
 end
 
-defmodule Inttegro.Broadcasts.BroadcastRequestRequestMeta do
+defmodule Inttegro.Broadcasts.RequestMeta do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct idempotency_key: nil
 
@@ -322,7 +322,7 @@ defmodule Inttegro.Broadcasts.BroadcastRequestRequestMeta do
   end
 end
 
-defmodule Inttegro.Broadcasts.CancelBroadcastRequest do
+defmodule Inttegro.Broadcasts.CancelRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:broadcast_id]
   defstruct broadcast_id: nil
@@ -353,7 +353,7 @@ defmodule Inttegro.Broadcasts.CancelBroadcastRequest do
   end
 end
 
-defmodule Inttegro.Broadcasts.LookupBroadcastRequest do
+defmodule Inttegro.Broadcasts.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:broadcast_id]
   defstruct broadcast_id: nil

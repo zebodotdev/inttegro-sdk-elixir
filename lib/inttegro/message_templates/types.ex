@@ -22,7 +22,7 @@ defmodule Inttegro.MessageTemplates.ContentSafetyStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateChannel do
+defmodule Inttegro.MessageTemplates.Channel do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :sms | :email | String.t()
@@ -43,7 +43,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateChannel do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateStatus do
+defmodule Inttegro.MessageTemplates.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :draft | :published | :archived | String.t()
@@ -65,7 +65,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemType do
+defmodule Inttegro.MessageTemplates.VariableItemType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -103,7 +103,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariableType do
+defmodule Inttegro.MessageTemplates.VariableType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -143,20 +143,20 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.MessageTemplates.CreateMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t ::
-          Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest.t()
-          | Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest.t()
+          Inttegro.MessageTemplates.CreateSMSRequest.t()
+          | Inttegro.MessageTemplates.CreateEmailRequest.t()
 
   @doc false
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest,
-        Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest
+        Inttegro.MessageTemplates.CreateSMSRequest,
+        Inttegro.MessageTemplates.CreateEmailRequest
       ],
       value,
       fn module ->
@@ -170,7 +170,7 @@ defmodule Inttegro.MessageTemplates.CreateMessageTemplateRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateAttachmentIDs do
+defmodule Inttegro.MessageTemplates.AttachmentIDs do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t :: [String.t()]
@@ -179,7 +179,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateAttachmentIDs do
   def decode(value), do: value
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateAttachmentIDsInput do
+defmodule Inttegro.MessageTemplates.AttachmentIDsInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t :: [String.t()]
@@ -188,7 +188,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateAttachmentIDsInput do
   def decode(value), do: value
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariablesInput do
+defmodule Inttegro.MessageTemplates.VariablesInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t :: %{optional(String.t()) => term()}
@@ -197,17 +197,17 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariablesInput do
   def decode(value), do: value
 end
 
-defmodule Inttegro.MessageTemplates.BroadcastRequestMessageTemplate do
+defmodule Inttegro.MessageTemplates.BroadcastRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
-  @type t :: String.t() | Inttegro.MessageTemplates.MessageTemplateReferenceInput.t()
+  @type t :: String.t() | Inttegro.MessageTemplates.ReferenceInput.t()
 
   @doc false
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.MessageTemplates.MessageTemplateReferenceInput
+        Inttegro.MessageTemplates.ReferenceInput
       ],
       value,
       fn module ->
@@ -221,7 +221,7 @@ defmodule Inttegro.MessageTemplates.BroadcastRequestMessageTemplate do
   end
 end
 
-defmodule Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.CreateEmailRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:channel, :email, :name, :purpose]
   defstruct about: nil,
@@ -238,9 +238,9 @@ defmodule Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest do
           about: String.t() | nil,
           attachments: [String.t()] | nil,
           locale: String.t() | nil,
-          variables: [Inttegro.MessageTemplates.MessageTemplateVariableInput.t()] | nil,
-          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
-          email: Inttegro.MessageTemplates.MessageTemplateEmailContentInput.t(),
+          variables: [Inttegro.MessageTemplates.VariableInput.t()] | nil,
+          channel: Inttegro.MessageTemplates.Channel.t(),
+          email: Inttegro.MessageTemplates.EmailContentInput.t(),
           name: String.t(),
           purpose: String.t()
         }
@@ -263,15 +263,11 @@ defmodule Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateVariableInput.from_map(item)
+              Inttegro.MessageTemplates.VariableInput.from_map(item)
             end)
         ),
-      channel:
-        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
-      email:
-        Inttegro.MessageTemplates.MessageTemplateEmailContentInput.from_map(
-          Map.fetch!(map, "email")
-        ),
+      channel: Inttegro.MessageTemplates.Channel.decode(Map.fetch!(map, "channel")),
+      email: Inttegro.MessageTemplates.EmailContentInput.from_map(Map.fetch!(map, "email")),
       name: Map.fetch!(map, "name"),
       purpose: Map.fetch!(map, "purpose")
     }
@@ -293,7 +289,7 @@ defmodule Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest do
           do: nil,
           else: Enum.map(value.variables, fn item -> Inttegro.Codec.encode(item) end)
         ),
-      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.Channel.encode(value.channel),
       "email" => Inttegro.Codec.encode(value.email),
       "name" => Inttegro.Codec.encode(value.name),
       "purpose" => Inttegro.Codec.encode(value.purpose)
@@ -303,7 +299,7 @@ defmodule Inttegro.MessageTemplates.CreateEmailMessageTemplateRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.CreateSMSRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:channel, :name, :purpose, :sms]
   defstruct about: nil,
@@ -318,11 +314,11 @@ defmodule Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest do
   @type t :: %__MODULE__{
           about: String.t() | nil,
           locale: String.t() | nil,
-          variables: [Inttegro.MessageTemplates.MessageTemplateVariableInput.t()] | nil,
-          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
+          variables: [Inttegro.MessageTemplates.VariableInput.t()] | nil,
+          channel: Inttegro.MessageTemplates.Channel.t(),
           name: String.t(),
           purpose: String.t(),
-          sms: Inttegro.MessageTemplates.MessageTemplateSMSContentInput.t()
+          sms: Inttegro.MessageTemplates.SMSContentInput.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -338,15 +334,13 @@ defmodule Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateVariableInput.from_map(item)
+              Inttegro.MessageTemplates.VariableInput.from_map(item)
             end)
         ),
-      channel:
-        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      channel: Inttegro.MessageTemplates.Channel.decode(Map.fetch!(map, "channel")),
       name: Map.fetch!(map, "name"),
       purpose: Map.fetch!(map, "purpose"),
-      sms:
-        Inttegro.MessageTemplates.MessageTemplateSMSContentInput.from_map(Map.fetch!(map, "sms"))
+      sms: Inttegro.MessageTemplates.SMSContentInput.from_map(Map.fetch!(map, "sms"))
     }
   end
 
@@ -361,7 +355,7 @@ defmodule Inttegro.MessageTemplates.CreateSMSMessageTemplateRequest do
           do: nil,
           else: Enum.map(value.variables, fn item -> Inttegro.Codec.encode(item) end)
         ),
-      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.Channel.encode(value.channel),
       "name" => Inttegro.Codec.encode(value.name),
       "purpose" => Inttegro.Codec.encode(value.purpose),
       "sms" => Inttegro.Codec.encode(value.sms)
@@ -411,17 +405,17 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
           id: String.t(),
           name: String.t(),
           about: String.t() | nil,
-          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
+          channel: Inttegro.MessageTemplates.Channel.t(),
           purpose: String.t(),
           locale: String.t(),
-          status: Inttegro.MessageTemplates.MessageTemplateStatus.t(),
+          status: Inttegro.MessageTemplates.Status.t(),
           version: integer(),
           published_version: integer() | nil,
           draft_version: integer(),
           has_unpublished_changes: boolean(),
-          variables: [Inttegro.MessageTemplates.MessageTemplateVariable.t()] | nil,
-          sms: Inttegro.MessageTemplates.MessageTemplateSMSContent.t() | nil,
-          email: Inttegro.MessageTemplates.MessageTemplateEmailContent.t() | nil,
+          variables: [Inttegro.MessageTemplates.Variable.t()] | nil,
+          sms: Inttegro.MessageTemplates.SMSContent.t() | nil,
+          email: Inttegro.MessageTemplates.EmailContent.t() | nil,
           attachments: [String.t()] | nil,
           created_at: String.t(),
           updated_at: String.t(),
@@ -438,11 +432,10 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
       id: Map.fetch!(map, "id"),
       name: Map.fetch!(map, "name"),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
-      channel:
-        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      channel: Inttegro.MessageTemplates.Channel.decode(Map.fetch!(map, "channel")),
       purpose: Map.fetch!(map, "purpose"),
       locale: Map.fetch!(map, "locale"),
-      status: Inttegro.MessageTemplates.MessageTemplateStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.MessageTemplates.Status.decode(Map.fetch!(map, "status")),
       version: Map.fetch!(map, "version"),
       published_version:
         if(is_nil(Map.get(map, "published_version")),
@@ -456,19 +449,18 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateVariable.from_map(item)
+              Inttegro.MessageTemplates.Variable.from_map(item)
             end)
         ),
       sms:
         if(is_nil(Map.get(map, "sms")),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateSMSContent.from_map(Map.get(map, "sms"))
+          else: Inttegro.MessageTemplates.SMSContent.from_map(Map.get(map, "sms"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateEmailContent.from_map(Map.get(map, "email"))
+          else: Inttegro.MessageTemplates.EmailContent.from_map(Map.get(map, "email"))
         ),
       attachments:
         if(is_nil(Map.get(map, "attachments")),
@@ -491,10 +483,10 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
       "id" => Inttegro.Codec.encode(value.id),
       "name" => Inttegro.Codec.encode(value.name),
       "about" => if(is_nil(value.about), do: nil, else: Inttegro.Codec.encode(value.about)),
-      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.Channel.encode(value.channel),
       "purpose" => Inttegro.Codec.encode(value.purpose),
       "locale" => Inttegro.Codec.encode(value.locale),
-      "status" => Inttegro.MessageTemplates.MessageTemplateStatus.encode(value.status),
+      "status" => Inttegro.MessageTemplates.Status.encode(value.status),
       "version" => Inttegro.Codec.encode(value.version),
       "published_version" =>
         if(is_nil(value.published_version),
@@ -527,7 +519,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateEmailContent do
+defmodule Inttegro.MessageTemplates.EmailContent do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:subject, :html]
   defstruct subject: nil, html: nil, from_: nil, reply_to: nil, headers: nil
@@ -536,8 +528,8 @@ defmodule Inttegro.MessageTemplates.MessageTemplateEmailContent do
   @type t :: %__MODULE__{
           subject: String.t(),
           html: String.t(),
-          from_: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
-          reply_to: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
+          from_: Inttegro.MessageTemplates.Mailbox.t() | nil,
+          reply_to: Inttegro.MessageTemplates.Mailbox.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -552,13 +544,12 @@ defmodule Inttegro.MessageTemplates.MessageTemplateEmailContent do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "from"))
+          else: Inttegro.MessageTemplates.Mailbox.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "reply_to"))
+          else: Inttegro.MessageTemplates.Mailbox.from_map(Map.get(map, "reply_to"))
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -591,15 +582,15 @@ defmodule Inttegro.MessageTemplates.MessageTemplateEmailContent do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateEmailContentInput do
+defmodule Inttegro.MessageTemplates.EmailContentInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:subject, :html]
   defstruct from_: nil, reply_to: nil, headers: nil, subject: nil, html: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          from_: Inttegro.MessageTemplates.MessageTemplateMailboxInput.t() | nil,
-          reply_to: Inttegro.MessageTemplates.MessageTemplateMailboxInput.t() | nil,
+          from_: Inttegro.MessageTemplates.MailboxInput.t() | nil,
+          reply_to: Inttegro.MessageTemplates.MailboxInput.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil,
           subject: String.t(),
           html: String.t()
@@ -614,16 +605,12 @@ defmodule Inttegro.MessageTemplates.MessageTemplateEmailContentInput do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateMailboxInput.from_map(Map.get(map, "from"))
+          else: Inttegro.MessageTemplates.MailboxInput.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateMailboxInput.from_map(
-              Map.get(map, "reply_to")
-            )
+          else: Inttegro.MessageTemplates.MailboxInput.from_map(Map.get(map, "reply_to"))
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -658,7 +645,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateEmailContentInput do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateIDRequest do
+defmodule Inttegro.MessageTemplates.IDRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct id: nil
@@ -689,7 +676,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateIDRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateMailbox do
+defmodule Inttegro.MessageTemplates.Mailbox do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:address]
   defstruct address: nil, name: nil
@@ -723,7 +710,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateMailbox do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateMailboxInput do
+defmodule Inttegro.MessageTemplates.MailboxInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:address]
   defstruct name: nil, address: nil
@@ -757,7 +744,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateMailboxInput do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplatePreview do
+defmodule Inttegro.MessageTemplates.Preview do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:message_template, :rendered]
   defstruct message_template: nil, rendered: nil
@@ -765,7 +752,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplatePreview do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           message_template: Inttegro.MessageTemplates.MessageTemplate.t(),
-          rendered: Inttegro.MessageTemplates.RenderedMessageTemplate.t()
+          rendered: Inttegro.MessageTemplates.Rendered.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -776,8 +763,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplatePreview do
     %__MODULE__{
       message_template:
         Inttegro.MessageTemplates.MessageTemplate.from_map(Map.fetch!(map, "message_template")),
-      rendered:
-        Inttegro.MessageTemplates.RenderedMessageTemplate.from_map(Map.fetch!(map, "rendered"))
+      rendered: Inttegro.MessageTemplates.Rendered.from_map(Map.fetch!(map, "rendered"))
     }
   end
 
@@ -793,7 +779,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplatePreview do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateReferenceInput do
+defmodule Inttegro.MessageTemplates.ReferenceInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:template_id]
   defstruct variables: nil, template_id: nil
@@ -838,7 +824,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateReferenceInput do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateSMSContent do
+defmodule Inttegro.MessageTemplates.SMSContent do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:message_template]
   defstruct message_template: nil
@@ -869,7 +855,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateSMSContent do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateSMSContentInput do
+defmodule Inttegro.MessageTemplates.SMSContentInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:message_template]
   defstruct message_template: nil
@@ -900,7 +886,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateSMSContentInput do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateSafetyResult do
+defmodule Inttegro.MessageTemplates.SafetyResult do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:content_hash, :normalized_text, :scanner, :status]
   defstruct content_hash: nil,
@@ -915,7 +901,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateSafetyResult do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           content_hash: String.t(),
-          links: [Inttegro.MessageTemplates.MessageTemplateScannedLink.t()] | nil,
+          links: [Inttegro.MessageTemplates.ScannedLink.t()] | nil,
           normalized_text: String.t(),
           quarantine_notes: String.t() | nil,
           reason_codes: [String.t()] | nil,
@@ -936,7 +922,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateSafetyResult do
           do: nil,
           else:
             Enum.map(Map.get(map, "links"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateScannedLink.from_map(item)
+              Inttegro.MessageTemplates.ScannedLink.from_map(item)
             end)
         ),
       normalized_text: Map.fetch!(map, "normalized_text"),
@@ -991,7 +977,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateSafetyResult do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateScannedLink do
+defmodule Inttegro.MessageTemplates.ScannedLink do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:raw, :scheme, :status]
   defstruct host: nil, raw: nil, reason: nil, scheme: nil, status: nil
@@ -1034,7 +1020,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateScannedLink do
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariable do
+defmodule Inttegro.MessageTemplates.Variable do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name, :required, :type]
   defstruct about: nil, default: nil, items: nil, name: nil, required: nil, type: nil
@@ -1043,10 +1029,10 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariable do
   @type t :: %__MODULE__{
           about: String.t() | nil,
           default: term() | nil,
-          items: [Inttegro.MessageTemplates.MessageTemplateVariableItem.t()] | nil,
+          items: [Inttegro.MessageTemplates.VariableItem.t()] | nil,
           name: String.t(),
           required: boolean(),
-          type: Inttegro.MessageTemplates.MessageTemplateVariableType.t()
+          type: Inttegro.MessageTemplates.VariableType.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1062,12 +1048,12 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariable do
           do: nil,
           else:
             Enum.map(Map.get(map, "items"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateVariableItem.from_map(item)
+              Inttegro.MessageTemplates.VariableItem.from_map(item)
             end)
         ),
       name: Map.fetch!(map, "name"),
       required: Map.fetch!(map, "required"),
-      type: Inttegro.MessageTemplates.MessageTemplateVariableType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.MessageTemplates.VariableType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -1084,14 +1070,14 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariable do
         ),
       "name" => Inttegro.Codec.encode(value.name),
       "required" => Inttegro.Codec.encode(value.required),
-      "type" => Inttegro.MessageTemplates.MessageTemplateVariableType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.VariableType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariableInput do
+defmodule Inttegro.MessageTemplates.VariableInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name, :type]
   defstruct required: nil, default: nil, about: nil, items: nil, name: nil, type: nil
@@ -1101,9 +1087,9 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableInput do
           required: boolean() | nil,
           default: term() | nil,
           about: String.t() | nil,
-          items: [Inttegro.MessageTemplates.MessageTemplateVariableItemInput.t()] | nil,
+          items: [Inttegro.MessageTemplates.VariableItemInput.t()] | nil,
           name: String.t(),
-          type: Inttegro.MessageTemplates.MessageTemplateVariableType.t()
+          type: Inttegro.MessageTemplates.VariableType.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1120,11 +1106,11 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableInput do
           do: nil,
           else:
             Enum.map(Map.get(map, "items"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateVariableItemInput.from_map(item)
+              Inttegro.MessageTemplates.VariableItemInput.from_map(item)
             end)
         ),
       name: Map.fetch!(map, "name"),
-      type: Inttegro.MessageTemplates.MessageTemplateVariableType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.MessageTemplates.VariableType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -1142,14 +1128,14 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableInput do
           else: Enum.map(value.items, fn item -> Inttegro.Codec.encode(item) end)
         ),
       "name" => Inttegro.Codec.encode(value.name),
-      "type" => Inttegro.MessageTemplates.MessageTemplateVariableType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.VariableType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariableItem do
+defmodule Inttegro.MessageTemplates.VariableItem do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name, :required, :type]
   defstruct about: nil, default: nil, name: nil, required: nil, type: nil
@@ -1160,7 +1146,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItem do
           default: term() | nil,
           name: String.t(),
           required: boolean(),
-          type: Inttegro.MessageTemplates.MessageTemplateVariableItemType.t()
+          type: Inttegro.MessageTemplates.VariableItemType.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1173,8 +1159,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItem do
       default: if(is_nil(Map.get(map, "default")), do: nil, else: Map.get(map, "default")),
       name: Map.fetch!(map, "name"),
       required: Map.fetch!(map, "required"),
-      type:
-        Inttegro.MessageTemplates.MessageTemplateVariableItemType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.MessageTemplates.VariableItemType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -1186,14 +1171,14 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItem do
       "default" => if(is_nil(value.default), do: nil, else: Inttegro.Codec.encode(value.default)),
       "name" => Inttegro.Codec.encode(value.name),
       "required" => Inttegro.Codec.encode(value.required),
-      "type" => Inttegro.MessageTemplates.MessageTemplateVariableItemType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.VariableItemType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemInput do
+defmodule Inttegro.MessageTemplates.VariableItemInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name, :type]
   defstruct about: nil, default: nil, required: nil, name: nil, type: nil
@@ -1204,7 +1189,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemInput do
           default: term() | nil,
           required: boolean() | nil,
           name: String.t(),
-          type: Inttegro.MessageTemplates.MessageTemplateVariableItemType.t()
+          type: Inttegro.MessageTemplates.VariableItemType.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1217,8 +1202,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemInput do
       default: if(is_nil(Map.get(map, "default")), do: nil, else: Map.get(map, "default")),
       required: if(is_nil(Map.get(map, "required")), do: nil, else: Map.get(map, "required")),
       name: Map.fetch!(map, "name"),
-      type:
-        Inttegro.MessageTemplates.MessageTemplateVariableItemType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.MessageTemplates.VariableItemType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -1231,14 +1215,14 @@ defmodule Inttegro.MessageTemplates.MessageTemplateVariableItemInput do
       "required" =>
         if(is_nil(value.required), do: nil, else: Inttegro.Codec.encode(value.required)),
       "name" => Inttegro.Codec.encode(value.name),
-      "type" => Inttegro.MessageTemplates.MessageTemplateVariableItemType.encode(value.type)
+      "type" => Inttegro.MessageTemplates.VariableItemType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.MessageTemplates.MessageTemplatesPage do
+defmodule Inttegro.MessageTemplates.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :size, :message_templates]
   defstruct number: nil, size: nil, message_templates: nil
@@ -1279,7 +1263,7 @@ defmodule Inttegro.MessageTemplates.MessageTemplatesPage do
   end
 end
 
-defmodule Inttegro.MessageTemplates.PageMessageTemplatesRequest do
+defmodule Inttegro.MessageTemplates.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct page: nil, size: nil, status: nil, channel: nil, purpose: nil, locale: nil
 
@@ -1287,8 +1271,8 @@ defmodule Inttegro.MessageTemplates.PageMessageTemplatesRequest do
   @type t :: %__MODULE__{
           page: integer() | nil,
           size: integer() | nil,
-          status: Inttegro.MessageTemplates.MessageTemplateStatus.t() | nil,
-          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t() | nil,
+          status: Inttegro.MessageTemplates.Status.t() | nil,
+          channel: Inttegro.MessageTemplates.Channel.t() | nil,
           purpose: String.t() | nil,
           locale: String.t() | nil
         }
@@ -1304,12 +1288,12 @@ defmodule Inttegro.MessageTemplates.PageMessageTemplatesRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateStatus.decode(Map.get(map, "status"))
+          else: Inttegro.MessageTemplates.Status.decode(Map.get(map, "status"))
         ),
       channel:
         if(is_nil(Map.get(map, "channel")),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.get(map, "channel"))
+          else: Inttegro.MessageTemplates.Channel.decode(Map.get(map, "channel"))
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       locale: if(is_nil(Map.get(map, "locale")), do: nil, else: Map.get(map, "locale"))
@@ -1325,12 +1309,12 @@ defmodule Inttegro.MessageTemplates.PageMessageTemplatesRequest do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateStatus.encode(value.status)
+          else: Inttegro.MessageTemplates.Status.encode(value.status)
         ),
       "channel" =>
         if(is_nil(value.channel),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel)
+          else: Inttegro.MessageTemplates.Channel.encode(value.channel)
         ),
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "locale" => if(is_nil(value.locale), do: nil, else: Inttegro.Codec.encode(value.locale))
@@ -1340,14 +1324,14 @@ defmodule Inttegro.MessageTemplates.PageMessageTemplatesRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest do
+defmodule Inttegro.MessageTemplates.RenderPreviewRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:message_template]
   defstruct message_template: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          message_template: Inttegro.MessageTemplates.MessageTemplateReferenceInput.t()
+          message_template: Inttegro.MessageTemplates.ReferenceInput.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1357,9 +1341,7 @@ defmodule Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       message_template:
-        Inttegro.MessageTemplates.MessageTemplateReferenceInput.from_map(
-          Map.fetch!(map, "message_template")
-        )
+        Inttegro.MessageTemplates.ReferenceInput.from_map(Map.fetch!(map, "message_template"))
     }
   end
 
@@ -1374,7 +1356,7 @@ defmodule Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest do
   end
 end
 
-defmodule Inttegro.MessageTemplates.RenderedEmailMessageTemplate do
+defmodule Inttegro.MessageTemplates.RenderedEmail do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:subject, :text]
   defstruct subject: nil,
@@ -1390,10 +1372,10 @@ defmodule Inttegro.MessageTemplates.RenderedEmailMessageTemplate do
           subject: String.t(),
           text: String.t(),
           html: String.t() | nil,
-          from_: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
-          reply_to: Inttegro.MessageTemplates.MessageTemplateMailbox.t() | nil,
+          from_: Inttegro.MessageTemplates.Mailbox.t() | nil,
+          reply_to: Inttegro.MessageTemplates.Mailbox.t() | nil,
           headers: %{optional(String.t()) => String.t()} | nil,
-          safety: Inttegro.MessageTemplates.MessageTemplateSafetyResult.t() | nil
+          safety: Inttegro.MessageTemplates.SafetyResult.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1408,13 +1390,12 @@ defmodule Inttegro.MessageTemplates.RenderedEmailMessageTemplate do
       from_:
         if(is_nil(Map.get(map, "from")),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "from"))
+          else: Inttegro.MessageTemplates.Mailbox.from_map(Map.get(map, "from"))
         ),
       reply_to:
         if(is_nil(Map.get(map, "reply_to")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateMailbox.from_map(Map.get(map, "reply_to"))
+          else: Inttegro.MessageTemplates.Mailbox.from_map(Map.get(map, "reply_to"))
         ),
       headers:
         if(is_nil(Map.get(map, "headers")),
@@ -1424,8 +1405,7 @@ defmodule Inttegro.MessageTemplates.RenderedEmailMessageTemplate do
       safety:
         if(is_nil(Map.get(map, "safety")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateSafetyResult.from_map(Map.get(map, "safety"))
+          else: Inttegro.MessageTemplates.SafetyResult.from_map(Map.get(map, "safety"))
         )
     }
   end
@@ -1455,17 +1435,17 @@ defmodule Inttegro.MessageTemplates.RenderedEmailMessageTemplate do
   end
 end
 
-defmodule Inttegro.MessageTemplates.RenderedMessageTemplate do
+defmodule Inttegro.MessageTemplates.Rendered do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:channel]
   defstruct channel: nil, attachments: nil, sms: nil, email: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t(),
+          channel: Inttegro.MessageTemplates.Channel.t(),
           attachments: [String.t()] | nil,
-          sms: Inttegro.MessageTemplates.RenderedSMSMessageTemplate.t() | nil,
-          email: Inttegro.MessageTemplates.RenderedEmailMessageTemplate.t() | nil
+          sms: Inttegro.MessageTemplates.RenderedSMS.t() | nil,
+          email: Inttegro.MessageTemplates.RenderedEmail.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1474,8 +1454,7 @@ defmodule Inttegro.MessageTemplates.RenderedMessageTemplate do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      channel:
-        Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.fetch!(map, "channel")),
+      channel: Inttegro.MessageTemplates.Channel.decode(Map.fetch!(map, "channel")),
       attachments:
         if(is_nil(Map.get(map, "attachments")),
           do: nil,
@@ -1484,13 +1463,12 @@ defmodule Inttegro.MessageTemplates.RenderedMessageTemplate do
       sms:
         if(is_nil(Map.get(map, "sms")),
           do: nil,
-          else: Inttegro.MessageTemplates.RenderedSMSMessageTemplate.from_map(Map.get(map, "sms"))
+          else: Inttegro.MessageTemplates.RenderedSMS.from_map(Map.get(map, "sms"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.RenderedEmailMessageTemplate.from_map(Map.get(map, "email"))
+          else: Inttegro.MessageTemplates.RenderedEmail.from_map(Map.get(map, "email"))
         )
     }
   end
@@ -1499,7 +1477,7 @@ defmodule Inttegro.MessageTemplates.RenderedMessageTemplate do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "channel" => Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel),
+      "channel" => Inttegro.MessageTemplates.Channel.encode(value.channel),
       "attachments" =>
         if(is_nil(value.attachments),
           do: nil,
@@ -1513,7 +1491,7 @@ defmodule Inttegro.MessageTemplates.RenderedMessageTemplate do
   end
 end
 
-defmodule Inttegro.MessageTemplates.RenderedSMSMessageTemplate do
+defmodule Inttegro.MessageTemplates.RenderedSMS do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:full_message]
   defstruct full_message: nil
@@ -1544,7 +1522,7 @@ defmodule Inttegro.MessageTemplates.RenderedSMSMessageTemplate do
   end
 end
 
-defmodule Inttegro.MessageTemplates.UpdateMessageTemplateRequest do
+defmodule Inttegro.MessageTemplates.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct name: nil,
@@ -1562,12 +1540,12 @@ defmodule Inttegro.MessageTemplates.UpdateMessageTemplateRequest do
   @type t :: %__MODULE__{
           name: String.t() | nil,
           about: String.t() | nil,
-          channel: Inttegro.MessageTemplates.MessageTemplateChannel.t() | nil,
+          channel: Inttegro.MessageTemplates.Channel.t() | nil,
           purpose: String.t() | nil,
           locale: String.t() | nil,
-          variables: [Inttegro.MessageTemplates.MessageTemplateVariableInput.t()] | nil,
-          sms: Inttegro.MessageTemplates.MessageTemplateSMSContentInput.t() | nil,
-          email: Inttegro.MessageTemplates.MessageTemplateEmailContentInput.t() | nil,
+          variables: [Inttegro.MessageTemplates.VariableInput.t()] | nil,
+          sms: Inttegro.MessageTemplates.SMSContentInput.t() | nil,
+          email: Inttegro.MessageTemplates.EmailContentInput.t() | nil,
           attachments: [String.t()] | nil,
           id: String.t()
         }
@@ -1583,7 +1561,7 @@ defmodule Inttegro.MessageTemplates.UpdateMessageTemplateRequest do
       channel:
         if(is_nil(Map.get(map, "channel")),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateChannel.decode(Map.get(map, "channel"))
+          else: Inttegro.MessageTemplates.Channel.decode(Map.get(map, "channel"))
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       locale: if(is_nil(Map.get(map, "locale")), do: nil, else: Map.get(map, "locale")),
@@ -1592,22 +1570,18 @@ defmodule Inttegro.MessageTemplates.UpdateMessageTemplateRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "variables"), fn item ->
-              Inttegro.MessageTemplates.MessageTemplateVariableInput.from_map(item)
+              Inttegro.MessageTemplates.VariableInput.from_map(item)
             end)
         ),
       sms:
         if(is_nil(Map.get(map, "sms")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateSMSContentInput.from_map(Map.get(map, "sms"))
+          else: Inttegro.MessageTemplates.SMSContentInput.from_map(Map.get(map, "sms"))
         ),
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else:
-            Inttegro.MessageTemplates.MessageTemplateEmailContentInput.from_map(
-              Map.get(map, "email")
-            )
+          else: Inttegro.MessageTemplates.EmailContentInput.from_map(Map.get(map, "email"))
         ),
       attachments:
         if(is_nil(Map.get(map, "attachments")),
@@ -1627,7 +1601,7 @@ defmodule Inttegro.MessageTemplates.UpdateMessageTemplateRequest do
       "channel" =>
         if(is_nil(value.channel),
           do: nil,
-          else: Inttegro.MessageTemplates.MessageTemplateChannel.encode(value.channel)
+          else: Inttegro.MessageTemplates.Channel.encode(value.channel)
         ),
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "locale" => if(is_nil(value.locale), do: nil, else: Inttegro.Codec.encode(value.locale)),

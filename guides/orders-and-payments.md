@@ -24,20 +24,20 @@ line_item =
   )
 
 customer =
-  Inttegro.Customers.CustomerDataInput.new!(
+  Inttegro.Customers.DataInput.new!(
     name: "Akua Mensah",
     email_address: "akua@example.com",
     phone_number: "+233544998605"
   )
 
 checkout =
-  Inttegro.Orders.CreateOrderNewCustomerInputCheckoutSettings.new!(
+  Inttegro.Orders.CreateNewCustomerInputCheckoutSettings.new!(
     redirect_url: "https://example.com/orders/complete",
     cancel_url: "https://example.com/cart"
   )
 
 request =
-  Inttegro.Orders.CreateOrderNewCustomerInput.new!(
+  Inttegro.Orders.CreateNewCustomerInput.new!(
     customer_data: customer,
     line_items: [line_item],
     checkout_settings: checkout,
@@ -57,7 +57,7 @@ request times out, retry the same request with the same key instead of creating 
 
 ## Existing customers and payment methods
 
-Use `Inttegro.Orders.CreateOrderExistingCustomerInput` when the customer already has an Inttegro
+Use `Inttegro.Orders.CreateExistingCustomerInput` when the customer already has an Inttegro
 customer ID. A `payment_method_id` supplied to an order must belong to that customer; the order flow
 does not transfer ownership between customers.
 
@@ -79,7 +79,7 @@ Order and payment state can advance after the initiating request returns:
 Look up the order to obtain authoritative state:
 
 ```elixir
-request = Inttegro.Orders.LookupOrderRequest.new!(order_id: order.id)
+request = Inttegro.Orders.LookupRequest.new!(order_id: order.id)
 
 case Inttegro.Orders.lookup(client, request) do
   {:ok, %Inttegro.Orders.Order{status: :completed} = completed} ->

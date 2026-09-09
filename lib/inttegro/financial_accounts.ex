@@ -7,7 +7,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :create)
   @spec create(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountCreateRequest.t(),
+          Inttegro.FinancialAccounts.CreateRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -28,7 +28,7 @@ defmodule Inttegro.FinancialAccounts do
   end
 
   @doc Inttegro.Docs.operation_doc(__MODULE__, :lookup)
-  @spec lookup(Client.t(), Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.FinancialAccounts.IDRequest.t(), keyword()) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -47,8 +47,8 @@ defmodule Inttegro.FinancialAccounts do
   end
 
   @doc Inttegro.Docs.operation_doc(__MODULE__, :page)
-  @spec page(Client.t(), Inttegro.FinancialAccounts.FinancialAccountPageRequest.t(), keyword()) ::
-          {:ok, Inttegro.FinancialAccounts.FinancialAccountPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.FinancialAccounts.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.FinancialAccounts.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -61,14 +61,14 @@ defmodule Inttegro.FinancialAccounts do
              "page",
              true
            ) do
-      {:ok, Inttegro.FinancialAccounts.FinancialAccountPage.from_map(value)}
+      {:ok, Inttegro.FinancialAccounts.Page.from_map(value)}
     end
   end
 
   @doc Inttegro.Docs.operation_doc(__MODULE__, :connect)
   @spec connect(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountCreateRequest.t(),
+          Inttegro.FinancialAccounts.CreateRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -91,7 +91,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :update)
   @spec update(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountUpdateRequest.t(),
+          Inttegro.FinancialAccounts.UpdateRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -114,7 +114,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :enable_push)
   @spec enable_push(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(),
+          Inttegro.FinancialAccounts.IDRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -137,7 +137,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :disable_push)
   @spec disable_push(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountDisableRequest.t(),
+          Inttegro.FinancialAccounts.DisableRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -160,7 +160,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :disconnect)
   @spec disconnect(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountDisableRequest.t(),
+          Inttegro.FinancialAccounts.DisableRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -181,7 +181,7 @@ defmodule Inttegro.FinancialAccounts do
   end
 
   @doc Inttegro.Docs.operation_doc(__MODULE__, :reconnect)
-  @spec reconnect(Client.t(), Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(), keyword()) ::
+  @spec reconnect(Client.t(), Inttegro.FinancialAccounts.IDRequest.t(), keyword()) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
   def reconnect(client, request, options \\ []) do
     with {:ok, value} <-
@@ -202,7 +202,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :enable_pull)
   @spec enable_pull(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountEnablePullRequest.t(),
+          Inttegro.FinancialAccounts.EnablePullRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}
@@ -225,7 +225,7 @@ defmodule Inttegro.FinancialAccounts do
   @doc Inttegro.Docs.operation_doc(__MODULE__, :disable_pull)
   @spec disable_pull(
           Client.t(),
-          Inttegro.FinancialAccounts.FinancialAccountIDRequest.t(),
+          Inttegro.FinancialAccounts.IDRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.FinancialAccounts.FinancialAccount.t()} | {:error, Exception.t()}

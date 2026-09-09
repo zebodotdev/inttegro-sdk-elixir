@@ -10,18 +10,18 @@ defmodule Inttegro.FileReferences do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.FileReferences.FileReferenceReconcileRequest` containing the operation input.
+  * `request` — a `Inttegro.FileReferences.ReconcileRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.FileReferences.FileReferenceReconciliation.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.FileReferences.Reconciliation.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.FileReferences.FileReferenceReconcileRequest.new!(request_attributes)
+      request = Inttegro.FileReferences.ReconcileRequest.new!(request_attributes)
 
       case Inttegro.FileReferences.reconcile(client, request) do
         {:ok, result} -> result
@@ -30,10 +30,10 @@ defmodule Inttegro.FileReferences do
   """
   @spec reconcile(
           Client.t(),
-          Inttegro.FileReferences.FileReferenceReconcileRequest.t(),
+          Inttegro.FileReferences.ReconcileRequest.t(),
           keyword()
         ) ::
-          {:ok, Inttegro.FileReferences.FileReferenceReconciliation.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.FileReferences.Reconciliation.t()} | {:error, Exception.t()}
   def reconcile(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -46,7 +46,7 @@ defmodule Inttegro.FileReferences do
              nil,
              true
            ) do
-      {:ok, Inttegro.FileReferences.FileReferenceReconciliation.from_map(value)}
+      {:ok, Inttegro.FileReferences.Reconciliation.from_map(value)}
     end
   end
 end

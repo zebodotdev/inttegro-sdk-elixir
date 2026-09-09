@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Wallets.WalletType do
+defmodule Inttegro.Wallets.Type do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :mobile_money | String.t()

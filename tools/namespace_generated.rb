@@ -45,6 +45,43 @@ SPECIAL = {
   "ResourceSupply" => "Shared"
 }.freeze
 
+# Once a generated type is inside its owning namespace, repeating that domain
+# in the leaf module adds noise without adding meaning. Keep the primary
+# resource name (`Orders.Order`, `Payments.Payment`, and so on), but make every
+# supporting name relative to its namespace (`Orders.Address`,
+# `Payments.Attempt`, `Customers.CreateRequest`).
+DOMAIN_NAMES = {
+  "BalanceTransactions" => %w[BalanceTransactions BalanceTransaction],
+  "Balances" => %w[Balances Balance],
+  "BankAccounts" => %w[BankAccounts BankAccount],
+  "Broadcasts" => %w[Broadcasts Broadcast],
+  "Checkout" => %w[Checkouts Checkout],
+  "Chimes" => %w[Chimes Chime],
+  "Customers" => %w[Customers Customer],
+  "FileLinks" => %w[FileLinks FileLink],
+  "FileReferences" => %w[FileReferences FileReference],
+  "Files" => %w[Files File],
+  "FinancialAccounts" => %w[FinancialAccounts FinancialAccount],
+  "Invoices" => %w[Invoices Invoice],
+  "MessageTemplates" => %w[MessageTemplates MessageTemplate],
+  "Orders" => %w[Orders Order],
+  "Otp" => %w[OTPs OTP],
+  "PaymentMethods" => %w[PaymentMethods PaymentMethod],
+  "Payments" => %w[Payments Payment],
+  "Payouts" => %w[Payouts Payout],
+  "Prices" => %w[Prices Price],
+  "Products" => %w[Products Product],
+  "PurchaseIntents" => %w[PurchaseIntents PurchaseIntent],
+  "Refunds" => %w[Refunds Refund],
+  "Schedules" => %w[Schedules Schedule],
+  "UploadRequests" => %w[UploadRequests UploadRequest],
+  "Wallets" => %w[Wallets Wallet]
+}.freeze
+
+PUBLIC_NAME_OVERRIDES = {
+  ["BankAccounts", "GhanaBankAccount"] => "GhanaAccount"
+}.freeze
+
 PATTERNS = [
   [/\AOrderDocument(?!Delivery(?:Request|Result))|\AOrderInvoice/, "Invoices"],
   [/\A(?:Create|Update)?Order|\AOrder/, "Orders"],
@@ -89,6 +126,21 @@ def blocks(source, pattern)
   end
 end
 
+def public_name(owner, generated_name)
+  names = DOMAIN_NAMES[owner]
+  return generated_name unless names
+
+  singular = names.last
+  return generated_name if generated_name == singular
+
+  relative = names.reduce(generated_name.dup) { |name, domain| name.gsub(domain, "") }
+  relative = relative.gsub("RequestRequest", "Request")
+  relative = PUBLIC_NAME_OVERRIDES.fetch([owner, generated_name], relative)
+
+  abort("Empty public name for #{owner}.#{generated_name}") if relative.empty?
+  relative
+end
+
 abort("Expected freshly generated aggregate files") unless File.file?(GENERATED) && File.file?(RESOURCES)
 
 generated = File.read(GENERATED)
@@ -112,7 +164,7 @@ mapping = names.to_h do |name|
   owner ||= PATTERNS.find { |pattern, _namespace| name.match?(pattern) }&.last
   owner ||= direct.first
   unowned << name unless owner
-  [name, "Inttegro.#{owner}.#{name}"]
+  [name, "Inttegro.#{owner}.#{public_name(owner, name)}"]
 end
 
 abort("No namespace owner for: #{unowned.join(', ')}") unless unowned.empty?

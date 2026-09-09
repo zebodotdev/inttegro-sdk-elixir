@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Products.ProductShipmentInputType do
+defmodule Inttegro.Products.ShipmentInputType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :delivery | :download | :render | :stream | String.t()
@@ -23,7 +23,7 @@ defmodule Inttegro.Products.ProductShipmentInputType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Products.ProductShipmentType do
+defmodule Inttegro.Products.ShipmentType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :delivery | :download | :render | :service | :stream | String.t()
@@ -47,7 +47,7 @@ defmodule Inttegro.Products.ProductShipmentType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Products.ProductType do
+defmodule Inttegro.Products.Type do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :physical | :digital | :service | :voucher | :custom | :cause | String.t()
@@ -72,22 +72,22 @@ defmodule Inttegro.Products.ProductType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Products.ProductDetailsInput do
+defmodule Inttegro.Products.DetailsInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t ::
-          Inttegro.Products.InlineProductDetailsInput.t()
-          | Inttegro.Products.CatalogProductWithPriceDataInput.t()
-          | Inttegro.Products.CatalogProductWithPriceReferenceInput.t()
+          Inttegro.Products.InlineDetailsInput.t()
+          | Inttegro.Products.CatalogWithPriceDataInput.t()
+          | Inttegro.Products.CatalogWithPriceReferenceInput.t()
 
   @doc false
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.Products.InlineProductDetailsInput,
-        Inttegro.Products.CatalogProductWithPriceDataInput,
-        Inttegro.Products.CatalogProductWithPriceReferenceInput
+        Inttegro.Products.InlineDetailsInput,
+        Inttegro.Products.CatalogWithPriceDataInput,
+        Inttegro.Products.CatalogWithPriceReferenceInput
       ],
       value,
       fn module ->
@@ -101,7 +101,7 @@ defmodule Inttegro.Products.ProductDetailsInput do
   end
 end
 
-defmodule Inttegro.Products.AddProductPriceRequest do
+defmodule Inttegro.Products.AddPriceRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:product_id, :amount]
   defstruct label: nil, about: nil, product_id: nil, amount: nil
@@ -141,14 +141,14 @@ defmodule Inttegro.Products.AddProductPriceRequest do
   end
 end
 
-defmodule Inttegro.Products.CatalogProductWithPriceDataInput do
+defmodule Inttegro.Products.CatalogWithPriceDataInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:price, :product_id, :quantity]
   defstruct price: nil, product_id: nil, quantity: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          price: Inttegro.Prices.PriceParams.t(),
+          price: Inttegro.Prices.Params.t(),
           product_id: String.t(),
           quantity: integer()
         }
@@ -159,7 +159,7 @@ defmodule Inttegro.Products.CatalogProductWithPriceDataInput do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      price: Inttegro.Prices.PriceParams.from_map(Map.fetch!(map, "price")),
+      price: Inttegro.Prices.Params.from_map(Map.fetch!(map, "price")),
       product_id: Map.fetch!(map, "product_id"),
       quantity: Map.fetch!(map, "quantity")
     }
@@ -178,7 +178,7 @@ defmodule Inttegro.Products.CatalogProductWithPriceDataInput do
   end
 end
 
-defmodule Inttegro.Products.CatalogProductWithPriceReferenceInput do
+defmodule Inttegro.Products.CatalogWithPriceReferenceInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:price_id, :product_id, :quantity]
   defstruct price_id: nil, product_id: nil, quantity: nil
@@ -215,7 +215,7 @@ defmodule Inttegro.Products.CatalogProductWithPriceReferenceInput do
   end
 end
 
-defmodule Inttegro.Products.CreateProductRequest do
+defmodule Inttegro.Products.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:type, :name]
   defstruct reference: nil,
@@ -240,14 +240,14 @@ defmodule Inttegro.Products.CreateProductRequest do
           about: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
-          shipment: Inttegro.Products.ProductShipmentInput.t() | nil,
-          dimensions: Inttegro.Products.ProductDimensionsInput.t() | nil,
+          shipment: Inttegro.Products.ShipmentInput.t() | nil,
+          dimensions: Inttegro.Products.DimensionsInput.t() | nil,
           unit_dimension: String.t() | nil,
-          media: Inttegro.Products.ProductMediaInput.t() | nil,
-          attributes: [Inttegro.Products.ProductAttributeInput.t()] | nil,
+          media: Inttegro.Products.MediaInput.t() | nil,
+          attributes: [Inttegro.Products.AttributeInput.t()] | nil,
           publish: boolean() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          type: Inttegro.Products.ProductType.t(),
+          type: Inttegro.Products.Type.t(),
           name: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -266,26 +266,26 @@ defmodule Inttegro.Products.CreateProductRequest do
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Inttegro.Products.ProductShipmentInput.from_map(Map.get(map, "shipment"))
+          else: Inttegro.Products.ShipmentInput.from_map(Map.get(map, "shipment"))
         ),
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsInput.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.DimensionsInput.from_map(Map.get(map, "dimensions"))
         ),
       unit_dimension:
         if(is_nil(Map.get(map, "unit_dimension")), do: nil, else: Map.get(map, "unit_dimension")),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.Products.ProductMediaInput.from_map(Map.get(map, "media"))
+          else: Inttegro.Products.MediaInput.from_map(Map.get(map, "media"))
         ),
       attributes:
         if(is_nil(Map.get(map, "attributes")),
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.Products.ProductAttributeInput.from_map(item)
+              Inttegro.Products.AttributeInput.from_map(item)
             end)
         ),
       publish: if(is_nil(Map.get(map, "publish")), do: nil, else: Map.get(map, "publish")),
@@ -294,7 +294,7 @@ defmodule Inttegro.Products.CreateProductRequest do
           do: nil,
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
-      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       name: Map.fetch!(map, "name")
     }
   end
@@ -336,7 +336,7 @@ defmodule Inttegro.Products.CreateProductRequest do
               {to_string(key), Inttegro.Codec.encode(value)}
             end)
         ),
-      "type" => Inttegro.Products.ProductType.encode(value.type),
+      "type" => Inttegro.Products.Type.encode(value.type),
       "name" => Inttegro.Codec.encode(value.name)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -344,7 +344,7 @@ defmodule Inttegro.Products.CreateProductRequest do
   end
 end
 
-defmodule Inttegro.Products.InlineProductDetailsInput do
+defmodule Inttegro.Products.InlineDetailsInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name, :price, :quantity, :type]
   defstruct about: nil,
@@ -363,9 +363,9 @@ defmodule Inttegro.Products.InlineProductDetailsInput do
           reference: String.t() | nil,
           tax_code: String.t() | nil,
           name: String.t(),
-          price: Inttegro.Prices.PriceParams.t(),
+          price: Inttegro.Prices.Params.t(),
           quantity: integer(),
-          type: Inttegro.Products.ProductType.t()
+          type: Inttegro.Products.Type.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -383,9 +383,9 @@ defmodule Inttegro.Products.InlineProductDetailsInput do
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
       name: Map.fetch!(map, "name"),
-      price: Inttegro.Prices.PriceParams.from_map(Map.fetch!(map, "price")),
+      price: Inttegro.Prices.Params.from_map(Map.fetch!(map, "price")),
       quantity: Map.fetch!(map, "quantity"),
-      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.Products.Type.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -409,14 +409,14 @@ defmodule Inttegro.Products.InlineProductDetailsInput do
       "name" => Inttegro.Codec.encode(value.name),
       "price" => Inttegro.Codec.encode(value.price),
       "quantity" => Inttegro.Codec.encode(value.quantity),
-      "type" => Inttegro.Products.ProductType.encode(value.type)
+      "type" => Inttegro.Products.Type.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.Products.LookupProductRequest do
+defmodule Inttegro.Products.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:product_id]
   defstruct product_id: nil
@@ -447,7 +447,7 @@ defmodule Inttegro.Products.LookupProductRequest do
   end
 end
 
-defmodule Inttegro.Products.PageProductsRequest do
+defmodule Inttegro.Products.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -509,18 +509,18 @@ defmodule Inttegro.Products.Product do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           id: String.t(),
-          type: Inttegro.Products.ProductType.t(),
+          type: Inttegro.Products.Type.t(),
           reference: String.t() | nil,
           name: String.t(),
           description: String.t() | nil,
           about: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
-          prices: [Inttegro.Products.ProductPriceSummary.t()] | nil,
-          shipment: Inttegro.Products.ProductShipment.t() | nil,
-          media: Inttegro.Products.ProductMedia.t() | nil,
-          attributes: [Inttegro.Products.ProductAttribute.t()] | nil,
-          dimensions: Inttegro.Products.ProductDimensions.t() | nil,
+          prices: [Inttegro.Products.PriceSummary.t()] | nil,
+          shipment: Inttegro.Products.Shipment.t() | nil,
+          media: Inttegro.Products.Media.t() | nil,
+          attributes: [Inttegro.Products.Attribute.t()] | nil,
+          dimensions: Inttegro.Products.Dimensions.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           active: boolean(),
           created_at: String.t(),
@@ -537,7 +537,7 @@ defmodule Inttegro.Products.Product do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       name: Map.fetch!(map, "name"),
       description:
@@ -550,31 +550,31 @@ defmodule Inttegro.Products.Product do
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.Products.ProductPriceSummary.from_map(item)
+              Inttegro.Products.PriceSummary.from_map(item)
             end)
         ),
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Inttegro.Products.ProductShipment.from_map(Map.get(map, "shipment"))
+          else: Inttegro.Products.Shipment.from_map(Map.get(map, "shipment"))
         ),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.Products.ProductMedia.from_map(Map.get(map, "media"))
+          else: Inttegro.Products.Media.from_map(Map.get(map, "media"))
         ),
       attributes:
         if(is_nil(Map.get(map, "attributes")),
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.Products.ProductAttribute.from_map(item)
+              Inttegro.Products.Attribute.from_map(item)
             end)
         ),
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.Products.ProductDimensions.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.Dimensions.from_map(Map.get(map, "dimensions"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -598,7 +598,7 @@ defmodule Inttegro.Products.Product do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "type" => Inttegro.Products.ProductType.encode(value.type),
+      "type" => Inttegro.Products.Type.encode(value.type),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "name" => Inttegro.Codec.encode(value.name),
@@ -648,7 +648,7 @@ defmodule Inttegro.Products.Product do
   end
 end
 
-defmodule Inttegro.Products.ProductActionRequest do
+defmodule Inttegro.Products.ActionRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:product_id]
   defstruct product_id: nil
@@ -679,7 +679,7 @@ defmodule Inttegro.Products.ProductActionRequest do
   end
 end
 
-defmodule Inttegro.Products.ProductAttribute do
+defmodule Inttegro.Products.Attribute do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -713,7 +713,7 @@ defmodule Inttegro.Products.ProductAttribute do
   end
 end
 
-defmodule Inttegro.Products.ProductAttributeInput do
+defmodule Inttegro.Products.AttributeInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -747,15 +747,15 @@ defmodule Inttegro.Products.ProductAttributeInput do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensions do
+defmodule Inttegro.Products.Dimensions do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct physical: nil, digital: nil, custom: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          physical: Inttegro.Products.ProductDimensionsPhysical.t() | nil,
-          digital: Inttegro.Products.ProductDimensionsDigital.t() | nil,
-          custom: Inttegro.Products.ProductDimensionsCustom.t() | nil
+          physical: Inttegro.Products.DimensionsPhysical.t() | nil,
+          digital: Inttegro.Products.DimensionsDigital.t() | nil,
+          custom: Inttegro.Products.DimensionsCustom.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -767,17 +767,17 @@ defmodule Inttegro.Products.ProductDimensions do
       physical:
         if(is_nil(Map.get(map, "physical")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsPhysical.from_map(Map.get(map, "physical"))
+          else: Inttegro.Products.DimensionsPhysical.from_map(Map.get(map, "physical"))
         ),
       digital:
         if(is_nil(Map.get(map, "digital")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsDigital.from_map(Map.get(map, "digital"))
+          else: Inttegro.Products.DimensionsDigital.from_map(Map.get(map, "digital"))
         ),
       custom:
         if(is_nil(Map.get(map, "custom")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsCustom.from_map(Map.get(map, "custom"))
+          else: Inttegro.Products.DimensionsCustom.from_map(Map.get(map, "custom"))
         )
     }
   end
@@ -796,7 +796,7 @@ defmodule Inttegro.Products.ProductDimensions do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsCustom do
+defmodule Inttegro.Products.DimensionsCustom do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct size_unit: nil, size: nil, details: nil
 
@@ -844,7 +844,7 @@ defmodule Inttegro.Products.ProductDimensionsCustom do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsDigital do
+defmodule Inttegro.Products.DimensionsDigital do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct bytes: nil, size_unit: nil, size: nil
 
@@ -881,15 +881,15 @@ defmodule Inttegro.Products.ProductDimensionsDigital do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsInput do
+defmodule Inttegro.Products.DimensionsInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct physical: nil, digital: nil, custom: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          physical: Inttegro.Products.ProductDimensionsInputPhysical.t() | nil,
-          digital: Inttegro.Products.ProductDimensionsInputDigital.t() | nil,
-          custom: Inttegro.Products.ProductDimensionsInputCustom.t() | nil
+          physical: Inttegro.Products.DimensionsInputPhysical.t() | nil,
+          digital: Inttegro.Products.DimensionsInputDigital.t() | nil,
+          custom: Inttegro.Products.DimensionsInputCustom.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -901,18 +901,17 @@ defmodule Inttegro.Products.ProductDimensionsInput do
       physical:
         if(is_nil(Map.get(map, "physical")),
           do: nil,
-          else:
-            Inttegro.Products.ProductDimensionsInputPhysical.from_map(Map.get(map, "physical"))
+          else: Inttegro.Products.DimensionsInputPhysical.from_map(Map.get(map, "physical"))
         ),
       digital:
         if(is_nil(Map.get(map, "digital")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsInputDigital.from_map(Map.get(map, "digital"))
+          else: Inttegro.Products.DimensionsInputDigital.from_map(Map.get(map, "digital"))
         ),
       custom:
         if(is_nil(Map.get(map, "custom")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsInputCustom.from_map(Map.get(map, "custom"))
+          else: Inttegro.Products.DimensionsInputCustom.from_map(Map.get(map, "custom"))
         )
     }
   end
@@ -931,7 +930,7 @@ defmodule Inttegro.Products.ProductDimensionsInput do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsInputCustom do
+defmodule Inttegro.Products.DimensionsInputCustom do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct size_unit: nil, size: nil, details: nil
 
@@ -979,7 +978,7 @@ defmodule Inttegro.Products.ProductDimensionsInputCustom do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsInputDigital do
+defmodule Inttegro.Products.DimensionsInputDigital do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct bytes: nil, size_unit: nil, size: nil
 
@@ -1016,7 +1015,7 @@ defmodule Inttegro.Products.ProductDimensionsInputDigital do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsInputPhysical do
+defmodule Inttegro.Products.DimensionsInputPhysical do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct weight_unit: nil,
             weight: nil,
@@ -1078,7 +1077,7 @@ defmodule Inttegro.Products.ProductDimensionsInputPhysical do
   end
 end
 
-defmodule Inttegro.Products.ProductDimensionsPhysical do
+defmodule Inttegro.Products.DimensionsPhysical do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct weight_unit: nil,
             weight: nil,
@@ -1140,7 +1139,7 @@ defmodule Inttegro.Products.ProductDimensionsPhysical do
   end
 end
 
-defmodule Inttegro.Products.ProductMedia do
+defmodule Inttegro.Products.Media do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct hero_image: nil,
             thumbnail: nil,
@@ -1231,7 +1230,7 @@ defmodule Inttegro.Products.ProductMedia do
   end
 end
 
-defmodule Inttegro.Products.ProductMediaInput do
+defmodule Inttegro.Products.MediaInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct hero_image: nil,
             thumbnail: nil,
@@ -1322,7 +1321,7 @@ defmodule Inttegro.Products.ProductMediaInput do
   end
 end
 
-defmodule Inttegro.Products.ProductPage do
+defmodule Inttegro.Products.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct number: nil, size: nil, products: nil
 
@@ -1369,7 +1368,7 @@ defmodule Inttegro.Products.ProductPage do
   end
 end
 
-defmodule Inttegro.Products.ProductPriceSummary do
+defmodule Inttegro.Products.PriceSummary do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :active, :nominal]
   defstruct id: nil, active: nil, label: nil, nominal: nil
@@ -1409,14 +1408,14 @@ defmodule Inttegro.Products.ProductPriceSummary do
   end
 end
 
-defmodule Inttegro.Products.ProductShipment do
+defmodule Inttegro.Products.Shipment do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct type: nil, delivery: nil, download: nil, render: nil, service: nil, stream: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          type: Inttegro.Products.ProductShipmentType.t(),
+          type: Inttegro.Products.ShipmentType.t(),
           delivery: %{optional(String.t()) => term()} | nil,
           download: %{optional(String.t()) => term()} | nil,
           render: %{optional(String.t()) => term()} | nil,
@@ -1430,7 +1429,7 @@ defmodule Inttegro.Products.ProductShipment do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.Products.ProductShipmentType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.ShipmentType.decode(Map.fetch!(map, "type")),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
@@ -1463,7 +1462,7 @@ defmodule Inttegro.Products.ProductShipment do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.Products.ProductShipmentType.encode(value.type),
+      "type" => Inttegro.Products.ShipmentType.encode(value.type),
       "delivery" =>
         if(is_nil(value.delivery),
           do: nil,
@@ -1510,14 +1509,14 @@ defmodule Inttegro.Products.ProductShipment do
   end
 end
 
-defmodule Inttegro.Products.ProductShipmentInput do
+defmodule Inttegro.Products.ShipmentInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:type]
   defstruct type: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          type: Inttegro.Products.ProductShipmentInputType.t()
+          type: Inttegro.Products.ShipmentInputType.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1526,7 +1525,7 @@ defmodule Inttegro.Products.ProductShipmentInput do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.Products.ProductShipmentInputType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.Products.ShipmentInputType.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -1534,14 +1533,14 @@ defmodule Inttegro.Products.ProductShipmentInput do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.Products.ProductShipmentInputType.encode(value.type)
+      "type" => Inttegro.Products.ShipmentInputType.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.Products.UpdateProductRequest do
+defmodule Inttegro.Products.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:product_id]
   defstruct type: nil,
@@ -1561,18 +1560,18 @@ defmodule Inttegro.Products.UpdateProductRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          type: Inttegro.Products.ProductType.t() | nil,
+          type: Inttegro.Products.Type.t() | nil,
           name: String.t() | nil,
           description: String.t() | nil,
           about: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
-          shipment: Inttegro.Products.ProductShipmentInput.t() | nil,
-          dimensions: Inttegro.Products.ProductDimensionsInput.t() | nil,
+          shipment: Inttegro.Products.ShipmentInput.t() | nil,
+          dimensions: Inttegro.Products.DimensionsInput.t() | nil,
           unit_dimension: String.t() | nil,
-          media: Inttegro.Products.ProductMediaInput.t() | nil,
+          media: Inttegro.Products.MediaInput.t() | nil,
           images: [String.t()] | nil,
-          attributes: [Inttegro.Products.ProductAttributeInput.t()] | nil,
+          attributes: [Inttegro.Products.AttributeInput.t()] | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           product_id: String.t()
         }
@@ -1586,7 +1585,7 @@ defmodule Inttegro.Products.UpdateProductRequest do
       type:
         if(is_nil(Map.get(map, "type")),
           do: nil,
-          else: Inttegro.Products.ProductType.decode(Map.get(map, "type"))
+          else: Inttegro.Products.Type.decode(Map.get(map, "type"))
         ),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       description:
@@ -1597,19 +1596,19 @@ defmodule Inttegro.Products.UpdateProductRequest do
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Inttegro.Products.ProductShipmentInput.from_map(Map.get(map, "shipment"))
+          else: Inttegro.Products.ShipmentInput.from_map(Map.get(map, "shipment"))
         ),
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.Products.ProductDimensionsInput.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.DimensionsInput.from_map(Map.get(map, "dimensions"))
         ),
       unit_dimension:
         if(is_nil(Map.get(map, "unit_dimension")), do: nil, else: Map.get(map, "unit_dimension")),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.Products.ProductMediaInput.from_map(Map.get(map, "media"))
+          else: Inttegro.Products.MediaInput.from_map(Map.get(map, "media"))
         ),
       images:
         if(is_nil(Map.get(map, "images")),
@@ -1621,7 +1620,7 @@ defmodule Inttegro.Products.UpdateProductRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.Products.ProductAttributeInput.from_map(item)
+              Inttegro.Products.AttributeInput.from_map(item)
             end)
         ),
       custom_data:
@@ -1637,8 +1636,7 @@ defmodule Inttegro.Products.UpdateProductRequest do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" =>
-        if(is_nil(value.type), do: nil, else: Inttegro.Products.ProductType.encode(value.type)),
+      "type" => if(is_nil(value.type), do: nil, else: Inttegro.Products.Type.encode(value.type)),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "description" =>
         if(is_nil(value.description), do: nil, else: Inttegro.Codec.encode(value.description)),
@@ -1682,7 +1680,7 @@ defmodule Inttegro.Products.UpdateProductRequest do
   end
 end
 
-defmodule Inttegro.Products.UpdatedProduct do
+defmodule Inttegro.Products.Updated do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :name, :type, :created_at]
   defstruct id: nil,
@@ -1706,13 +1704,13 @@ defmodule Inttegro.Products.UpdatedProduct do
           name: String.t(),
           description: String.t() | nil,
           about: String.t() | nil,
-          type: Inttegro.Products.ProductType.t(),
+          type: Inttegro.Products.Type.t(),
           reference: String.t() | nil,
           tax_code: String.t() | nil,
           category: String.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          dimensions: Inttegro.Products.ProductDimensions.t() | nil,
-          prices: [Inttegro.Products.ProductPriceSummary.t()] | nil,
+          dimensions: Inttegro.Products.Dimensions.t() | nil,
+          prices: [Inttegro.Products.PriceSummary.t()] | nil,
           unit_dim: String.t() | nil,
           created_at: String.t(),
           updated_at: String.t() | nil
@@ -1729,7 +1727,7 @@ defmodule Inttegro.Products.UpdatedProduct do
       description:
         if(is_nil(Map.get(map, "description")), do: nil, else: Map.get(map, "description")),
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
-      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
@@ -1741,14 +1739,14 @@ defmodule Inttegro.Products.UpdatedProduct do
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Inttegro.Products.ProductDimensions.from_map(Map.get(map, "dimensions"))
+          else: Inttegro.Products.Dimensions.from_map(Map.get(map, "dimensions"))
         ),
       prices:
         if(is_nil(Map.get(map, "prices")),
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.Products.ProductPriceSummary.from_map(item)
+              Inttegro.Products.PriceSummary.from_map(item)
             end)
         ),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
@@ -1767,7 +1765,7 @@ defmodule Inttegro.Products.UpdatedProduct do
       "description" =>
         if(is_nil(value.description), do: nil, else: Inttegro.Codec.encode(value.description)),
       "about" => if(is_nil(value.about), do: nil, else: Inttegro.Codec.encode(value.about)),
-      "type" => Inttegro.Products.ProductType.encode(value.type),
+      "type" => Inttegro.Products.Type.encode(value.type),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "tax_code" =>

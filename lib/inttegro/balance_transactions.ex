@@ -10,7 +10,7 @@ defmodule Inttegro.BalanceTransactions do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.BalanceTransactions.LookupBalanceTransactionRequest` containing the operation input.
+  * `request` — a `Inttegro.BalanceTransactions.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,7 +21,7 @@ defmodule Inttegro.BalanceTransactions do
 
   ## Example
 
-      request = Inttegro.BalanceTransactions.LookupBalanceTransactionRequest.new!(request_attributes)
+      request = Inttegro.BalanceTransactions.LookupRequest.new!(request_attributes)
 
       case Inttegro.BalanceTransactions.lookup(client, request) do
         {:ok, result} -> result
@@ -30,7 +30,7 @@ defmodule Inttegro.BalanceTransactions do
   """
   @spec lookup(
           Client.t(),
-          Inttegro.BalanceTransactions.LookupBalanceTransactionRequest.t(),
+          Inttegro.BalanceTransactions.LookupRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.BalanceTransactions.BalanceTransaction.t()} | {:error, Exception.t()}
@@ -56,18 +56,18 @@ defmodule Inttegro.BalanceTransactions do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.BalanceTransactions.PageBalanceTransactionsRequest` containing the operation input.
+  * `request` — a `Inttegro.BalanceTransactions.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.BalanceTransactions.BalanceTransactionPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.BalanceTransactions.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.BalanceTransactions.PageBalanceTransactionsRequest.new!(request_attributes)
+      request = Inttegro.BalanceTransactions.PageRequest.new!(request_attributes)
 
       case Inttegro.BalanceTransactions.page(client, request) do
         {:ok, result} -> result
@@ -76,10 +76,10 @@ defmodule Inttegro.BalanceTransactions do
   """
   @spec page(
           Client.t(),
-          Inttegro.BalanceTransactions.PageBalanceTransactionsRequest.t(),
+          Inttegro.BalanceTransactions.PageRequest.t(),
           keyword()
         ) ::
-          {:ok, Inttegro.BalanceTransactions.BalanceTransactionPage.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.BalanceTransactions.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -92,7 +92,7 @@ defmodule Inttegro.BalanceTransactions do
              "page",
              true
            ) do
-      {:ok, Inttegro.BalanceTransactions.BalanceTransactionPage.from_map(value)}
+      {:ok, Inttegro.BalanceTransactions.Page.from_map(value)}
     end
   end
 end

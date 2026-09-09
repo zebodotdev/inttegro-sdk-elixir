@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.FileReferences.FileReferenceInput do
+defmodule Inttegro.FileReferences.Input do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:file_id, :field]
   defstruct reference: nil, reference_kind: nil, purpose: nil, file_id: nil, field: nil
@@ -49,14 +49,14 @@ defmodule Inttegro.FileReferences.FileReferenceInput do
   end
 end
 
-defmodule Inttegro.FileReferences.FileReferenceReconcileRequest do
+defmodule Inttegro.FileReferences.ReconcileRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:resource_type, :resource_id]
   defstruct references: nil, resource_type: nil, resource_id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          references: [Inttegro.FileReferences.FileReferenceInput.t()] | nil,
+          references: [Inttegro.FileReferences.Input.t()] | nil,
           resource_type: String.t(),
           resource_id: String.t()
         }
@@ -72,7 +72,7 @@ defmodule Inttegro.FileReferences.FileReferenceReconcileRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "references"), fn item ->
-              Inttegro.FileReferences.FileReferenceInput.from_map(item)
+              Inttegro.FileReferences.Input.from_map(item)
             end)
         ),
       resource_type: Map.fetch!(map, "resource_type"),
@@ -97,7 +97,7 @@ defmodule Inttegro.FileReferences.FileReferenceReconcileRequest do
   end
 end
 
-defmodule Inttegro.FileReferences.FileReferenceReconciliation do
+defmodule Inttegro.FileReferences.Reconciliation do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:reconciled]
   defstruct reconciled: nil

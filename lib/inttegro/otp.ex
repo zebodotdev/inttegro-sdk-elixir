@@ -10,26 +10,26 @@ defmodule Inttegro.Otp do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Otp.InitiateOTPRequest` containing the operation input.
+  * `request` — a `Inttegro.Otp.InitiateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Otp.OTPTransaction.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Otp.Transaction.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Otp.InitiateOTPRequest.new!(request_attributes)
+      request = Inttegro.Otp.InitiateRequest.new!(request_attributes)
 
       case Inttegro.Otp.initiate(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec initiate(Client.t(), Inttegro.Otp.InitiateOTPRequest.t(), keyword()) ::
-          {:ok, Inttegro.Otp.OTPTransaction.t()} | {:error, Exception.t()}
+  @spec initiate(Client.t(), Inttegro.Otp.InitiateRequest.t(), keyword()) ::
+          {:ok, Inttegro.Otp.Transaction.t()} | {:error, Exception.t()}
   def initiate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -42,7 +42,7 @@ defmodule Inttegro.Otp do
              "transaction",
              true
            ) do
-      {:ok, Inttegro.Otp.OTPTransaction.from_map(value)}
+      {:ok, Inttegro.Otp.Transaction.from_map(value)}
     end
   end
 
@@ -52,26 +52,26 @@ defmodule Inttegro.Otp do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Otp.VerifyOTPRequest` containing the operation input.
+  * `request` — a `Inttegro.Otp.VerifyRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Otp.OTPVerification.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Otp.Verification.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Otp.VerifyOTPRequest.new!(request_attributes)
+      request = Inttegro.Otp.VerifyRequest.new!(request_attributes)
 
       case Inttegro.Otp.verify(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec verify(Client.t(), Inttegro.Otp.VerifyOTPRequest.t(), keyword()) ::
-          {:ok, Inttegro.Otp.OTPVerification.t()} | {:error, Exception.t()}
+  @spec verify(Client.t(), Inttegro.Otp.VerifyRequest.t(), keyword()) ::
+          {:ok, Inttegro.Otp.Verification.t()} | {:error, Exception.t()}
   def verify(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -84,7 +84,7 @@ defmodule Inttegro.Otp do
              nil,
              true
            ) do
-      {:ok, Inttegro.Otp.OTPVerification.from_map(value)}
+      {:ok, Inttegro.Otp.Verification.from_map(value)}
     end
   end
 
@@ -94,26 +94,26 @@ defmodule Inttegro.Otp do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Otp.LookupOTPRequest` containing the operation input.
+  * `request` — a `Inttegro.Otp.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Otp.OTPTransaction.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Otp.Transaction.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Otp.LookupOTPRequest.new!(request_attributes)
+      request = Inttegro.Otp.LookupRequest.new!(request_attributes)
 
       case Inttegro.Otp.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Otp.LookupOTPRequest.t(), keyword()) ::
-          {:ok, Inttegro.Otp.OTPTransaction.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Otp.LookupRequest.t(), keyword()) ::
+          {:ok, Inttegro.Otp.Transaction.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -126,7 +126,7 @@ defmodule Inttegro.Otp do
              "transaction",
              true
            ) do
-      {:ok, Inttegro.Otp.OTPTransaction.from_map(value)}
+      {:ok, Inttegro.Otp.Transaction.from_map(value)}
     end
   end
 end

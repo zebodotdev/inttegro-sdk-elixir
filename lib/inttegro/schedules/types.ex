@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Schedules.CancelScheduleRequest do
+defmodule Inttegro.Schedules.CancelRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:schedule_id]
   defstruct schedule_id: nil
@@ -31,7 +31,7 @@ defmodule Inttegro.Schedules.CancelScheduleRequest do
   end
 end
 
-defmodule Inttegro.Schedules.LookupScheduleRequest do
+defmodule Inttegro.Schedules.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:schedule_id]
   defstruct schedule_id: nil
@@ -62,7 +62,7 @@ defmodule Inttegro.Schedules.LookupScheduleRequest do
   end
 end
 
-defmodule Inttegro.Schedules.ScheduleCancelDetail do
+defmodule Inttegro.Schedules.CancelDetail do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -86,8 +86,8 @@ defmodule Inttegro.Schedules.ScheduleCancelDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.Schedules.ScheduleError.t()] | nil,
+          email: Inttegro.Chimes.EmailMessage.t() | nil,
+          errors: [Inttegro.Schedules.Error.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -119,14 +119,14 @@ defmodule Inttegro.Schedules.ScheduleCancelDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.EmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
             Enum.map(Map.get(map, "errors"), fn item ->
-              Inttegro.Schedules.ScheduleError.from_map(item)
+              Inttegro.Schedules.Error.from_map(item)
             end)
         ),
       executed_at:
@@ -188,7 +188,7 @@ defmodule Inttegro.Schedules.ScheduleCancelDetail do
   end
 end
 
-defmodule Inttegro.Schedules.ScheduleDetail do
+defmodule Inttegro.Schedules.Detail do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:content, :created_at, :id, :recipients, :send_after, :sender_id]
   defstruct chime_ids: nil,
@@ -211,8 +211,8 @@ defmodule Inttegro.Schedules.ScheduleDetail do
           content: String.t(),
           created_at: String.t(),
           customer_ids: [String.t()] | nil,
-          email: Inttegro.Chimes.ChimeEmailMessage.t() | nil,
-          errors: [Inttegro.Schedules.ScheduleError.t()] | nil,
+          email: Inttegro.Chimes.EmailMessage.t() | nil,
+          errors: [Inttegro.Schedules.Error.t()] | nil,
           executed_at: String.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
@@ -243,14 +243,14 @@ defmodule Inttegro.Schedules.ScheduleDetail do
       email:
         if(is_nil(Map.get(map, "email")),
           do: nil,
-          else: Inttegro.Chimes.ChimeEmailMessage.from_map(Map.get(map, "email"))
+          else: Inttegro.Chimes.EmailMessage.from_map(Map.get(map, "email"))
         ),
       errors:
         if(is_nil(Map.get(map, "errors")),
           do: nil,
           else:
             Enum.map(Map.get(map, "errors"), fn item ->
-              Inttegro.Schedules.ScheduleError.from_map(item)
+              Inttegro.Schedules.Error.from_map(item)
             end)
         ),
       executed_at:
@@ -308,7 +308,7 @@ defmodule Inttegro.Schedules.ScheduleDetail do
   end
 end
 
-defmodule Inttegro.Schedules.ScheduleError do
+defmodule Inttegro.Schedules.Error do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct recipient: nil, fix_code: nil, type: nil
 

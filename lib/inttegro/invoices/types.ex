@@ -42,7 +42,7 @@ defmodule Inttegro.Invoices.OrderDocumentKind do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Invoices.InvoiceSettings do
+defmodule Inttegro.Invoices.Settings do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct number: nil, memo: nil, footer: nil, custom_data: nil
 
@@ -92,7 +92,7 @@ defmodule Inttegro.Invoices.InvoiceSettings do
   end
 end
 
-defmodule Inttegro.Invoices.InvoiceSettingsInput do
+defmodule Inttegro.Invoices.SettingsInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct number: nil, memo: nil, footer: nil, custom_data: nil
 
@@ -354,14 +354,14 @@ defmodule Inttegro.Invoices.OrderDocumentFormat do
   end
 end
 
-defmodule Inttegro.Invoices.OrderInvoice do
+defmodule Inttegro.Invoices.Order do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct number: nil, format: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           number: String.t() | nil,
-          format: Inttegro.Invoices.OrderInvoiceFormat.t() | nil
+          format: Inttegro.Invoices.OrderFormat.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -374,7 +374,7 @@ defmodule Inttegro.Invoices.OrderInvoice do
       format:
         if(is_nil(Map.get(map, "format")),
           do: nil,
-          else: Inttegro.Invoices.OrderInvoiceFormat.from_map(Map.get(map, "format"))
+          else: Inttegro.Invoices.OrderFormat.from_map(Map.get(map, "format"))
         )
     }
   end
@@ -391,7 +391,7 @@ defmodule Inttegro.Invoices.OrderInvoice do
   end
 end
 
-defmodule Inttegro.Invoices.OrderInvoiceFormat do
+defmodule Inttegro.Invoices.OrderFormat do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:web, :pdf]
   defstruct web: nil, pdf: nil, receipt: nil

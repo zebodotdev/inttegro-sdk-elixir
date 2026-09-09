@@ -10,7 +10,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.CreateOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,7 +21,7 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      # Build one of the concrete request variants listed by Inttegro.Orders.CreateOrderRequest.t/0.
+      # Build one of the concrete request variants listed by Inttegro.Orders.CreateRequest.t/0.
       request = concrete_request
 
       case Inttegro.Orders.create(client, request) do
@@ -29,7 +29,7 @@ defmodule Inttegro.Orders do
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.Orders.CreateOrderRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.Orders.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -53,7 +53,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.LookupOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -64,14 +64,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Orders.LookupOrderRequest.new!(request_attributes)
+      request = Inttegro.Orders.LookupRequest.new!(request_attributes)
 
       case Inttegro.Orders.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Orders.LookupOrderRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Orders.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -95,7 +95,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.UpdateOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -106,14 +106,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Orders.UpdateOrderRequest.new!(request_attributes)
+      request = Inttegro.Orders.UpdateRequest.new!(request_attributes)
 
       case Inttegro.Orders.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.Orders.UpdateOrderRequest.t(), keyword()) ::
+  @spec update(Client.t(), Inttegro.Orders.UpdateRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
@@ -137,7 +137,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.PayOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.PayRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -148,14 +148,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Orders.PayOrderRequest.new!(request_attributes)
+      request = Inttegro.Orders.PayRequest.new!(request_attributes)
 
       case Inttegro.Orders.pay(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec pay(Client.t(), Inttegro.Orders.PayOrderRequest.t(), keyword()) ::
+  @spec pay(Client.t(), Inttegro.Orders.PayRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def pay(client, request, options \\ []) do
     with {:ok, value} <-
@@ -267,7 +267,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.CancelOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.CancelRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -278,14 +278,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Orders.CancelOrderRequest.new!(request_attributes)
+      request = Inttegro.Orders.CancelRequest.new!(request_attributes)
 
       case Inttegro.Orders.cancel(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec cancel(Client.t(), Inttegro.Orders.CancelOrderRequest.t(), keyword()) ::
+  @spec cancel(Client.t(), Inttegro.Orders.CancelRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
@@ -309,7 +309,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.FinalizeOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.FinalizeRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -320,14 +320,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Orders.FinalizeOrderRequest.new!(request_attributes)
+      request = Inttegro.Orders.FinalizeRequest.new!(request_attributes)
 
       case Inttegro.Orders.finalize(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec finalize(Client.t(), Inttegro.Orders.FinalizeOrderRequest.t(), keyword()) ::
+  @spec finalize(Client.t(), Inttegro.Orders.FinalizeRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def finalize(client, request, options \\ []) do
     with {:ok, value} <-
@@ -351,7 +351,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.CompleteOrderRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.CompleteRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -362,14 +362,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Orders.CompleteOrderRequest.new!(request_attributes)
+      request = Inttegro.Orders.CompleteRequest.new!(request_attributes)
 
       case Inttegro.Orders.complete(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec complete(Client.t(), Inttegro.Orders.CompleteOrderRequest.t(), keyword()) ::
+  @spec complete(Client.t(), Inttegro.Orders.CompleteRequest.t(), keyword()) ::
           {:ok, Inttegro.Orders.Order.t()} | {:error, Exception.t()}
   def complete(client, request, options \\ []) do
     with {:ok, value} <-
@@ -393,26 +393,26 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.OrderDocumentDeliveryRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.DocumentDeliveryRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Orders.OrderDocumentDeliveryResult.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Orders.DocumentDeliveryResult.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Orders.OrderDocumentDeliveryRequest.new!(request_attributes)
+      request = Inttegro.Orders.DocumentDeliveryRequest.new!(request_attributes)
 
       case Inttegro.Orders.send_invoice(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec send_invoice(Client.t(), Inttegro.Orders.OrderDocumentDeliveryRequest.t(), keyword()) ::
-          {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.t()} | {:error, Exception.t()}
+  @spec send_invoice(Client.t(), Inttegro.Orders.DocumentDeliveryRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.DocumentDeliveryResult.t()} | {:error, Exception.t()}
   def send_invoice(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -425,7 +425,7 @@ defmodule Inttegro.Orders do
              nil,
              true
            ) do
-      {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.from_map(value)}
+      {:ok, Inttegro.Orders.DocumentDeliveryResult.from_map(value)}
     end
   end
 
@@ -435,26 +435,26 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.OrderDocumentDeliveryRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.DocumentDeliveryRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Orders.OrderDocumentDeliveryResult.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Orders.DocumentDeliveryResult.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Orders.OrderDocumentDeliveryRequest.new!(request_attributes)
+      request = Inttegro.Orders.DocumentDeliveryRequest.new!(request_attributes)
 
       case Inttegro.Orders.send_receipt(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec send_receipt(Client.t(), Inttegro.Orders.OrderDocumentDeliveryRequest.t(), keyword()) ::
-          {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.t()} | {:error, Exception.t()}
+  @spec send_receipt(Client.t(), Inttegro.Orders.DocumentDeliveryRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.DocumentDeliveryResult.t()} | {:error, Exception.t()}
   def send_receipt(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -467,7 +467,7 @@ defmodule Inttegro.Orders do
              nil,
              true
            ) do
-      {:ok, Inttegro.Orders.OrderDocumentDeliveryResult.from_map(value)}
+      {:ok, Inttegro.Orders.DocumentDeliveryResult.from_map(value)}
     end
   end
 
@@ -477,26 +477,26 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Orders.PageOrdersRequest` containing the operation input.
+  * `request` — a `Inttegro.Orders.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Orders.OrderPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Orders.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Orders.PageOrdersRequest.new!(request_attributes)
+      request = Inttegro.Orders.PageRequest.new!(request_attributes)
 
       case Inttegro.Orders.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Orders.PageOrdersRequest.t(), keyword()) ::
-          {:ok, Inttegro.Orders.OrderPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Orders.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Orders.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -509,7 +509,7 @@ defmodule Inttegro.Orders do
              "page",
              true
            ) do
-      {:ok, Inttegro.Orders.OrderPage.from_map(value)}
+      {:ok, Inttegro.Orders.Page.from_map(value)}
     end
   end
 
@@ -519,7 +519,7 @@ defmodule Inttegro.Orders do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Refunds.CreateRefundRequest` containing the operation input.
+  * `request` — a `Inttegro.Refunds.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -530,14 +530,14 @@ defmodule Inttegro.Orders do
 
   ## Example
 
-      request = Inttegro.Refunds.CreateRefundRequest.new!(request_attributes)
+      request = Inttegro.Refunds.CreateRequest.new!(request_attributes)
 
       case Inttegro.Orders.refund(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec refund(Client.t(), Inttegro.Refunds.CreateRefundRequest.t(), keyword()) ::
+  @spec refund(Client.t(), Inttegro.Refunds.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def refund(client, request, options \\ []) do
     with {:ok, value} <-

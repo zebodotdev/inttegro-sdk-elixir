@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Balances.BalanceValue do
+defmodule Inttegro.Balances.Value do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:amount]
   defstruct amount: nil
@@ -31,7 +31,7 @@ defmodule Inttegro.Balances.BalanceValue do
   end
 end
 
-defmodule Inttegro.Balances.CurrencyBalanceSnapshot do
+defmodule Inttegro.Balances.CurrencySnapshot do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:available, :includes_transactions_before, :pending, :refund, :reserved]
   defstruct available: nil,
@@ -42,11 +42,11 @@ defmodule Inttegro.Balances.CurrencyBalanceSnapshot do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          available: Inttegro.Balances.BalanceValue.t(),
+          available: Inttegro.Balances.Value.t(),
           includes_transactions_before: String.t(),
-          pending: Inttegro.Balances.BalanceValue.t(),
-          refund: Inttegro.Balances.CurrencyBalanceSnapshotRefund.t(),
-          reserved: Inttegro.Balances.CurrencyBalanceSnapshotReserved.t()
+          pending: Inttegro.Balances.Value.t(),
+          refund: Inttegro.Balances.CurrencySnapshotRefund.t(),
+          reserved: Inttegro.Balances.CurrencySnapshotReserved.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -55,12 +55,11 @@ defmodule Inttegro.Balances.CurrencyBalanceSnapshot do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      available: Inttegro.Balances.BalanceValue.from_map(Map.fetch!(map, "available")),
+      available: Inttegro.Balances.Value.from_map(Map.fetch!(map, "available")),
       includes_transactions_before: Map.fetch!(map, "includes_transactions_before"),
-      pending: Inttegro.Balances.BalanceValue.from_map(Map.fetch!(map, "pending")),
-      refund: Inttegro.Balances.CurrencyBalanceSnapshotRefund.from_map(Map.fetch!(map, "refund")),
-      reserved:
-        Inttegro.Balances.CurrencyBalanceSnapshotReserved.from_map(Map.fetch!(map, "reserved"))
+      pending: Inttegro.Balances.Value.from_map(Map.fetch!(map, "pending")),
+      refund: Inttegro.Balances.CurrencySnapshotRefund.from_map(Map.fetch!(map, "refund")),
+      reserved: Inttegro.Balances.CurrencySnapshotReserved.from_map(Map.fetch!(map, "reserved"))
     }
   end
 
@@ -79,7 +78,7 @@ defmodule Inttegro.Balances.CurrencyBalanceSnapshot do
   end
 end
 
-defmodule Inttegro.Balances.CurrencyBalanceSnapshotRefund do
+defmodule Inttegro.Balances.CurrencySnapshotRefund do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:amount]
   defstruct amount: nil
@@ -110,7 +109,7 @@ defmodule Inttegro.Balances.CurrencyBalanceSnapshotRefund do
   end
 end
 
-defmodule Inttegro.Balances.CurrencyBalanceSnapshotReserved do
+defmodule Inttegro.Balances.CurrencySnapshotReserved do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:amount]
   defstruct amount: nil
@@ -141,7 +140,7 @@ defmodule Inttegro.Balances.CurrencyBalanceSnapshotReserved do
   end
 end
 
-defmodule Inttegro.Balances.LookupBalancesRequest do
+defmodule Inttegro.Balances.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct []
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)

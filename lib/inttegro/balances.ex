@@ -23,7 +23,7 @@ defmodule Inttegro.Balances do
       Inttegro.Balances.get(client)
   """
   @spec get(Client.t(), keyword()) ::
-          {:ok, %{optional(String.t()) => Inttegro.Balances.CurrencyBalanceSnapshot.t()}}
+          {:ok, %{optional(String.t()) => Inttegro.Balances.CurrencySnapshot.t()}}
           | {:error, Exception.t()}
   def get(client, options \\ []) do
     with {:ok, value} <-
@@ -39,7 +39,7 @@ defmodule Inttegro.Balances do
            ) do
       {:ok,
        Map.new(value, fn {key, value} ->
-         {key, Inttegro.Balances.CurrencyBalanceSnapshot.from_map(value)}
+         {key, Inttegro.Balances.CurrencySnapshot.from_map(value)}
        end)}
     end
   end

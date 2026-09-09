@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Refunds.RefundReason do
+defmodule Inttegro.Refunds.Reason do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -38,7 +38,7 @@ defmodule Inttegro.Refunds.RefundReason do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Refunds.RefundStatus do
+defmodule Inttegro.Refunds.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :canceled | :failed | :pending | :processing | :succeeded | String.t()
@@ -62,32 +62,32 @@ defmodule Inttegro.Refunds.RefundStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Refunds.RefundReasonInput do
+defmodule Inttegro.Refunds.ReasonInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
-  @type t :: Inttegro.Refunds.RefundReason.t()
+  @type t :: Inttegro.Refunds.Reason.t()
   @doc false
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.Refunds.RefundReasonValue do
+defmodule Inttegro.Refunds.ReasonValue do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
-  @type t :: Inttegro.Refunds.RefundReason.t()
+  @type t :: Inttegro.Refunds.Reason.t()
   @doc false
   @spec decode(term()) :: t()
   def decode(value), do: value
 end
 
-defmodule Inttegro.Refunds.CancelRefundRequest do
+defmodule Inttegro.Refunds.CancelRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:refund_id]
   defstruct request_meta: nil, refund_id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          request_meta: Inttegro.Refunds.RefundRequestMetaInput.t() | nil,
+          request_meta: Inttegro.Refunds.RequestMetaInput.t() | nil,
           refund_id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -100,7 +100,7 @@ defmodule Inttegro.Refunds.CancelRefundRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.Refunds.RefundRequestMetaInput.from_map(Map.get(map, "request_meta"))
+          else: Inttegro.Refunds.RequestMetaInput.from_map(Map.get(map, "request_meta"))
         ),
       refund_id: Map.fetch!(map, "refund_id")
     }
@@ -119,14 +119,14 @@ defmodule Inttegro.Refunds.CancelRefundRequest do
   end
 end
 
-defmodule Inttegro.Refunds.CreateRefundLineItemInput do
+defmodule Inttegro.Refunds.CreateLineItemInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:order_line_item_id, :refund_amount]
   defstruct reason: nil, reason_details: nil, order_line_item_id: nil, refund_amount: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          reason: Inttegro.Refunds.RefundReason.t() | nil,
+          reason: Inttegro.Refunds.Reason.t() | nil,
           reason_details: String.t() | nil,
           order_line_item_id: String.t(),
           refund_amount: Inttegro.Money.AmountParams.t()
@@ -141,7 +141,7 @@ defmodule Inttegro.Refunds.CreateRefundLineItemInput do
       reason:
         if(is_nil(Map.get(map, "reason")),
           do: nil,
-          else: Inttegro.Refunds.RefundReason.decode(Map.get(map, "reason"))
+          else: Inttegro.Refunds.Reason.decode(Map.get(map, "reason"))
         ),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
@@ -157,7 +157,7 @@ defmodule Inttegro.Refunds.CreateRefundLineItemInput do
       "reason" =>
         if(is_nil(value.reason),
           do: nil,
-          else: Inttegro.Refunds.RefundReason.encode(value.reason)
+          else: Inttegro.Refunds.Reason.encode(value.reason)
         ),
       "reason_details" =>
         if(is_nil(value.reason_details),
@@ -172,7 +172,7 @@ defmodule Inttegro.Refunds.CreateRefundLineItemInput do
   end
 end
 
-defmodule Inttegro.Refunds.CreateRefundRequest do
+defmodule Inttegro.Refunds.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:line_items, :order_id, :reason]
   defstruct custom_data: nil,
@@ -188,10 +188,10 @@ defmodule Inttegro.Refunds.CreateRefundRequest do
           custom_data: %{optional(String.t()) => String.t()} | nil,
           reason_details: String.t() | nil,
           reference: String.t() | nil,
-          request_meta: Inttegro.Refunds.RefundRequestMetaInput.t() | nil,
-          line_items: [Inttegro.Refunds.CreateRefundLineItemInput.t()],
+          request_meta: Inttegro.Refunds.RequestMetaInput.t() | nil,
+          line_items: [Inttegro.Refunds.CreateLineItemInput.t()],
           order_id: String.t(),
-          reason: Inttegro.Refunds.RefundReason.t()
+          reason: Inttegro.Refunds.Reason.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -211,14 +211,14 @@ defmodule Inttegro.Refunds.CreateRefundRequest do
       request_meta:
         if(is_nil(Map.get(map, "request_meta")),
           do: nil,
-          else: Inttegro.Refunds.RefundRequestMetaInput.from_map(Map.get(map, "request_meta"))
+          else: Inttegro.Refunds.RequestMetaInput.from_map(Map.get(map, "request_meta"))
         ),
       line_items:
         Enum.map(Map.fetch!(map, "line_items"), fn item ->
-          Inttegro.Refunds.CreateRefundLineItemInput.from_map(item)
+          Inttegro.Refunds.CreateLineItemInput.from_map(item)
         end),
       order_id: Map.fetch!(map, "order_id"),
-      reason: Inttegro.Refunds.RefundReason.decode(Map.fetch!(map, "reason"))
+      reason: Inttegro.Refunds.Reason.decode(Map.fetch!(map, "reason"))
     }
   end
 
@@ -245,14 +245,14 @@ defmodule Inttegro.Refunds.CreateRefundRequest do
         if(is_nil(value.request_meta), do: nil, else: Inttegro.Codec.encode(value.request_meta)),
       "line_items" => Enum.map(value.line_items, fn item -> Inttegro.Codec.encode(item) end),
       "order_id" => Inttegro.Codec.encode(value.order_id),
-      "reason" => Inttegro.Refunds.RefundReason.encode(value.reason)
+      "reason" => Inttegro.Refunds.Reason.encode(value.reason)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.Refunds.LookupRefundRequest do
+defmodule Inttegro.Refunds.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:refund_id]
   defstruct refund_id: nil
@@ -283,7 +283,7 @@ defmodule Inttegro.Refunds.LookupRefundRequest do
   end
 end
 
-defmodule Inttegro.Refunds.PageRefundsRequest do
+defmodule Inttegro.Refunds.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -343,13 +343,13 @@ defmodule Inttegro.Refunds.Refund do
           custom_data: %{optional(String.t()) => String.t()} | nil,
           failed_at: String.t() | nil,
           id: String.t(),
-          line_items: [Inttegro.Refunds.RefundLineItem.t()],
+          line_items: [Inttegro.Refunds.LineItem.t()],
           order_id: String.t(),
           processing_at: String.t() | nil,
-          reason: Inttegro.Refunds.RefundReason.t(),
+          reason: Inttegro.Refunds.Reason.t(),
           reason_details: String.t() | nil,
           reference: String.t() | nil,
-          status: Inttegro.Refunds.RefundStatus.t(),
+          status: Inttegro.Refunds.Status.t(),
           succeeded_at: String.t() | nil,
           total: Inttegro.Money.Amount.t()
         }
@@ -372,16 +372,16 @@ defmodule Inttegro.Refunds.Refund do
       id: Map.fetch!(map, "id"),
       line_items:
         Enum.map(Map.fetch!(map, "line_items"), fn item ->
-          Inttegro.Refunds.RefundLineItem.from_map(item)
+          Inttegro.Refunds.LineItem.from_map(item)
         end),
       order_id: Map.fetch!(map, "order_id"),
       processing_at:
         if(is_nil(Map.get(map, "processing_at")), do: nil, else: Map.get(map, "processing_at")),
-      reason: Inttegro.Refunds.RefundReason.decode(Map.fetch!(map, "reason")),
+      reason: Inttegro.Refunds.Reason.decode(Map.fetch!(map, "reason")),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
-      status: Inttegro.Refunds.RefundStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Refunds.Status.decode(Map.fetch!(map, "status")),
       succeeded_at:
         if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at")),
       total: Inttegro.Money.Amount.from_map(Map.fetch!(map, "total"))
@@ -410,7 +410,7 @@ defmodule Inttegro.Refunds.Refund do
       "order_id" => Inttegro.Codec.encode(value.order_id),
       "processing_at" =>
         if(is_nil(value.processing_at), do: nil, else: Inttegro.Codec.encode(value.processing_at)),
-      "reason" => Inttegro.Refunds.RefundReason.encode(value.reason),
+      "reason" => Inttegro.Refunds.Reason.encode(value.reason),
       "reason_details" =>
         if(is_nil(value.reason_details),
           do: nil,
@@ -418,7 +418,7 @@ defmodule Inttegro.Refunds.Refund do
         ),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
-      "status" => Inttegro.Refunds.RefundStatus.encode(value.status),
+      "status" => Inttegro.Refunds.Status.encode(value.status),
       "succeeded_at" =>
         if(is_nil(value.succeeded_at), do: nil, else: Inttegro.Codec.encode(value.succeeded_at)),
       "total" => Inttegro.Codec.encode(value.total)
@@ -428,7 +428,7 @@ defmodule Inttegro.Refunds.Refund do
   end
 end
 
-defmodule Inttegro.Refunds.RefundLineItem do
+defmodule Inttegro.Refunds.LineItem do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :order_line_item_id, :original_amount_paid, :refund_amount]
   defstruct id: nil,
@@ -443,7 +443,7 @@ defmodule Inttegro.Refunds.RefundLineItem do
           id: String.t(),
           order_line_item_id: String.t(),
           original_amount_paid: Inttegro.Money.Amount.t(),
-          reason: Inttegro.Refunds.RefundReason.t() | nil,
+          reason: Inttegro.Refunds.Reason.t() | nil,
           reason_details: String.t() | nil,
           refund_amount: Inttegro.Money.Amount.t()
         }
@@ -461,7 +461,7 @@ defmodule Inttegro.Refunds.RefundLineItem do
       reason:
         if(is_nil(Map.get(map, "reason")),
           do: nil,
-          else: Inttegro.Refunds.RefundReason.decode(Map.get(map, "reason"))
+          else: Inttegro.Refunds.Reason.decode(Map.get(map, "reason"))
         ),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
@@ -479,7 +479,7 @@ defmodule Inttegro.Refunds.RefundLineItem do
       "reason" =>
         if(is_nil(value.reason),
           do: nil,
-          else: Inttegro.Refunds.RefundReason.encode(value.reason)
+          else: Inttegro.Refunds.Reason.encode(value.reason)
         ),
       "reason_details" =>
         if(is_nil(value.reason_details),
@@ -493,7 +493,7 @@ defmodule Inttegro.Refunds.RefundLineItem do
   end
 end
 
-defmodule Inttegro.Refunds.RefundPage do
+defmodule Inttegro.Refunds.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :refunds, :size]
   defstruct number: nil, refunds: nil, size: nil
@@ -531,7 +531,7 @@ defmodule Inttegro.Refunds.RefundPage do
   end
 end
 
-defmodule Inttegro.Refunds.RefundRequestMetaInput do
+defmodule Inttegro.Refunds.RequestMetaInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct idempotency_key: nil
 

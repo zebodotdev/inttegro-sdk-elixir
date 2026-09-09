@@ -10,7 +10,7 @@ defmodule Inttegro.Chimes do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Chimes.SendChimeRequest` containing the operation input.
+  * `request` — a `Inttegro.Chimes.SendRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.Chimes do
 
   ## Example
 
-      request = Inttegro.Chimes.SendChimeRequest.new!(request_attributes)
+      request = Inttegro.Chimes.SendRequest.new!(request_attributes)
 
       case Inttegro.Chimes.send(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec send(Client.t(), Inttegro.Chimes.SendChimeRequest.t(), keyword()) ::
+  @spec send(Client.t(), Inttegro.Chimes.SendRequest.t(), keyword()) ::
           {:ok, Inttegro.Chimes.Chime.t()} | {:error, Exception.t()}
   def send(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,7 +52,7 @@ defmodule Inttegro.Chimes do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Chimes.LookupChimeRequest` containing the operation input.
+  * `request` — a `Inttegro.Chimes.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.Chimes do
 
   ## Example
 
-      request = Inttegro.Chimes.LookupChimeRequest.new!(request_attributes)
+      request = Inttegro.Chimes.LookupRequest.new!(request_attributes)
 
       case Inttegro.Chimes.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Chimes.LookupChimeRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Chimes.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Chimes.Chime.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,26 +94,26 @@ defmodule Inttegro.Chimes do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Chimes.PageChimesRequest` containing the operation input.
+  * `request` — a `Inttegro.Chimes.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Chimes.ChimePage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Chimes.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Chimes.PageChimesRequest.new!(request_attributes)
+      request = Inttegro.Chimes.PageRequest.new!(request_attributes)
 
       case Inttegro.Chimes.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Chimes.PageChimesRequest.t(), keyword()) ::
-          {:ok, Inttegro.Chimes.ChimePage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Chimes.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Chimes.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -126,7 +126,7 @@ defmodule Inttegro.Chimes do
              "page",
              true
            ) do
-      {:ok, Inttegro.Chimes.ChimePage.from_map(value)}
+      {:ok, Inttegro.Chimes.Page.from_map(value)}
     end
   end
 
@@ -136,7 +136,7 @@ defmodule Inttegro.Chimes do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Chimes.ScheduleChimeRequest` containing the operation input.
+  * `request` — a `Inttegro.Chimes.ScheduleRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -147,14 +147,14 @@ defmodule Inttegro.Chimes do
 
   ## Example
 
-      request = Inttegro.Chimes.ScheduleChimeRequest.new!(request_attributes)
+      request = Inttegro.Chimes.ScheduleRequest.new!(request_attributes)
 
       case Inttegro.Chimes.schedule(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec schedule(Client.t(), Inttegro.Chimes.ScheduleChimeRequest.t(), keyword()) ::
+  @spec schedule(Client.t(), Inttegro.Chimes.ScheduleRequest.t(), keyword()) ::
           {:ok, Inttegro.Chimes.ScheduleCreationDetail.t()} | {:error, Exception.t()}
   def schedule(client, request, options \\ []) do
     with {:ok, value} <-

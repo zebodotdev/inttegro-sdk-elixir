@@ -23,7 +23,7 @@ defmodule Inttegro.PaymentMethods.MobileMoneyNetwork do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodType do
+defmodule Inttegro.PaymentMethods.Type do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :mobile_money | :bank_account | :card | :motito | String.t()
@@ -46,7 +46,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PaymentMethods.ActivatePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.ActivateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -77,7 +77,7 @@ defmodule Inttegro.PaymentMethods.ActivatePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.ArchivePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.ArchiveRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -108,7 +108,7 @@ defmodule Inttegro.PaymentMethods.ArchivePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.DisactivatePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.DisactivateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -139,7 +139,7 @@ defmodule Inttegro.PaymentMethods.DisactivatePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.GetPaymentMethodSettingsRequest do
+defmodule Inttegro.PaymentMethods.GetSettingsRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct []
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
@@ -160,7 +160,7 @@ defmodule Inttegro.PaymentMethods.GetPaymentMethodSettingsRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.LookupPaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -214,18 +214,18 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
   @type t :: %__MODULE__{
           active: boolean(),
           archived_at: String.t() | nil,
-          bank_account: Inttegro.PaymentMethods.PaymentMethodBankAccount.t() | nil,
+          bank_account: Inttegro.PaymentMethods.BankAccount.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer_id: String.t(),
           ephemeral: boolean() | nil,
           expires_on: String.t() | nil,
           id: String.t(),
-          mobile_money: Inttegro.PaymentMethods.PaymentMethodMobileMoney.t() | nil,
-          owner: Inttegro.PaymentMethods.PaymentMethodOwner.t() | nil,
-          type: Inttegro.PaymentMethods.PaymentMethodType.t(),
-          supplied: Inttegro.PaymentMethods.PaymentMethodSupplied.t() | nil,
-          verification: Inttegro.PaymentMethods.PaymentMethodVerification.t() | nil,
+          mobile_money: Inttegro.PaymentMethods.MobileMoney.t() | nil,
+          owner: Inttegro.PaymentMethods.Owner.t() | nil,
+          type: Inttegro.PaymentMethods.Type.t(),
+          supplied: Inttegro.PaymentMethods.Supplied.t() | nil,
+          verification: Inttegro.PaymentMethods.Verification.t() | nil,
           verified_at: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -241,10 +241,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodBankAccount.from_map(
-              Map.get(map, "bank_account")
-            )
+          else: Inttegro.PaymentMethods.BankAccount.from_map(Map.get(map, "bank_account"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       custom_data:
@@ -260,29 +257,23 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodMobileMoney.from_map(
-              Map.get(map, "mobile_money")
-            )
+          else: Inttegro.PaymentMethods.MobileMoney.from_map(Map.get(map, "mobile_money"))
         ),
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodOwner.from_map(Map.get(map, "owner"))
+          else: Inttegro.PaymentMethods.Owner.from_map(Map.get(map, "owner"))
         ),
-      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.PaymentMethods.Type.decode(Map.fetch!(map, "type")),
       supplied:
         if(is_nil(Map.get(map, "supplied")),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodSupplied.from_map(Map.get(map, "supplied"))
+          else: Inttegro.PaymentMethods.Supplied.from_map(Map.get(map, "supplied"))
         ),
       verification:
         if(is_nil(Map.get(map, "verification")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodVerification.from_map(
-              Map.get(map, "verification")
-            )
+          else: Inttegro.PaymentMethods.Verification.from_map(Map.get(map, "verification"))
         ),
       verified_at:
         if(is_nil(Map.get(map, "verified_at")), do: nil, else: Map.get(map, "verified_at"))
@@ -316,7 +307,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
       "owner" => if(is_nil(value.owner), do: nil, else: Inttegro.Codec.encode(value.owner)),
-      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type),
+      "type" => Inttegro.PaymentMethods.Type.encode(value.type),
       "supplied" =>
         if(is_nil(value.supplied), do: nil, else: Inttegro.Codec.encode(value.supplied)),
       "verification" =>
@@ -329,16 +320,15 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodBankAccount do
+defmodule Inttegro.PaymentMethods.BankAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct ghana_bank_account: nil, type: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          ghana_bank_account:
-            Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount.t() | nil,
-          type: Inttegro.BankAccounts.BankAccountType.t()
+          ghana_bank_account: Inttegro.PaymentMethods.BankAccountGhanaBankAccount.t() | nil,
+          type: Inttegro.BankAccounts.Type.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -351,11 +341,11 @@ defmodule Inttegro.PaymentMethods.PaymentMethodBankAccount do
         if(is_nil(Map.get(map, "ghana_bank_account")),
           do: nil,
           else:
-            Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount.from_map(
+            Inttegro.PaymentMethods.BankAccountGhanaBankAccount.from_map(
               Map.get(map, "ghana_bank_account")
             )
         ),
-      type: Inttegro.BankAccounts.BankAccountType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.BankAccounts.Type.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -368,14 +358,14 @@ defmodule Inttegro.PaymentMethods.PaymentMethodBankAccount do
           do: nil,
           else: Inttegro.Codec.encode(value.ghana_bank_account)
         ),
-      "type" => Inttegro.BankAccounts.BankAccountType.encode(value.type)
+      "type" => Inttegro.BankAccounts.Type.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount do
+defmodule Inttegro.PaymentMethods.BankAccountGhanaBankAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:account_number]
   defstruct branch: nil, name: nil, account_number: nil, sort_code: nil, swift_code: nil
@@ -421,15 +411,15 @@ defmodule Inttegro.PaymentMethods.PaymentMethodBankAccountGhanaBankAccount do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodDataInput do
+defmodule Inttegro.PaymentMethods.DataInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:type]
   defstruct mobile_money: nil, type: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          mobile_money: Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney.t() | nil,
-          type: Inttegro.PaymentMethods.PaymentMethodType.t()
+          mobile_money: Inttegro.PaymentMethods.DataInputMobileMoney.t() | nil,
+          type: Inttegro.PaymentMethods.Type.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -442,11 +432,9 @@ defmodule Inttegro.PaymentMethods.PaymentMethodDataInput do
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
           else:
-            Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney.from_map(
-              Map.get(map, "mobile_money")
-            )
+            Inttegro.PaymentMethods.DataInputMobileMoney.from_map(Map.get(map, "mobile_money"))
         ),
-      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.PaymentMethods.Type.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -456,14 +444,14 @@ defmodule Inttegro.PaymentMethods.PaymentMethodDataInput do
     %{
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
-      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type)
+      "type" => Inttegro.PaymentMethods.Type.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney do
+defmodule Inttegro.PaymentMethods.DataInputMobileMoney do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:network, :account_number]
   defstruct network: nil, account_number: nil
@@ -497,7 +485,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodDataInputMobileMoney do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodDeletion do
+defmodule Inttegro.PaymentMethods.Deletion do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:deleted, :payment_method_id]
   defstruct deleted: nil, payment_method_id: nil
@@ -531,7 +519,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodDeletion do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodMobileMoney do
+defmodule Inttegro.PaymentMethods.MobileMoney do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:account_number, :last4, :network]
   defstruct account_number: nil, last4: nil, network: nil
@@ -568,14 +556,14 @@ defmodule Inttegro.PaymentMethods.PaymentMethodMobileMoney do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodOwner do
+defmodule Inttegro.PaymentMethods.Owner do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name]
   defstruct address: nil, name: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          address: Inttegro.PaymentMethods.PaymentMethodOwnerAddress.t() | nil,
+          address: Inttegro.PaymentMethods.OwnerAddress.t() | nil,
           name: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -588,8 +576,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodOwner do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodOwnerAddress.from_map(Map.get(map, "address"))
+          else: Inttegro.PaymentMethods.OwnerAddress.from_map(Map.get(map, "address"))
         ),
       name: Map.fetch!(map, "name")
     }
@@ -607,7 +594,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodOwner do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodOwnerAddress do
+defmodule Inttegro.PaymentMethods.OwnerAddress do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:country]
   defstruct city: nil,
@@ -669,14 +656,14 @@ defmodule Inttegro.PaymentMethods.PaymentMethodOwnerAddress do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInput do
+defmodule Inttegro.PaymentMethods.OwnerInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:address, :name]
   defstruct address: nil, name: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          address: Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress.t(),
+          address: Inttegro.PaymentMethods.OwnerInputAddress.t(),
           name: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -686,10 +673,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInput do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      address:
-        Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress.from_map(
-          Map.fetch!(map, "address")
-        ),
+      address: Inttegro.PaymentMethods.OwnerInputAddress.from_map(Map.fetch!(map, "address")),
       name: Map.fetch!(map, "name")
     }
   end
@@ -706,7 +690,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInput do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress do
+defmodule Inttegro.PaymentMethods.OwnerInputAddress do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:country]
   defstruct city: nil,
@@ -768,7 +752,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodOwnerInputAddress do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodPage do
+defmodule Inttegro.PaymentMethods.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :payment_methods, :size]
   defstruct number: nil, payment_methods: nil, size: nil
@@ -809,7 +793,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodPage do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodPageRequest do
+defmodule Inttegro.PaymentMethods.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct customer_id: nil, page_number: nil, page_size: nil
 
@@ -850,16 +834,16 @@ defmodule Inttegro.PaymentMethods.PaymentMethodPageRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSettings do
+defmodule Inttegro.PaymentMethods.Settings do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct mobile_money: nil, bank_account: nil, card: nil, motito: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          mobile_money: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil,
-          bank_account: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil,
-          card: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil,
-          motito: Inttegro.PaymentMethods.PaymentMethodTypeSetting.t() | nil
+          mobile_money: Inttegro.PaymentMethods.TypeSetting.t() | nil,
+          bank_account: Inttegro.PaymentMethods.TypeSetting.t() | nil,
+          card: Inttegro.PaymentMethods.TypeSetting.t() | nil,
+          motito: Inttegro.PaymentMethods.TypeSetting.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -871,28 +855,22 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSettings do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(
-              Map.get(map, "mobile_money")
-            )
+          else: Inttegro.PaymentMethods.TypeSetting.from_map(Map.get(map, "mobile_money"))
         ),
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(
-              Map.get(map, "bank_account")
-            )
+          else: Inttegro.PaymentMethods.TypeSetting.from_map(Map.get(map, "bank_account"))
         ),
       card:
         if(is_nil(Map.get(map, "card")),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(Map.get(map, "card"))
+          else: Inttegro.PaymentMethods.TypeSetting.from_map(Map.get(map, "card"))
         ),
       motito:
         if(is_nil(Map.get(map, "motito")),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodTypeSetting.from_map(Map.get(map, "motito"))
+          else: Inttegro.PaymentMethods.TypeSetting.from_map(Map.get(map, "motito"))
         )
     }
   end
@@ -913,7 +891,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSettings do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
+defmodule Inttegro.PaymentMethods.Snapshot do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :created_at, :customer_id, :type, :verified]
   defstruct id: nil,
@@ -930,13 +908,13 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           id: String.t(),
-          bank_account: Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount.t() | nil,
+          bank_account: Inttegro.PaymentMethods.SnapshotBankAccount.t() | nil,
           card: %{optional(String.t()) => term()} | nil,
           created_at: String.t(),
           customer_id: String.t(),
-          mobile_money: Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney.t() | nil,
-          owner: Inttegro.PaymentMethods.PaymentMethodSnapshotOwner.t() | nil,
-          type: Inttegro.PaymentMethods.PaymentMethodType.t(),
+          mobile_money: Inttegro.PaymentMethods.SnapshotMobileMoney.t() | nil,
+          owner: Inttegro.PaymentMethods.SnapshotOwner.t() | nil,
+          type: Inttegro.PaymentMethods.Type.t(),
           verified: boolean(),
           verified_at: String.t() | nil
         }
@@ -951,10 +929,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount.from_map(
-              Map.get(map, "bank_account")
-            )
+          else: Inttegro.PaymentMethods.SnapshotBankAccount.from_map(Map.get(map, "bank_account"))
         ),
       card:
         if(is_nil(Map.get(map, "card")),
@@ -966,17 +941,14 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney.from_map(
-              Map.get(map, "mobile_money")
-            )
+          else: Inttegro.PaymentMethods.SnapshotMobileMoney.from_map(Map.get(map, "mobile_money"))
         ),
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodSnapshotOwner.from_map(Map.get(map, "owner"))
+          else: Inttegro.PaymentMethods.SnapshotOwner.from_map(Map.get(map, "owner"))
         ),
-      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.PaymentMethods.Type.decode(Map.fetch!(map, "type")),
       verified: Map.fetch!(map, "verified"),
       verified_at:
         if(is_nil(Map.get(map, "verified_at")), do: nil, else: Map.get(map, "verified_at"))
@@ -1003,7 +975,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money)),
       "owner" => if(is_nil(value.owner), do: nil, else: Inttegro.Codec.encode(value.owner)),
-      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type),
+      "type" => Inttegro.PaymentMethods.Type.encode(value.type),
       "verified" => Inttegro.Codec.encode(value.verified),
       "verified_at" =>
         if(is_nil(value.verified_at), do: nil, else: Inttegro.Codec.encode(value.verified_at))
@@ -1013,7 +985,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshot do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount do
+defmodule Inttegro.PaymentMethods.SnapshotBankAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct type: nil, ghana_bank_account: nil
@@ -1021,8 +993,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           type: String.t(),
-          ghana_bank_account:
-            Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount.t() | nil
+          ghana_bank_account: Inttegro.PaymentMethods.SnapshotGhanaBankAccount.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1036,7 +1007,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount do
         if(is_nil(Map.get(map, "ghana_bank_account")),
           do: nil,
           else:
-            Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount.from_map(
+            Inttegro.PaymentMethods.SnapshotGhanaBankAccount.from_map(
               Map.get(map, "ghana_bank_account")
             )
         )
@@ -1059,7 +1030,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotBankAccount do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount do
+defmodule Inttegro.PaymentMethods.SnapshotGhanaBankAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:account_number]
   defstruct account_number: nil, branch: nil, name: nil, sort_code: nil, swift_code: nil
@@ -1105,7 +1076,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotGhanaBankAccount do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney do
+defmodule Inttegro.PaymentMethods.SnapshotMobileMoney do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:network, :account_number, :last4]
   defstruct network: nil, account_number: nil, last4: nil
@@ -1142,7 +1113,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotMobileMoney do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotOwner do
+defmodule Inttegro.PaymentMethods.SnapshotOwner do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name]
   defstruct name: nil, address: nil
@@ -1150,7 +1121,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotOwner do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           name: String.t(),
-          address: Inttegro.Orders.OrderAddress.t() | nil
+          address: Inttegro.Orders.Address.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1163,7 +1134,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotOwner do
       address:
         if(is_nil(Map.get(map, "address")),
           do: nil,
-          else: Inttegro.Orders.OrderAddress.from_map(Map.get(map, "address"))
+          else: Inttegro.Orders.Address.from_map(Map.get(map, "address"))
         )
     }
   end
@@ -1180,7 +1151,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSnapshotOwner do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodSupplied do
+defmodule Inttegro.PaymentMethods.Supplied do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:by, :supplied_at]
   defstruct attempt_id: nil,
@@ -1237,14 +1208,14 @@ defmodule Inttegro.PaymentMethods.PaymentMethodSupplied do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodTypeSetting do
+defmodule Inttegro.PaymentMethods.TypeSetting do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:enabled, :confirms_use]
   defstruct type: nil, name: nil, description: nil, enabled: nil, confirms_use: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          type: Inttegro.PaymentMethods.PaymentMethodType.t() | nil,
+          type: Inttegro.PaymentMethods.Type.t() | nil,
           name: String.t() | nil,
           description: String.t() | nil,
           enabled: boolean(),
@@ -1260,7 +1231,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodTypeSetting do
       type:
         if(is_nil(Map.get(map, "type")),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.get(map, "type"))
+          else: Inttegro.PaymentMethods.Type.decode(Map.get(map, "type"))
         ),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       description:
@@ -1277,7 +1248,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodTypeSetting do
       "type" =>
         if(is_nil(value.type),
           do: nil,
-          else: Inttegro.PaymentMethods.PaymentMethodType.encode(value.type)
+          else: Inttegro.PaymentMethods.Type.encode(value.type)
         ),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "description" =>
@@ -1290,7 +1261,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodTypeSetting do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodVerification do
+defmodule Inttegro.PaymentMethods.Verification do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:initiated_at, :request_id, :type]
   defstruct completed_at: nil, initiated_at: nil, mechanism: nil, request_id: nil, type: nil
@@ -1336,7 +1307,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodVerification do
   end
 end
 
-defmodule Inttegro.PaymentMethods.PaymentMethodVerificationSession do
+defmodule Inttegro.PaymentMethods.VerificationSession do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:payment_method_id, :status]
   defstruct payment_method_id: nil,
@@ -1398,7 +1369,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethodVerificationSession do
   end
 end
 
-defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:customer_id, :type, :mobile_money, :owner]
   defstruct custom_data: nil, customer_id: nil, type: nil, mobile_money: nil, owner: nil
@@ -1407,10 +1378,9 @@ defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer_id: String.t(),
-          type: Inttegro.PaymentMethods.PaymentMethodType.t(),
-          mobile_money:
-            Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileMoney.t(),
-          owner: Inttegro.PaymentMethods.PaymentMethodOwnerInput.t()
+          type: Inttegro.PaymentMethods.Type.t(),
+          mobile_money: Inttegro.PaymentMethods.TokenizeMobileMoneyRequestMobileMoney.t(),
+          owner: Inttegro.PaymentMethods.OwnerInput.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1425,12 +1395,12 @@ defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest do
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
       customer_id: Map.fetch!(map, "customer_id"),
-      type: Inttegro.PaymentMethods.PaymentMethodType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.PaymentMethods.Type.decode(Map.fetch!(map, "type")),
       mobile_money:
-        Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileMoney.from_map(
+        Inttegro.PaymentMethods.TokenizeMobileMoneyRequestMobileMoney.from_map(
           Map.fetch!(map, "mobile_money")
         ),
-      owner: Inttegro.PaymentMethods.PaymentMethodOwnerInput.from_map(Map.fetch!(map, "owner"))
+      owner: Inttegro.PaymentMethods.OwnerInput.from_map(Map.fetch!(map, "owner"))
     }
   end
 
@@ -1447,7 +1417,7 @@ defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest do
             end)
         ),
       "customer_id" => Inttegro.Codec.encode(value.customer_id),
-      "type" => Inttegro.PaymentMethods.PaymentMethodType.encode(value.type),
+      "type" => Inttegro.PaymentMethods.Type.encode(value.type),
       "mobile_money" => Inttegro.Codec.encode(value.mobile_money),
       "owner" => Inttegro.Codec.encode(value.owner)
     }
@@ -1456,7 +1426,7 @@ defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileMoney do
+defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyRequestMobileMoney do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:account_number, :network]
   defstruct account_number: nil, network: nil
@@ -1490,7 +1460,7 @@ defmodule Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequestMobileM
   end
 end
 
-defmodule Inttegro.PaymentMethods.UnarchivePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.UnarchiveRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payment_method_id]
   defstruct payment_method_id: nil
@@ -1521,7 +1491,7 @@ defmodule Inttegro.PaymentMethods.UnarchivePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequest do
+defmodule Inttegro.PaymentMethods.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payment_method_id]
   defstruct custom_data: nil, active: nil, archived: nil, owner: nil, payment_method_id: nil
@@ -1531,7 +1501,7 @@ defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequest do
           custom_data: %{optional(String.t()) => String.t() | nil} | nil,
           active: boolean() | nil,
           archived: boolean() | nil,
-          owner: Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner.t() | nil,
+          owner: Inttegro.PaymentMethods.UpdateRequestOwner.t() | nil,
           payment_method_id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1554,10 +1524,7 @@ defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequest do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner.from_map(
-              Map.get(map, "owner")
-            )
+          else: Inttegro.PaymentMethods.UpdateRequestOwner.from_map(Map.get(map, "owner"))
         ),
       payment_method_id: Map.fetch!(map, "payment_method_id")
     }
@@ -1586,14 +1553,14 @@ defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequest do
   end
 end
 
-defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner do
+defmodule Inttegro.PaymentMethods.UpdateRequestOwner do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct name: nil, address: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           name: String.t() | nil,
-          address: Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwnerAddress.t() | nil
+          address: Inttegro.PaymentMethods.UpdateRequestOwnerAddress.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1607,9 +1574,7 @@ defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner do
         if(is_nil(Map.get(map, "address")),
           do: nil,
           else:
-            Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwnerAddress.from_map(
-              Map.get(map, "address")
-            )
+            Inttegro.PaymentMethods.UpdateRequestOwnerAddress.from_map(Map.get(map, "address"))
         )
     }
   end
@@ -1626,7 +1591,7 @@ defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwner do
   end
 end
 
-defmodule Inttegro.PaymentMethods.UpdatePaymentMethodRequestOwnerAddress do
+defmodule Inttegro.PaymentMethods.UpdateRequestOwnerAddress do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct city: nil,
             country: nil,

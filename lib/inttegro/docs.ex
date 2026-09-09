@@ -78,7 +78,7 @@ defmodule Inttegro.Docs do
           idempotency_key: "receipt-order-123"
         )
 
-        request = Inttegro.Files.FileContentsRequest.new!(file_id: file.id)
+        request = Inttegro.Files.ContentsRequest.new!(file_id: file.id)
         {:ok, download} = Inttegro.Files.contents(client, request)
         File.write!("downloaded-receipt.pdf", download.bytes)
 
@@ -96,7 +96,7 @@ defmodule Inttegro.Docs do
 
     Use `create/3` when Inttegro should provision or manage the account and `connect/3` when the
     account already exists outside Inttegro. Both accept one of the concrete request types linked
-    from `t:Inttegro.FinancialAccounts.FinancialAccountCreateRequest.t/0`. Connecting an account does
+    from `t:Inttegro.FinancialAccounts.CreateRequest.t/0`. Connecting an account does
     not imply that every money-movement capability is enabled; inspect `push_configuration`,
     `pull_configuration`, and `verification` on the returned account.
 
@@ -138,7 +138,7 @@ defmodule Inttegro.Docs do
 
     ## Looking up an order
 
-        request = Inttegro.Orders.LookupOrderRequest.new!(order_id: "or_...")
+        request = Inttegro.Orders.LookupRequest.new!(order_id: "or_...")
 
         case Inttegro.Orders.lookup(client, request) do
           {:ok, %Inttegro.Orders.Order{status: :completed} = order} ->
@@ -339,7 +339,7 @@ defmodule Inttegro.Docs do
     Use this operation when Inttegro should create or establish the financial account. To attach an
     account that already exists, use `connect/3` instead. Choose the concrete request struct that
     matches the account type;
-    `t:Inttegro.FinancialAccounts.FinancialAccountCreateRequest.t/0` links all supported variants.
+    `t:Inttegro.FinancialAccounts.CreateRequest.t/0` links all supported variants.
 
     The returned `Inttegro.FinancialAccounts.FinancialAccount` is the current account snapshot.
     Creation does not guarantee that push or pull is ready: inspect `verification`,
@@ -348,26 +348,26 @@ defmodule Inttegro.Docs do
     ## Example: create a mobile-money wallet
 
         owner =
-          Inttegro.FinancialAccounts.FinancialAccountOwnerInput.new!(
+          Inttegro.FinancialAccounts.OwnerInput.new!(
             name: "Ama Mensah",
             address:
-              Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress.new!(country: "GH")
+              Inttegro.FinancialAccounts.OwnerInputAddress.new!(country: "GH")
           )
 
         mobile_money =
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney.new!(
+          Inttegro.FinancialAccounts.WalletRequestWalletMobileMoney.new!(
             account_number: "0244000042",
             network: :mtn
           )
 
         wallet =
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet.new!(
+          Inttegro.FinancialAccounts.WalletRequestWallet.new!(
             type: :mobile_money,
             mobile_money: mobile_money
           )
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequest.new!(
+          Inttegro.FinancialAccounts.WalletRequest.new!(
             currency: "ghs",
             label: "Primary collections wallet",
             owner: owner,
@@ -393,19 +393,19 @@ defmodule Inttegro.Docs do
     ## Example: connect a mobile-money wallet
 
         mobile_money =
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney.new!(
+          Inttegro.FinancialAccounts.WalletRequestWalletMobileMoney.new!(
             account_number: "0244000042",
             network: :mtn
           )
 
         wallet =
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet.new!(
+          Inttegro.FinancialAccounts.WalletRequestWallet.new!(
             type: :mobile_money,
             mobile_money: mobile_money
           )
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequest.new!(
+          Inttegro.FinancialAccounts.WalletRequest.new!(
             currency: "ghs",
             label: "Operations wallet",
             owner: owner,
@@ -433,7 +433,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountIDRequest.new!(account_id: "fa_...")
+          Inttegro.FinancialAccounts.IDRequest.new!(account_id: "fa_...")
 
         case Inttegro.FinancialAccounts.lookup(client, request) do
           {:ok, %Inttegro.FinancialAccounts.FinancialAccount{} = account} ->
@@ -458,7 +458,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountPageRequest.new!(
+          Inttegro.FinancialAccounts.PageRequest.new!(
             page_number: 1,
             page_size: 100
           )
@@ -467,7 +467,7 @@ defmodule Inttegro.Docs do
           Enum.each(page.accounts, &IO.inspect(&1.id))
         end
 
-    Returns `{:ok, %Inttegro.FinancialAccounts.FinancialAccountPage{}}` or
+    Returns `{:ok, %Inttegro.FinancialAccounts.Page{}}` or
     `{:error, exception}`.
     """,
     {"Inttegro.FinancialAccounts", :update} => """
@@ -480,7 +480,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountUpdateRequest.new!(
+          Inttegro.FinancialAccounts.UpdateRequest.new!(
             account_id: "fa_...",
             label: "Treasury payouts",
             reference: "treasury-payouts-2026"
@@ -504,7 +504,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountIDRequest.new!(account_id: "fa_...")
+          Inttegro.FinancialAccounts.IDRequest.new!(account_id: "fa_...")
 
         Inttegro.FinancialAccounts.enable_push(client, request,
           idempotency_key: "enable-push-fa-001"
@@ -523,7 +523,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountDisableRequest.new!(
+          Inttegro.FinancialAccounts.DisableRequest.new!(
             account_id: "fa_...",
             unset_as_payout_destination: true
           )
@@ -545,7 +545,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountEnablePullRequest.new!(
+          Inttegro.FinancialAccounts.EnablePullRequest.new!(
             account_id: "fa_...",
             ip_address: payer_ip_address,
             user_agent: payer_user_agent
@@ -567,7 +567,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountIDRequest.new!(account_id: "fa_...")
+          Inttegro.FinancialAccounts.IDRequest.new!(account_id: "fa_...")
 
         Inttegro.FinancialAccounts.disable_pull(client, request,
           idempotency_key: "disable-pull-fa-001"
@@ -585,7 +585,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountDisableRequest.new!(
+          Inttegro.FinancialAccounts.DisableRequest.new!(
             account_id: "fa_...",
             unset_as_payout_destination: true
           )
@@ -607,7 +607,7 @@ defmodule Inttegro.Docs do
     ## Example
 
         request =
-          Inttegro.FinancialAccounts.FinancialAccountIDRequest.new!(account_id: "fa_...")
+          Inttegro.FinancialAccounts.IDRequest.new!(account_id: "fa_...")
 
         case Inttegro.FinancialAccounts.reconnect(client, request,
                idempotency_key: "reconnect-fa-001"

@@ -10,7 +10,7 @@ defmodule Inttegro.Refunds do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Refunds.CreateRefundRequest` containing the operation input.
+  * `request` — a `Inttegro.Refunds.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.Refunds do
 
   ## Example
 
-      request = Inttegro.Refunds.CreateRefundRequest.new!(request_attributes)
+      request = Inttegro.Refunds.CreateRequest.new!(request_attributes)
 
       case Inttegro.Refunds.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.Refunds.CreateRefundRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.Refunds.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,7 +52,7 @@ defmodule Inttegro.Refunds do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Refunds.CancelRefundRequest` containing the operation input.
+  * `request` — a `Inttegro.Refunds.CancelRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.Refunds do
 
   ## Example
 
-      request = Inttegro.Refunds.CancelRefundRequest.new!(request_attributes)
+      request = Inttegro.Refunds.CancelRequest.new!(request_attributes)
 
       case Inttegro.Refunds.cancel(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec cancel(Client.t(), Inttegro.Refunds.CancelRefundRequest.t(), keyword()) ::
+  @spec cancel(Client.t(), Inttegro.Refunds.CancelRequest.t(), keyword()) ::
           {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,7 +94,7 @@ defmodule Inttegro.Refunds do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Refunds.LookupRefundRequest` containing the operation input.
+  * `request` — a `Inttegro.Refunds.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -105,14 +105,14 @@ defmodule Inttegro.Refunds do
 
   ## Example
 
-      request = Inttegro.Refunds.LookupRefundRequest.new!(request_attributes)
+      request = Inttegro.Refunds.LookupRequest.new!(request_attributes)
 
       case Inttegro.Refunds.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Refunds.LookupRefundRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Refunds.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -136,26 +136,26 @@ defmodule Inttegro.Refunds do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Refunds.PageRefundsRequest` containing the operation input.
+  * `request` — a `Inttegro.Refunds.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Refunds.RefundPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Refunds.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Refunds.PageRefundsRequest.new!(request_attributes)
+      request = Inttegro.Refunds.PageRequest.new!(request_attributes)
 
       case Inttegro.Refunds.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Refunds.PageRefundsRequest.t(), keyword()) ::
-          {:ok, Inttegro.Refunds.RefundPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Refunds.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Refunds.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -168,7 +168,7 @@ defmodule Inttegro.Refunds do
              "page",
              true
            ) do
-      {:ok, Inttegro.Refunds.RefundPage.from_map(value)}
+      {:ok, Inttegro.Refunds.Page.from_map(value)}
     end
   end
 end

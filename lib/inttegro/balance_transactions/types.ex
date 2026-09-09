@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.BalanceTransactions.BalanceTransactionType do
+defmodule Inttegro.BalanceTransactions.Type do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :payment | :refund | String.t()
@@ -38,7 +38,7 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          amount: Inttegro.BalanceTransactions.BalanceTransactionAmount.t(),
+          amount: Inttegro.BalanceTransactions.Amount.t(),
           available_at: String.t() | nil,
           claimed_at: String.t() | nil,
           created_at: String.t(),
@@ -48,7 +48,7 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
           payment_id: String.t() | nil,
           payout_id: String.t() | nil,
           refund_id: String.t() | nil,
-          type: Inttegro.BalanceTransactions.BalanceTransactionType.t()
+          type: Inttegro.BalanceTransactions.Type.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -57,8 +57,7 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      amount:
-        Inttegro.BalanceTransactions.BalanceTransactionAmount.from_map(Map.fetch!(map, "amount")),
+      amount: Inttegro.BalanceTransactions.Amount.from_map(Map.fetch!(map, "amount")),
       available_at:
         if(is_nil(Map.get(map, "available_at")), do: nil, else: Map.get(map, "available_at")),
       claimed_at:
@@ -71,7 +70,7 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
         if(is_nil(Map.get(map, "payment_id")), do: nil, else: Map.get(map, "payment_id")),
       payout_id: if(is_nil(Map.get(map, "payout_id")), do: nil, else: Map.get(map, "payout_id")),
       refund_id: if(is_nil(Map.get(map, "refund_id")), do: nil, else: Map.get(map, "refund_id")),
-      type: Inttegro.BalanceTransactions.BalanceTransactionType.decode(Map.fetch!(map, "type"))
+      type: Inttegro.BalanceTransactions.Type.decode(Map.fetch!(map, "type"))
     }
   end
 
@@ -94,14 +93,14 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
         if(is_nil(value.payout_id), do: nil, else: Inttegro.Codec.encode(value.payout_id)),
       "refund_id" =>
         if(is_nil(value.refund_id), do: nil, else: Inttegro.Codec.encode(value.refund_id)),
-      "type" => Inttegro.BalanceTransactions.BalanceTransactionType.encode(value.type)
+      "type" => Inttegro.BalanceTransactions.Type.encode(value.type)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.BalanceTransactions.BalanceTransactionAmount do
+defmodule Inttegro.BalanceTransactions.Amount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
@@ -135,7 +134,7 @@ defmodule Inttegro.BalanceTransactions.BalanceTransactionAmount do
   end
 end
 
-defmodule Inttegro.BalanceTransactions.BalanceTransactionPage do
+defmodule Inttegro.BalanceTransactions.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :size]
   defstruct number: nil, size: nil, transactions: nil
@@ -183,7 +182,7 @@ defmodule Inttegro.BalanceTransactions.BalanceTransactionPage do
   end
 end
 
-defmodule Inttegro.BalanceTransactions.LookupBalanceTransactionRequest do
+defmodule Inttegro.BalanceTransactions.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:transaction_id]
   defstruct transaction_id: nil
@@ -214,7 +213,7 @@ defmodule Inttegro.BalanceTransactions.LookupBalanceTransactionRequest do
   end
 end
 
-defmodule Inttegro.BalanceTransactions.PageBalanceTransactionsRequest do
+defmodule Inttegro.BalanceTransactions.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number, :page_size]
   defstruct page_number: nil, page_size: nil

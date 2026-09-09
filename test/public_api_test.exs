@@ -57,11 +57,67 @@ defmodule Inttegro.PublicAPITest do
   test "domain values live in their owning namespaces" do
     assert Code.ensure_loaded?(Inttegro.Files.File)
     assert Code.ensure_loaded?(Inttegro.Orders.Order)
+    assert Code.ensure_loaded?(Inttegro.Orders.Address)
     assert Code.ensure_loaded?(Inttegro.PaymentMethods.PaymentMethod)
+    assert Code.ensure_loaded?(Inttegro.Payments.Attempt)
 
     refute Code.ensure_loaded?(Inttegro.File)
     refute Code.ensure_loaded?(Inttegro.Order)
     refute Code.ensure_loaded?(Inttegro.PaymentMethod)
+    refute Code.ensure_loaded?(Inttegro.Orders.OrderAddress)
+    refute Code.ensure_loaded?(Inttegro.Payments.PaymentAttempt)
+  end
+
+  test "supporting type names do not repeat their domain namespace" do
+    {:ok, modules} = :application.get_key(:inttegro, :modules)
+
+    domain_names = %{
+      "BalanceTransactions" => "BalanceTransaction",
+      "Balances" => "Balance",
+      "BankAccounts" => "BankAccount",
+      "Broadcasts" => "Broadcast",
+      "Checkout" => "Checkout",
+      "Chimes" => "Chime",
+      "Customers" => "Customer",
+      "FileLinks" => "FileLink",
+      "FileReferences" => "FileReference",
+      "Files" => "File",
+      "FinancialAccounts" => "FinancialAccount",
+      "Invoices" => "Invoice",
+      "MessageTemplates" => "MessageTemplate",
+      "Orders" => "Order",
+      "Otp" => "OTP",
+      "PaymentMethods" => "PaymentMethod",
+      "Payments" => "Payment",
+      "Payouts" => "Payout",
+      "Prices" => "Price",
+      "Products" => "Product",
+      "PurchaseIntents" => "PurchaseIntent",
+      "Refunds" => "Refund",
+      "Schedules" => "Schedule",
+      "UploadRequests" => "UploadRequest",
+      "Wallets" => "Wallet"
+    }
+
+    Enum.each(modules, fn module ->
+      case Module.split(module) do
+        ["Inttegro", namespace, leaf] ->
+          case domain_names[namespace] do
+            nil ->
+              :ok
+
+            domain when leaf == domain ->
+              :ok
+
+            domain ->
+              refute leaf =~ domain,
+                     "#{inspect(module)} repeats the #{namespace} domain in its leaf name"
+          end
+
+        _ ->
+          :ok
+      end
+    end)
   end
 
   test "public reference modules contain meaningful documentation" do
@@ -208,7 +264,7 @@ defmodule Inttegro.PublicAPITest do
 
     assert operation_docs.enable_pull =~ ~r/real\s+payer IP address/
     assert operation_docs.disable_push =~ "unset_as_payout_destination"
-    assert operation_docs.connect =~ "FinancialAccountWalletRequest"
+    assert operation_docs.connect =~ "FinancialAccounts.WalletRequest"
   end
 
   defp module_doc(module) do

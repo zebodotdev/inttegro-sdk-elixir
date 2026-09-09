@@ -10,7 +10,7 @@ defmodule Inttegro.PurchaseIntents do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PurchaseIntents.CreatePurchaseIntentRequest` containing the operation input.
+  * `request` — a `Inttegro.PurchaseIntents.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.PurchaseIntents do
 
   ## Example
 
-      request = Inttegro.PurchaseIntents.CreatePurchaseIntentRequest.new!(request_attributes)
+      request = Inttegro.PurchaseIntents.CreateRequest.new!(request_attributes)
 
       case Inttegro.PurchaseIntents.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.PurchaseIntents.CreatePurchaseIntentRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.PurchaseIntents.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,7 +52,7 @@ defmodule Inttegro.PurchaseIntents do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest` containing the operation input.
+  * `request` — a `Inttegro.PurchaseIntents.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.PurchaseIntents do
 
   ## Example
 
-      request = Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest.new!(request_attributes)
+      request = Inttegro.PurchaseIntents.UpdateRequest.new!(request_attributes)
 
       case Inttegro.PurchaseIntents.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest.t(), keyword()) ::
+  @spec update(Client.t(), Inttegro.PurchaseIntents.UpdateRequest.t(), keyword()) ::
           {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,7 +94,7 @@ defmodule Inttegro.PurchaseIntents do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PurchaseIntents.CancelPurchaseIntentRequest` containing the operation input.
+  * `request` — a `Inttegro.PurchaseIntents.CancelRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -105,14 +105,14 @@ defmodule Inttegro.PurchaseIntents do
 
   ## Example
 
-      request = Inttegro.PurchaseIntents.CancelPurchaseIntentRequest.new!(request_attributes)
+      request = Inttegro.PurchaseIntents.CancelRequest.new!(request_attributes)
 
       case Inttegro.PurchaseIntents.cancel(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec cancel(Client.t(), Inttegro.PurchaseIntents.CancelPurchaseIntentRequest.t(), keyword()) ::
+  @spec cancel(Client.t(), Inttegro.PurchaseIntents.CancelRequest.t(), keyword()) ::
           {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
@@ -136,7 +136,7 @@ defmodule Inttegro.PurchaseIntents do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PurchaseIntents.LookupPurchaseIntentRequest` containing the operation input.
+  * `request` — a `Inttegro.PurchaseIntents.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -147,14 +147,14 @@ defmodule Inttegro.PurchaseIntents do
 
   ## Example
 
-      request = Inttegro.PurchaseIntents.LookupPurchaseIntentRequest.new!(request_attributes)
+      request = Inttegro.PurchaseIntents.LookupRequest.new!(request_attributes)
 
       case Inttegro.PurchaseIntents.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.PurchaseIntents.LookupPurchaseIntentRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.PurchaseIntents.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.PurchaseIntents.PurchaseIntent.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -178,26 +178,26 @@ defmodule Inttegro.PurchaseIntents do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PurchaseIntents.PagePurchaseIntentsRequest` containing the operation input.
+  * `request` — a `Inttegro.PurchaseIntents.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.PurchaseIntents.PurchaseIntentPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.PurchaseIntents.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.PurchaseIntents.PagePurchaseIntentsRequest.new!(request_attributes)
+      request = Inttegro.PurchaseIntents.PageRequest.new!(request_attributes)
 
       case Inttegro.PurchaseIntents.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.PurchaseIntents.PagePurchaseIntentsRequest.t(), keyword()) ::
-          {:ok, Inttegro.PurchaseIntents.PurchaseIntentPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.PurchaseIntents.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.PurchaseIntents.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -210,7 +210,7 @@ defmodule Inttegro.PurchaseIntents do
              "page",
              true
            ) do
-      {:ok, Inttegro.PurchaseIntents.PurchaseIntentPage.from_map(value)}
+      {:ok, Inttegro.PurchaseIntents.Page.from_map(value)}
     end
   end
 end

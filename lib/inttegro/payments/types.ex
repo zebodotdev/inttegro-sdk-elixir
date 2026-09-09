@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Payments.PaymentAttemptStatus do
+defmodule Inttegro.Payments.AttemptStatus do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -34,7 +34,7 @@ defmodule Inttegro.Payments.PaymentAttemptStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Payments.PaymentConfirmationChannel do
+defmodule Inttegro.Payments.ConfirmationChannel do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :sms | :email | :push | String.t()
@@ -56,7 +56,7 @@ defmodule Inttegro.Payments.PaymentConfirmationChannel do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Payments.PaymentNextActionType do
+defmodule Inttegro.Payments.NextActionType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :confirm_payment | :execute | :redirect | :authorize | :none | String.t()
@@ -80,7 +80,7 @@ defmodule Inttegro.Payments.PaymentNextActionType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Payments.PaymentResultStatus do
+defmodule Inttegro.Payments.ResultStatus do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :pending | :requires_confirmation | :processing | :succeeded | :failed | String.t()
@@ -104,7 +104,7 @@ defmodule Inttegro.Payments.PaymentResultStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Payments.PaymentStatus do
+defmodule Inttegro.Payments.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -167,13 +167,13 @@ defmodule Inttegro.Payments.Payment do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           id: String.t(),
-          status: Inttegro.Payments.PaymentStatus.t(),
+          status: Inttegro.Payments.Status.t(),
           statement_descriptor: String.t(),
           amount: Inttegro.Money.Amount.t(),
           balance_transaction: Inttegro.BalanceTransactions.BalanceTransaction.t() | nil,
-          payment_method: Inttegro.PaymentMethods.PaymentMethodSnapshot.t() | nil,
-          latest_attempt: Inttegro.Payments.PaymentAttempt.t() | nil,
-          next_action: Inttegro.Payments.PaymentNextAction.t() | nil,
+          payment_method: Inttegro.PaymentMethods.Snapshot.t() | nil,
+          latest_attempt: Inttegro.Payments.Attempt.t() | nil,
+          next_action: Inttegro.Payments.NextAction.t() | nil,
           initiated_at: String.t(),
           executed_at: String.t() | nil,
           paid_at: String.t() | nil,
@@ -183,7 +183,7 @@ defmodule Inttegro.Payments.Payment do
           failed_at: String.t() | nil,
           paid_offline: boolean() | nil,
           payment_method_types: [String.t()] | nil,
-          payout_configuration: Inttegro.Payments.PaymentPayoutConfiguration.t() | nil
+          payout_configuration: Inttegro.Payments.PayoutConfiguration.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -193,7 +193,7 @@ defmodule Inttegro.Payments.Payment do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      status: Inttegro.Payments.PaymentStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Payments.Status.decode(Map.fetch!(map, "status")),
       statement_descriptor: Map.fetch!(map, "statement_descriptor"),
       amount: Inttegro.Money.Amount.from_map(Map.fetch!(map, "amount")),
       balance_transaction:
@@ -207,18 +207,17 @@ defmodule Inttegro.Payments.Payment do
       payment_method:
         if(is_nil(Map.get(map, "payment_method")),
           do: nil,
-          else:
-            Inttegro.PaymentMethods.PaymentMethodSnapshot.from_map(Map.get(map, "payment_method"))
+          else: Inttegro.PaymentMethods.Snapshot.from_map(Map.get(map, "payment_method"))
         ),
       latest_attempt:
         if(is_nil(Map.get(map, "latest_attempt")),
           do: nil,
-          else: Inttegro.Payments.PaymentAttempt.from_map(Map.get(map, "latest_attempt"))
+          else: Inttegro.Payments.Attempt.from_map(Map.get(map, "latest_attempt"))
         ),
       next_action:
         if(is_nil(Map.get(map, "next_action")),
           do: nil,
-          else: Inttegro.Payments.PaymentNextAction.from_map(Map.get(map, "next_action"))
+          else: Inttegro.Payments.NextAction.from_map(Map.get(map, "next_action"))
         ),
       initiated_at: Map.fetch!(map, "initiated_at"),
       executed_at:
@@ -241,9 +240,7 @@ defmodule Inttegro.Payments.Payment do
         if(is_nil(Map.get(map, "payout_configuration")),
           do: nil,
           else:
-            Inttegro.Payments.PaymentPayoutConfiguration.from_map(
-              Map.get(map, "payout_configuration")
-            )
+            Inttegro.Payments.PayoutConfiguration.from_map(Map.get(map, "payout_configuration"))
         )
     }
   end
@@ -253,7 +250,7 @@ defmodule Inttegro.Payments.Payment do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "status" => Inttegro.Payments.PaymentStatus.encode(value.status),
+      "status" => Inttegro.Payments.Status.encode(value.status),
       "statement_descriptor" => Inttegro.Codec.encode(value.statement_descriptor),
       "amount" => Inttegro.Codec.encode(value.amount),
       "balance_transaction" =>
@@ -302,7 +299,7 @@ defmodule Inttegro.Payments.Payment do
   end
 end
 
-defmodule Inttegro.Payments.PaymentAttempt do
+defmodule Inttegro.Payments.Attempt do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct payment_method_type: nil,
             payment_method_id: nil,
@@ -316,7 +313,7 @@ defmodule Inttegro.Payments.PaymentAttempt do
           payment_method_type: String.t() | nil,
           payment_method_id: String.t() | nil,
           reference: String.t() | nil,
-          status: Inttegro.Payments.PaymentAttemptStatus.t() | nil,
+          status: Inttegro.Payments.AttemptStatus.t() | nil,
           initiated_at: String.t() | nil,
           succeeded_at: String.t() | nil
         }
@@ -341,7 +338,7 @@ defmodule Inttegro.Payments.PaymentAttempt do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.Payments.PaymentAttemptStatus.decode(Map.get(map, "status"))
+          else: Inttegro.Payments.AttemptStatus.decode(Map.get(map, "status"))
         ),
       initiated_at:
         if(is_nil(Map.get(map, "initiated_at")), do: nil, else: Map.get(map, "initiated_at")),
@@ -369,7 +366,7 @@ defmodule Inttegro.Payments.PaymentAttempt do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.Payments.PaymentAttemptStatus.encode(value.status)
+          else: Inttegro.Payments.AttemptStatus.encode(value.status)
         ),
       "initiated_at" =>
         if(is_nil(value.initiated_at), do: nil, else: Inttegro.Codec.encode(value.initiated_at)),
@@ -381,18 +378,18 @@ defmodule Inttegro.Payments.PaymentAttempt do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextAction do
+defmodule Inttegro.Payments.NextAction do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct type: nil, confirm_payment: nil, execute: nil, redirect: nil, authorize: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          type: Inttegro.Payments.PaymentNextActionType.t(),
-          confirm_payment: Inttegro.Payments.PaymentNextActionConfirmPayment.t() | nil,
+          type: Inttegro.Payments.NextActionType.t(),
+          confirm_payment: Inttegro.Payments.NextActionConfirm.t() | nil,
           execute: %{optional(String.t()) => term()} | nil,
-          redirect: Inttegro.Payments.PaymentNextActionRedirect.t() | nil,
-          authorize: Inttegro.Payments.PaymentNextActionAuthorize.t() | nil
+          redirect: Inttegro.Payments.NextActionRedirect.t() | nil,
+          authorize: Inttegro.Payments.NextActionAuthorize.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -401,14 +398,11 @@ defmodule Inttegro.Payments.PaymentNextAction do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.Payments.PaymentNextActionType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Payments.NextActionType.decode(Map.fetch!(map, "type")),
       confirm_payment:
         if(is_nil(Map.get(map, "confirm_payment")),
           do: nil,
-          else:
-            Inttegro.Payments.PaymentNextActionConfirmPayment.from_map(
-              Map.get(map, "confirm_payment")
-            )
+          else: Inttegro.Payments.NextActionConfirm.from_map(Map.get(map, "confirm_payment"))
         ),
       execute:
         if(is_nil(Map.get(map, "execute")),
@@ -418,12 +412,12 @@ defmodule Inttegro.Payments.PaymentNextAction do
       redirect:
         if(is_nil(Map.get(map, "redirect")),
           do: nil,
-          else: Inttegro.Payments.PaymentNextActionRedirect.from_map(Map.get(map, "redirect"))
+          else: Inttegro.Payments.NextActionRedirect.from_map(Map.get(map, "redirect"))
         ),
       authorize:
         if(is_nil(Map.get(map, "authorize")),
           do: nil,
-          else: Inttegro.Payments.PaymentNextActionAuthorize.from_map(Map.get(map, "authorize"))
+          else: Inttegro.Payments.NextActionAuthorize.from_map(Map.get(map, "authorize"))
         )
     }
   end
@@ -432,7 +426,7 @@ defmodule Inttegro.Payments.PaymentNextAction do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.Payments.PaymentNextActionType.encode(value.type),
+      "type" => Inttegro.Payments.NextActionType.encode(value.type),
       "confirm_payment" =>
         if(is_nil(value.confirm_payment),
           do: nil,
@@ -456,7 +450,7 @@ defmodule Inttegro.Payments.PaymentNextAction do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextActionAuthorize do
+defmodule Inttegro.Payments.NextActionAuthorize do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct beneficiary: nil, scheme: nil, expires_at: nil
 
@@ -496,7 +490,7 @@ defmodule Inttegro.Payments.PaymentNextActionAuthorize do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextActionConfirmPayment do
+defmodule Inttegro.Payments.NextActionConfirm do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct expires_at: nil, scheme: nil, request: nil, attempt: nil, confirmed: nil, status: nil
 
@@ -504,8 +498,8 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPayment do
   @type t :: %__MODULE__{
           expires_at: String.t() | nil,
           scheme: String.t() | nil,
-          request: Inttegro.Payments.PaymentNextActionConfirmPaymentRequest.t() | nil,
-          attempt: Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt.t() | nil,
+          request: Inttegro.Payments.NextActionConfirmRequest.t() | nil,
+          attempt: Inttegro.Payments.NextActionConfirmAttempt.t() | nil,
           confirmed: boolean() | nil,
           status: String.t() | nil
         }
@@ -522,18 +516,12 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPayment do
       request:
         if(is_nil(Map.get(map, "request")),
           do: nil,
-          else:
-            Inttegro.Payments.PaymentNextActionConfirmPaymentRequest.from_map(
-              Map.get(map, "request")
-            )
+          else: Inttegro.Payments.NextActionConfirmRequest.from_map(Map.get(map, "request"))
         ),
       attempt:
         if(is_nil(Map.get(map, "attempt")),
           do: nil,
-          else:
-            Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt.from_map(
-              Map.get(map, "attempt")
-            )
+          else: Inttegro.Payments.NextActionConfirmAttempt.from_map(Map.get(map, "attempt"))
         ),
       confirmed: if(is_nil(Map.get(map, "confirmed")), do: nil, else: Map.get(map, "confirmed")),
       status: if(is_nil(Map.get(map, "status")), do: nil, else: Map.get(map, "status"))
@@ -558,7 +546,7 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPayment do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt do
+defmodule Inttegro.Payments.NextActionConfirmAttempt do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct status: nil,
             confirmed: nil,
@@ -613,7 +601,7 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentAttempt do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentRequest do
+defmodule Inttegro.Payments.NextActionConfirmRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct id: nil, recipient: nil, sent_via: nil, token_size: nil, sender_id: nil
 
@@ -621,7 +609,7 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentRequest do
   @type t :: %__MODULE__{
           id: String.t() | nil,
           recipient: String.t() | nil,
-          sent_via: Inttegro.Payments.PaymentConfirmationChannel.t() | nil,
+          sent_via: Inttegro.Payments.ConfirmationChannel.t() | nil,
           token_size: integer() | nil,
           sender_id: String.t() | nil
         }
@@ -637,7 +625,7 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentRequest do
       sent_via:
         if(is_nil(Map.get(map, "sent_via")),
           do: nil,
-          else: Inttegro.Payments.PaymentConfirmationChannel.decode(Map.get(map, "sent_via"))
+          else: Inttegro.Payments.ConfirmationChannel.decode(Map.get(map, "sent_via"))
         ),
       token_size:
         if(is_nil(Map.get(map, "token_size")), do: nil, else: Map.get(map, "token_size")),
@@ -655,7 +643,7 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentRequest do
       "sent_via" =>
         if(is_nil(value.sent_via),
           do: nil,
-          else: Inttegro.Payments.PaymentConfirmationChannel.encode(value.sent_via)
+          else: Inttegro.Payments.ConfirmationChannel.encode(value.sent_via)
         ),
       "token_size" =>
         if(is_nil(value.token_size), do: nil, else: Inttegro.Codec.encode(value.token_size)),
@@ -667,7 +655,7 @@ defmodule Inttegro.Payments.PaymentNextActionConfirmPaymentRequest do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextActionRedirect do
+defmodule Inttegro.Payments.NextActionRedirect do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct redirect_url: nil, valid_until: nil, latest_visit: nil
 
@@ -675,7 +663,7 @@ defmodule Inttegro.Payments.PaymentNextActionRedirect do
   @type t :: %__MODULE__{
           redirect_url: String.t() | nil,
           valid_until: String.t() | nil,
-          latest_visit: Inttegro.Payments.PaymentNextActionRedirectLatestVisit.t() | nil
+          latest_visit: Inttegro.Payments.NextActionRedirectLatestVisit.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -692,9 +680,7 @@ defmodule Inttegro.Payments.PaymentNextActionRedirect do
         if(is_nil(Map.get(map, "latest_visit")),
           do: nil,
           else:
-            Inttegro.Payments.PaymentNextActionRedirectLatestVisit.from_map(
-              Map.get(map, "latest_visit")
-            )
+            Inttegro.Payments.NextActionRedirectLatestVisit.from_map(Map.get(map, "latest_visit"))
         )
     }
   end
@@ -715,7 +701,7 @@ defmodule Inttegro.Payments.PaymentNextActionRedirect do
   end
 end
 
-defmodule Inttegro.Payments.PaymentNextActionRedirectLatestVisit do
+defmodule Inttegro.Payments.NextActionRedirectLatestVisit do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct user_agent: nil, ip_address: nil, at: nil
 
@@ -755,14 +741,14 @@ defmodule Inttegro.Payments.PaymentNextActionRedirectLatestVisit do
   end
 end
 
-defmodule Inttegro.Payments.PaymentPayoutConfiguration do
+defmodule Inttegro.Payments.PayoutConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct enable_fx: nil, destination: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           enable_fx: boolean() | nil,
-          destination: Inttegro.Payments.PaymentPayoutConfigurationDestination.t() | nil
+          destination: Inttegro.Payments.PayoutConfigurationDestination.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -776,9 +762,7 @@ defmodule Inttegro.Payments.PaymentPayoutConfiguration do
         if(is_nil(Map.get(map, "destination")),
           do: nil,
           else:
-            Inttegro.Payments.PaymentPayoutConfigurationDestination.from_map(
-              Map.get(map, "destination")
-            )
+            Inttegro.Payments.PayoutConfigurationDestination.from_map(Map.get(map, "destination"))
         )
     }
   end
@@ -797,7 +781,7 @@ defmodule Inttegro.Payments.PaymentPayoutConfiguration do
   end
 end
 
-defmodule Inttegro.Payments.PaymentPayoutConfigurationDestination do
+defmodule Inttegro.Payments.PayoutConfigurationDestination do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct financial_account_id: nil
 

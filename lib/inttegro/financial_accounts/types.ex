@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountType do
+defmodule Inttegro.FinancialAccounts.Type do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :wallet | :bank_account | :dosh_account | String.t()
@@ -22,22 +22,22 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountCreateRequest do
+defmodule Inttegro.FinancialAccounts.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t ::
-          Inttegro.FinancialAccounts.FinancialAccountWalletRequest.t()
-          | Inttegro.FinancialAccounts.FinancialAccountBankRequest.t()
-          | Inttegro.FinancialAccounts.FinancialAccountDoshRequest.t()
+          Inttegro.FinancialAccounts.WalletRequest.t()
+          | Inttegro.FinancialAccounts.BankRequest.t()
+          | Inttegro.FinancialAccounts.DoshRequest.t()
 
   @doc false
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.FinancialAccounts.FinancialAccountWalletRequest,
-        Inttegro.FinancialAccounts.FinancialAccountBankRequest,
-        Inttegro.FinancialAccounts.FinancialAccountDoshRequest
+        Inttegro.FinancialAccounts.WalletRequest,
+        Inttegro.FinancialAccounts.BankRequest,
+        Inttegro.FinancialAccounts.DoshRequest
       ],
       value,
       fn module ->
@@ -84,19 +84,17 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
           id: String.t(),
           institution: Inttegro.FinancialAccounts.FinancialInstitution.t() | nil,
           label: String.t() | nil,
-          pull_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountPullConfiguration.t() | nil,
-          push_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountPushConfiguration.t() | nil,
+          pull_configuration: Inttegro.FinancialAccounts.PullConfiguration.t() | nil,
+          push_configuration: Inttegro.FinancialAccounts.PushConfiguration.t() | nil,
           reference: String.t() | nil,
           supplied: Inttegro.Shared.ResourceSupply.t() | nil,
-          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
+          type: Inttegro.FinancialAccounts.Type.t(),
           verification: %{optional(String.t()) => term()} | nil,
-          bank_account: Inttegro.FinancialAccounts.FinancialAccountBank.t() | nil,
+          bank_account: Inttegro.FinancialAccounts.Bank.t() | nil,
           disconnected_at: String.t() | nil,
           dosh_account: %{optional(String.t()) => term()} | nil,
-          owner: Inttegro.FinancialAccounts.FinancialAccountOwner.t() | nil,
-          wallet: Inttegro.FinancialAccounts.FinancialAccountWallet.t() | nil
+          owner: Inttegro.FinancialAccounts.Owner.t() | nil,
+          wallet: Inttegro.FinancialAccounts.Wallet.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -128,7 +126,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.PullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -136,7 +134,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.PushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
@@ -146,7 +144,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
           do: nil,
           else: Inttegro.Shared.ResourceSupply.from_map(Map.get(map, "supplied"))
         ),
-      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.FinancialAccounts.Type.decode(Map.fetch!(map, "type")),
       verification:
         if(is_nil(Map.get(map, "verification")),
           do: nil,
@@ -155,8 +153,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
-          else:
-            Inttegro.FinancialAccounts.FinancialAccountBank.from_map(Map.get(map, "bank_account"))
+          else: Inttegro.FinancialAccounts.Bank.from_map(Map.get(map, "bank_account"))
         ),
       disconnected_at:
         if(is_nil(Map.get(map, "disconnected_at")),
@@ -171,12 +168,12 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else: Inttegro.FinancialAccounts.FinancialAccountOwner.from_map(Map.get(map, "owner"))
+          else: Inttegro.FinancialAccounts.Owner.from_map(Map.get(map, "owner"))
         ),
       wallet:
         if(is_nil(Map.get(map, "wallet")),
           do: nil,
-          else: Inttegro.FinancialAccounts.FinancialAccountWallet.from_map(Map.get(map, "wallet"))
+          else: Inttegro.FinancialAccounts.Wallet.from_map(Map.get(map, "wallet"))
         )
     }
   end
@@ -217,7 +214,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "supplied" =>
         if(is_nil(value.supplied), do: nil, else: Inttegro.Codec.encode(value.supplied)),
-      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.Type.encode(value.type),
       "verification" =>
         if(is_nil(value.verification),
           do: nil,
@@ -249,7 +246,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountAddress do
+defmodule Inttegro.FinancialAccounts.Address do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:city, :country, :line_1, :region]
   defstruct city: nil,
@@ -309,15 +306,15 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountAddress do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountBank do
+defmodule Inttegro.FinancialAccounts.Bank do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct type: nil, ghana_bank_account: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          type: Inttegro.BankAccounts.BankAccountType.t(),
-          ghana_bank_account: Inttegro.BankAccounts.GhanaBankAccount.t() | nil
+          type: Inttegro.BankAccounts.Type.t(),
+          ghana_bank_account: Inttegro.BankAccounts.GhanaAccount.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -326,12 +323,11 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBank do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.BankAccounts.BankAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.BankAccounts.Type.decode(Map.fetch!(map, "type")),
       ghana_bank_account:
         if(is_nil(Map.get(map, "ghana_bank_account")),
           do: nil,
-          else:
-            Inttegro.BankAccounts.GhanaBankAccount.from_map(Map.get(map, "ghana_bank_account"))
+          else: Inttegro.BankAccounts.GhanaAccount.from_map(Map.get(map, "ghana_bank_account"))
         )
     }
   end
@@ -340,7 +336,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBank do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.BankAccounts.BankAccountType.encode(value.type),
+      "type" => Inttegro.BankAccounts.Type.encode(value.type),
       "ghana_bank_account" =>
         if(is_nil(value.ghana_bank_account),
           do: nil,
@@ -352,7 +348,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBank do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
+defmodule Inttegro.FinancialAccounts.BankRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:currency, :label, :reference, :type, :bank_account]
   defstruct custom_data: nil,
@@ -370,16 +366,14 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
-          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t() | nil,
-          pull_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguration.t() | nil,
-          push_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguration.t() | nil,
+          owner: Inttegro.FinancialAccounts.OwnerInput.t() | nil,
+          pull_configuration: Inttegro.FinancialAccounts.BankRequestPullConfiguration.t() | nil,
+          push_configuration: Inttegro.FinancialAccounts.BankRequestPushConfiguration.t() | nil,
           currency: String.t(),
           label: String.t(),
           reference: String.t(),
-          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
-          bank_account: Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount.t()
+          type: Inttegro.FinancialAccounts.Type.t(),
+          bank_account: Inttegro.FinancialAccounts.BankRequestBankAccount.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -398,14 +392,13 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else:
-            Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.get(map, "owner"))
+          else: Inttegro.FinancialAccounts.OwnerInput.from_map(Map.get(map, "owner"))
         ),
       pull_configuration:
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.BankRequestPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -413,16 +406,16 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.BankRequestPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
       currency: Map.fetch!(map, "currency"),
       label: Map.fetch!(map, "label"),
       reference: Map.fetch!(map, "reference"),
-      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.FinancialAccounts.Type.decode(Map.fetch!(map, "type")),
       bank_account:
-        Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount.from_map(
+        Inttegro.FinancialAccounts.BankRequestBankAccount.from_map(
           Map.fetch!(map, "bank_account")
         )
     }
@@ -456,7 +449,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
       "currency" => Inttegro.Codec.encode(value.currency),
       "label" => Inttegro.Codec.encode(value.label),
       "reference" => Inttegro.Codec.encode(value.reference),
-      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.Type.encode(value.type),
       "bank_account" => Inttegro.Codec.encode(value.bank_account)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -464,16 +457,16 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount do
+defmodule Inttegro.FinancialAccounts.BankRequestBankAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:type, :ghana_bank_account]
   defstruct type: nil, ghana_bank_account: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          type: Inttegro.BankAccounts.BankAccountType.t(),
+          type: Inttegro.BankAccounts.Type.t(),
           ghana_bank_account:
-            Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhanaBankAccount.t()
+            Inttegro.FinancialAccounts.BankRequestBankAccountGhanaBankAccount.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -482,9 +475,9 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.BankAccounts.BankAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.BankAccounts.Type.decode(Map.fetch!(map, "type")),
       ghana_bank_account:
-        Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhanaBankAccount.from_map(
+        Inttegro.FinancialAccounts.BankRequestBankAccountGhanaBankAccount.from_map(
           Map.fetch!(map, "ghana_bank_account")
         )
     }
@@ -494,7 +487,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.BankAccounts.BankAccountType.encode(value.type),
+      "type" => Inttegro.BankAccounts.Type.encode(value.type),
       "ghana_bank_account" => Inttegro.Codec.encode(value.ghana_bank_account)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -502,7 +495,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccount do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhanaBankAccount do
+defmodule Inttegro.FinancialAccounts.BankRequestBankAccountGhanaBankAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:number]
   defstruct bank_name: nil, branch: nil, sort_code: nil, swift_code: nil, holder: nil, number: nil
@@ -513,7 +506,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhana
           branch: String.t() | nil,
           sort_code: String.t() | nil,
           swift_code: String.t() | nil,
-          holder: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t() | nil,
+          holder: Inttegro.FinancialAccounts.OwnerInput.t() | nil,
           number: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -531,8 +524,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhana
       holder:
         if(is_nil(Map.get(map, "holder")),
           do: nil,
-          else:
-            Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.get(map, "holder"))
+          else: Inttegro.FinancialAccounts.OwnerInput.from_map(Map.get(map, "holder"))
         ),
       number: Map.fetch!(map, "number")
     }
@@ -557,7 +549,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestBankAccountGhana
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguration do
+defmodule Inttegro.FinancialAccounts.BankRequestPullConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct enabled: nil
 
@@ -587,7 +579,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestPullConfiguratio
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguration do
+defmodule Inttegro.FinancialAccounts.BankRequestPushConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct enabled: nil
 
@@ -617,7 +609,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountBankRequestPushConfiguratio
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountDisableRequest do
+defmodule Inttegro.FinancialAccounts.DisableRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:account_id]
   defstruct unset_as_payout_destination: nil, account_id: nil
@@ -659,7 +651,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDisableRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
+defmodule Inttegro.FinancialAccounts.DoshRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:currency, :label, :owner, :reference, :type, :dosh_account]
   defstruct custom_data: nil,
@@ -677,15 +669,13 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
-          pull_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguration.t() | nil,
-          push_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguration.t() | nil,
+          pull_configuration: Inttegro.FinancialAccounts.DoshRequestPullConfiguration.t() | nil,
+          push_configuration: Inttegro.FinancialAccounts.DoshRequestPushConfiguration.t() | nil,
           currency: String.t(),
           label: String.t(),
-          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t(),
+          owner: Inttegro.FinancialAccounts.OwnerInput.t(),
           reference: String.t(),
-          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
+          type: Inttegro.FinancialAccounts.Type.t(),
           dosh_account: %{optional(String.t()) => term()}
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -706,7 +696,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.DoshRequestPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -714,16 +704,15 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.DoshRequestPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
       currency: Map.fetch!(map, "currency"),
       label: Map.fetch!(map, "label"),
-      owner:
-        Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.fetch!(map, "owner")),
+      owner: Inttegro.FinancialAccounts.OwnerInput.from_map(Map.fetch!(map, "owner")),
       reference: Map.fetch!(map, "reference"),
-      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.FinancialAccounts.Type.decode(Map.fetch!(map, "type")),
       dosh_account: Map.new(Map.fetch!(map, "dosh_account"), fn {key, value} -> {key, value} end)
     }
   end
@@ -756,7 +745,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
       "label" => Inttegro.Codec.encode(value.label),
       "owner" => Inttegro.Codec.encode(value.owner),
       "reference" => Inttegro.Codec.encode(value.reference),
-      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.Type.encode(value.type),
       "dosh_account" =>
         Map.new(value.dosh_account, fn {key, value} ->
           {to_string(key), Inttegro.Codec.encode(value)}
@@ -767,7 +756,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguration do
+defmodule Inttegro.FinancialAccounts.DoshRequestPullConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct enabled: nil
 
@@ -797,7 +786,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequestPullConfiguratio
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguration do
+defmodule Inttegro.FinancialAccounts.DoshRequestPushConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct enabled: nil
 
@@ -827,7 +816,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountDoshRequestPushConfiguratio
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountEnablePullRequest do
+defmodule Inttegro.FinancialAccounts.EnablePullRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:account_id]
   defstruct ip_address: nil, user_agent: nil, account_id: nil
@@ -868,7 +857,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountEnablePullRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountIDRequest do
+defmodule Inttegro.FinancialAccounts.IDRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:account_id]
   defstruct account_id: nil
@@ -899,14 +888,14 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountIDRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountOwner do
+defmodule Inttegro.FinancialAccounts.Owner do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:address, :name]
   defstruct address: nil, name: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          address: Inttegro.FinancialAccounts.FinancialAccountAddress.t(),
+          address: Inttegro.FinancialAccounts.Address.t(),
           name: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -916,8 +905,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwner do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      address:
-        Inttegro.FinancialAccounts.FinancialAccountAddress.from_map(Map.fetch!(map, "address")),
+      address: Inttegro.FinancialAccounts.Address.from_map(Map.fetch!(map, "address")),
       name: Map.fetch!(map, "name")
     }
   end
@@ -934,7 +922,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwner do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInput do
+defmodule Inttegro.FinancialAccounts.OwnerInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name, :address]
   defstruct name: nil, address: nil
@@ -942,7 +930,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInput do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           name: String.t(),
-          address: Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress.t()
+          address: Inttegro.FinancialAccounts.OwnerInputAddress.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -952,10 +940,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInput do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       name: Map.fetch!(map, "name"),
-      address:
-        Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress.from_map(
-          Map.fetch!(map, "address")
-        )
+      address: Inttegro.FinancialAccounts.OwnerInputAddress.from_map(Map.fetch!(map, "address"))
     }
   end
 
@@ -971,7 +956,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInput do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress do
+defmodule Inttegro.FinancialAccounts.OwnerInputAddress do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:country]
   defstruct city: nil,
@@ -1031,14 +1016,14 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerInputAddress do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput do
+defmodule Inttegro.FinancialAccounts.OwnerUpdateInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct name: nil, address: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           name: String.t() | nil,
-          address: Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress.t() | nil
+          address: Inttegro.FinancialAccounts.OwnerUpdateInputAddress.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1052,9 +1037,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput do
         if(is_nil(Map.get(map, "address")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress.from_map(
-              Map.get(map, "address")
-            )
+            Inttegro.FinancialAccounts.OwnerUpdateInputAddress.from_map(Map.get(map, "address"))
         )
     }
   end
@@ -1071,7 +1054,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress do
+defmodule Inttegro.FinancialAccounts.OwnerUpdateInputAddress do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct city: nil,
             country: nil,
@@ -1130,7 +1113,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInputAddress do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountPage do
+defmodule Inttegro.FinancialAccounts.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:accounts, :number, :size]
   defstruct accounts: nil, number: nil, size: nil
@@ -1170,7 +1153,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPage do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountPageRequest do
+defmodule Inttegro.FinancialAccounts.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -1205,7 +1188,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPageRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfiguration do
+defmodule Inttegro.FinancialAccounts.PullConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:enabled_at, :mandate]
   defstruct enabled_at: nil, mandate: nil
@@ -1213,7 +1196,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfiguration do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           enabled_at: String.t(),
-          mandate: Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate.t()
+          mandate: Inttegro.FinancialAccounts.PullConfigurationMandate.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1224,9 +1207,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfiguration do
     %__MODULE__{
       enabled_at: Map.fetch!(map, "enabled_at"),
       mandate:
-        Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate.from_map(
-          Map.fetch!(map, "mandate")
-        )
+        Inttegro.FinancialAccounts.PullConfigurationMandate.from_map(Map.fetch!(map, "mandate"))
     }
   end
 
@@ -1242,7 +1223,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate do
+defmodule Inttegro.FinancialAccounts.PullConfigurationMandate do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:created_at, :id, :ip_address, :user_agent]
   defstruct created_at: nil, id: nil, ip_address: nil, user_agent: nil
@@ -1282,7 +1263,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPullConfigurationMandate do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountPushConfiguration do
+defmodule Inttegro.FinancialAccounts.PushConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:enabled_at]
   defstruct enabled_at: nil
@@ -1313,7 +1294,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountPushConfiguration do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountUpdateRequest do
+defmodule Inttegro.FinancialAccounts.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:account_id]
   defstruct custom_data: nil,
@@ -1328,7 +1309,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountUpdateRequest do
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
           label: String.t() | nil,
-          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput.t() | nil,
+          owner: Inttegro.FinancialAccounts.OwnerUpdateInput.t() | nil,
           reference: String.t() | nil,
           account_id: String.t()
         }
@@ -1350,10 +1331,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountUpdateRequest do
       owner:
         if(is_nil(Map.get(map, "owner")),
           do: nil,
-          else:
-            Inttegro.FinancialAccounts.FinancialAccountOwnerUpdateInput.from_map(
-              Map.get(map, "owner")
-            )
+          else: Inttegro.FinancialAccounts.OwnerUpdateInput.from_map(Map.get(map, "owner"))
         ),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       account_id: Map.fetch!(map, "account_id")
@@ -1385,7 +1363,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountUpdateRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWallet do
+defmodule Inttegro.FinancialAccounts.Wallet do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :type]
   defstruct id: nil, type: nil, mobile_money: nil
@@ -1393,8 +1371,8 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWallet do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           id: String.t(),
-          type: Inttegro.Wallets.WalletType.t(),
-          mobile_money: Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney.t() | nil
+          type: Inttegro.Wallets.Type.t(),
+          mobile_money: Inttegro.FinancialAccounts.WalletMobileMoney.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1404,14 +1382,12 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWallet do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      type: Inttegro.Wallets.WalletType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Wallets.Type.decode(Map.fetch!(map, "type")),
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney.from_map(
-              Map.get(map, "mobile_money")
-            )
+            Inttegro.FinancialAccounts.WalletMobileMoney.from_map(Map.get(map, "mobile_money"))
         )
     }
   end
@@ -1421,7 +1397,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWallet do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "type" => Inttegro.Wallets.WalletType.encode(value.type),
+      "type" => Inttegro.Wallets.Type.encode(value.type),
       "mobile_money" =>
         if(is_nil(value.mobile_money), do: nil, else: Inttegro.Codec.encode(value.mobile_money))
     }
@@ -1430,7 +1406,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWallet do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney do
+defmodule Inttegro.FinancialAccounts.WalletMobileMoney do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:account_number, :network]
   defstruct account_number: nil, network: nil
@@ -1464,7 +1440,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletMobileMoney do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
+defmodule Inttegro.FinancialAccounts.WalletRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:currency, :label, :owner, :reference, :type, :wallet]
   defstruct custom_data: nil,
@@ -1482,16 +1458,14 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
   @type t :: %__MODULE__{
           custom_data: %{optional(String.t()) => term()} | nil,
           description: String.t() | nil,
-          pull_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfiguration.t() | nil,
-          push_configuration:
-            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfiguration.t() | nil,
+          pull_configuration: Inttegro.FinancialAccounts.WalletRequestPullConfiguration.t() | nil,
+          push_configuration: Inttegro.FinancialAccounts.WalletRequestPushConfiguration.t() | nil,
           currency: String.t(),
           label: String.t(),
-          owner: Inttegro.FinancialAccounts.FinancialAccountOwnerInput.t(),
+          owner: Inttegro.FinancialAccounts.OwnerInput.t(),
           reference: String.t(),
-          type: Inttegro.FinancialAccounts.FinancialAccountType.t(),
-          wallet: Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet.t()
+          type: Inttegro.FinancialAccounts.Type.t(),
+          wallet: Inttegro.FinancialAccounts.WalletRequestWallet.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1511,7 +1485,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
         if(is_nil(Map.get(map, "pull_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfiguration.from_map(
+            Inttegro.FinancialAccounts.WalletRequestPullConfiguration.from_map(
               Map.get(map, "pull_configuration")
             )
         ),
@@ -1519,20 +1493,16 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
         if(is_nil(Map.get(map, "push_configuration")),
           do: nil,
           else:
-            Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfiguration.from_map(
+            Inttegro.FinancialAccounts.WalletRequestPushConfiguration.from_map(
               Map.get(map, "push_configuration")
             )
         ),
       currency: Map.fetch!(map, "currency"),
       label: Map.fetch!(map, "label"),
-      owner:
-        Inttegro.FinancialAccounts.FinancialAccountOwnerInput.from_map(Map.fetch!(map, "owner")),
+      owner: Inttegro.FinancialAccounts.OwnerInput.from_map(Map.fetch!(map, "owner")),
       reference: Map.fetch!(map, "reference"),
-      type: Inttegro.FinancialAccounts.FinancialAccountType.decode(Map.fetch!(map, "type")),
-      wallet:
-        Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet.from_map(
-          Map.fetch!(map, "wallet")
-        )
+      type: Inttegro.FinancialAccounts.Type.decode(Map.fetch!(map, "type")),
+      wallet: Inttegro.FinancialAccounts.WalletRequestWallet.from_map(Map.fetch!(map, "wallet"))
     }
   end
 
@@ -1564,7 +1534,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
       "label" => Inttegro.Codec.encode(value.label),
       "owner" => Inttegro.Codec.encode(value.owner),
       "reference" => Inttegro.Codec.encode(value.reference),
-      "type" => Inttegro.FinancialAccounts.FinancialAccountType.encode(value.type),
+      "type" => Inttegro.FinancialAccounts.Type.encode(value.type),
       "wallet" => Inttegro.Codec.encode(value.wallet)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -1572,7 +1542,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequest do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfiguration do
+defmodule Inttegro.FinancialAccounts.WalletRequestPullConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct enabled: nil
 
@@ -1602,7 +1572,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestPullConfigurat
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfiguration do
+defmodule Inttegro.FinancialAccounts.WalletRequestPushConfiguration do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct enabled: nil
 
@@ -1632,16 +1602,15 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestPushConfigurat
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet do
+defmodule Inttegro.FinancialAccounts.WalletRequestWallet do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:type, :mobile_money]
   defstruct type: nil, mobile_money: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          type: Inttegro.Wallets.WalletType.t(),
-          mobile_money:
-            Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney.t()
+          type: Inttegro.Wallets.Type.t(),
+          mobile_money: Inttegro.FinancialAccounts.WalletRequestWalletMobileMoney.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1650,9 +1619,9 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      type: Inttegro.Wallets.WalletType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Wallets.Type.decode(Map.fetch!(map, "type")),
       mobile_money:
-        Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney.from_map(
+        Inttegro.FinancialAccounts.WalletRequestWalletMobileMoney.from_map(
           Map.fetch!(map, "mobile_money")
         )
     }
@@ -1662,7 +1631,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "type" => Inttegro.Wallets.WalletType.encode(value.type),
+      "type" => Inttegro.Wallets.Type.encode(value.type),
       "mobile_money" => Inttegro.Codec.encode(value.mobile_money)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -1670,7 +1639,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWallet do
   end
 end
 
-defmodule Inttegro.FinancialAccounts.FinancialAccountWalletRequestWalletMobileMoney do
+defmodule Inttegro.FinancialAccounts.WalletRequestWalletMobileMoney do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:account_number, :network]
   defstruct account_number: nil, network: nil

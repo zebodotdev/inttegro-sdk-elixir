@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Payouts.PayoutStatus do
+defmodule Inttegro.Payouts.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -34,7 +34,7 @@ defmodule Inttegro.Payouts.PayoutStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Payouts.CancelPayoutRequest do
+defmodule Inttegro.Payouts.CancelRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payout_id]
   defstruct payout_id: nil
@@ -65,7 +65,7 @@ defmodule Inttegro.Payouts.CancelPayoutRequest do
   end
 end
 
-defmodule Inttegro.Payouts.DisableAutomaticPayoutsRequest do
+defmodule Inttegro.Payouts.DisableAutomaticRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct []
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
@@ -86,7 +86,7 @@ defmodule Inttegro.Payouts.DisableAutomaticPayoutsRequest do
   end
 end
 
-defmodule Inttegro.Payouts.EnableAutomaticPayoutsRequest do
+defmodule Inttegro.Payouts.EnableAutomaticRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct []
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
@@ -107,7 +107,7 @@ defmodule Inttegro.Payouts.EnableAutomaticPayoutsRequest do
   end
 end
 
-defmodule Inttegro.Payouts.GetPayoutSettingsRequest do
+defmodule Inttegro.Payouts.GetSettingsRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct []
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
@@ -128,7 +128,7 @@ defmodule Inttegro.Payouts.GetPayoutSettingsRequest do
   end
 end
 
-defmodule Inttegro.Payouts.LookupPayoutRequest do
+defmodule Inttegro.Payouts.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:payout_id]
   defstruct payout_id: nil
@@ -159,7 +159,7 @@ defmodule Inttegro.Payouts.LookupPayoutRequest do
   end
 end
 
-defmodule Inttegro.Payouts.PagePayoutsRequest do
+defmodule Inttegro.Payouts.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -227,7 +227,7 @@ defmodule Inttegro.Payouts.Payout do
           canceled_at: String.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           destination_id: String.t(),
-          error: Inttegro.Payouts.PayoutError.t() | nil,
+          error: Inttegro.Payouts.Error.t() | nil,
           execute_after: String.t(),
           executed_by: String.t() | nil,
           expected_at: String.t() | nil,
@@ -242,7 +242,7 @@ defmodule Inttegro.Payouts.Payout do
           scheduled_by: String.t() | nil,
           sent_at: String.t() | nil,
           source_id: String.t() | nil,
-          status: Inttegro.Payouts.PayoutStatus.t(),
+          status: Inttegro.Payouts.Status.t(),
           succeeded_at: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -273,7 +273,7 @@ defmodule Inttegro.Payouts.Payout do
       error:
         if(is_nil(Map.get(map, "error")),
           do: nil,
-          else: Inttegro.Payouts.PayoutError.from_map(Map.get(map, "error"))
+          else: Inttegro.Payouts.Error.from_map(Map.get(map, "error"))
         ),
       execute_after: Map.fetch!(map, "execute_after"),
       executed_by:
@@ -295,7 +295,7 @@ defmodule Inttegro.Payouts.Payout do
         if(is_nil(Map.get(map, "scheduled_by")), do: nil, else: Map.get(map, "scheduled_by")),
       sent_at: if(is_nil(Map.get(map, "sent_at")), do: nil, else: Map.get(map, "sent_at")),
       source_id: if(is_nil(Map.get(map, "source_id")), do: nil, else: Map.get(map, "source_id")),
-      status: Inttegro.Payouts.PayoutStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.Payouts.Status.decode(Map.fetch!(map, "status")),
       succeeded_at:
         if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at"))
     }
@@ -346,7 +346,7 @@ defmodule Inttegro.Payouts.Payout do
       "sent_at" => if(is_nil(value.sent_at), do: nil, else: Inttegro.Codec.encode(value.sent_at)),
       "source_id" =>
         if(is_nil(value.source_id), do: nil, else: Inttegro.Codec.encode(value.source_id)),
-      "status" => Inttegro.Payouts.PayoutStatus.encode(value.status),
+      "status" => Inttegro.Payouts.Status.encode(value.status),
       "succeeded_at" =>
         if(is_nil(value.succeeded_at), do: nil, else: Inttegro.Codec.encode(value.succeeded_at))
     }
@@ -355,7 +355,7 @@ defmodule Inttegro.Payouts.Payout do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutError do
+defmodule Inttegro.Payouts.Error do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:cause, :message, :occurred_at, :type]
   defstruct cause: nil, message: nil, occurred_at: nil, type: nil
@@ -395,7 +395,7 @@ defmodule Inttegro.Payouts.PayoutError do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutPage do
+defmodule Inttegro.Payouts.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :size]
   defstruct number: nil, size: nil, payouts: nil
@@ -443,7 +443,7 @@ defmodule Inttegro.Payouts.PayoutPage do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutSettingsLookup do
+defmodule Inttegro.Payouts.SettingsLookup do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:destinations]
   defstruct destinations: nil, fx_enabled: nil, schedule: nil
@@ -452,7 +452,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookup do
   @type t :: %__MODULE__{
           destinations: %{optional(String.t()) => String.t()},
           fx_enabled: boolean() | nil,
-          schedule: Inttegro.Payouts.PayoutSettingsLookupSchedule.t() | nil
+          schedule: Inttegro.Payouts.SettingsLookupSchedule.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -467,7 +467,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookup do
       schedule:
         if(is_nil(Map.get(map, "schedule")),
           do: nil,
-          else: Inttegro.Payouts.PayoutSettingsLookupSchedule.from_map(Map.get(map, "schedule"))
+          else: Inttegro.Payouts.SettingsLookupSchedule.from_map(Map.get(map, "schedule"))
         )
     }
   end
@@ -490,7 +490,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookup do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutSettingsLookupSchedule do
+defmodule Inttegro.Payouts.SettingsLookupSchedule do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:aging_spec, :description, :interval, :name, :schedule_on, :type]
   defstruct aging_spec: nil,
@@ -502,7 +502,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookupSchedule do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          aging_spec: Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec.t(),
+          aging_spec: Inttegro.Payouts.SettingsLookupScheduleAgingSpec.t(),
           description: String.t(),
           interval: String.t(),
           name: String.t(),
@@ -517,9 +517,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookupSchedule do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       aging_spec:
-        Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec.from_map(
-          Map.fetch!(map, "aging_spec")
-        ),
+        Inttegro.Payouts.SettingsLookupScheduleAgingSpec.from_map(Map.fetch!(map, "aging_spec")),
       description: Map.fetch!(map, "description"),
       interval: Map.fetch!(map, "interval"),
       name: Map.fetch!(map, "name"),
@@ -544,7 +542,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookupSchedule do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec do
+defmodule Inttegro.Payouts.SettingsLookupScheduleAgingSpec do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:abide, :label, :t_plus]
   defstruct abide: nil, label: nil, t_plus: nil
@@ -581,7 +579,7 @@ defmodule Inttegro.Payouts.PayoutSettingsLookupScheduleAgingSpec do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutSettingsMutation do
+defmodule Inttegro.Payouts.SettingsMutation do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct destinations: nil, id: nil, schedule: nil
 
@@ -589,7 +587,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutation do
   @type t :: %__MODULE__{
           destinations: %{optional(String.t()) => String.t()} | nil,
           id: String.t() | nil,
-          schedule: Inttegro.Payouts.PayoutSettingsMutationSchedule.t() | nil
+          schedule: Inttegro.Payouts.SettingsMutationSchedule.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -607,7 +605,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutation do
       schedule:
         if(is_nil(Map.get(map, "schedule")),
           do: nil,
-          else: Inttegro.Payouts.PayoutSettingsMutationSchedule.from_map(Map.get(map, "schedule"))
+          else: Inttegro.Payouts.SettingsMutationSchedule.from_map(Map.get(map, "schedule"))
         )
     }
   end
@@ -633,7 +631,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutation do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutSettingsMutationSchedule do
+defmodule Inttegro.Payouts.SettingsMutationSchedule do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:description, :id, :interval, :name, :schedule_on, :spec, :type]
   defstruct description: nil,
@@ -651,7 +649,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutationSchedule do
           interval: String.t(),
           name: String.t(),
           schedule_on: String.t(),
-          spec: Inttegro.Payouts.PayoutSettingsMutationScheduleSpec.t(),
+          spec: Inttegro.Payouts.SettingsMutationScheduleSpec.t(),
           type: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -666,7 +664,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutationSchedule do
       interval: Map.fetch!(map, "interval"),
       name: Map.fetch!(map, "name"),
       schedule_on: Map.fetch!(map, "schedule_on"),
-      spec: Inttegro.Payouts.PayoutSettingsMutationScheduleSpec.from_map(Map.fetch!(map, "spec")),
+      spec: Inttegro.Payouts.SettingsMutationScheduleSpec.from_map(Map.fetch!(map, "spec")),
       type: Map.fetch!(map, "type")
     }
   end
@@ -688,7 +686,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutationSchedule do
   end
 end
 
-defmodule Inttegro.Payouts.PayoutSettingsMutationScheduleSpec do
+defmodule Inttegro.Payouts.SettingsMutationScheduleSpec do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:abide, :id, :label, :t_plus]
   defstruct abide: nil, id: nil, label: nil, t_plus: nil
@@ -728,7 +726,7 @@ defmodule Inttegro.Payouts.PayoutSettingsMutationScheduleSpec do
   end
 end
 
-defmodule Inttegro.Payouts.SchedulePayoutRequest do
+defmodule Inttegro.Payouts.ScheduleRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:destination_id, :reference]
   defstruct execute_after: nil, max_amount: nil, destination_id: nil, reference: nil
@@ -772,7 +770,7 @@ defmodule Inttegro.Payouts.SchedulePayoutRequest do
   end
 end
 
-defmodule Inttegro.Payouts.SetPayoutDestinationsRequest do
+defmodule Inttegro.Payouts.SetDestinationsRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:destinations]
   defstruct destinations: nil

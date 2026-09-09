@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentActivityType do
+defmodule Inttegro.PurchaseIntents.ActivityType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t ::
@@ -30,7 +30,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentActivityType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentStatus do
+defmodule Inttegro.PurchaseIntents.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :active | :expired | :inactive | :used | String.t()
@@ -53,7 +53,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.PurchaseIntents.CancelPurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.CancelRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct id: nil, purchase_intent_id: nil
 
@@ -94,7 +94,7 @@ defmodule Inttegro.PurchaseIntents.CancelPurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:quantity]
   defstruct product: nil,
@@ -107,13 +107,13 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          product: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct.t() | nil,
+          product: Inttegro.PurchaseIntents.CreateRequestProduct.t() | nil,
           product_id: String.t() | nil,
-          price: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice.t() | nil,
+          price: Inttegro.PurchaseIntents.CreateRequestPrice.t() | nil,
           price_id: String.t() | nil,
-          usage: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage.t() | nil,
+          usage: Inttegro.PurchaseIntents.CreateRequestUsage.t() | nil,
           expires_at: String.t() | nil,
-          quantity: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity.t()
+          quantity: Inttegro.PurchaseIntents.CreateRequestQuantity.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -125,36 +125,25 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequest do
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else:
-            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct.from_map(
-              Map.get(map, "product")
-            )
+          else: Inttegro.PurchaseIntents.CreateRequestProduct.from_map(Map.get(map, "product"))
         ),
       product_id:
         if(is_nil(Map.get(map, "product_id")), do: nil, else: Map.get(map, "product_id")),
       price:
         if(is_nil(Map.get(map, "price")),
           do: nil,
-          else:
-            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice.from_map(
-              Map.get(map, "price")
-            )
+          else: Inttegro.PurchaseIntents.CreateRequestPrice.from_map(Map.get(map, "price"))
         ),
       price_id: if(is_nil(Map.get(map, "price_id")), do: nil, else: Map.get(map, "price_id")),
       usage:
         if(is_nil(Map.get(map, "usage")),
           do: nil,
-          else:
-            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage.from_map(
-              Map.get(map, "usage")
-            )
+          else: Inttegro.PurchaseIntents.CreateRequestUsage.from_map(Map.get(map, "usage"))
         ),
       expires_at:
         if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
       quantity:
-        Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity.from_map(
-          Map.fetch!(map, "quantity")
-        )
+        Inttegro.PurchaseIntents.CreateRequestQuantity.from_map(Map.fetch!(map, "quantity"))
     }
   end
 
@@ -178,15 +167,15 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice do
+defmodule Inttegro.PurchaseIntents.CreateRequestPrice do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct id: nil, nominal: nil, original: nil, original_id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           id: String.t() | nil,
-          nominal: Inttegro.Prices.PriceParams.t() | nil,
-          original: Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal.t() | nil,
+          nominal: Inttegro.Prices.Params.t() | nil,
+          original: Inttegro.PurchaseIntents.CreateRequestPriceOriginal.t() | nil,
           original_id: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -200,15 +189,13 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice do
       nominal:
         if(is_nil(Map.get(map, "nominal")),
           do: nil,
-          else: Inttegro.Prices.PriceParams.from_map(Map.get(map, "nominal"))
+          else: Inttegro.Prices.Params.from_map(Map.get(map, "nominal"))
         ),
       original:
         if(is_nil(Map.get(map, "original")),
           do: nil,
           else:
-            Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal.from_map(
-              Map.get(map, "original")
-            )
+            Inttegro.PurchaseIntents.CreateRequestPriceOriginal.from_map(Map.get(map, "original"))
         ),
       original_id:
         if(is_nil(Map.get(map, "original_id")), do: nil, else: Map.get(map, "original_id"))
@@ -231,14 +218,14 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPrice do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal do
+defmodule Inttegro.PurchaseIntents.CreateRequestPriceOriginal do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct id: nil, nominal: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           id: String.t() | nil,
-          nominal: Inttegro.Prices.PriceParams.t() | nil
+          nominal: Inttegro.Prices.Params.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -251,7 +238,7 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal do
       nominal:
         if(is_nil(Map.get(map, "nominal")),
           do: nil,
-          else: Inttegro.Prices.PriceParams.from_map(Map.get(map, "nominal"))
+          else: Inttegro.Prices.Params.from_map(Map.get(map, "nominal"))
         )
     }
   end
@@ -268,7 +255,7 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestPriceOriginal do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct do
+defmodule Inttegro.PurchaseIntents.CreateRequestProduct do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct variant_set_id: nil, id: nil
@@ -307,7 +294,7 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestProduct do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity do
+defmodule Inttegro.PurchaseIntents.CreateRequestQuantity do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:min]
   defstruct max: nil, min: nil
@@ -341,7 +328,7 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestQuantity do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage do
+defmodule Inttegro.PurchaseIntents.CreateRequestUsage do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct single_use: nil, multi_use: nil
 
@@ -377,7 +364,7 @@ defmodule Inttegro.PurchaseIntents.CreatePurchaseIntentRequestUsage do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.LookupPurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct id: nil
@@ -408,7 +395,7 @@ defmodule Inttegro.PurchaseIntents.LookupPurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PagePurchaseIntentsRequest do
+defmodule Inttegro.PurchaseIntents.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number, :page_size]
   defstruct page_number: nil, page_size: nil
@@ -462,20 +449,20 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          activity: Inttegro.PurchaseIntents.PurchaseIntentActivity.t() | nil,
+          activity: Inttegro.PurchaseIntents.Activity.t() | nil,
           allow_variants: boolean(),
           created_at: String.t(),
           expires_at: String.t() | nil,
           id: String.t(),
           inactive_at: String.t() | nil,
-          merchant: Inttegro.PurchaseIntents.PurchaseIntentMerchant.t() | nil,
-          price: Inttegro.PurchaseIntents.PurchaseIntentPrice.t() | nil,
-          product: Inttegro.PurchaseIntents.PurchaseIntentProduct.t() | nil,
-          quantity: Inttegro.PurchaseIntents.PurchaseIntentQuantity.t(),
-          status: Inttegro.PurchaseIntents.PurchaseIntentStatus.t(),
+          merchant: Inttegro.PurchaseIntents.Merchant.t() | nil,
+          price: Inttegro.PurchaseIntents.Price.t() | nil,
+          product: Inttegro.PurchaseIntents.Product.t() | nil,
+          quantity: Inttegro.PurchaseIntents.Quantity.t(),
+          status: Inttegro.PurchaseIntents.Status.t(),
           updated_at: String.t() | nil,
-          usage: Inttegro.PurchaseIntents.PurchaseIntentUsage.t(),
-          variant_set: Inttegro.PurchaseIntents.PurchaseIntentVariantSet.t() | nil
+          usage: Inttegro.PurchaseIntents.Usage.t(),
+          variant_set: Inttegro.PurchaseIntents.VariantSet.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -487,7 +474,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
       activity:
         if(is_nil(Map.get(map, "activity")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentActivity.from_map(Map.get(map, "activity"))
+          else: Inttegro.PurchaseIntents.Activity.from_map(Map.get(map, "activity"))
         ),
       allow_variants: Map.fetch!(map, "allow_variants"),
       created_at: Map.fetch!(map, "created_at"),
@@ -499,31 +486,27 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
       merchant:
         if(is_nil(Map.get(map, "merchant")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentMerchant.from_map(Map.get(map, "merchant"))
+          else: Inttegro.PurchaseIntents.Merchant.from_map(Map.get(map, "merchant"))
         ),
       price:
         if(is_nil(Map.get(map, "price")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentPrice.from_map(Map.get(map, "price"))
+          else: Inttegro.PurchaseIntents.Price.from_map(Map.get(map, "price"))
         ),
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.PurchaseIntents.Product.from_map(Map.get(map, "product"))
         ),
-      quantity:
-        Inttegro.PurchaseIntents.PurchaseIntentQuantity.from_map(Map.fetch!(map, "quantity")),
-      status: Inttegro.PurchaseIntents.PurchaseIntentStatus.decode(Map.fetch!(map, "status")),
+      quantity: Inttegro.PurchaseIntents.Quantity.from_map(Map.fetch!(map, "quantity")),
+      status: Inttegro.PurchaseIntents.Status.decode(Map.fetch!(map, "status")),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
-      usage: Inttegro.PurchaseIntents.PurchaseIntentUsage.from_map(Map.fetch!(map, "usage")),
+      usage: Inttegro.PurchaseIntents.Usage.from_map(Map.fetch!(map, "usage")),
       variant_set:
         if(is_nil(Map.get(map, "variant_set")),
           do: nil,
-          else:
-            Inttegro.PurchaseIntents.PurchaseIntentVariantSet.from_map(
-              Map.get(map, "variant_set")
-            )
+          else: Inttegro.PurchaseIntents.VariantSet.from_map(Map.get(map, "variant_set"))
         )
     }
   end
@@ -546,7 +529,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
       "price" => if(is_nil(value.price), do: nil, else: Inttegro.Codec.encode(value.price)),
       "product" => if(is_nil(value.product), do: nil, else: Inttegro.Codec.encode(value.product)),
       "quantity" => Inttegro.Codec.encode(value.quantity),
-      "status" => Inttegro.PurchaseIntents.PurchaseIntentStatus.encode(value.status),
+      "status" => Inttegro.PurchaseIntents.Status.encode(value.status),
       "updated_at" =>
         if(is_nil(value.updated_at), do: nil, else: Inttegro.Codec.encode(value.updated_at)),
       "usage" => Inttegro.Codec.encode(value.usage),
@@ -558,13 +541,13 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentActivity do
+defmodule Inttegro.PurchaseIntents.Activity do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct recent: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          recent: [Inttegro.PurchaseIntents.PurchaseIntentActivity.t()] | nil
+          recent: [Inttegro.PurchaseIntents.Activity.t()] | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -578,7 +561,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentActivity do
           do: nil,
           else:
             Enum.map(Map.get(map, "recent"), fn item ->
-              Inttegro.PurchaseIntents.PurchaseIntentActivity.from_map(item)
+              Inttegro.PurchaseIntents.Activity.from_map(item)
             end)
         )
     }
@@ -599,7 +582,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentActivity do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentMerchant do
+defmodule Inttegro.PurchaseIntents.Merchant do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct app_id: nil, app_name: nil, organization_id: nil, organization_name: nil
 
@@ -655,7 +638,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentMerchant do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice do
+defmodule Inttegro.PurchaseIntents.OriginalPrice do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:active, :nominal]
   defstruct active: nil, id: nil, label: nil, nominal: nil
@@ -695,7 +678,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentPage do
+defmodule Inttegro.PurchaseIntents.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :purchase_intents, :size]
   defstruct number: nil, purchase_intents: nil, size: nil
@@ -736,7 +719,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentPage do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentPrice do
+defmodule Inttegro.PurchaseIntents.Price do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:active, :nominal]
   defstruct active: nil, id: nil, label: nil, nominal: nil, original: nil
@@ -747,7 +730,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentPrice do
           id: String.t() | nil,
           label: String.t() | nil,
           nominal: Inttegro.Money.Amount.t(),
-          original: Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice.t() | nil
+          original: Inttegro.PurchaseIntents.OriginalPrice.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -763,10 +746,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentPrice do
       original:
         if(is_nil(Map.get(map, "original")),
           do: nil,
-          else:
-            Inttegro.PurchaseIntents.PurchaseIntentOriginalPrice.from_map(
-              Map.get(map, "original")
-            )
+          else: Inttegro.PurchaseIntents.OriginalPrice.from_map(Map.get(map, "original"))
         )
     }
   end
@@ -787,7 +767,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentPrice do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
+defmodule Inttegro.PurchaseIntents.Product do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :active, :created_at, :name, :type]
   defstruct id: nil,
@@ -818,7 +798,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
           about: String.t() | nil,
           active: boolean(),
           archived_at: String.t() | nil,
-          attributes: [Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem.t()] | nil,
+          attributes: [Inttegro.PurchaseIntents.ProductAttributesItem.t()] | nil,
           category: String.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
@@ -830,10 +810,10 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
           reference: String.t() | nil,
           shipment: %{optional(String.t()) => term()} | nil,
           tax_code: String.t() | nil,
-          type: Inttegro.Products.ProductType.t(),
+          type: Inttegro.Products.Type.t(),
           unit_dim: String.t() | nil,
           updated_at: String.t() | nil,
-          prices: [Inttegro.Products.ProductPriceSummary.t()] | nil,
+          prices: [Inttegro.Products.PriceSummary.t()] | nil,
           variant_set_id: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -853,7 +833,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem.from_map(item)
+              Inttegro.PurchaseIntents.ProductAttributesItem.from_map(item)
             end)
         ),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
@@ -885,7 +865,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
           else: Map.new(Map.get(map, "shipment"), fn {key, value} -> {key, value} end)
         ),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
-      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
@@ -894,7 +874,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.Products.ProductPriceSummary.from_map(item)
+              Inttegro.Products.PriceSummary.from_map(item)
             end)
         ),
       variant_set_id:
@@ -960,7 +940,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
         ),
       "tax_code" =>
         if(is_nil(value.tax_code), do: nil, else: Inttegro.Codec.encode(value.tax_code)),
-      "type" => Inttegro.Products.ProductType.encode(value.type),
+      "type" => Inttegro.Products.Type.encode(value.type),
       "unit_dim" =>
         if(is_nil(value.unit_dim), do: nil, else: Inttegro.Codec.encode(value.unit_dim)),
       "updated_at" =>
@@ -981,7 +961,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProduct do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem do
+defmodule Inttegro.PurchaseIntents.ProductAttributesItem do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -1015,7 +995,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentProductAttributesItem do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentQuantity do
+defmodule Inttegro.PurchaseIntents.Quantity do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:min]
   defstruct min: nil, max: nil
@@ -1049,14 +1029,14 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentQuantity do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentUsage do
+defmodule Inttegro.PurchaseIntents.Usage do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct multi_use: nil, order: nil, single_use: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           multi_use: boolean() | nil,
-          order: Inttegro.PurchaseIntents.PurchaseIntentUsageOrder.t() | nil,
+          order: Inttegro.PurchaseIntents.UsageOrder.t() | nil,
           single_use: boolean() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1070,7 +1050,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentUsage do
       order:
         if(is_nil(Map.get(map, "order")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentUsageOrder.from_map(Map.get(map, "order"))
+          else: Inttegro.PurchaseIntents.UsageOrder.from_map(Map.get(map, "order"))
         ),
       single_use:
         if(is_nil(Map.get(map, "single_use")), do: nil, else: Map.get(map, "single_use"))
@@ -1092,7 +1072,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentUsage do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentUsageOrder do
+defmodule Inttegro.PurchaseIntents.UsageOrder do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:created_at, :id]
   defstruct created_at: nil, id: nil
@@ -1126,7 +1106,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentUsageOrder do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentVariant do
+defmodule Inttegro.PurchaseIntents.Variant do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:active, :product_id, :variant_values]
   defstruct active: nil,
@@ -1140,8 +1120,8 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariant do
   @type t :: %__MODULE__{
           active: boolean(),
           position: integer() | nil,
-          price: Inttegro.PurchaseIntents.PurchaseIntentPrice.t() | nil,
-          product: Inttegro.PurchaseIntents.PurchaseIntentProduct.t() | nil,
+          price: Inttegro.PurchaseIntents.Price.t() | nil,
+          product: Inttegro.PurchaseIntents.Product.t() | nil,
           product_id: String.t(),
           variant_values: %{optional(String.t()) => String.t()}
         }
@@ -1157,12 +1137,12 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariant do
       price:
         if(is_nil(Map.get(map, "price")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentPrice.from_map(Map.get(map, "price"))
+          else: Inttegro.PurchaseIntents.Price.from_map(Map.get(map, "price"))
         ),
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.PurchaseIntents.PurchaseIntentProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.PurchaseIntents.Product.from_map(Map.get(map, "product"))
         ),
       product_id: Map.fetch!(map, "product_id"),
       variant_values:
@@ -1190,7 +1170,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariant do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantAxis do
+defmodule Inttegro.PurchaseIntents.VariantAxis do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:key, :label, :position]
   defstruct key: nil, label: nil, position: nil
@@ -1227,7 +1207,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantAxis do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantSet do
+defmodule Inttegro.PurchaseIntents.VariantSet do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:active, :id, :name, :variant_axes, :variants]
   defstruct active: nil,
@@ -1247,8 +1227,8 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantSet do
           id: String.t(),
           name: String.t(),
           reference: String.t() | nil,
-          variant_axes: [Inttegro.PurchaseIntents.PurchaseIntentVariantAxis.t()],
-          variants: [Inttegro.PurchaseIntents.PurchaseIntentVariant.t()]
+          variant_axes: [Inttegro.PurchaseIntents.VariantAxis.t()],
+          variants: [Inttegro.PurchaseIntents.Variant.t()]
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1270,11 +1250,11 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantSet do
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       variant_axes:
         Enum.map(Map.fetch!(map, "variant_axes"), fn item ->
-          Inttegro.PurchaseIntents.PurchaseIntentVariantAxis.from_map(item)
+          Inttegro.PurchaseIntents.VariantAxis.from_map(item)
         end),
       variants:
         Enum.map(Map.fetch!(map, "variants"), fn item ->
-          Inttegro.PurchaseIntents.PurchaseIntentVariant.from_map(item)
+          Inttegro.PurchaseIntents.Variant.from_map(item)
         end)
     }
   end
@@ -1303,7 +1283,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntentVariantSet do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest do
+defmodule Inttegro.PurchaseIntents.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct expires_at: nil, id: nil, quantity: nil, purchase_intent_id: nil, reactivate: nil
 
@@ -1311,7 +1291,7 @@ defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest do
   @type t :: %__MODULE__{
           expires_at: String.t() | nil,
           id: String.t() | nil,
-          quantity: Inttegro.PurchaseIntents.UpdatePurchaseIntentRequestQuantity.t() | nil,
+          quantity: Inttegro.PurchaseIntents.UpdateRequestQuantity.t() | nil,
           purchase_intent_id: String.t() | nil,
           reactivate: boolean() | nil
         }
@@ -1328,10 +1308,7 @@ defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest do
       quantity:
         if(is_nil(Map.get(map, "quantity")),
           do: nil,
-          else:
-            Inttegro.PurchaseIntents.UpdatePurchaseIntentRequestQuantity.from_map(
-              Map.get(map, "quantity")
-            )
+          else: Inttegro.PurchaseIntents.UpdateRequestQuantity.from_map(Map.get(map, "quantity"))
         ),
       purchase_intent_id:
         if(is_nil(Map.get(map, "purchase_intent_id")),
@@ -1365,7 +1342,7 @@ defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequest do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.UpdatePurchaseIntentRequestQuantity do
+defmodule Inttegro.PurchaseIntents.UpdateRequestQuantity do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:min]
   defstruct max: nil, min: nil

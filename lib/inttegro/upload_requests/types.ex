@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.UploadRequests.UploadRequestStatus do
+defmodule Inttegro.UploadRequests.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :pending | :uploading | :fulfilled | :expired | :canceled | :failed | String.t()
@@ -67,20 +67,20 @@ defmodule Inttegro.UploadRequests.UploadReviewType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest do
+defmodule Inttegro.UploadRequests.ReviewAttemptRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :union)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :union)
   @type t ::
-          Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest.t()
-          | Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest.t()
+          Inttegro.UploadRequests.ReviewAttemptByIDRequest.t()
+          | Inttegro.UploadRequests.ReviewAttemptByOrdinalRequest.t()
 
   @doc false
   @spec decode(term()) :: t()
   def decode(value) do
     Enum.find_value(
       [
-        Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest,
-        Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest
+        Inttegro.UploadRequests.ReviewAttemptByIDRequest,
+        Inttegro.UploadRequests.ReviewAttemptByOrdinalRequest
       ],
       value,
       fn module ->
@@ -94,14 +94,14 @@ defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.CancelUploadRequestRequest do
+defmodule Inttegro.UploadRequests.CancelRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct canceled_by: nil, id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          canceled_by: Inttegro.Files.FileActorInput.t() | nil,
+          canceled_by: Inttegro.Files.ActorInput.t() | nil,
           id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -114,7 +114,7 @@ defmodule Inttegro.UploadRequests.CancelUploadRequestRequest do
       canceled_by:
         if(is_nil(Map.get(map, "canceled_by")),
           do: nil,
-          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "canceled_by"))
+          else: Inttegro.Files.ActorInput.from_map(Map.get(map, "canceled_by"))
         ),
       id: Map.fetch!(map, "id")
     }
@@ -133,7 +133,7 @@ defmodule Inttegro.UploadRequests.CancelUploadRequestRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.CreateUploadRequestRequest do
+defmodule Inttegro.UploadRequests.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:purpose]
   defstruct constraints: nil,
@@ -149,13 +149,13 @@ defmodule Inttegro.UploadRequests.CreateUploadRequestRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          constraints: Inttegro.UploadRequests.UploadRequestConstraintsInput.t() | nil,
-          display: Inttegro.UploadRequests.UploadRequestDisplayInput.t() | nil,
-          subject: Inttegro.Files.FilePartyInput.t() | nil,
-          recipient: Inttegro.Files.FilePartyInput.t() | nil,
-          resource: Inttegro.Files.FileResourceInput.t() | nil,
-          requester: Inttegro.Files.FileActorInput.t() | nil,
-          attempts: Inttegro.UploadRequests.UploadRequestAttemptsRequest.t() | nil,
+          constraints: Inttegro.UploadRequests.ConstraintsInput.t() | nil,
+          display: Inttegro.UploadRequests.DisplayInput.t() | nil,
+          subject: Inttegro.Files.PartyInput.t() | nil,
+          recipient: Inttegro.Files.PartyInput.t() | nil,
+          resource: Inttegro.Files.ResourceInput.t() | nil,
+          requester: Inttegro.Files.ActorInput.t() | nil,
+          attempts: Inttegro.UploadRequests.AttemptsRequest.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           expires_at: String.t() | nil,
           purpose: String.t()
@@ -170,44 +170,37 @@ defmodule Inttegro.UploadRequests.CreateUploadRequestRequest do
       constraints:
         if(is_nil(Map.get(map, "constraints")),
           do: nil,
-          else:
-            Inttegro.UploadRequests.UploadRequestConstraintsInput.from_map(
-              Map.get(map, "constraints")
-            )
+          else: Inttegro.UploadRequests.ConstraintsInput.from_map(Map.get(map, "constraints"))
         ),
       display:
         if(is_nil(Map.get(map, "display")),
           do: nil,
-          else:
-            Inttegro.UploadRequests.UploadRequestDisplayInput.from_map(Map.get(map, "display"))
+          else: Inttegro.UploadRequests.DisplayInput.from_map(Map.get(map, "display"))
         ),
       subject:
         if(is_nil(Map.get(map, "subject")),
           do: nil,
-          else: Inttegro.Files.FilePartyInput.from_map(Map.get(map, "subject"))
+          else: Inttegro.Files.PartyInput.from_map(Map.get(map, "subject"))
         ),
       recipient:
         if(is_nil(Map.get(map, "recipient")),
           do: nil,
-          else: Inttegro.Files.FilePartyInput.from_map(Map.get(map, "recipient"))
+          else: Inttegro.Files.PartyInput.from_map(Map.get(map, "recipient"))
         ),
       resource:
         if(is_nil(Map.get(map, "resource")),
           do: nil,
-          else: Inttegro.Files.FileResourceInput.from_map(Map.get(map, "resource"))
+          else: Inttegro.Files.ResourceInput.from_map(Map.get(map, "resource"))
         ),
       requester:
         if(is_nil(Map.get(map, "requester")),
           do: nil,
-          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "requester"))
+          else: Inttegro.Files.ActorInput.from_map(Map.get(map, "requester"))
         ),
       attempts:
         if(is_nil(Map.get(map, "attempts")),
           do: nil,
-          else:
-            Inttegro.UploadRequests.UploadRequestAttemptsRequest.from_map(
-              Map.get(map, "attempts")
-            )
+          else: Inttegro.UploadRequests.AttemptsRequest.from_map(Map.get(map, "attempts"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -253,7 +246,7 @@ defmodule Inttegro.UploadRequests.CreateUploadRequestRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.LookupUploadRequestRequest do
+defmodule Inttegro.UploadRequests.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct id: nil
@@ -284,15 +277,15 @@ defmodule Inttegro.UploadRequests.LookupUploadRequestRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.PageUploadRequestsRequest do
+defmodule Inttegro.UploadRequests.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct purpose: nil, status: nil, resource: nil, page_number: nil, page_size: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           purpose: String.t() | nil,
-          status: Inttegro.UploadRequests.UploadRequestStatus.t() | nil,
-          resource: Inttegro.Files.FileResourceInput.t() | nil,
+          status: Inttegro.UploadRequests.Status.t() | nil,
+          resource: Inttegro.Files.ResourceInput.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil
         }
@@ -307,12 +300,12 @@ defmodule Inttegro.UploadRequests.PageUploadRequestsRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.UploadRequests.UploadRequestStatus.decode(Map.get(map, "status"))
+          else: Inttegro.UploadRequests.Status.decode(Map.get(map, "status"))
         ),
       resource:
         if(is_nil(Map.get(map, "resource")),
           do: nil,
-          else: Inttegro.Files.FileResourceInput.from_map(Map.get(map, "resource"))
+          else: Inttegro.Files.ResourceInput.from_map(Map.get(map, "resource"))
         ),
       page_number:
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
@@ -328,7 +321,7 @@ defmodule Inttegro.UploadRequests.PageUploadRequestsRequest do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.UploadRequests.UploadRequestStatus.encode(value.status)
+          else: Inttegro.UploadRequests.Status.encode(value.status)
         ),
       "resource" =>
         if(is_nil(value.resource), do: nil, else: Inttegro.Codec.encode(value.resource)),
@@ -342,7 +335,7 @@ defmodule Inttegro.UploadRequests.PageUploadRequestsRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest do
+defmodule Inttegro.UploadRequests.ReviewAttemptByIDRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:attempt_id, :decision, :id]
   defstruct public_message: nil, reasons: nil, attempt_id: nil, decision: nil, id: nil
@@ -350,7 +343,7 @@ defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           public_message: String.t() | nil,
-          reasons: [Inttegro.UploadRequests.UploadRequestReviewReasonInput.t()] | nil,
+          reasons: [Inttegro.UploadRequests.ReviewReasonInput.t()] | nil,
           attempt_id: String.t(),
           decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           id: String.t()
@@ -369,7 +362,7 @@ defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "reasons"), fn item ->
-              Inttegro.UploadRequests.UploadRequestReviewReasonInput.from_map(item)
+              Inttegro.UploadRequests.ReviewReasonInput.from_map(item)
             end)
         ),
       attempt_id: Map.fetch!(map, "attempt_id"),
@@ -401,7 +394,7 @@ defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByIDRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest do
+defmodule Inttegro.UploadRequests.ReviewAttemptByOrdinalRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:attempt_ordinal, :decision, :id]
   defstruct public_message: nil, reasons: nil, attempt_ordinal: nil, decision: nil, id: nil
@@ -409,7 +402,7 @@ defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           public_message: String.t() | nil,
-          reasons: [Inttegro.UploadRequests.UploadRequestReviewReasonInput.t()] | nil,
+          reasons: [Inttegro.UploadRequests.ReviewReasonInput.t()] | nil,
           attempt_ordinal: integer(),
           decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           id: String.t()
@@ -428,7 +421,7 @@ defmodule Inttegro.UploadRequests.ReviewUploadRequestAttemptByOrdinalRequest do
           do: nil,
           else:
             Enum.map(Map.get(map, "reasons"), fn item ->
-              Inttegro.UploadRequests.UploadRequestReviewReasonInput.from_map(item)
+              Inttegro.UploadRequests.ReviewReasonInput.from_map(item)
             end)
         ),
       attempt_ordinal: Map.fetch!(map, "attempt_ordinal"),
@@ -468,7 +461,7 @@ defmodule Inttegro.UploadRequests.UploadFulfillment do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           upload_request: Inttegro.UploadRequests.UploadRequest.t(),
-          file: Inttegro.Files.FileUploadReceipt.t()
+          file: Inttegro.Files.UploadReceipt.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -479,7 +472,7 @@ defmodule Inttegro.UploadRequests.UploadFulfillment do
     %__MODULE__{
       upload_request:
         Inttegro.UploadRequests.UploadRequest.from_map(Map.fetch!(map, "upload_request")),
-      file: Inttegro.Files.FileUploadReceipt.from_map(Map.fetch!(map, "file"))
+      file: Inttegro.Files.UploadReceipt.from_map(Map.fetch!(map, "file"))
     }
   end
 
@@ -543,19 +536,19 @@ defmodule Inttegro.UploadRequests.UploadRequest do
   @type t :: %__MODULE__{
           id: String.t(),
           purpose: String.t(),
-          status: Inttegro.UploadRequests.UploadRequestStatus.t(),
+          status: Inttegro.UploadRequests.Status.t(),
           active: boolean(),
           file_id: String.t() | nil,
           upload_url: String.t() | nil,
-          constraints: Inttegro.UploadRequests.UploadRequestConstraints.t(),
-          display: Inttegro.UploadRequests.UploadRequestDisplay.t(),
-          subject: Inttegro.Files.FileParty.t(),
-          recipient: Inttegro.Files.FileParty.t(),
-          resource: Inttegro.Files.FileResource.t(),
-          requester: Inttegro.UploadRequests.UploadRequestActor.t(),
-          attempts: Inttegro.UploadRequests.UploadRequestAttempts.t(),
-          latest_error: Inttegro.UploadRequests.UploadRequestLatestError.t() | nil,
-          canceled_by: Inttegro.UploadRequests.UploadRequestActor.t() | nil,
+          constraints: Inttegro.UploadRequests.Constraints.t(),
+          display: Inttegro.UploadRequests.Display.t(),
+          subject: Inttegro.Files.Party.t(),
+          recipient: Inttegro.Files.Party.t(),
+          resource: Inttegro.Files.Resource.t(),
+          requester: Inttegro.UploadRequests.Actor.t(),
+          attempts: Inttegro.UploadRequests.Attempts.t(),
+          latest_error: Inttegro.UploadRequests.LatestError.t() | nil,
+          canceled_by: Inttegro.UploadRequests.Actor.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
           created_at: String.t(),
@@ -565,7 +558,7 @@ defmodule Inttegro.UploadRequests.UploadRequest do
           fulfilled_at: String.t() | nil,
           expired_at: String.t() | nil,
           canceled_at: String.t() | nil,
-          attempt: Inttegro.UploadRequests.UploadRequestAttempt.t() | nil
+          attempt: Inttegro.UploadRequests.Attempt.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -576,33 +569,27 @@ defmodule Inttegro.UploadRequests.UploadRequest do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       purpose: Map.fetch!(map, "purpose"),
-      status: Inttegro.UploadRequests.UploadRequestStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.UploadRequests.Status.decode(Map.fetch!(map, "status")),
       active: Map.fetch!(map, "active"),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
       upload_url:
         if(is_nil(Map.get(map, "upload_url")), do: nil, else: Map.get(map, "upload_url")),
-      constraints:
-        Inttegro.UploadRequests.UploadRequestConstraints.from_map(Map.fetch!(map, "constraints")),
-      display: Inttegro.UploadRequests.UploadRequestDisplay.from_map(Map.fetch!(map, "display")),
-      subject: Inttegro.Files.FileParty.from_map(Map.fetch!(map, "subject")),
-      recipient: Inttegro.Files.FileParty.from_map(Map.fetch!(map, "recipient")),
-      resource: Inttegro.Files.FileResource.from_map(Map.fetch!(map, "resource")),
-      requester:
-        Inttegro.UploadRequests.UploadRequestActor.from_map(Map.fetch!(map, "requester")),
-      attempts:
-        Inttegro.UploadRequests.UploadRequestAttempts.from_map(Map.fetch!(map, "attempts")),
+      constraints: Inttegro.UploadRequests.Constraints.from_map(Map.fetch!(map, "constraints")),
+      display: Inttegro.UploadRequests.Display.from_map(Map.fetch!(map, "display")),
+      subject: Inttegro.Files.Party.from_map(Map.fetch!(map, "subject")),
+      recipient: Inttegro.Files.Party.from_map(Map.fetch!(map, "recipient")),
+      resource: Inttegro.Files.Resource.from_map(Map.fetch!(map, "resource")),
+      requester: Inttegro.UploadRequests.Actor.from_map(Map.fetch!(map, "requester")),
+      attempts: Inttegro.UploadRequests.Attempts.from_map(Map.fetch!(map, "attempts")),
       latest_error:
         if(is_nil(Map.get(map, "latest_error")),
           do: nil,
-          else:
-            Inttegro.UploadRequests.UploadRequestLatestError.from_map(
-              Map.get(map, "latest_error")
-            )
+          else: Inttegro.UploadRequests.LatestError.from_map(Map.get(map, "latest_error"))
         ),
       canceled_by:
         if(is_nil(Map.get(map, "canceled_by")),
           do: nil,
-          else: Inttegro.UploadRequests.UploadRequestActor.from_map(Map.get(map, "canceled_by"))
+          else: Inttegro.UploadRequests.Actor.from_map(Map.get(map, "canceled_by"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -628,7 +615,7 @@ defmodule Inttegro.UploadRequests.UploadRequest do
       attempt:
         if(is_nil(Map.get(map, "attempt")),
           do: nil,
-          else: Inttegro.UploadRequests.UploadRequestAttempt.from_map(Map.get(map, "attempt"))
+          else: Inttegro.UploadRequests.Attempt.from_map(Map.get(map, "attempt"))
         )
     }
   end
@@ -639,7 +626,7 @@ defmodule Inttegro.UploadRequests.UploadRequest do
     %{
       "id" => Inttegro.Codec.encode(value.id),
       "purpose" => Inttegro.Codec.encode(value.purpose),
-      "status" => Inttegro.UploadRequests.UploadRequestStatus.encode(value.status),
+      "status" => Inttegro.UploadRequests.Status.encode(value.status),
       "active" => Inttegro.Codec.encode(value.active),
       "file_id" => if(is_nil(value.file_id), do: nil, else: Inttegro.Codec.encode(value.file_id)),
       "upload_url" =>
@@ -689,7 +676,7 @@ defmodule Inttegro.UploadRequests.UploadRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestActor do
+defmodule Inttegro.UploadRequests.Actor do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct email: nil, id: nil, name: nil, type: nil
@@ -729,7 +716,7 @@ defmodule Inttegro.UploadRequests.UploadRequestActor do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestAttempt do
+defmodule Inttegro.UploadRequests.Attempt do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:attempted_at, :id, :ordinal, :status, :upload_request_id]
   defstruct attempted_at: nil,
@@ -751,13 +738,13 @@ defmodule Inttegro.UploadRequests.UploadRequestAttempt do
           attempted_at: String.t(),
           content_type: String.t() | nil,
           declared_size: integer() | nil,
-          error: Inttegro.UploadRequests.UploadRequestLatestError.t() | nil,
+          error: Inttegro.UploadRequests.LatestError.t() | nil,
           failed_at: String.t() | nil,
           file_id: String.t() | nil,
           filename: String.t() | nil,
           id: String.t(),
           ordinal: integer(),
-          review: Inttegro.UploadRequests.UploadRequestReview.t() | nil,
+          review: Inttegro.UploadRequests.Review.t() | nil,
           status: String.t(),
           succeeded_at: String.t() | nil,
           upload_request_id: String.t()
@@ -777,7 +764,7 @@ defmodule Inttegro.UploadRequests.UploadRequestAttempt do
       error:
         if(is_nil(Map.get(map, "error")),
           do: nil,
-          else: Inttegro.UploadRequests.UploadRequestLatestError.from_map(Map.get(map, "error"))
+          else: Inttegro.UploadRequests.LatestError.from_map(Map.get(map, "error"))
         ),
       failed_at: if(is_nil(Map.get(map, "failed_at")), do: nil, else: Map.get(map, "failed_at")),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
@@ -787,7 +774,7 @@ defmodule Inttegro.UploadRequests.UploadRequestAttempt do
       review:
         if(is_nil(Map.get(map, "review")),
           do: nil,
-          else: Inttegro.UploadRequests.UploadRequestReview.from_map(Map.get(map, "review"))
+          else: Inttegro.UploadRequests.Review.from_map(Map.get(map, "review"))
         ),
       status: Map.fetch!(map, "status"),
       succeeded_at:
@@ -824,7 +811,7 @@ defmodule Inttegro.UploadRequests.UploadRequestAttempt do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestAttempts do
+defmodule Inttegro.UploadRequests.Attempts do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:attempt_count, :failed_attempt_count]
   defstruct max_attempts: nil,
@@ -877,7 +864,7 @@ defmodule Inttegro.UploadRequests.UploadRequestAttempts do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestAttemptsRequest do
+defmodule Inttegro.UploadRequests.AttemptsRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct max_attempts: nil
 
@@ -909,7 +896,7 @@ defmodule Inttegro.UploadRequests.UploadRequestAttemptsRequest do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestConstraints do
+defmodule Inttegro.UploadRequests.Constraints do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct min_size: nil,
             max_size: nil,
@@ -980,7 +967,7 @@ defmodule Inttegro.UploadRequests.UploadRequestConstraints do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestConstraintsInput do
+defmodule Inttegro.UploadRequests.ConstraintsInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct min_size: nil,
             max_size: nil,
@@ -1051,7 +1038,7 @@ defmodule Inttegro.UploadRequests.UploadRequestConstraintsInput do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestDisplay do
+defmodule Inttegro.UploadRequests.Display do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct title: nil, description: nil, help_text: nil
 
@@ -1090,7 +1077,7 @@ defmodule Inttegro.UploadRequests.UploadRequestDisplay do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestDisplayInput do
+defmodule Inttegro.UploadRequests.DisplayInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct title: nil, description: nil, help_text: nil
 
@@ -1129,7 +1116,7 @@ defmodule Inttegro.UploadRequests.UploadRequestDisplayInput do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestLatestError do
+defmodule Inttegro.UploadRequests.LatestError do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct code: nil, param: nil, message: nil, retryable: nil, at: nil
 
@@ -1172,7 +1159,7 @@ defmodule Inttegro.UploadRequests.UploadRequestLatestError do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestPage do
+defmodule Inttegro.UploadRequests.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :size, :upload_requests]
   defstruct number: nil, size: nil, upload_requests: nil
@@ -1213,7 +1200,7 @@ defmodule Inttegro.UploadRequests.UploadRequestPage do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestReview do
+defmodule Inttegro.UploadRequests.Review do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:created_at, :decision, :reviewed_at, :type]
   defstruct created_at: nil,
@@ -1230,7 +1217,7 @@ defmodule Inttegro.UploadRequests.UploadRequestReview do
           decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           file_id: String.t() | nil,
           public_message: String.t() | nil,
-          reasons: [Inttegro.UploadRequests.UploadRequestReviewReason.t()] | nil,
+          reasons: [Inttegro.UploadRequests.ReviewReason.t()] | nil,
           reviewed_at: String.t(),
           type: Inttegro.UploadRequests.UploadReviewType.t()
         }
@@ -1251,7 +1238,7 @@ defmodule Inttegro.UploadRequests.UploadRequestReview do
           do: nil,
           else:
             Enum.map(Map.get(map, "reasons"), fn item ->
-              Inttegro.UploadRequests.UploadRequestReviewReason.from_map(item)
+              Inttegro.UploadRequests.ReviewReason.from_map(item)
             end)
         ),
       reviewed_at: Map.fetch!(map, "reviewed_at"),
@@ -1284,7 +1271,7 @@ defmodule Inttegro.UploadRequests.UploadRequestReview do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestReviewReason do
+defmodule Inttegro.UploadRequests.ReviewReason do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:code, :message]
   defstruct code: nil, message: nil, param: nil
@@ -1321,7 +1308,7 @@ defmodule Inttegro.UploadRequests.UploadRequestReviewReason do
   end
 end
 
-defmodule Inttegro.UploadRequests.UploadRequestReviewReasonInput do
+defmodule Inttegro.UploadRequests.ReviewReasonInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:code, :message]
   defstruct param: nil, code: nil, message: nil

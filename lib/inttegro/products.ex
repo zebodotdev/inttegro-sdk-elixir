@@ -10,7 +10,7 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.CreateProductRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.Products do
 
   ## Example
 
-      request = Inttegro.Products.CreateProductRequest.new!(request_attributes)
+      request = Inttegro.Products.CreateRequest.new!(request_attributes)
 
       case Inttegro.Products.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.Products.CreateProductRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.Products.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,26 +52,26 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.AddProductPriceRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.AddPriceRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Products.AddProductPriceRequest.new!(request_attributes)
+      request = Inttegro.Products.AddPriceRequest.new!(request_attributes)
 
       case Inttegro.Products.add_price(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec add_price(Client.t(), Inttegro.Products.AddProductPriceRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec add_price(Client.t(), Inttegro.Products.AddPriceRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def add_price(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -84,7 +84,7 @@ defmodule Inttegro.Products do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 
@@ -94,7 +94,7 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.LookupProductRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -105,14 +105,14 @@ defmodule Inttegro.Products do
 
   ## Example
 
-      request = Inttegro.Products.LookupProductRequest.new!(request_attributes)
+      request = Inttegro.Products.LookupRequest.new!(request_attributes)
 
       case Inttegro.Products.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Products.LookupProductRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Products.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -136,7 +136,7 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.UpdateProductRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -147,14 +147,14 @@ defmodule Inttegro.Products do
 
   ## Example
 
-      request = Inttegro.Products.UpdateProductRequest.new!(request_attributes)
+      request = Inttegro.Products.UpdateRequest.new!(request_attributes)
 
       case Inttegro.Products.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.Products.UpdateProductRequest.t(), keyword()) ::
+  @spec update(Client.t(), Inttegro.Products.UpdateRequest.t(), keyword()) ::
           {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
@@ -178,7 +178,7 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.ProductActionRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.ActionRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -189,14 +189,14 @@ defmodule Inttegro.Products do
 
   ## Example
 
-      request = Inttegro.Products.ProductActionRequest.new!(request_attributes)
+      request = Inttegro.Products.ActionRequest.new!(request_attributes)
 
       case Inttegro.Products.publish(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec publish(Client.t(), Inttegro.Products.ProductActionRequest.t(), keyword()) ::
+  @spec publish(Client.t(), Inttegro.Products.ActionRequest.t(), keyword()) ::
           {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def publish(client, request, options \\ []) do
     with {:ok, value} <-
@@ -220,7 +220,7 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.ProductActionRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.ActionRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -231,14 +231,14 @@ defmodule Inttegro.Products do
 
   ## Example
 
-      request = Inttegro.Products.ProductActionRequest.new!(request_attributes)
+      request = Inttegro.Products.ActionRequest.new!(request_attributes)
 
       case Inttegro.Products.unpublish(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec unpublish(Client.t(), Inttegro.Products.ProductActionRequest.t(), keyword()) ::
+  @spec unpublish(Client.t(), Inttegro.Products.ActionRequest.t(), keyword()) ::
           {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def unpublish(client, request, options \\ []) do
     with {:ok, value} <-
@@ -262,7 +262,7 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.ProductActionRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.ActionRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -273,14 +273,14 @@ defmodule Inttegro.Products do
 
   ## Example
 
-      request = Inttegro.Products.ProductActionRequest.new!(request_attributes)
+      request = Inttegro.Products.ActionRequest.new!(request_attributes)
 
       case Inttegro.Products.archive(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec archive(Client.t(), Inttegro.Products.ProductActionRequest.t(), keyword()) ::
+  @spec archive(Client.t(), Inttegro.Products.ActionRequest.t(), keyword()) ::
           {:ok, Inttegro.Products.Product.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
@@ -304,26 +304,26 @@ defmodule Inttegro.Products do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Products.PageProductsRequest` containing the operation input.
+  * `request` — a `Inttegro.Products.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Products.ProductPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Products.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Products.PageProductsRequest.new!(request_attributes)
+      request = Inttegro.Products.PageRequest.new!(request_attributes)
 
       case Inttegro.Products.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Products.PageProductsRequest.t(), keyword()) ::
-          {:ok, Inttegro.Products.ProductPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Products.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Products.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -336,7 +336,7 @@ defmodule Inttegro.Products do
              "page",
              true
            ) do
-      {:ok, Inttegro.Products.ProductPage.from_map(value)}
+      {:ok, Inttegro.Products.Page.from_map(value)}
     end
   end
 end

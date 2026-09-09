@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Files.FileDelivery do
+defmodule Inttegro.Files.Delivery do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :stream | :redirect | String.t()
@@ -21,7 +21,7 @@ defmodule Inttegro.Files.FileDelivery do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Files.FileDisposition do
+defmodule Inttegro.Files.Disposition do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :attachment | :inline | String.t()
@@ -42,7 +42,7 @@ defmodule Inttegro.Files.FileDisposition do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Files.FileScanStatus do
+defmodule Inttegro.Files.ScanStatus do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :pending | :passed | :failed | :skipped | String.t()
@@ -65,7 +65,7 @@ defmodule Inttegro.Files.FileScanStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Files.FileSourceType do
+defmodule Inttegro.Files.SourceType do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :direct | :upload_request | :service | String.t()
@@ -87,7 +87,7 @@ defmodule Inttegro.Files.FileSourceType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Files.FileStatus do
+defmodule Inttegro.Files.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :uploading | :processing | :available | :failed | :deleted | String.t()
@@ -111,7 +111,7 @@ defmodule Inttegro.Files.FileStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Files.FileStorageEncoding do
+defmodule Inttegro.Files.StorageEncoding do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :identity | :brotli | String.t()
@@ -132,7 +132,7 @@ defmodule Inttegro.Files.FileStorageEncoding do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Files.DeleteFileRequest do
+defmodule Inttegro.Files.DeleteRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:file_id]
   defstruct file_id: nil
@@ -205,19 +205,19 @@ defmodule Inttegro.Files.File do
   @type t :: %__MODULE__{
           id: String.t(),
           purpose: String.t(),
-          status: Inttegro.Files.FileStatus.t(),
-          scan_status: Inttegro.Files.FileScanStatus.t(),
+          status: Inttegro.Files.Status.t(),
+          scan_status: Inttegro.Files.ScanStatus.t(),
           name: String.t() | nil,
           filename: String.t() | nil,
           content_type: String.t(),
           size: integer(),
           checksum_sha256: String.t(),
-          created_by: Inttegro.Files.FileActor.t(),
-          source: Inttegro.Files.FileSource.t(),
-          media: Inttegro.Files.FileMedia.t() | nil,
-          storage: Inttegro.Files.PublicFileStorage.t(),
-          delivery: Inttegro.Files.FileDeliveryDetails.t() | nil,
-          latest_error: Inttegro.Files.FileLatestError.t() | nil,
+          created_by: Inttegro.Files.Actor.t(),
+          source: Inttegro.Files.Source.t(),
+          media: Inttegro.Files.Media.t() | nil,
+          storage: Inttegro.Files.PublicStorage.t(),
+          delivery: Inttegro.Files.DeliveryDetails.t() | nil,
+          latest_error: Inttegro.Files.LatestError.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
           created_at: String.t(),
@@ -234,30 +234,30 @@ defmodule Inttegro.Files.File do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
       purpose: Map.fetch!(map, "purpose"),
-      status: Inttegro.Files.FileStatus.decode(Map.fetch!(map, "status")),
-      scan_status: Inttegro.Files.FileScanStatus.decode(Map.fetch!(map, "scan_status")),
+      status: Inttegro.Files.Status.decode(Map.fetch!(map, "status")),
+      scan_status: Inttegro.Files.ScanStatus.decode(Map.fetch!(map, "scan_status")),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       content_type: Map.fetch!(map, "content_type"),
       size: Map.fetch!(map, "size"),
       checksum_sha256: Map.fetch!(map, "checksum_sha256"),
-      created_by: Inttegro.Files.FileActor.from_map(Map.fetch!(map, "created_by")),
-      source: Inttegro.Files.FileSource.from_map(Map.fetch!(map, "source")),
+      created_by: Inttegro.Files.Actor.from_map(Map.fetch!(map, "created_by")),
+      source: Inttegro.Files.Source.from_map(Map.fetch!(map, "source")),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Inttegro.Files.FileMedia.from_map(Map.get(map, "media"))
+          else: Inttegro.Files.Media.from_map(Map.get(map, "media"))
         ),
-      storage: Inttegro.Files.PublicFileStorage.from_map(Map.fetch!(map, "storage")),
+      storage: Inttegro.Files.PublicStorage.from_map(Map.fetch!(map, "storage")),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.Files.FileDeliveryDetails.from_map(Map.get(map, "delivery"))
+          else: Inttegro.Files.DeliveryDetails.from_map(Map.get(map, "delivery"))
         ),
       latest_error:
         if(is_nil(Map.get(map, "latest_error")),
           do: nil,
-          else: Inttegro.Files.FileLatestError.from_map(Map.get(map, "latest_error"))
+          else: Inttegro.Files.LatestError.from_map(Map.get(map, "latest_error"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -284,8 +284,8 @@ defmodule Inttegro.Files.File do
     %{
       "id" => Inttegro.Codec.encode(value.id),
       "purpose" => Inttegro.Codec.encode(value.purpose),
-      "status" => Inttegro.Files.FileStatus.encode(value.status),
-      "scan_status" => Inttegro.Files.FileScanStatus.encode(value.scan_status),
+      "status" => Inttegro.Files.Status.encode(value.status),
+      "scan_status" => Inttegro.Files.ScanStatus.encode(value.scan_status),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "filename" =>
         if(is_nil(value.filename), do: nil, else: Inttegro.Codec.encode(value.filename)),
@@ -328,7 +328,7 @@ defmodule Inttegro.Files.File do
   end
 end
 
-defmodule Inttegro.Files.FileActor do
+defmodule Inttegro.Files.Actor do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct type: nil, id: nil, name: nil, email: nil
@@ -368,7 +368,7 @@ defmodule Inttegro.Files.FileActor do
   end
 end
 
-defmodule Inttegro.Files.FileActorInput do
+defmodule Inttegro.Files.ActorInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct email: nil, id: nil, name: nil, type: nil
 
@@ -407,15 +407,15 @@ defmodule Inttegro.Files.FileActorInput do
   end
 end
 
-defmodule Inttegro.Files.FileContentsRequest do
+defmodule Inttegro.Files.ContentsRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:file_id]
   defstruct disposition: nil, delivery: nil, file_id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          disposition: Inttegro.Files.FileDisposition.t() | nil,
-          delivery: Inttegro.Files.FileDelivery.t() | nil,
+          disposition: Inttegro.Files.Disposition.t() | nil,
+          delivery: Inttegro.Files.Delivery.t() | nil,
           file_id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -428,12 +428,12 @@ defmodule Inttegro.Files.FileContentsRequest do
       disposition:
         if(is_nil(Map.get(map, "disposition")),
           do: nil,
-          else: Inttegro.Files.FileDisposition.decode(Map.get(map, "disposition"))
+          else: Inttegro.Files.Disposition.decode(Map.get(map, "disposition"))
         ),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.Files.FileDelivery.decode(Map.get(map, "delivery"))
+          else: Inttegro.Files.Delivery.decode(Map.get(map, "delivery"))
         ),
       file_id: Map.fetch!(map, "file_id")
     }
@@ -446,12 +446,12 @@ defmodule Inttegro.Files.FileContentsRequest do
       "disposition" =>
         if(is_nil(value.disposition),
           do: nil,
-          else: Inttegro.Files.FileDisposition.encode(value.disposition)
+          else: Inttegro.Files.Disposition.encode(value.disposition)
         ),
       "delivery" =>
         if(is_nil(value.delivery),
           do: nil,
-          else: Inttegro.Files.FileDelivery.encode(value.delivery)
+          else: Inttegro.Files.Delivery.encode(value.delivery)
         ),
       "file_id" => Inttegro.Codec.encode(value.file_id)
     }
@@ -460,7 +460,7 @@ defmodule Inttegro.Files.FileContentsRequest do
   end
 end
 
-defmodule Inttegro.Files.FileDeliveryDetails do
+defmodule Inttegro.Files.DeliveryDetails do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct public_url: nil, cache_control: nil, content_type: nil
 
@@ -502,7 +502,7 @@ defmodule Inttegro.Files.FileDeliveryDetails do
   end
 end
 
-defmodule Inttegro.Files.FileLatestError do
+defmodule Inttegro.Files.LatestError do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct code: nil, message: nil, retryable: nil, at: nil
 
@@ -542,7 +542,7 @@ defmodule Inttegro.Files.FileLatestError do
   end
 end
 
-defmodule Inttegro.Files.FileMedia do
+defmodule Inttegro.Files.Media do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct kind: nil,
             width: nil,
@@ -619,7 +619,7 @@ defmodule Inttegro.Files.FileMedia do
   end
 end
 
-defmodule Inttegro.Files.FilePage do
+defmodule Inttegro.Files.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :size, :files]
   defstruct number: nil, size: nil, files: nil
@@ -656,7 +656,7 @@ defmodule Inttegro.Files.FilePage do
   end
 end
 
-defmodule Inttegro.Files.FileParty do
+defmodule Inttegro.Files.Party do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct type: nil, id: nil, name: nil, email: nil
 
@@ -695,7 +695,7 @@ defmodule Inttegro.Files.FileParty do
   end
 end
 
-defmodule Inttegro.Files.FilePartyInput do
+defmodule Inttegro.Files.PartyInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct type: nil, id: nil, name: nil, email: nil
 
@@ -734,7 +734,7 @@ defmodule Inttegro.Files.FilePartyInput do
   end
 end
 
-defmodule Inttegro.Files.FileResource do
+defmodule Inttegro.Files.Resource do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct type: nil, id: nil, name: nil
 
@@ -770,7 +770,7 @@ defmodule Inttegro.Files.FileResource do
   end
 end
 
-defmodule Inttegro.Files.FileResourceInput do
+defmodule Inttegro.Files.ResourceInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct type: nil, id: nil, name: nil
 
@@ -806,13 +806,13 @@ defmodule Inttegro.Files.FileResourceInput do
   end
 end
 
-defmodule Inttegro.Files.FileSource do
+defmodule Inttegro.Files.Source do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct type: nil, service: nil, upload_request_id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          type: Inttegro.Files.FileSourceType.t() | nil,
+          type: Inttegro.Files.SourceType.t() | nil,
           service: String.t() | nil,
           upload_request_id: String.t() | nil
         }
@@ -826,7 +826,7 @@ defmodule Inttegro.Files.FileSource do
       type:
         if(is_nil(Map.get(map, "type")),
           do: nil,
-          else: Inttegro.Files.FileSourceType.decode(Map.get(map, "type"))
+          else: Inttegro.Files.SourceType.decode(Map.get(map, "type"))
         ),
       service: if(is_nil(Map.get(map, "service")), do: nil, else: Map.get(map, "service")),
       upload_request_id:
@@ -842,7 +842,7 @@ defmodule Inttegro.Files.FileSource do
   def to_map(value) do
     %{
       "type" =>
-        if(is_nil(value.type), do: nil, else: Inttegro.Files.FileSourceType.encode(value.type)),
+        if(is_nil(value.type), do: nil, else: Inttegro.Files.SourceType.encode(value.type)),
       "service" => if(is_nil(value.service), do: nil, else: Inttegro.Codec.encode(value.service)),
       "upload_request_id" =>
         if(is_nil(value.upload_request_id),
@@ -855,7 +855,7 @@ defmodule Inttegro.Files.FileSource do
   end
 end
 
-defmodule Inttegro.Files.FileUploadReceipt do
+defmodule Inttegro.Files.UploadReceipt do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:content_type, :created_at, :id, :size, :status]
   defstruct content_type: nil,
@@ -874,7 +874,7 @@ defmodule Inttegro.Files.FileUploadReceipt do
           id: String.t(),
           name: String.t() | nil,
           size: integer(),
-          status: Inttegro.Files.FileStatus.t()
+          status: Inttegro.Files.Status.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -889,7 +889,7 @@ defmodule Inttegro.Files.FileUploadReceipt do
       id: Map.fetch!(map, "id"),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       size: Map.fetch!(map, "size"),
-      status: Inttegro.Files.FileStatus.decode(Map.fetch!(map, "status"))
+      status: Inttegro.Files.Status.decode(Map.fetch!(map, "status"))
     }
   end
 
@@ -904,14 +904,14 @@ defmodule Inttegro.Files.FileUploadReceipt do
       "id" => Inttegro.Codec.encode(value.id),
       "name" => if(is_nil(value.name), do: nil, else: Inttegro.Codec.encode(value.name)),
       "size" => Inttegro.Codec.encode(value.size),
-      "status" => Inttegro.Files.FileStatus.encode(value.status)
+      "status" => Inttegro.Files.Status.encode(value.status)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
   end
 end
 
-defmodule Inttegro.Files.LookupFileRequest do
+defmodule Inttegro.Files.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:file_id]
   defstruct file_id: nil
@@ -942,7 +942,7 @@ defmodule Inttegro.Files.LookupFileRequest do
   end
 end
 
-defmodule Inttegro.Files.PageFilesRequest do
+defmodule Inttegro.Files.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct purpose: nil,
             status: nil,
@@ -954,7 +954,7 @@ defmodule Inttegro.Files.PageFilesRequest do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           purpose: String.t() | nil,
-          status: Inttegro.Files.FileStatus.t() | nil,
+          status: Inttegro.Files.Status.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil,
           created_after: String.t() | nil,
@@ -971,7 +971,7 @@ defmodule Inttegro.Files.PageFilesRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.Files.FileStatus.decode(Map.get(map, "status"))
+          else: Inttegro.Files.Status.decode(Map.get(map, "status"))
         ),
       page_number:
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
@@ -989,7 +989,7 @@ defmodule Inttegro.Files.PageFilesRequest do
     %{
       "purpose" => if(is_nil(value.purpose), do: nil, else: Inttegro.Codec.encode(value.purpose)),
       "status" =>
-        if(is_nil(value.status), do: nil, else: Inttegro.Files.FileStatus.encode(value.status)),
+        if(is_nil(value.status), do: nil, else: Inttegro.Files.Status.encode(value.status)),
       "page_number" =>
         if(is_nil(value.page_number), do: nil, else: Inttegro.Codec.encode(value.page_number)),
       "page_size" =>
@@ -1007,14 +1007,14 @@ defmodule Inttegro.Files.PageFilesRequest do
   end
 end
 
-defmodule Inttegro.Files.PublicFileStorage do
+defmodule Inttegro.Files.PublicStorage do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:encoding, :stored_size]
   defstruct encoding: nil, stored_size: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          encoding: Inttegro.Files.FileStorageEncoding.t(),
+          encoding: Inttegro.Files.StorageEncoding.t(),
           stored_size: integer()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1024,7 +1024,7 @@ defmodule Inttegro.Files.PublicFileStorage do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      encoding: Inttegro.Files.FileStorageEncoding.decode(Map.fetch!(map, "encoding")),
+      encoding: Inttegro.Files.StorageEncoding.decode(Map.fetch!(map, "encoding")),
       stored_size: Map.fetch!(map, "stored_size")
     }
   end
@@ -1033,7 +1033,7 @@ defmodule Inttegro.Files.PublicFileStorage do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "encoding" => Inttegro.Files.FileStorageEncoding.encode(value.encoding),
+      "encoding" => Inttegro.Files.StorageEncoding.encode(value.encoding),
       "stored_size" => Inttegro.Codec.encode(value.stored_size)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)

@@ -10,7 +10,7 @@ defmodule Inttegro.UploadRequests do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.UploadRequests.CreateUploadRequestRequest` containing the operation input.
+  * `request` — a `Inttegro.UploadRequests.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.UploadRequests do
 
   ## Example
 
-      request = Inttegro.UploadRequests.CreateUploadRequestRequest.new!(request_attributes)
+      request = Inttegro.UploadRequests.CreateRequest.new!(request_attributes)
 
       case Inttegro.UploadRequests.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.UploadRequests.CreateUploadRequestRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.UploadRequests.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,7 +52,7 @@ defmodule Inttegro.UploadRequests do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.UploadRequests.LookupUploadRequestRequest` containing the operation input.
+  * `request` — a `Inttegro.UploadRequests.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.UploadRequests do
 
   ## Example
 
-      request = Inttegro.UploadRequests.LookupUploadRequestRequest.new!(request_attributes)
+      request = Inttegro.UploadRequests.LookupRequest.new!(request_attributes)
 
       case Inttegro.UploadRequests.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.UploadRequests.LookupUploadRequestRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.UploadRequests.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,26 +94,26 @@ defmodule Inttegro.UploadRequests do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.UploadRequests.PageUploadRequestsRequest` containing the operation input.
+  * `request` — a `Inttegro.UploadRequests.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.UploadRequests.UploadRequestPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.UploadRequests.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.UploadRequests.PageUploadRequestsRequest.new!(request_attributes)
+      request = Inttegro.UploadRequests.PageRequest.new!(request_attributes)
 
       case Inttegro.UploadRequests.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.UploadRequests.PageUploadRequestsRequest.t(), keyword()) ::
-          {:ok, Inttegro.UploadRequests.UploadRequestPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.UploadRequests.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.UploadRequests.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -126,7 +126,7 @@ defmodule Inttegro.UploadRequests do
              "page",
              true
            ) do
-      {:ok, Inttegro.UploadRequests.UploadRequestPage.from_map(value)}
+      {:ok, Inttegro.UploadRequests.Page.from_map(value)}
     end
   end
 
@@ -136,7 +136,7 @@ defmodule Inttegro.UploadRequests do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.UploadRequests.CancelUploadRequestRequest` containing the operation input.
+  * `request` — a `Inttegro.UploadRequests.CancelRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -147,14 +147,14 @@ defmodule Inttegro.UploadRequests do
 
   ## Example
 
-      request = Inttegro.UploadRequests.CancelUploadRequestRequest.new!(request_attributes)
+      request = Inttegro.UploadRequests.CancelRequest.new!(request_attributes)
 
       case Inttegro.UploadRequests.cancel(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec cancel(Client.t(), Inttegro.UploadRequests.CancelUploadRequestRequest.t(), keyword()) ::
+  @spec cancel(Client.t(), Inttegro.UploadRequests.CancelRequest.t(), keyword()) ::
           {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
@@ -178,7 +178,7 @@ defmodule Inttegro.UploadRequests do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest` containing the operation input.
+  * `request` — a `Inttegro.UploadRequests.ReviewAttemptRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -189,7 +189,7 @@ defmodule Inttegro.UploadRequests do
 
   ## Example
 
-      # Build one of the concrete request variants listed by Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest.t/0.
+      # Build one of the concrete request variants listed by Inttegro.UploadRequests.ReviewAttemptRequest.t/0.
       request = concrete_request
 
       case Inttegro.UploadRequests.review(client, request) do
@@ -199,7 +199,7 @@ defmodule Inttegro.UploadRequests do
   """
   @spec review(
           Client.t(),
-          Inttegro.UploadRequests.ReviewUploadRequestAttemptRequest.t(),
+          Inttegro.UploadRequests.ReviewAttemptRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.UploadRequests.UploadRequest.t()} | {:error, Exception.t()}

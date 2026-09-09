@@ -7,7 +7,7 @@ Construct the page request for the domain you are reading:
 
 ```elixir
 request =
-  Inttegro.Orders.PageOrdersRequest.new!(
+  Inttegro.Orders.PageRequest.new!(
     page_number: 1,
     page_size: 50
   )
@@ -30,7 +30,7 @@ defmodule MyApp.InttegroOrderScan do
 
         current ->
           request =
-            Inttegro.Orders.PageOrdersRequest.new!(
+            Inttegro.Orders.PageRequest.new!(
               page_number: current,
               page_size: page_size
             )

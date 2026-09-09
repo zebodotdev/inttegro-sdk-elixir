@@ -10,7 +10,7 @@ defmodule Inttegro.Customers do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Customers.CreateCustomerRequest` containing the operation input.
+  * `request` — a `Inttegro.Customers.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.Customers do
 
   ## Example
 
-      request = Inttegro.Customers.CreateCustomerRequest.new!(request_attributes)
+      request = Inttegro.Customers.CreateRequest.new!(request_attributes)
 
       case Inttegro.Customers.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.Customers.CreateCustomerRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.Customers.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.Customers.Customer.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,7 +52,7 @@ defmodule Inttegro.Customers do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Customers.LookupCustomerRequest` containing the operation input.
+  * `request` — a `Inttegro.Customers.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.Customers do
 
   ## Example
 
-      request = Inttegro.Customers.LookupCustomerRequest.new!(request_attributes)
+      request = Inttegro.Customers.LookupRequest.new!(request_attributes)
 
       case Inttegro.Customers.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Customers.LookupCustomerRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Customers.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Customers.Customer.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,7 +94,7 @@ defmodule Inttegro.Customers do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Customers.UpdateCustomerRequest` containing the operation input.
+  * `request` — a `Inttegro.Customers.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -105,14 +105,14 @@ defmodule Inttegro.Customers do
 
   ## Example
 
-      request = Inttegro.Customers.UpdateCustomerRequest.new!(request_attributes)
+      request = Inttegro.Customers.UpdateRequest.new!(request_attributes)
 
       case Inttegro.Customers.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.Customers.UpdateCustomerRequest.t(), keyword()) ::
+  @spec update(Client.t(), Inttegro.Customers.UpdateRequest.t(), keyword()) ::
           {:ok, Inttegro.Customers.Customer.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
@@ -136,26 +136,26 @@ defmodule Inttegro.Customers do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Customers.PageCustomersRequest` containing the operation input.
+  * `request` — a `Inttegro.Customers.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Customers.CustomerPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Customers.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Customers.PageCustomersRequest.new!(request_attributes)
+      request = Inttegro.Customers.PageRequest.new!(request_attributes)
 
       case Inttegro.Customers.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Customers.PageCustomersRequest.t(), keyword()) ::
-          {:ok, Inttegro.Customers.CustomerPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Customers.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Customers.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -168,7 +168,7 @@ defmodule Inttegro.Customers do
              "page",
              true
            ) do
-      {:ok, Inttegro.Customers.CustomerPage.from_map(value)}
+      {:ok, Inttegro.Customers.Page.from_map(value)}
     end
   end
 end

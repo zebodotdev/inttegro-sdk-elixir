@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Checkout.CheckoutOrderStatus do
+defmodule Inttegro.Checkout.OrderStatus do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :preparing | :requires_payment | :completed | :canceled | :expired | String.t()
@@ -24,7 +24,7 @@ defmodule Inttegro.Checkout.CheckoutOrderStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.Checkout.CheckoutPaymentStatus do
+defmodule Inttegro.Checkout.PaymentStatus do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :requires_action | :processing | :succeeded | :failed | :cancelled | String.t()

@@ -10,7 +10,7 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.CreateMessageTemplateRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,7 +21,7 @@ defmodule Inttegro.MessageTemplates do
 
   ## Example
 
-      # Build one of the concrete request variants listed by Inttegro.MessageTemplates.CreateMessageTemplateRequest.t/0.
+      # Build one of the concrete request variants listed by Inttegro.MessageTemplates.CreateRequest.t/0.
       request = concrete_request
 
       case Inttegro.MessageTemplates.create(client, request) do
@@ -29,7 +29,7 @@ defmodule Inttegro.MessageTemplates do
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.MessageTemplates.CreateMessageTemplateRequest.t(), keyword()) ::
+  @spec create(Client.t(), Inttegro.MessageTemplates.CreateRequest.t(), keyword()) ::
           {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
@@ -53,7 +53,7 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.UpdateMessageTemplateRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -64,14 +64,14 @@ defmodule Inttegro.MessageTemplates do
 
   ## Example
 
-      request = Inttegro.MessageTemplates.UpdateMessageTemplateRequest.new!(request_attributes)
+      request = Inttegro.MessageTemplates.UpdateRequest.new!(request_attributes)
 
       case Inttegro.MessageTemplates.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.MessageTemplates.UpdateMessageTemplateRequest.t(), keyword()) ::
+  @spec update(Client.t(), Inttegro.MessageTemplates.UpdateRequest.t(), keyword()) ::
           {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
@@ -95,7 +95,7 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.MessageTemplateIDRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.IDRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -106,14 +106,14 @@ defmodule Inttegro.MessageTemplates do
 
   ## Example
 
-      request = Inttegro.MessageTemplates.MessageTemplateIDRequest.new!(request_attributes)
+      request = Inttegro.MessageTemplates.IDRequest.new!(request_attributes)
 
       case Inttegro.MessageTemplates.publish(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec publish(Client.t(), Inttegro.MessageTemplates.MessageTemplateIDRequest.t(), keyword()) ::
+  @spec publish(Client.t(), Inttegro.MessageTemplates.IDRequest.t(), keyword()) ::
           {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def publish(client, request, options \\ []) do
     with {:ok, value} <-
@@ -137,7 +137,7 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.MessageTemplateIDRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.IDRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -148,14 +148,14 @@ defmodule Inttegro.MessageTemplates do
 
   ## Example
 
-      request = Inttegro.MessageTemplates.MessageTemplateIDRequest.new!(request_attributes)
+      request = Inttegro.MessageTemplates.IDRequest.new!(request_attributes)
 
       case Inttegro.MessageTemplates.archive(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec archive(Client.t(), Inttegro.MessageTemplates.MessageTemplateIDRequest.t(), keyword()) ::
+  @spec archive(Client.t(), Inttegro.MessageTemplates.IDRequest.t(), keyword()) ::
           {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
@@ -179,7 +179,7 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.MessageTemplateIDRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.IDRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -190,14 +190,14 @@ defmodule Inttegro.MessageTemplates do
 
   ## Example
 
-      request = Inttegro.MessageTemplates.MessageTemplateIDRequest.new!(request_attributes)
+      request = Inttegro.MessageTemplates.IDRequest.new!(request_attributes)
 
       case Inttegro.MessageTemplates.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.MessageTemplates.MessageTemplateIDRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.MessageTemplates.IDRequest.t(), keyword()) ::
           {:ok, Inttegro.MessageTemplates.MessageTemplate.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -221,26 +221,26 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.PageMessageTemplatesRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.MessageTemplates.MessageTemplatesPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.MessageTemplates.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.MessageTemplates.PageMessageTemplatesRequest.new!(request_attributes)
+      request = Inttegro.MessageTemplates.PageRequest.new!(request_attributes)
 
       case Inttegro.MessageTemplates.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.MessageTemplates.PageMessageTemplatesRequest.t(), keyword()) ::
-          {:ok, Inttegro.MessageTemplates.MessageTemplatesPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.MessageTemplates.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.MessageTemplates.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -253,7 +253,7 @@ defmodule Inttegro.MessageTemplates do
              "page",
              true
            ) do
-      {:ok, Inttegro.MessageTemplates.MessageTemplatesPage.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.Page.from_map(value)}
     end
   end
 
@@ -263,18 +263,18 @@ defmodule Inttegro.MessageTemplates do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest` containing the operation input.
+  * `request` — a `Inttegro.MessageTemplates.RenderPreviewRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.MessageTemplates.MessageTemplatePreview.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.MessageTemplates.Preview.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest.new!(request_attributes)
+      request = Inttegro.MessageTemplates.RenderPreviewRequest.new!(request_attributes)
 
       case Inttegro.MessageTemplates.render_preview(client, request) do
         {:ok, result} -> result
@@ -283,10 +283,10 @@ defmodule Inttegro.MessageTemplates do
   """
   @spec render_preview(
           Client.t(),
-          Inttegro.MessageTemplates.RenderMessageTemplatePreviewRequest.t(),
+          Inttegro.MessageTemplates.RenderPreviewRequest.t(),
           keyword()
         ) ::
-          {:ok, Inttegro.MessageTemplates.MessageTemplatePreview.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.MessageTemplates.Preview.t()} | {:error, Exception.t()}
   def render_preview(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -299,7 +299,7 @@ defmodule Inttegro.MessageTemplates do
              nil,
              true
            ) do
-      {:ok, Inttegro.MessageTemplates.MessageTemplatePreview.from_map(value)}
+      {:ok, Inttegro.MessageTemplates.Preview.from_map(value)}
     end
   end
 end

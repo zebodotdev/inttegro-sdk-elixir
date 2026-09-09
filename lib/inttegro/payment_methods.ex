@@ -10,7 +10,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.TokenizeMobileMoneyRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,7 +21,7 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.TokenizeMobileMoneyRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.tokenize(client, request) do
         {:ok, result} -> result
@@ -30,7 +30,7 @@ defmodule Inttegro.PaymentMethods do
   """
   @spec tokenize(
           Client.t(),
-          Inttegro.PaymentMethods.TokenizeMobileMoneyPaymentMethodRequest.t(),
+          Inttegro.PaymentMethods.TokenizeMobileMoneyRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
@@ -56,7 +56,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.LookupPaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -67,14 +67,14 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.LookupPaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.LookupRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.PaymentMethods.LookupPaymentMethodRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.PaymentMethods.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -98,26 +98,26 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.PaymentMethodPageRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.PaymentMethods.PaymentMethodPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.PaymentMethods.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.PaymentMethods.PaymentMethodPageRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.PageRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.PaymentMethods.PaymentMethodPageRequest.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethods.PaymentMethodPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.PaymentMethods.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.PaymentMethods.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -130,7 +130,7 @@ defmodule Inttegro.PaymentMethods do
              "page",
              true
            ) do
-      {:ok, Inttegro.PaymentMethods.PaymentMethodPage.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.Page.from_map(value)}
     end
   end
 
@@ -140,7 +140,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.UpdatePaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -151,14 +151,14 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.UpdatePaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.UpdateRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.PaymentMethods.UpdatePaymentMethodRequest.t(), keyword()) ::
+  @spec update(Client.t(), Inttegro.PaymentMethods.UpdateRequest.t(), keyword()) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
@@ -182,7 +182,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.ActivatePaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.ActivateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -193,14 +193,14 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.ActivatePaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.ActivateRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.activate(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec activate(Client.t(), Inttegro.PaymentMethods.ActivatePaymentMethodRequest.t(), keyword()) ::
+  @spec activate(Client.t(), Inttegro.PaymentMethods.ActivateRequest.t(), keyword()) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def activate(client, request, options \\ []) do
     with {:ok, value} <-
@@ -224,7 +224,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.DisactivatePaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.DisactivateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -235,7 +235,7 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.DisactivatePaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.DisactivateRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.deactivate(client, request) do
         {:ok, result} -> result
@@ -244,7 +244,7 @@ defmodule Inttegro.PaymentMethods do
   """
   @spec deactivate(
           Client.t(),
-          Inttegro.PaymentMethods.DisactivatePaymentMethodRequest.t(),
+          Inttegro.PaymentMethods.DisactivateRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
@@ -270,7 +270,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.ArchivePaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.ArchiveRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -281,14 +281,14 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.ArchivePaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.ArchiveRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.archive(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec archive(Client.t(), Inttegro.PaymentMethods.ArchivePaymentMethodRequest.t(), keyword()) ::
+  @spec archive(Client.t(), Inttegro.PaymentMethods.ArchiveRequest.t(), keyword()) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
@@ -312,7 +312,7 @@ defmodule Inttegro.PaymentMethods do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.PaymentMethods.UnarchivePaymentMethodRequest` containing the operation input.
+  * `request` — a `Inttegro.PaymentMethods.UnarchiveRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -323,7 +323,7 @@ defmodule Inttegro.PaymentMethods do
 
   ## Example
 
-      request = Inttegro.PaymentMethods.UnarchivePaymentMethodRequest.new!(request_attributes)
+      request = Inttegro.PaymentMethods.UnarchiveRequest.new!(request_attributes)
 
       case Inttegro.PaymentMethods.unarchive(client, request) do
         {:ok, result} -> result
@@ -332,7 +332,7 @@ defmodule Inttegro.PaymentMethods do
   """
   @spec unarchive(
           Client.t(),
-          Inttegro.PaymentMethods.UnarchivePaymentMethodRequest.t(),
+          Inttegro.PaymentMethods.UnarchiveRequest.t(),
           keyword()
         ) ::
           {:ok, Inttegro.PaymentMethods.PaymentMethod.t()} | {:error, Exception.t()}
@@ -362,7 +362,7 @@ defmodule Inttegro.PaymentMethods do
 
   ## Returns
 
-  Returns `{:ok, Inttegro.PaymentMethods.PaymentMethodSettings.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.PaymentMethods.Settings.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
@@ -371,7 +371,7 @@ defmodule Inttegro.PaymentMethods do
       Inttegro.PaymentMethods.settings(client)
   """
   @spec settings(Client.t(), keyword()) ::
-          {:ok, Inttegro.PaymentMethods.PaymentMethodSettings.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.PaymentMethods.Settings.t()} | {:error, Exception.t()}
   def settings(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -384,7 +384,7 @@ defmodule Inttegro.PaymentMethods do
              "settings",
              true
            ) do
-      {:ok, Inttegro.PaymentMethods.PaymentMethodSettings.from_map(value)}
+      {:ok, Inttegro.PaymentMethods.Settings.from_map(value)}
     end
   end
 end

@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.BankAccounts.BankAccountType do
+defmodule Inttegro.BankAccounts.Type do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :ghana_bank_account | String.t()
@@ -20,7 +20,7 @@ defmodule Inttegro.BankAccounts.BankAccountType do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.BankAccounts.GhanaBankAccount do
+defmodule Inttegro.BankAccounts.GhanaAccount do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:holder, :number]
   defstruct branch: nil, holder: nil, name: nil, number: nil, sort_code: nil, swift_code: nil
@@ -28,7 +28,7 @@ defmodule Inttegro.BankAccounts.GhanaBankAccount do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           branch: String.t() | nil,
-          holder: Inttegro.FinancialAccounts.FinancialAccountOwner.t(),
+          holder: Inttegro.FinancialAccounts.Owner.t(),
           name: String.t() | nil,
           number: String.t(),
           sort_code: String.t() | nil,
@@ -42,8 +42,7 @@ defmodule Inttegro.BankAccounts.GhanaBankAccount do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       branch: if(is_nil(Map.get(map, "branch")), do: nil, else: Map.get(map, "branch")),
-      holder:
-        Inttegro.FinancialAccounts.FinancialAccountOwner.from_map(Map.fetch!(map, "holder")),
+      holder: Inttegro.FinancialAccounts.Owner.from_map(Map.fetch!(map, "holder")),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
       number: Map.fetch!(map, "number"),
       sort_code: if(is_nil(Map.get(map, "sort_code")), do: nil, else: Map.get(map, "sort_code")),

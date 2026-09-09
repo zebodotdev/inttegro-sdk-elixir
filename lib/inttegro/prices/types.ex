@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Prices.CatalogPrice do
+defmodule Inttegro.Prices.Catalog do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :active, :nominal, :created_at]
   defstruct id: nil,
@@ -22,7 +22,7 @@ defmodule Inttegro.Prices.CatalogPrice do
           active: boolean(),
           nominal: Inttegro.Money.Amount.t(),
           product_id: String.t() | nil,
-          product: Inttegro.Prices.PriceEmbeddedProduct.t() | nil,
+          product: Inttegro.Prices.EmbeddedProduct.t() | nil,
           created_at: String.t(),
           updated_at: String.t() | nil,
           archived_at: String.t() | nil
@@ -44,7 +44,7 @@ defmodule Inttegro.Prices.CatalogPrice do
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.Prices.PriceEmbeddedProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.Prices.EmbeddedProduct.from_map(Map.get(map, "product"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       updated_at:
@@ -77,7 +77,7 @@ defmodule Inttegro.Prices.CatalogPrice do
   end
 end
 
-defmodule Inttegro.Prices.CatalogPriceParams do
+defmodule Inttegro.Prices.CatalogParams do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:amount]
   defstruct product_id: nil, label: nil, about: nil, amount: nil
@@ -119,7 +119,7 @@ defmodule Inttegro.Prices.CatalogPriceParams do
   end
 end
 
-defmodule Inttegro.Prices.LookupPriceRequest do
+defmodule Inttegro.Prices.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:price_id]
   defstruct price_id: nil
@@ -184,7 +184,7 @@ defmodule Inttegro.Prices.Price do
   end
 end
 
-defmodule Inttegro.Prices.PriceActionRequest do
+defmodule Inttegro.Prices.ActionRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:price_id]
   defstruct price_id: nil
@@ -215,7 +215,7 @@ defmodule Inttegro.Prices.PriceActionRequest do
   end
 end
 
-defmodule Inttegro.Prices.PriceEmbeddedProduct do
+defmodule Inttegro.Prices.EmbeddedProduct do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :active, :created_at, :name, :type]
   defstruct id: nil,
@@ -244,7 +244,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProduct do
           about: String.t() | nil,
           active: boolean(),
           archived_at: String.t() | nil,
-          attributes: [Inttegro.Prices.PriceEmbeddedProductAttributesItem.t()] | nil,
+          attributes: [Inttegro.Prices.EmbeddedProductAttributesItem.t()] | nil,
           category: String.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
@@ -256,7 +256,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProduct do
           reference: String.t() | nil,
           shipment: %{optional(String.t()) => term()} | nil,
           tax_code: String.t() | nil,
-          type: Inttegro.Products.ProductType.t(),
+          type: Inttegro.Products.Type.t(),
           unit_dim: String.t() | nil,
           updated_at: String.t() | nil
         }
@@ -277,7 +277,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProduct do
           do: nil,
           else:
             Enum.map(Map.get(map, "attributes"), fn item ->
-              Inttegro.Prices.PriceEmbeddedProductAttributesItem.from_map(item)
+              Inttegro.Prices.EmbeddedProductAttributesItem.from_map(item)
             end)
         ),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
@@ -309,7 +309,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProduct do
           else: Map.new(Map.get(map, "shipment"), fn {key, value} -> {key, value} end)
         ),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
-      type: Inttegro.Products.ProductType.decode(Map.fetch!(map, "type")),
+      type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
       updated_at:
         if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at"))
@@ -374,7 +374,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProduct do
         ),
       "tax_code" =>
         if(is_nil(value.tax_code), do: nil, else: Inttegro.Codec.encode(value.tax_code)),
-      "type" => Inttegro.Products.ProductType.encode(value.type),
+      "type" => Inttegro.Products.Type.encode(value.type),
       "unit_dim" =>
         if(is_nil(value.unit_dim), do: nil, else: Inttegro.Codec.encode(value.unit_dim)),
       "updated_at" =>
@@ -385,7 +385,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProduct do
   end
 end
 
-defmodule Inttegro.Prices.PriceEmbeddedProductAttributesItem do
+defmodule Inttegro.Prices.EmbeddedProductAttributesItem do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:name, :value]
   defstruct name: nil, value: nil
@@ -419,7 +419,7 @@ defmodule Inttegro.Prices.PriceEmbeddedProductAttributesItem do
   end
 end
 
-defmodule Inttegro.Prices.PricePage do
+defmodule Inttegro.Prices.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct number: nil, size: nil, prices: nil
 
@@ -427,7 +427,7 @@ defmodule Inttegro.Prices.PricePage do
   @type t :: %__MODULE__{
           number: integer() | nil,
           size: integer() | nil,
-          prices: [Inttegro.Prices.CatalogPrice.t()] | nil
+          prices: [Inttegro.Prices.Catalog.t()] | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -443,7 +443,7 @@ defmodule Inttegro.Prices.PricePage do
           do: nil,
           else:
             Enum.map(Map.get(map, "prices"), fn item ->
-              Inttegro.Prices.CatalogPrice.from_map(item)
+              Inttegro.Prices.Catalog.from_map(item)
             end)
         )
     }
@@ -466,7 +466,7 @@ defmodule Inttegro.Prices.PricePage do
   end
 end
 
-defmodule Inttegro.Prices.PricePageItem do
+defmodule Inttegro.Prices.PageItem do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :active, :nominal, :created_at]
   defstruct id: nil,
@@ -488,7 +488,7 @@ defmodule Inttegro.Prices.PricePageItem do
           active: boolean(),
           nominal: Inttegro.Money.Amount.t(),
           product_id: String.t() | nil,
-          product: Inttegro.Prices.PriceEmbeddedProduct.t() | nil,
+          product: Inttegro.Prices.EmbeddedProduct.t() | nil,
           created_at: String.t(),
           updated_at: String.t() | nil,
           archived_at: String.t() | nil
@@ -510,7 +510,7 @@ defmodule Inttegro.Prices.PricePageItem do
       product:
         if(is_nil(Map.get(map, "product")),
           do: nil,
-          else: Inttegro.Prices.PriceEmbeddedProduct.from_map(Map.get(map, "product"))
+          else: Inttegro.Prices.EmbeddedProduct.from_map(Map.get(map, "product"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       updated_at:
@@ -543,7 +543,7 @@ defmodule Inttegro.Prices.PricePageItem do
   end
 end
 
-defmodule Inttegro.Prices.PricePageRequest do
+defmodule Inttegro.Prices.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct page_number: nil, page_size: nil, product_id: nil
 
@@ -584,7 +584,7 @@ defmodule Inttegro.Prices.PricePageRequest do
   end
 end
 
-defmodule Inttegro.Prices.PriceParams do
+defmodule Inttegro.Prices.Params do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:currency, :value]
   defstruct currency: nil, value: nil
@@ -618,7 +618,7 @@ defmodule Inttegro.Prices.PriceParams do
   end
 end
 
-defmodule Inttegro.Prices.UpdatePriceRequest do
+defmodule Inttegro.Prices.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:price_id]
   defstruct label: nil, about: nil, price_id: nil

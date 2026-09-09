@@ -24,7 +24,7 @@ defmodule Inttegro do
   ## First request
 
       client = Inttegro.Client.new!(System.fetch_env!("INTTEGRO_API_KEY"))
-      request = Inttegro.Orders.LookupOrderRequest.new!(order_id: "or_...")
+      request = Inttegro.Orders.LookupRequest.new!(order_id: "or_...")
 
       case Inttegro.Orders.lookup(client, request) do
         {:ok, order} ->

@@ -58,7 +58,7 @@ belong to:
 
 ```elixir
 client = MyApp.Inttegro.client()
-request = Inttegro.Customers.LookupCustomerRequest.new!(customer_id: "cu_...")
+request = Inttegro.Customers.LookupRequest.new!(customer_id: "cu_...")
 
 case Inttegro.Customers.lookup(client, request) do
   {:ok, %Inttegro.Customers.Customer{} = customer} ->

@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.Customers.CreateCustomerRequest do
+defmodule Inttegro.Customers.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name]
   defstruct billing_address: nil,
@@ -14,12 +14,12 @@ defmodule Inttegro.Customers.CreateCustomerRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          billing_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
+          billing_address: Inttegro.Customers.AddressInput.t() | nil,
           custom_data: %{optional(String.t()) => term()} | nil,
           email_address: String.t() | nil,
           phone_number: String.t() | nil,
           reference: String.t() | nil,
-          shipping_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
+          shipping_address: Inttegro.Customers.AddressInput.t() | nil,
           title: String.t() | nil,
           name: String.t()
         }
@@ -33,7 +33,7 @@ defmodule Inttegro.Customers.CreateCustomerRequest do
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Customers.AddressInput.from_map(Map.get(map, "billing_address"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -48,7 +48,7 @@ defmodule Inttegro.Customers.CreateCustomerRequest do
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Customers.AddressInput.from_map(Map.get(map, "shipping_address"))
         ),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),
       name: Map.fetch!(map, "name")
@@ -111,8 +111,8 @@ defmodule Inttegro.Customers.Customer do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          balance: %{optional(String.t()) => Inttegro.Customers.CustomerBalanceValue.t()},
-          billing_address: Inttegro.Customers.CustomerAddress.t() | nil,
+          balance: %{optional(String.t()) => Inttegro.Customers.BalanceValue.t()},
+          billing_address: Inttegro.Customers.Address.t() | nil,
           created_at: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           email_address: String.t() | nil,
@@ -121,7 +121,7 @@ defmodule Inttegro.Customers.Customer do
           name: String.t(),
           phone_number: String.t() | nil,
           reference: String.t() | nil,
-          shipping_address: Inttegro.Customers.CustomerAddress.t() | nil,
+          shipping_address: Inttegro.Customers.Address.t() | nil,
           suffix: String.t() | nil,
           title: String.t() | nil,
           updated_at: String.t() | nil
@@ -135,12 +135,12 @@ defmodule Inttegro.Customers.Customer do
     %__MODULE__{
       balance:
         Map.new(Map.fetch!(map, "balance"), fn {key, value} ->
-          {key, Inttegro.Customers.CustomerBalanceValue.from_map(value)}
+          {key, Inttegro.Customers.BalanceValue.from_map(value)}
         end),
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.Customers.CustomerAddress.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Customers.Address.from_map(Map.get(map, "billing_address"))
         ),
       created_at: Map.fetch!(map, "created_at"),
       custom_data:
@@ -159,7 +159,7 @@ defmodule Inttegro.Customers.Customer do
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.Customers.CustomerAddress.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Customers.Address.from_map(Map.get(map, "shipping_address"))
         ),
       suffix: if(is_nil(Map.get(map, "suffix")), do: nil, else: Map.get(map, "suffix")),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),
@@ -214,7 +214,7 @@ defmodule Inttegro.Customers.Customer do
   end
 end
 
-defmodule Inttegro.Customers.CustomerAddress do
+defmodule Inttegro.Customers.Address do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:country]
   defstruct city: nil,
@@ -276,7 +276,7 @@ defmodule Inttegro.Customers.CustomerAddress do
   end
 end
 
-defmodule Inttegro.Customers.CustomerAddressInput do
+defmodule Inttegro.Customers.AddressInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:country]
   defstruct city: nil,
@@ -338,7 +338,7 @@ defmodule Inttegro.Customers.CustomerAddressInput do
   end
 end
 
-defmodule Inttegro.Customers.CustomerBalanceValue do
+defmodule Inttegro.Customers.BalanceValue do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:as_of, :available]
   defstruct as_of: nil, available: nil
@@ -372,7 +372,7 @@ defmodule Inttegro.Customers.CustomerBalanceValue do
   end
 end
 
-defmodule Inttegro.Customers.CustomerDataInput do
+defmodule Inttegro.Customers.DataInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:name, :email_address, :phone_number]
   defstruct reference: nil, custom_data: nil, name: nil, email_address: nil, phone_number: nil
@@ -427,7 +427,7 @@ defmodule Inttegro.Customers.CustomerDataInput do
   end
 end
 
-defmodule Inttegro.Customers.CustomerPage do
+defmodule Inttegro.Customers.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:customers, :number, :size]
   defstruct customers: nil, number: nil, size: nil
@@ -467,7 +467,7 @@ defmodule Inttegro.Customers.CustomerPage do
   end
 end
 
-defmodule Inttegro.Customers.LookupCustomerRequest do
+defmodule Inttegro.Customers.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:customer_id]
   defstruct customer_id: nil
@@ -498,7 +498,7 @@ defmodule Inttegro.Customers.LookupCustomerRequest do
   end
 end
 
-defmodule Inttegro.Customers.PageCustomersRequest do
+defmodule Inttegro.Customers.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:page_number]
   defstruct page_size: nil, page_number: nil
@@ -533,7 +533,7 @@ defmodule Inttegro.Customers.PageCustomersRequest do
   end
 end
 
-defmodule Inttegro.Customers.UpdateCustomerRequest do
+defmodule Inttegro.Customers.UpdateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:customer_id]
   defstruct billing_address: nil,
@@ -549,13 +549,13 @@ defmodule Inttegro.Customers.UpdateCustomerRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          billing_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
+          billing_address: Inttegro.Customers.AddressInput.t() | nil,
           custom_data: %{optional(String.t()) => term()} | nil,
           email_address: String.t() | nil,
           name: String.t() | nil,
           phone_number: String.t() | nil,
           reference: String.t() | nil,
-          shipping_address: Inttegro.Customers.CustomerAddressInput.t() | nil,
+          shipping_address: Inttegro.Customers.AddressInput.t() | nil,
           suffix: String.t() | nil,
           title: String.t() | nil,
           customer_id: String.t()
@@ -570,7 +570,7 @@ defmodule Inttegro.Customers.UpdateCustomerRequest do
       billing_address:
         if(is_nil(Map.get(map, "billing_address")),
           do: nil,
-          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "billing_address"))
+          else: Inttegro.Customers.AddressInput.from_map(Map.get(map, "billing_address"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -586,7 +586,7 @@ defmodule Inttegro.Customers.UpdateCustomerRequest do
       shipping_address:
         if(is_nil(Map.get(map, "shipping_address")),
           do: nil,
-          else: Inttegro.Customers.CustomerAddressInput.from_map(Map.get(map, "shipping_address"))
+          else: Inttegro.Customers.AddressInput.from_map(Map.get(map, "shipping_address"))
         ),
       suffix: if(is_nil(Map.get(map, "suffix")), do: nil, else: Map.get(map, "suffix")),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),

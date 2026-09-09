@@ -43,7 +43,7 @@ defmodule Inttegro.Files do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Files.LookupFileRequest` containing the operation input.
+  * `request` — a `Inttegro.Files.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -54,14 +54,14 @@ defmodule Inttegro.Files do
 
   ## Example
 
-      request = Inttegro.Files.LookupFileRequest.new!(request_attributes)
+      request = Inttegro.Files.LookupRequest.new!(request_attributes)
 
       case Inttegro.Files.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Files.LookupFileRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Files.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Files.File.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -85,26 +85,26 @@ defmodule Inttegro.Files do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Files.PageFilesRequest` containing the operation input.
+  * `request` — a `Inttegro.Files.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Files.FilePage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Files.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Files.PageFilesRequest.new!(request_attributes)
+      request = Inttegro.Files.PageRequest.new!(request_attributes)
 
       case Inttegro.Files.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Files.PageFilesRequest.t(), keyword()) ::
-          {:ok, Inttegro.Files.FilePage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Files.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Files.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -117,7 +117,7 @@ defmodule Inttegro.Files do
              "page",
              true
            ) do
-      {:ok, Inttegro.Files.FilePage.from_map(value)}
+      {:ok, Inttegro.Files.Page.from_map(value)}
     end
   end
 
@@ -127,7 +127,7 @@ defmodule Inttegro.Files do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Files.FileContentsRequest` containing the operation input.
+  * `request` — a `Inttegro.Files.ContentsRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -138,14 +138,14 @@ defmodule Inttegro.Files do
 
   ## Example
 
-      request = Inttegro.Files.FileContentsRequest.new!(request_attributes)
+      request = Inttegro.Files.ContentsRequest.new!(request_attributes)
 
       case Inttegro.Files.contents(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec contents(Client.t(), Inttegro.Files.FileContentsRequest.t(), keyword()) ::
+  @spec contents(Client.t(), Inttegro.Files.ContentsRequest.t(), keyword()) ::
           {:ok, Inttegro.Files.Download.t()} | {:error, Exception.t()}
   def contents(client, request, options \\ []) do
     with {:ok, value} <-
@@ -168,7 +168,7 @@ defmodule Inttegro.Files do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Files.DeleteFileRequest` containing the operation input.
+  * `request` — a `Inttegro.Files.DeleteRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -179,14 +179,14 @@ defmodule Inttegro.Files do
 
   ## Example
 
-      request = Inttegro.Files.DeleteFileRequest.new!(request_attributes)
+      request = Inttegro.Files.DeleteRequest.new!(request_attributes)
 
       case Inttegro.Files.delete(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec delete(Client.t(), Inttegro.Files.DeleteFileRequest.t(), keyword()) ::
+  @spec delete(Client.t(), Inttegro.Files.DeleteRequest.t(), keyword()) ::
           {:ok, Inttegro.Files.File.t()} | {:error, Exception.t()}
   def delete(client, request, options \\ []) do
     with {:ok, value} <-

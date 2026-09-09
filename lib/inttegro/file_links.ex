@@ -10,26 +10,26 @@ defmodule Inttegro.FileLinks do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.FileLinks.CreateFileLinkRequest` containing the operation input.
+  * `request` — a `Inttegro.FileLinks.CreateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.FileLinks.FileLinkCreation.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.FileLinks.Creation.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.FileLinks.CreateFileLinkRequest.new!(request_attributes)
+      request = Inttegro.FileLinks.CreateRequest.new!(request_attributes)
 
       case Inttegro.FileLinks.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.FileLinks.CreateFileLinkRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileLinks.FileLinkCreation.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.FileLinks.CreateRequest.t(), keyword()) ::
+          {:ok, Inttegro.FileLinks.Creation.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -42,7 +42,7 @@ defmodule Inttegro.FileLinks do
              nil,
              true
            ) do
-      {:ok, Inttegro.FileLinks.FileLinkCreation.from_map(value)}
+      {:ok, Inttegro.FileLinks.Creation.from_map(value)}
     end
   end
 
@@ -52,7 +52,7 @@ defmodule Inttegro.FileLinks do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.FileLinks.LookupFileLinkRequest` containing the operation input.
+  * `request` — a `Inttegro.FileLinks.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.FileLinks do
 
   ## Example
 
-      request = Inttegro.FileLinks.LookupFileLinkRequest.new!(request_attributes)
+      request = Inttegro.FileLinks.LookupRequest.new!(request_attributes)
 
       case Inttegro.FileLinks.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.FileLinks.LookupFileLinkRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.FileLinks.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.FileLinks.FileLink.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,26 +94,26 @@ defmodule Inttegro.FileLinks do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.FileLinks.PageFileLinksRequest` containing the operation input.
+  * `request` — a `Inttegro.FileLinks.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.FileLinks.FileLinkPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.FileLinks.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.FileLinks.PageFileLinksRequest.new!(request_attributes)
+      request = Inttegro.FileLinks.PageRequest.new!(request_attributes)
 
       case Inttegro.FileLinks.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.FileLinks.PageFileLinksRequest.t(), keyword()) ::
-          {:ok, Inttegro.FileLinks.FileLinkPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.FileLinks.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.FileLinks.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -126,7 +126,7 @@ defmodule Inttegro.FileLinks do
              "page",
              true
            ) do
-      {:ok, Inttegro.FileLinks.FileLinkPage.from_map(value)}
+      {:ok, Inttegro.FileLinks.Page.from_map(value)}
     end
   end
 
@@ -136,7 +136,7 @@ defmodule Inttegro.FileLinks do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.FileLinks.RevokeFileLinkRequest` containing the operation input.
+  * `request` — a `Inttegro.FileLinks.RevokeRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -147,14 +147,14 @@ defmodule Inttegro.FileLinks do
 
   ## Example
 
-      request = Inttegro.FileLinks.RevokeFileLinkRequest.new!(request_attributes)
+      request = Inttegro.FileLinks.RevokeRequest.new!(request_attributes)
 
       case Inttegro.FileLinks.revoke(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec revoke(Client.t(), Inttegro.FileLinks.RevokeFileLinkRequest.t(), keyword()) ::
+  @spec revoke(Client.t(), Inttegro.FileLinks.RevokeRequest.t(), keyword()) ::
           {:ok, Inttegro.FileLinks.FileLink.t()} | {:error, Exception.t()}
   def revoke(client, request, options \\ []) do
     with {:ok, value} <-

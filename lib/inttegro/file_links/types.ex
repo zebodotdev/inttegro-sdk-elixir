@@ -1,6 +1,6 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
-defmodule Inttegro.FileLinks.FileLinkDeliveryMode do
+defmodule Inttegro.FileLinks.DeliveryMode do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :redirect | :download | :inline | String.t()
@@ -22,7 +22,7 @@ defmodule Inttegro.FileLinks.FileLinkDeliveryMode do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileLinks.FileLinkKind do
+defmodule Inttegro.FileLinks.Kind do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :public | String.t()
@@ -42,7 +42,7 @@ defmodule Inttegro.FileLinks.FileLinkKind do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileLinks.FileLinkStatus do
+defmodule Inttegro.FileLinks.Status do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :enum)
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :enum)
   @type t :: :active | :revoked | :expired | :disabled | String.t()
@@ -65,7 +65,7 @@ defmodule Inttegro.FileLinks.FileLinkStatus do
     do: Enum.find_value(@values, value, fn {key, wire} -> if wire == value, do: key end)
 end
 
-defmodule Inttegro.FileLinks.CreateFileLinkRequest do
+defmodule Inttegro.FileLinks.CreateRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:file_id]
   defstruct delivery: nil,
@@ -77,9 +77,9 @@ defmodule Inttegro.FileLinks.CreateFileLinkRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          delivery: Inttegro.FileLinks.FileLinkDeliveryInput.t() | nil,
-          access: Inttegro.FileLinks.FileLinkAccessRequest.t() | nil,
-          created_by: Inttegro.Files.FileActorInput.t() | nil,
+          delivery: Inttegro.FileLinks.DeliveryInput.t() | nil,
+          access: Inttegro.FileLinks.AccessRequest.t() | nil,
+          created_by: Inttegro.Files.ActorInput.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           expires_at: String.t() | nil,
           file_id: String.t()
@@ -94,17 +94,17 @@ defmodule Inttegro.FileLinks.CreateFileLinkRequest do
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkDeliveryInput.from_map(Map.get(map, "delivery"))
+          else: Inttegro.FileLinks.DeliveryInput.from_map(Map.get(map, "delivery"))
         ),
       access:
         if(is_nil(Map.get(map, "access")),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkAccessRequest.from_map(Map.get(map, "access"))
+          else: Inttegro.FileLinks.AccessRequest.from_map(Map.get(map, "access"))
         ),
       created_by:
         if(is_nil(Map.get(map, "created_by")),
           do: nil,
-          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "created_by"))
+          else: Inttegro.Files.ActorInput.from_map(Map.get(map, "created_by"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -179,15 +179,15 @@ defmodule Inttegro.FileLinks.FileLink do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           id: String.t(),
-          kind: Inttegro.FileLinks.FileLinkKind.t(),
+          kind: Inttegro.FileLinks.Kind.t(),
           file_id: String.t(),
           purpose: String.t(),
-          status: Inttegro.FileLinks.FileLinkStatus.t(),
+          status: Inttegro.FileLinks.Status.t(),
           active: boolean(),
-          delivery: Inttegro.FileLinks.FileLinkDelivery.t(),
-          access: Inttegro.FileLinks.FileLinkAccess.t(),
-          created_by: Inttegro.FileLinks.FileLinkActor.t(),
-          revoked_by: Inttegro.FileLinks.FileLinkActor.t() | nil,
+          delivery: Inttegro.FileLinks.Delivery.t(),
+          access: Inttegro.FileLinks.Access.t(),
+          created_by: Inttegro.FileLinks.Actor.t(),
+          revoked_by: Inttegro.FileLinks.Actor.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
           created_at: String.t(),
@@ -203,18 +203,18 @@ defmodule Inttegro.FileLinks.FileLink do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       id: Map.fetch!(map, "id"),
-      kind: Inttegro.FileLinks.FileLinkKind.decode(Map.fetch!(map, "kind")),
+      kind: Inttegro.FileLinks.Kind.decode(Map.fetch!(map, "kind")),
       file_id: Map.fetch!(map, "file_id"),
       purpose: Map.fetch!(map, "purpose"),
-      status: Inttegro.FileLinks.FileLinkStatus.decode(Map.fetch!(map, "status")),
+      status: Inttegro.FileLinks.Status.decode(Map.fetch!(map, "status")),
       active: Map.fetch!(map, "active"),
-      delivery: Inttegro.FileLinks.FileLinkDelivery.from_map(Map.fetch!(map, "delivery")),
-      access: Inttegro.FileLinks.FileLinkAccess.from_map(Map.fetch!(map, "access")),
-      created_by: Inttegro.FileLinks.FileLinkActor.from_map(Map.fetch!(map, "created_by")),
+      delivery: Inttegro.FileLinks.Delivery.from_map(Map.fetch!(map, "delivery")),
+      access: Inttegro.FileLinks.Access.from_map(Map.fetch!(map, "access")),
+      created_by: Inttegro.FileLinks.Actor.from_map(Map.fetch!(map, "created_by")),
       revoked_by:
         if(is_nil(Map.get(map, "revoked_by")),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkActor.from_map(Map.get(map, "revoked_by"))
+          else: Inttegro.FileLinks.Actor.from_map(Map.get(map, "revoked_by"))
         ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -239,10 +239,10 @@ defmodule Inttegro.FileLinks.FileLink do
   def to_map(value) do
     %{
       "id" => Inttegro.Codec.encode(value.id),
-      "kind" => Inttegro.FileLinks.FileLinkKind.encode(value.kind),
+      "kind" => Inttegro.FileLinks.Kind.encode(value.kind),
       "file_id" => Inttegro.Codec.encode(value.file_id),
       "purpose" => Inttegro.Codec.encode(value.purpose),
-      "status" => Inttegro.FileLinks.FileLinkStatus.encode(value.status),
+      "status" => Inttegro.FileLinks.Status.encode(value.status),
       "active" => Inttegro.Codec.encode(value.active),
       "delivery" => Inttegro.Codec.encode(value.delivery),
       "access" => Inttegro.Codec.encode(value.access),
@@ -276,7 +276,7 @@ defmodule Inttegro.FileLinks.FileLink do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkAccess do
+defmodule Inttegro.FileLinks.Access do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct max_accesses: nil,
             access_count: nil,
@@ -347,7 +347,7 @@ defmodule Inttegro.FileLinks.FileLinkAccess do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkAccessRequest do
+defmodule Inttegro.FileLinks.AccessRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct max_accesses: nil, allow_download: nil, allowed_origins: nil, allowed_ip_ranges: nil
 
@@ -409,7 +409,7 @@ defmodule Inttegro.FileLinks.FileLinkAccessRequest do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkActor do
+defmodule Inttegro.FileLinks.Actor do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
   defstruct email: nil, id: nil, name: nil, type: nil
@@ -449,7 +449,7 @@ defmodule Inttegro.FileLinks.FileLinkActor do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkCreation do
+defmodule Inttegro.FileLinks.Creation do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:file_link, :url]
   defstruct file_link: nil, url: nil
@@ -483,13 +483,13 @@ defmodule Inttegro.FileLinks.FileLinkCreation do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkDelivery do
+defmodule Inttegro.FileLinks.Delivery do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct mode: nil, filename: nil, content_type: nil, disposition: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          mode: Inttegro.FileLinks.FileLinkDeliveryMode.t() | nil,
+          mode: Inttegro.FileLinks.DeliveryMode.t() | nil,
           filename: String.t() | nil,
           content_type: String.t() | nil,
           disposition: String.t() | nil
@@ -504,7 +504,7 @@ defmodule Inttegro.FileLinks.FileLinkDelivery do
       mode:
         if(is_nil(Map.get(map, "mode")),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkDeliveryMode.decode(Map.get(map, "mode"))
+          else: Inttegro.FileLinks.DeliveryMode.decode(Map.get(map, "mode"))
         ),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       content_type:
@@ -521,7 +521,7 @@ defmodule Inttegro.FileLinks.FileLinkDelivery do
       "mode" =>
         if(is_nil(value.mode),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkDeliveryMode.encode(value.mode)
+          else: Inttegro.FileLinks.DeliveryMode.encode(value.mode)
         ),
       "filename" =>
         if(is_nil(value.filename), do: nil, else: Inttegro.Codec.encode(value.filename)),
@@ -535,13 +535,13 @@ defmodule Inttegro.FileLinks.FileLinkDelivery do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkDeliveryInput do
+defmodule Inttegro.FileLinks.DeliveryInput do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct mode: nil, filename: nil, content_type: nil, disposition: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          mode: Inttegro.FileLinks.FileLinkDeliveryMode.t() | nil,
+          mode: Inttegro.FileLinks.DeliveryMode.t() | nil,
           filename: String.t() | nil,
           content_type: String.t() | nil,
           disposition: String.t() | nil
@@ -556,7 +556,7 @@ defmodule Inttegro.FileLinks.FileLinkDeliveryInput do
       mode:
         if(is_nil(Map.get(map, "mode")),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkDeliveryMode.decode(Map.get(map, "mode"))
+          else: Inttegro.FileLinks.DeliveryMode.decode(Map.get(map, "mode"))
         ),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       content_type:
@@ -573,7 +573,7 @@ defmodule Inttegro.FileLinks.FileLinkDeliveryInput do
       "mode" =>
         if(is_nil(value.mode),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkDeliveryMode.encode(value.mode)
+          else: Inttegro.FileLinks.DeliveryMode.encode(value.mode)
         ),
       "filename" =>
         if(is_nil(value.filename), do: nil, else: Inttegro.Codec.encode(value.filename)),
@@ -587,7 +587,7 @@ defmodule Inttegro.FileLinks.FileLinkDeliveryInput do
   end
 end
 
-defmodule Inttegro.FileLinks.FileLinkPage do
+defmodule Inttegro.FileLinks.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:number, :size, :file_links]
   defstruct number: nil, size: nil, file_links: nil
@@ -627,7 +627,7 @@ defmodule Inttegro.FileLinks.FileLinkPage do
   end
 end
 
-defmodule Inttegro.FileLinks.LookupFileLinkRequest do
+defmodule Inttegro.FileLinks.LookupRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct id: nil
@@ -658,14 +658,14 @@ defmodule Inttegro.FileLinks.LookupFileLinkRequest do
   end
 end
 
-defmodule Inttegro.FileLinks.PageFileLinksRequest do
+defmodule Inttegro.FileLinks.PageRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   defstruct file_id: nil, status: nil, page_number: nil, page_size: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
           file_id: String.t() | nil,
-          status: Inttegro.FileLinks.FileLinkStatus.t() | nil,
+          status: Inttegro.FileLinks.Status.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil
         }
@@ -680,7 +680,7 @@ defmodule Inttegro.FileLinks.PageFileLinksRequest do
       status:
         if(is_nil(Map.get(map, "status")),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkStatus.decode(Map.get(map, "status"))
+          else: Inttegro.FileLinks.Status.decode(Map.get(map, "status"))
         ),
       page_number:
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
@@ -696,7 +696,7 @@ defmodule Inttegro.FileLinks.PageFileLinksRequest do
       "status" =>
         if(is_nil(value.status),
           do: nil,
-          else: Inttegro.FileLinks.FileLinkStatus.encode(value.status)
+          else: Inttegro.FileLinks.Status.encode(value.status)
         ),
       "page_number" =>
         if(is_nil(value.page_number), do: nil, else: Inttegro.Codec.encode(value.page_number)),
@@ -708,14 +708,14 @@ defmodule Inttegro.FileLinks.PageFileLinksRequest do
   end
 end
 
-defmodule Inttegro.FileLinks.RevokeFileLinkRequest do
+defmodule Inttegro.FileLinks.RevokeRequest do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :request)
   @enforce_keys [:id]
   defstruct revoked_by: nil, id: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          revoked_by: Inttegro.Files.FileActorInput.t() | nil,
+          revoked_by: Inttegro.Files.ActorInput.t() | nil,
           id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -728,7 +728,7 @@ defmodule Inttegro.FileLinks.RevokeFileLinkRequest do
       revoked_by:
         if(is_nil(Map.get(map, "revoked_by")),
           do: nil,
-          else: Inttegro.Files.FileActorInput.from_map(Map.get(map, "revoked_by"))
+          else: Inttegro.Files.ActorInput.from_map(Map.get(map, "revoked_by"))
         ),
       id: Map.fetch!(map, "id")
     }

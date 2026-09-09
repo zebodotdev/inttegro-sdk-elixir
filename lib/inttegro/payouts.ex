@@ -10,7 +10,7 @@ defmodule Inttegro.Payouts do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Payouts.SchedulePayoutRequest` containing the operation input.
+  * `request` — a `Inttegro.Payouts.ScheduleRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -21,14 +21,14 @@ defmodule Inttegro.Payouts do
 
   ## Example
 
-      request = Inttegro.Payouts.SchedulePayoutRequest.new!(request_attributes)
+      request = Inttegro.Payouts.ScheduleRequest.new!(request_attributes)
 
       case Inttegro.Payouts.schedule(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec schedule(Client.t(), Inttegro.Payouts.SchedulePayoutRequest.t(), keyword()) ::
+  @spec schedule(Client.t(), Inttegro.Payouts.ScheduleRequest.t(), keyword()) ::
           {:ok, Inttegro.Payouts.Payout.t()} | {:error, Exception.t()}
   def schedule(client, request, options \\ []) do
     with {:ok, value} <-
@@ -52,7 +52,7 @@ defmodule Inttegro.Payouts do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Payouts.LookupPayoutRequest` containing the operation input.
+  * `request` — a `Inttegro.Payouts.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -63,14 +63,14 @@ defmodule Inttegro.Payouts do
 
   ## Example
 
-      request = Inttegro.Payouts.LookupPayoutRequest.new!(request_attributes)
+      request = Inttegro.Payouts.LookupRequest.new!(request_attributes)
 
       case Inttegro.Payouts.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Payouts.LookupPayoutRequest.t(), keyword()) ::
+  @spec lookup(Client.t(), Inttegro.Payouts.LookupRequest.t(), keyword()) ::
           {:ok, Inttegro.Payouts.Payout.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
@@ -94,26 +94,26 @@ defmodule Inttegro.Payouts do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Payouts.SetPayoutDestinationsRequest` containing the operation input.
+  * `request` — a `Inttegro.Payouts.SetDestinationsRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Payouts.PayoutSettingsMutation.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Payouts.SettingsMutation.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Payouts.SetPayoutDestinationsRequest.new!(request_attributes)
+      request = Inttegro.Payouts.SetDestinationsRequest.new!(request_attributes)
 
       case Inttegro.Payouts.set_destinations(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec set_destinations(Client.t(), Inttegro.Payouts.SetPayoutDestinationsRequest.t(), keyword()) ::
-          {:ok, Inttegro.Payouts.PayoutSettingsMutation.t()} | {:error, Exception.t()}
+  @spec set_destinations(Client.t(), Inttegro.Payouts.SetDestinationsRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.SettingsMutation.t()} | {:error, Exception.t()}
   def set_destinations(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -126,7 +126,7 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.Payouts.PayoutSettingsMutation.from_map(value)}
+      {:ok, Inttegro.Payouts.SettingsMutation.from_map(value)}
     end
   end
 
@@ -140,7 +140,7 @@ defmodule Inttegro.Payouts do
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Payouts.PayoutSettingsLookup.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Payouts.SettingsLookup.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
@@ -149,7 +149,7 @@ defmodule Inttegro.Payouts do
       Inttegro.Payouts.settings(client)
   """
   @spec settings(Client.t(), keyword()) ::
-          {:ok, Inttegro.Payouts.PayoutSettingsLookup.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.Payouts.SettingsLookup.t()} | {:error, Exception.t()}
   def settings(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -162,7 +162,7 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.Payouts.PayoutSettingsLookup.from_map(value)}
+      {:ok, Inttegro.Payouts.SettingsLookup.from_map(value)}
     end
   end
 
@@ -176,7 +176,7 @@ defmodule Inttegro.Payouts do
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Payouts.PayoutSettingsMutation.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Payouts.SettingsMutation.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
@@ -185,7 +185,7 @@ defmodule Inttegro.Payouts do
       Inttegro.Payouts.disable(client)
   """
   @spec disable(Client.t(), keyword()) ::
-          {:ok, Inttegro.Payouts.PayoutSettingsMutation.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.Payouts.SettingsMutation.t()} | {:error, Exception.t()}
   def disable(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -198,7 +198,7 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.Payouts.PayoutSettingsMutation.from_map(value)}
+      {:ok, Inttegro.Payouts.SettingsMutation.from_map(value)}
     end
   end
 
@@ -212,7 +212,7 @@ defmodule Inttegro.Payouts do
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Payouts.PayoutSettingsMutation.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Payouts.SettingsMutation.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
@@ -221,7 +221,7 @@ defmodule Inttegro.Payouts do
       Inttegro.Payouts.enable(client)
   """
   @spec enable(Client.t(), keyword()) ::
-          {:ok, Inttegro.Payouts.PayoutSettingsMutation.t()} | {:error, Exception.t()}
+          {:ok, Inttegro.Payouts.SettingsMutation.t()} | {:error, Exception.t()}
   def enable(client, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -234,7 +234,7 @@ defmodule Inttegro.Payouts do
              "settings",
              true
            ) do
-      {:ok, Inttegro.Payouts.PayoutSettingsMutation.from_map(value)}
+      {:ok, Inttegro.Payouts.SettingsMutation.from_map(value)}
     end
   end
 
@@ -244,26 +244,26 @@ defmodule Inttegro.Payouts do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Payouts.PagePayoutsRequest` containing the operation input.
+  * `request` — a `Inttegro.Payouts.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Payouts.PayoutPage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Payouts.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Payouts.PagePayoutsRequest.new!(request_attributes)
+      request = Inttegro.Payouts.PageRequest.new!(request_attributes)
 
       case Inttegro.Payouts.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Payouts.PagePayoutsRequest.t(), keyword()) ::
-          {:ok, Inttegro.Payouts.PayoutPage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Payouts.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Payouts.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -276,7 +276,7 @@ defmodule Inttegro.Payouts do
              "page",
              true
            ) do
-      {:ok, Inttegro.Payouts.PayoutPage.from_map(value)}
+      {:ok, Inttegro.Payouts.Page.from_map(value)}
     end
   end
 
@@ -286,7 +286,7 @@ defmodule Inttegro.Payouts do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Payouts.CancelPayoutRequest` containing the operation input.
+  * `request` — a `Inttegro.Payouts.CancelRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
@@ -297,14 +297,14 @@ defmodule Inttegro.Payouts do
 
   ## Example
 
-      request = Inttegro.Payouts.CancelPayoutRequest.new!(request_attributes)
+      request = Inttegro.Payouts.CancelRequest.new!(request_attributes)
 
       case Inttegro.Payouts.cancel(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec cancel(Client.t(), Inttegro.Payouts.CancelPayoutRequest.t(), keyword()) ::
+  @spec cancel(Client.t(), Inttegro.Payouts.CancelRequest.t(), keyword()) ::
           {:ok, Inttegro.Payouts.Payout.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-

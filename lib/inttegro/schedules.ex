@@ -10,26 +10,26 @@ defmodule Inttegro.Schedules do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Schedules.LookupScheduleRequest` containing the operation input.
+  * `request` — a `Inttegro.Schedules.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Schedules.ScheduleDetail.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Schedules.Detail.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Schedules.LookupScheduleRequest.new!(request_attributes)
+      request = Inttegro.Schedules.LookupRequest.new!(request_attributes)
 
       case Inttegro.Schedules.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Schedules.LookupScheduleRequest.t(), keyword()) ::
-          {:ok, Inttegro.Schedules.ScheduleDetail.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Schedules.LookupRequest.t(), keyword()) ::
+          {:ok, Inttegro.Schedules.Detail.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -42,7 +42,7 @@ defmodule Inttegro.Schedules do
              "scheduled_chime",
              true
            ) do
-      {:ok, Inttegro.Schedules.ScheduleDetail.from_map(value)}
+      {:ok, Inttegro.Schedules.Detail.from_map(value)}
     end
   end
 
@@ -52,26 +52,26 @@ defmodule Inttegro.Schedules do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Schedules.CancelScheduleRequest` containing the operation input.
+  * `request` — a `Inttegro.Schedules.CancelRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Schedules.ScheduleCancelDetail.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Schedules.CancelDetail.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Schedules.CancelScheduleRequest.new!(request_attributes)
+      request = Inttegro.Schedules.CancelRequest.new!(request_attributes)
 
       case Inttegro.Schedules.cancel(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec cancel(Client.t(), Inttegro.Schedules.CancelScheduleRequest.t(), keyword()) ::
-          {:ok, Inttegro.Schedules.ScheduleCancelDetail.t()} | {:error, Exception.t()}
+  @spec cancel(Client.t(), Inttegro.Schedules.CancelRequest.t(), keyword()) ::
+          {:ok, Inttegro.Schedules.CancelDetail.t()} | {:error, Exception.t()}
   def cancel(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -84,7 +84,7 @@ defmodule Inttegro.Schedules do
              "scheduled_chime",
              true
            ) do
-      {:ok, Inttegro.Schedules.ScheduleCancelDetail.from_map(value)}
+      {:ok, Inttegro.Schedules.CancelDetail.from_map(value)}
     end
   end
 end

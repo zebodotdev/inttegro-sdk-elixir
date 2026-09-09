@@ -10,26 +10,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.CatalogPriceParams` containing the operation input.
+  * `request` — a `Inttegro.Prices.CatalogParams` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.CatalogPriceParams.new!(request_attributes)
+      request = Inttegro.Prices.CatalogParams.new!(request_attributes)
 
       case Inttegro.Prices.create(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec create(Client.t(), Inttegro.Prices.CatalogPriceParams.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec create(Client.t(), Inttegro.Prices.CatalogParams.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def create(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -42,7 +42,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 
@@ -52,26 +52,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.LookupPriceRequest` containing the operation input.
+  * `request` — a `Inttegro.Prices.LookupRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.LookupPriceRequest.new!(request_attributes)
+      request = Inttegro.Prices.LookupRequest.new!(request_attributes)
 
       case Inttegro.Prices.lookup(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec lookup(Client.t(), Inttegro.Prices.LookupPriceRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec lookup(Client.t(), Inttegro.Prices.LookupRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def lookup(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -84,7 +84,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 
@@ -94,26 +94,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.PricePageRequest` containing the operation input.
+  * `request` — a `Inttegro.Prices.PageRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.PricePage.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Page.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.PricePageRequest.new!(request_attributes)
+      request = Inttegro.Prices.PageRequest.new!(request_attributes)
 
       case Inttegro.Prices.page(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec page(Client.t(), Inttegro.Prices.PricePageRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.PricePage.t()} | {:error, Exception.t()}
+  @spec page(Client.t(), Inttegro.Prices.PageRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Page.t()} | {:error, Exception.t()}
   def page(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -126,7 +126,7 @@ defmodule Inttegro.Prices do
              "page",
              true
            ) do
-      {:ok, Inttegro.Prices.PricePage.from_map(value)}
+      {:ok, Inttegro.Prices.Page.from_map(value)}
     end
   end
 
@@ -136,26 +136,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.UpdatePriceRequest` containing the operation input.
+  * `request` — a `Inttegro.Prices.UpdateRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.UpdatePriceRequest.new!(request_attributes)
+      request = Inttegro.Prices.UpdateRequest.new!(request_attributes)
 
       case Inttegro.Prices.update(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec update(Client.t(), Inttegro.Prices.UpdatePriceRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec update(Client.t(), Inttegro.Prices.UpdateRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def update(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -168,7 +168,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 
@@ -178,26 +178,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.PriceActionRequest` containing the operation input.
+  * `request` — a `Inttegro.Prices.ActionRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.PriceActionRequest.new!(request_attributes)
+      request = Inttegro.Prices.ActionRequest.new!(request_attributes)
 
       case Inttegro.Prices.activate(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec activate(Client.t(), Inttegro.Prices.PriceActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec activate(Client.t(), Inttegro.Prices.ActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def activate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -210,7 +210,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 
@@ -220,26 +220,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.PriceActionRequest` containing the operation input.
+  * `request` — a `Inttegro.Prices.ActionRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.PriceActionRequest.new!(request_attributes)
+      request = Inttegro.Prices.ActionRequest.new!(request_attributes)
 
       case Inttegro.Prices.deactivate(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec deactivate(Client.t(), Inttegro.Prices.PriceActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec deactivate(Client.t(), Inttegro.Prices.ActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def deactivate(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -252,7 +252,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 
@@ -262,26 +262,26 @@ defmodule Inttegro.Prices do
   ## Parameters
 
   * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Prices.PriceActionRequest` containing the operation input.
+  * `request` — a `Inttegro.Prices.ActionRequest` containing the operation input.
   * `options` — request options such as `:idempotency_key` and additional `:headers`.
 
   ## Returns
 
-  Returns `{:ok, Inttegro.Prices.CatalogPrice.t()}` when Inttegro accepts and decodes the operation. Returns
+  Returns `{:ok, Inttegro.Prices.Catalog.t()}` when Inttegro accepts and decodes the operation. Returns
   `{:error, exception}` for API, transport, or decoding failures. A successful API response can
   still describe an asynchronous resource that has not reached its terminal state.
 
   ## Example
 
-      request = Inttegro.Prices.PriceActionRequest.new!(request_attributes)
+      request = Inttegro.Prices.ActionRequest.new!(request_attributes)
 
       case Inttegro.Prices.archive(client, request) do
         {:ok, result} -> result
         {:error, error} -> {:error, error}
       end
   """
-  @spec archive(Client.t(), Inttegro.Prices.PriceActionRequest.t(), keyword()) ::
-          {:ok, Inttegro.Prices.CatalogPrice.t()} | {:error, Exception.t()}
+  @spec archive(Client.t(), Inttegro.Prices.ActionRequest.t(), keyword()) ::
+          {:ok, Inttegro.Prices.Catalog.t()} | {:error, Exception.t()}
   def archive(client, request, options \\ []) do
     with {:ok, value} <-
            Client.request(
@@ -294,7 +294,7 @@ defmodule Inttegro.Prices do
              "price",
              true
            ) do
-      {:ok, Inttegro.Prices.CatalogPrice.from_map(value)}
+      {:ok, Inttegro.Prices.Catalog.from_map(value)}
     end
   end
 end

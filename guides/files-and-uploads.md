@@ -32,7 +32,7 @@ Creating a file can return before processing and safety checks finish. Fetch its
 both `status` and `scan_status` before making it publicly downloadable:
 
 ```elixir
-request = Inttegro.Files.LookupFileRequest.new!(file_id: file.id)
+request = Inttegro.Files.LookupRequest.new!(file_id: file.id)
 {:ok, file} = Inttegro.Files.lookup(client, request)
 
 case {file.status, file.scan_status} do
@@ -47,7 +47,7 @@ end
 File metadata does not contain the binary body:
 
 ```elixir
-request = Inttegro.Files.FileContentsRequest.new!(file_id: file.id)
+request = Inttegro.Files.ContentsRequest.new!(file_id: file.id)
 {:ok, download} = Inttegro.Files.contents(client, request)
 
 File.write!("downloaded-invoice.pdf", download.bytes)
