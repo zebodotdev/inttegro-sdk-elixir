@@ -1,13 +1,28 @@
 defmodule Inttegro.Client.RequestOptions do
-  @moduledoc "Per-request idempotency and header options."
+  @moduledoc """
+  Options accepted by resource operations.
+
+  Pass these values as a keyword list in the final argument of a resource function. Use
+  `:idempotency_key` when a request creates or changes state; reuse the same value only when
+  retrying the same logical operation. `:headers` is intended for application-owned correlation
+  headers and must never be used to replace the SDK's authorization header.
+  """
   defstruct idempotency_key: nil, headers: []
+
+  @typedoc "Per-request transport options."
   @type t :: %__MODULE__{idempotency_key: String.t() | nil, headers: [{String.t(), String.t()}]}
 end
 
 defmodule Inttegro.Files.Download do
-  @moduledoc "Downloaded Inttegro file bytes and metadata."
+  @moduledoc """
+  Original file bytes returned by `Inttegro.Files.contents/3` or `Inttegro.FileLinks.open/2`.
+
+  `bytes` contains the complete response body. `content_type` and `filename` are derived from the
+  delivery response when available. The SDK does not write files to disk automatically.
+  """
   defstruct [:bytes, :content_type, :filename]
 
+  @typedoc "Downloaded bytes and their response metadata."
   @type t :: %__MODULE__{
           bytes: binary(),
           content_type: String.t() | nil,
@@ -16,10 +31,18 @@ defmodule Inttegro.Files.Download do
 end
 
 defmodule Inttegro.Files.CreateRequest do
-  @moduledoc "Parameters for uploading a file."
+  @moduledoc """
+  Binary upload input for `Inttegro.Files.create/3`.
+
+  `file_name` is the client-visible name sent in the multipart request, `bytes` is the complete
+  binary payload, and `purpose` selects the server-side file policy. `custom_data` values must be
+  strings. For large inputs, account for the fact that this SDK currently holds the payload in
+  memory while constructing the multipart request.
+  """
   @enforce_keys [:file_name, :bytes, :purpose]
   defstruct [:file_name, :bytes, :purpose, :title, :custom_data]
 
+  @typedoc "The bytes and metadata needed to create a file."
   @type t :: %__MODULE__{
           file_name: String.t(),
           bytes: binary(),
@@ -27,32 +50,65 @@ defmodule Inttegro.Files.CreateRequest do
           title: String.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil
         }
+
+  @doc "Builds an upload request and raises `KeyError` when a required field is missing."
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs), do: struct!(__MODULE__, attrs)
 end
 
 defmodule Inttegro.UploadRequests.FulfillRequest do
-  @moduledoc "Parameters for fulfilling an upload request."
+  @moduledoc """
+  Public binary input for `Inttegro.UploadRequests.fulfill/3`.
+
+  The `id` and `token` identify the upload capability presented to the uploader. Fulfilment does
+  not use the application's secret key. Keep the token out of logs and discard it after the upload
+  reaches a terminal state.
+  """
   @enforce_keys [:id, :token, :file_name, :bytes]
   defstruct [:id, :token, :file_name, :bytes]
 
+  @typedoc "An upload-request capability and the bytes supplied through it."
   @type t :: %__MODULE__{
           id: String.t(),
           token: String.t(),
           file_name: String.t(),
           bytes: binary()
         }
+
+  @doc "Builds a fulfilment request and raises `KeyError` when a required field is missing."
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs), do: struct!(__MODULE__, attrs)
 end
 
 defmodule Inttegro.FileLinks.OpenRequest do
-  @moduledoc "Parameters for opening a signed file link."
+  @moduledoc """
+  Public capability used to open an Inttegro file link.
+
+  Both the link `id` and its `token` are required. Opening a link intentionally omits the
+  application's secret key, which allows the capability to be handed to its intended recipient.
+  Treat the token as sensitive until the link expires or is revoked.
+  """
   @enforce_keys [:id, :token]
   defstruct [:id, :token]
+  @typedoc "The ID and token required to open a file link."
   @type t :: %__MODULE__{id: String.t(), token: String.t()}
+
+  @doc "Builds an open request and raises `KeyError` when the ID or token is missing."
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs), do: struct!(__MODULE__, attrs)
 end
 
 defmodule Inttegro.Telemetry.SDKContext do
-  @moduledoc "Identifies the SDK that produced an error report."
+  @moduledoc """
+  Identifies the SDK implementation and version that produced an error report.
+
+  Use this context when grouping failures across language SDKs or correlating a decoding problem
+  with a particular released contract. It contains no application or customer identity.
+  """
   @enforce_keys [:language, :version]
   defstruct [:language, :version]
+
+  @type t :: %__MODULE__{language: String.t(), version: String.t()}
 end
 
 defimpl Jason.Encoder, for: Inttegro.Telemetry.SDKContext do
@@ -62,9 +118,23 @@ defimpl Jason.Encoder, for: Inttegro.Telemetry.SDKContext do
 end
 
 defmodule Inttegro.Telemetry.HTTPContext do
-  @moduledoc "Privacy-safe HTTP metadata included in an error report."
+  @moduledoc """
+  Privacy-safe HTTP metadata included in an error report.
+
+  The route is the static SDK route rather than a URL containing identifiers or query parameters.
+  The request ID comes from the Inttegro response and can be used for support correlation.
+  """
   @enforce_keys [:method, :server_address, :duration_ms]
   defstruct [:method, :route, :server_address, :status_code, :request_id, :duration_ms]
+
+  @type t :: %__MODULE__{
+          method: String.t(),
+          route: String.t() | nil,
+          server_address: String.t(),
+          status_code: integer() | nil,
+          request_id: String.t() | nil,
+          duration_ms: non_neg_integer()
+        }
 end
 
 defimpl Jason.Encoder, for: Inttegro.Telemetry.HTTPContext do
@@ -84,8 +154,19 @@ defimpl Jason.Encoder, for: Inttegro.Telemetry.HTTPContext do
 end
 
 defmodule Inttegro.Telemetry.APIErrorContext do
-  @moduledoc "Structured Inttegro API error details included in an error report."
+  @moduledoc """
+  Structured, safe Inttegro API error details included in an error report.
+
+  The fields are stable machine-readable classifications intended for grouping and recovery. Raw
+  response bodies and human-readable error messages are deliberately excluded.
+  """
   defstruct [:type, :code, :fix_code]
+
+  @type t :: %__MODULE__{
+          type: String.t() | nil,
+          code: String.t() | nil,
+          fix_code: String.t() | nil
+        }
 end
 
 defimpl Jason.Encoder, for: Inttegro.Telemetry.APIErrorContext do
@@ -98,9 +179,16 @@ defimpl Jason.Encoder, for: Inttegro.Telemetry.APIErrorContext do
 end
 
 defmodule Inttegro.Telemetry.TraceContext do
-  @moduledoc "Optional distributed-trace identifiers attached by an integration."
+  @moduledoc """
+  Optional distributed-trace identifiers attached by the host integration.
+
+  Trace and span IDs let an application correlate a privacy-safe SDK report with its own trace. The
+  SDK does not create or export spans and leaves this context empty unless an integration supplies it.
+  """
   @enforce_keys [:trace_id, :span_id]
   defstruct [:trace_id, :span_id]
+
+  @type t :: %__MODULE__{trace_id: String.t(), span_id: String.t()}
 end
 
 defimpl Jason.Encoder, for: Inttegro.Telemetry.TraceContext do
@@ -110,7 +198,13 @@ defimpl Jason.Encoder, for: Inttegro.Telemetry.TraceContext do
 end
 
 defmodule Inttegro.Telemetry.ErrorReport do
-  @moduledoc "A ready-to-encode, privacy-safe report delivered to the configured error reporter."
+  @moduledoc """
+  A privacy-safe failure report delivered to an application-owned reporter.
+
+  Reports describe the logical SDK operation, static route, duration, safe API codes, request ID,
+  and SDK identity. They deliberately exclude credentials, headers, bodies, resource IDs, dynamic
+  URLs, error messages, and stack traces. No report is constructed unless a reporter is configured.
+  """
   @enforce_keys [
     :schema_version,
     :event_id,
@@ -137,6 +231,21 @@ defmodule Inttegro.Telemetry.ErrorReport do
     :exception_type,
     :fingerprint
   ]
+
+  @type t :: %__MODULE__{
+          schema_version: pos_integer(),
+          event_id: String.t(),
+          occurred_at: String.t(),
+          severity: String.t(),
+          category: String.t(),
+          operation: String.t(),
+          sdk: Inttegro.Telemetry.SDKContext.t(),
+          http: Inttegro.Telemetry.HTTPContext.t(),
+          api_error: Inttegro.Telemetry.APIErrorContext.t() | nil,
+          trace: Inttegro.Telemetry.TraceContext.t() | nil,
+          exception_type: String.t(),
+          fingerprint: String.t()
+        }
 end
 
 defimpl Jason.Encoder, for: Inttegro.Telemetry.ErrorReport do
@@ -162,7 +271,13 @@ defimpl Jason.Encoder, for: Inttegro.Telemetry.ErrorReport do
 end
 
 defmodule Inttegro.Errors.APIError do
-  @moduledoc "An unsuccessful response returned by the Inttegro API."
+  @moduledoc """
+  An unsuccessful HTTP response returned by the Inttegro API.
+
+  `status` is the HTTP status, `code`, `type`, and `fix_code` are structured recovery hints when the
+  endpoint provides them, and `request_id` identifies the server request for support and tracing.
+  The optional `report` is present only when error reporting is configured for this failure class.
+  """
   defexception [:status, :code, :type, :fix_code, :request_id, :report]
   @impl true
   def message(error),
@@ -170,22 +285,55 @@ defmodule Inttegro.Errors.APIError do
 end
 
 defmodule Inttegro.Errors.TransportError do
-  @moduledoc "A failure to communicate with the Inttegro API."
+  @moduledoc """
+  A failure to send a request to, or receive a response from, the Inttegro API.
+
+  Transport failures have no authoritative API outcome. Retry only when the operation is safe to
+  repeat, and reuse its idempotency key for mutations.
+  """
   defexception [:reason]
   @impl true
   def message(error), do: "Inttegro transport failed: #{inspect(error.reason)}"
 end
 
 defmodule Inttegro.Errors.DecodingError do
-  @moduledoc "A response that could not be decoded into its documented domain type."
+  @moduledoc """
+  A successful HTTP response that could not be decoded into its documented domain type.
+
+  This normally indicates contract drift or a malformed upstream response. Treat it as an
+  unexpected SDK failure and retain the corresponding request ID or error report for diagnosis.
+  """
   defexception [:reason]
   @impl true
   def message(error), do: "Inttegro response could not be decoded: #{inspect(error.reason)}"
 end
 
 defmodule Inttegro.Client do
-  @moduledoc "The Inttegro server API client."
-  @version "0.1.1"
+  @moduledoc """
+  Configures transport, authentication, telemetry, and error reporting for Inttegro operations.
+
+  The client is a plain immutable struct, not a process. Create it once in your application
+  supervision tree or runtime configuration and safely share it between callers. Resource modules
+  such as `Inttegro.Orders` receive the client as their first argument.
+
+  ## Creating a client
+
+      client = Inttegro.Client.new!(System.fetch_env!("INTTEGRO_API_KEY"))
+
+  `new!/2` accepts:
+
+  * `:base_url` — alternate API origin, primarily for tests. Defaults to
+    `https://api.inttegro.com`.
+  * `:http` — a configured `Req.Request` used as the transport.
+  * `:telemetry` — a one-argument callback receiving privacy-safe lifecycle event maps.
+  * `:error_reporter` — a one-argument callback receiving
+    `Inttegro.Telemetry.ErrorReport.t()` values.
+  * `:error_reporting_policy` — `:unexpected` (the default) or `:all`.
+
+  The SDK does not configure an exporter or send reports to Inttegro on its own. See the
+  Observability guide for the event contract and privacy guarantees.
+  """
+  @version "0.2.0"
   @enforce_keys [:api_key, :base_url, :http]
   defstruct [
     :api_key,
@@ -196,8 +344,22 @@ defmodule Inttegro.Client do
     error_reporting_policy: :unexpected
   ]
 
-  @type t :: %__MODULE__{}
+  @typedoc "A configured Inttegro API client."
+  @type t :: %__MODULE__{
+          api_key: String.t(),
+          base_url: String.t(),
+          http: Req.Request.t(),
+          telemetry: (map() -> term()) | nil,
+          error_reporter: (Inttegro.Telemetry.ErrorReport.t() -> term()) | nil,
+          error_reporting_policy: :unexpected | :all
+        }
 
+  @doc """
+  Creates a client from a server-side secret key.
+
+  Raises `ArgumentError` when `api_key` is empty. Keep the key in environment-backed secret
+  configuration; never embed it in browser JavaScript or a mobile application.
+  """
   @spec new!(String.t(), keyword()) :: t()
   def new!(api_key, options \\ []) when is_binary(api_key) do
     if String.trim(api_key) == "", do: raise(ArgumentError, "api key cannot be empty")
