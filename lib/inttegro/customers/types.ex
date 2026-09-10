@@ -113,7 +113,7 @@ defmodule Inttegro.Customers.Customer do
   @type t :: %__MODULE__{
           balance: %{optional(String.t()) => Inttegro.Customers.BalanceValue.t()},
           billing_address: Inttegro.Customers.Address.t() | nil,
-          created_at: String.t(),
+          created_at: DateTime.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           email_address: String.t() | nil,
           guest: boolean(),
@@ -124,7 +124,7 @@ defmodule Inttegro.Customers.Customer do
           shipping_address: Inttegro.Customers.Address.t() | nil,
           suffix: String.t() | nil,
           title: String.t() | nil,
-          updated_at: String.t() | nil
+          updated_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -142,7 +142,7 @@ defmodule Inttegro.Customers.Customer do
           do: nil,
           else: Inttegro.Customers.Address.from_map(Map.get(map, "billing_address"))
         ),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
@@ -164,7 +164,10 @@ defmodule Inttegro.Customers.Customer do
       suffix: if(is_nil(Map.get(map, "suffix")), do: nil, else: Map.get(map, "suffix")),
       title: if(is_nil(Map.get(map, "title")), do: nil, else: Map.get(map, "title")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        )
     }
   end
 
@@ -345,7 +348,7 @@ defmodule Inttegro.Customers.BalanceValue do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          as_of: String.t(),
+          as_of: DateTime.t(),
           available: Inttegro.Money.Amount.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -355,7 +358,7 @@ defmodule Inttegro.Customers.BalanceValue do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      as_of: Map.fetch!(map, "as_of"),
+      as_of: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "as_of")),
       available: Inttegro.Money.Amount.from_map(Map.fetch!(map, "available"))
     }
   end

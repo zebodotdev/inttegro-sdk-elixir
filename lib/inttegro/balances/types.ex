@@ -1,5 +1,30 @@
 # Generated Inttegro types for this domain. Do not edit manually.
 
+defmodule Inttegro.Balances.Balance do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @enforce_keys [:ghs]
+  defstruct ghs: nil
+
+  @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{ghs: Inttegro.Balances.CurrencySnapshot.t()}
+  @doc Inttegro.Docs.constructor_doc(__MODULE__)
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @doc false
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map) do
+    %__MODULE__{
+      ghs: Inttegro.Balances.CurrencySnapshot.from_map(Map.fetch!(map, "ghs"))
+    }
+  end
+
+  @doc false
+  @spec to_map(t()) :: map()
+  def to_map(value) do
+    %{"ghs" => Inttegro.Codec.encode(value.ghs)}
+  end
+end
+
 defmodule Inttegro.Balances.Value do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:amount]
@@ -43,7 +68,7 @@ defmodule Inttegro.Balances.CurrencySnapshot do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           available: Inttegro.Balances.Value.t(),
-          includes_transactions_before: String.t(),
+          includes_transactions_before: DateTime.t(),
           pending: Inttegro.Balances.Value.t(),
           refund: Inttegro.Balances.CurrencySnapshotRefund.t(),
           reserved: Inttegro.Balances.CurrencySnapshotReserved.t()
@@ -56,7 +81,8 @@ defmodule Inttegro.Balances.CurrencySnapshot do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       available: Inttegro.Balances.Value.from_map(Map.fetch!(map, "available")),
-      includes_transactions_before: Map.fetch!(map, "includes_transactions_before"),
+      includes_transactions_before:
+        Inttegro.Codec.decode_timestamp(Map.fetch!(map, "includes_transactions_before")),
       pending: Inttegro.Balances.Value.from_map(Map.fetch!(map, "pending")),
       refund: Inttegro.Balances.CurrencySnapshotRefund.from_map(Map.fetch!(map, "refund")),
       reserved: Inttegro.Balances.CurrencySnapshotReserved.from_map(Map.fetch!(map, "reserved"))

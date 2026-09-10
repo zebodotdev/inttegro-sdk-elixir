@@ -523,10 +523,10 @@ defmodule Inttegro.Products.Product do
           dimensions: Inttegro.Products.Dimensions.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           active: boolean(),
-          created_at: String.t(),
-          updated_at: String.t() | nil,
-          archived_at: String.t() | nil,
-          published_at: String.t() | nil,
+          created_at: DateTime.t(),
+          updated_at: DateTime.t() | nil,
+          archived_at: DateTime.t() | nil,
+          published_at: DateTime.t() | nil,
           unit_dim: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -582,13 +582,22 @@ defmodule Inttegro.Products.Product do
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
       active: Map.fetch!(map, "active"),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        ),
       published_at:
-        if(is_nil(Map.get(map, "published_at")), do: nil, else: Map.get(map, "published_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))
+        ),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim"))
     }
   end
@@ -1323,13 +1332,14 @@ end
 
 defmodule Inttegro.Products.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @enforce_keys [:number, :size, :products]
   defstruct number: nil, size: nil, products: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          number: integer() | nil,
-          size: integer() | nil,
-          products: [Inttegro.Products.Product.t()] | nil
+          number: integer(),
+          size: integer(),
+          products: [Inttegro.Products.Product.t()]
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1338,16 +1348,12 @@ defmodule Inttegro.Products.Page do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      number: if(is_nil(Map.get(map, "number")), do: nil, else: Map.get(map, "number")),
-      size: if(is_nil(Map.get(map, "size")), do: nil, else: Map.get(map, "size")),
+      number: Map.fetch!(map, "number"),
+      size: Map.fetch!(map, "size"),
       products:
-        if(is_nil(Map.get(map, "products")),
-          do: nil,
-          else:
-            Enum.map(Map.get(map, "products"), fn item ->
-              Inttegro.Products.Product.from_map(item)
-            end)
-        )
+        Enum.map(Map.fetch!(map, "products"), fn item ->
+          Inttegro.Products.Product.from_map(item)
+        end)
     }
   end
 
@@ -1355,13 +1361,9 @@ defmodule Inttegro.Products.Page do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "number" => if(is_nil(value.number), do: nil, else: Inttegro.Codec.encode(value.number)),
-      "size" => if(is_nil(value.size), do: nil, else: Inttegro.Codec.encode(value.size)),
-      "products" =>
-        if(is_nil(value.products),
-          do: nil,
-          else: Enum.map(value.products, fn item -> Inttegro.Codec.encode(item) end)
-        )
+      "number" => Inttegro.Codec.encode(value.number),
+      "size" => Inttegro.Codec.encode(value.size),
+      "products" => Enum.map(value.products, fn item -> Inttegro.Codec.encode(item) end)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
@@ -1408,6 +1410,66 @@ defmodule Inttegro.Products.PriceSummary do
   end
 end
 
+defmodule Inttegro.Products.Delivery do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
+defmodule Inttegro.Products.Download do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
+defmodule Inttegro.Products.Render do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
+defmodule Inttegro.Products.Service do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
+defmodule Inttegro.Products.Stream do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
 defmodule Inttegro.Products.Shipment do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:type]
@@ -1416,11 +1478,11 @@ defmodule Inttegro.Products.Shipment do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           type: Inttegro.Products.ShipmentType.t(),
-          delivery: %{optional(String.t()) => term()} | nil,
-          download: %{optional(String.t()) => term()} | nil,
-          render: %{optional(String.t()) => term()} | nil,
-          service: %{optional(String.t()) => term()} | nil,
-          stream: %{optional(String.t()) => term()} | nil
+          delivery: Inttegro.Products.Delivery.t() | nil,
+          download: Inttegro.Products.Download.t() | nil,
+          render: Inttegro.Products.Render.t() | nil,
+          service: Inttegro.Products.Service.t() | nil,
+          stream: Inttegro.Products.Stream.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1433,27 +1495,27 @@ defmodule Inttegro.Products.Shipment do
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Map.new(Map.get(map, "delivery"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Delivery.from_map(Map.get(map, "delivery"))
         ),
       download:
         if(is_nil(Map.get(map, "download")),
           do: nil,
-          else: Map.new(Map.get(map, "download"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Download.from_map(Map.get(map, "download"))
         ),
       render:
         if(is_nil(Map.get(map, "render")),
           do: nil,
-          else: Map.new(Map.get(map, "render"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Render.from_map(Map.get(map, "render"))
         ),
       service:
         if(is_nil(Map.get(map, "service")),
           do: nil,
-          else: Map.new(Map.get(map, "service"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Service.from_map(Map.get(map, "service"))
         ),
       stream:
         if(is_nil(Map.get(map, "stream")),
           do: nil,
-          else: Map.new(Map.get(map, "stream"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Stream.from_map(Map.get(map, "stream"))
         )
     }
   end
@@ -1466,42 +1528,27 @@ defmodule Inttegro.Products.Shipment do
       "delivery" =>
         if(is_nil(value.delivery),
           do: nil,
-          else:
-            Map.new(value.delivery, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.delivery)
         ),
       "download" =>
         if(is_nil(value.download),
           do: nil,
-          else:
-            Map.new(value.download, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.download)
         ),
       "render" =>
         if(is_nil(value.render),
           do: nil,
-          else:
-            Map.new(value.render, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.render)
         ),
       "service" =>
         if(is_nil(value.service),
           do: nil,
-          else:
-            Map.new(value.service, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.service)
         ),
       "stream" =>
         if(is_nil(value.stream),
           do: nil,
-          else:
-            Map.new(value.stream, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.stream)
         )
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
@@ -1712,8 +1759,8 @@ defmodule Inttegro.Products.Updated do
           dimensions: Inttegro.Products.Dimensions.t() | nil,
           prices: [Inttegro.Products.PriceSummary.t()] | nil,
           unit_dim: String.t() | nil,
-          created_at: String.t(),
-          updated_at: String.t() | nil
+          created_at: DateTime.t(),
+          updated_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1750,9 +1797,12 @@ defmodule Inttegro.Products.Updated do
             end)
         ),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        )
     }
   end
 

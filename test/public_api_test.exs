@@ -120,6 +120,70 @@ defmodule Inttegro.PublicAPITest do
     end)
   end
 
+  test "balance response exposes ghs statically" do
+    balance =
+      Inttegro.Balances.Balance.from_map(%{
+        "ghs" => %{
+          "available" => %{"amount" => 1_000},
+          "includes_transactions_before" => "2026-09-09T12:00:00Z",
+          "pending" => %{"amount" => 200},
+          "refund" => %{"amount" => 50},
+          "reserved" => %{"amount" => 100}
+        }
+      })
+
+    assert balance.ghs.available.amount == 1_000
+    assert %DateTime{} = balance.ghs.includes_transactions_before
+    assert DateTime.to_iso8601(balance.ghs.includes_transactions_before) == "2026-09-09T12:00:00Z"
+
+    assert get_in(Inttegro.Balances.Balance.to_map(balance), [
+             "ghs",
+             "includes_transactions_before"
+           ]) ==
+             "2026-09-09T12:00:00Z"
+  end
+
+  test "purchase intent exposes nested response types" do
+    intent =
+      Inttegro.PurchaseIntents.PurchaseIntent.from_map(%{
+        "activity" => %{
+          "recent" => [
+            %{
+              "created_at" => "2026-09-09T12:01:00Z",
+              "id" => "saleevt_123",
+              "purchase_intent_id" => "sale_123",
+              "type" => "viewed",
+              "visitor" => %{"ip_address" => "203.0.113.7"}
+            }
+          ]
+        },
+        "allow_variants" => false,
+        "created_at" => "2026-09-09T12:00:00Z",
+        "id" => "sale_123",
+        "merchant" => %{"organization_name" => "Tea House Ltd"},
+        "product" => %{
+          "active" => true,
+          "created_at" => "2026-09-09T11:00:00Z",
+          "dimensions" => %{"digital" => %{"bytes" => 1_024}},
+          "id" => "prod_123",
+          "name" => "Tea guide",
+          "type" => "digital"
+        },
+        "quantity" => %{"min" => 1},
+        "status" => "active",
+        "usage" => %{
+          "order" => %{"created_at" => "2026-09-09T12:02:00Z", "id" => "or_123"},
+          "single_use" => true
+        }
+      })
+
+    assert hd(intent.activity.recent).visitor.ip_address == "203.0.113.7"
+    assert intent.merchant.organization_name == "Tea House Ltd"
+    assert intent.product.dimensions.digital.bytes == 1_024
+    assert intent.usage.order.id == "or_123"
+    assert %DateTime{} = intent.created_at
+  end
+
   test "public reference modules contain meaningful documentation" do
     {:ok, modules} = :application.get_key(:inttegro, :modules)
 

@@ -224,26 +224,26 @@ defmodule Inttegro.Payouts.Payout do
   @type t :: %__MODULE__{
           amount: Inttegro.Money.Amount.t() | nil,
           balance_transactions: [String.t()] | nil,
-          canceled_at: String.t() | nil,
+          canceled_at: DateTime.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           destination_id: String.t(),
           error: Inttegro.Payouts.Error.t() | nil,
-          execute_after: String.t(),
+          execute_after: DateTime.t(),
           executed_by: String.t() | nil,
-          expected_at: String.t() | nil,
-          failed_at: String.t() | nil,
+          expected_at: DateTime.t() | nil,
+          failed_at: DateTime.t() | nil,
           id: String.t(),
-          initiated_at: String.t(),
+          initiated_at: DateTime.t(),
           initiated_by: String.t() | nil,
           max_amount: Inttegro.Money.Amount.t(),
           reference: String.t() | nil,
           schedule_id: String.t() | nil,
-          scheduled_at: String.t() | nil,
+          scheduled_at: DateTime.t() | nil,
           scheduled_by: String.t() | nil,
-          sent_at: String.t() | nil,
+          sent_at: DateTime.t() | nil,
           source_id: String.t() | nil,
           status: Inttegro.Payouts.Status.t(),
-          succeeded_at: String.t() | nil
+          succeeded_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -263,7 +263,10 @@ defmodule Inttegro.Payouts.Payout do
           else: Enum.map(Map.get(map, "balance_transactions"), fn item -> item end)
         ),
       canceled_at:
-        if(is_nil(Map.get(map, "canceled_at")), do: nil, else: Map.get(map, "canceled_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))
+        ),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
@@ -275,14 +278,21 @@ defmodule Inttegro.Payouts.Payout do
           do: nil,
           else: Inttegro.Payouts.Error.from_map(Map.get(map, "error"))
         ),
-      execute_after: Map.fetch!(map, "execute_after"),
+      execute_after: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "execute_after")),
       executed_by:
         if(is_nil(Map.get(map, "executed_by")), do: nil, else: Map.get(map, "executed_by")),
       expected_at:
-        if(is_nil(Map.get(map, "expected_at")), do: nil, else: Map.get(map, "expected_at")),
-      failed_at: if(is_nil(Map.get(map, "failed_at")), do: nil, else: Map.get(map, "failed_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expected_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expected_at"))
+        ),
+      failed_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "failed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "failed_at"))
+        ),
       id: Map.fetch!(map, "id"),
-      initiated_at: Map.fetch!(map, "initiated_at"),
+      initiated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "initiated_at")),
       initiated_by:
         if(is_nil(Map.get(map, "initiated_by")), do: nil, else: Map.get(map, "initiated_by")),
       max_amount: Inttegro.Money.Amount.from_map(Map.fetch!(map, "max_amount")),
@@ -290,14 +300,24 @@ defmodule Inttegro.Payouts.Payout do
       schedule_id:
         if(is_nil(Map.get(map, "schedule_id")), do: nil, else: Map.get(map, "schedule_id")),
       scheduled_at:
-        if(is_nil(Map.get(map, "scheduled_at")), do: nil, else: Map.get(map, "scheduled_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "scheduled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "scheduled_at"))
+        ),
       scheduled_by:
         if(is_nil(Map.get(map, "scheduled_by")), do: nil, else: Map.get(map, "scheduled_by")),
-      sent_at: if(is_nil(Map.get(map, "sent_at")), do: nil, else: Map.get(map, "sent_at")),
+      sent_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "sent_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "sent_at"))
+        ),
       source_id: if(is_nil(Map.get(map, "source_id")), do: nil, else: Map.get(map, "source_id")),
       status: Inttegro.Payouts.Status.decode(Map.fetch!(map, "status")),
       succeeded_at:
-        if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "succeeded_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "succeeded_at"))
+        )
     }
   end
 
@@ -364,7 +384,7 @@ defmodule Inttegro.Payouts.Error do
   @type t :: %__MODULE__{
           cause: String.t(),
           message: String.t(),
-          occurred_at: String.t(),
+          occurred_at: DateTime.t(),
           type: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -376,7 +396,7 @@ defmodule Inttegro.Payouts.Error do
     %__MODULE__{
       cause: Map.fetch!(map, "cause"),
       message: Map.fetch!(map, "message"),
-      occurred_at: Map.fetch!(map, "occurred_at"),
+      occurred_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "occurred_at")),
       type: Map.fetch!(map, "type")
     }
   end
@@ -733,7 +753,7 @@ defmodule Inttegro.Payouts.ScheduleRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          execute_after: String.t() | nil,
+          execute_after: DateTime.t() | nil,
           max_amount: integer() | nil,
           destination_id: String.t(),
           reference: String.t()
@@ -746,7 +766,10 @@ defmodule Inttegro.Payouts.ScheduleRequest do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       execute_after:
-        if(is_nil(Map.get(map, "execute_after")), do: nil, else: Map.get(map, "execute_after")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "execute_after"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "execute_after"))
+        ),
       max_amount:
         if(is_nil(Map.get(map, "max_amount")), do: nil, else: Map.get(map, "max_amount")),
       destination_id: Map.fetch!(map, "destination_id"),

@@ -417,10 +417,10 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
           sms: Inttegro.MessageTemplates.SMSContent.t() | nil,
           email: Inttegro.MessageTemplates.EmailContent.t() | nil,
           attachments: [String.t()] | nil,
-          created_at: String.t(),
-          updated_at: String.t(),
-          published_at: String.t() | nil,
-          archived_at: String.t() | nil
+          created_at: DateTime.t(),
+          updated_at: DateTime.t(),
+          published_at: DateTime.t() | nil,
+          archived_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -467,12 +467,18 @@ defmodule Inttegro.MessageTemplates.MessageTemplate do
           do: nil,
           else: Enum.map(Map.get(map, "attachments"), fn item -> item end)
         ),
-      created_at: Map.fetch!(map, "created_at"),
-      updated_at: Map.fetch!(map, "updated_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
+      updated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "updated_at")),
       published_at:
-        if(is_nil(Map.get(map, "published_at")), do: nil, else: Map.get(map, "published_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))
+        ),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        )
     }
   end
 

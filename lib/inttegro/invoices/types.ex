@@ -356,12 +356,13 @@ end
 
 defmodule Inttegro.Invoices.Order do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @enforce_keys [:format]
   defstruct number: nil, format: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           number: String.t() | nil,
-          format: Inttegro.Invoices.OrderFormat.t() | nil
+          format: Inttegro.Invoices.OrderFormat.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -371,11 +372,7 @@ defmodule Inttegro.Invoices.Order do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       number: if(is_nil(Map.get(map, "number")), do: nil, else: Map.get(map, "number")),
-      format:
-        if(is_nil(Map.get(map, "format")),
-          do: nil,
-          else: Inttegro.Invoices.OrderFormat.from_map(Map.get(map, "format"))
-        )
+      format: Inttegro.Invoices.OrderFormat.from_map(Map.fetch!(map, "format"))
     }
   end
 
@@ -384,7 +381,7 @@ defmodule Inttegro.Invoices.Order do
   def to_map(value) do
     %{
       "number" => if(is_nil(value.number), do: nil, else: Inttegro.Codec.encode(value.number)),
-      "format" => if(is_nil(value.format), do: nil, else: Inttegro.Codec.encode(value.format))
+      "format" => Inttegro.Codec.encode(value.format)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()

@@ -23,9 +23,9 @@ defmodule Inttegro.Prices.Catalog do
           nominal: Inttegro.Money.Amount.t(),
           product_id: String.t() | nil,
           product: Inttegro.Prices.EmbeddedProduct.t() | nil,
-          created_at: String.t(),
-          updated_at: String.t() | nil,
-          archived_at: String.t() | nil
+          created_at: DateTime.t(),
+          updated_at: DateTime.t() | nil,
+          archived_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -46,11 +46,17 @@ defmodule Inttegro.Prices.Catalog do
           do: nil,
           else: Inttegro.Prices.EmbeddedProduct.from_map(Map.get(map, "product"))
         ),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        )
     }
   end
 
@@ -243,22 +249,22 @@ defmodule Inttegro.Prices.EmbeddedProduct do
           id: String.t(),
           about: String.t() | nil,
           active: boolean(),
-          archived_at: String.t() | nil,
+          archived_at: DateTime.t() | nil,
           attributes: [Inttegro.Prices.EmbeddedProductAttributesItem.t()] | nil,
           category: String.t() | nil,
-          created_at: String.t(),
+          created_at: DateTime.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           description: String.t() | nil,
           dimensions: %{optional(String.t()) => term()} | nil,
           media: %{optional(String.t()) => term()} | nil,
           name: String.t(),
-          published_at: String.t() | nil,
+          published_at: DateTime.t() | nil,
           reference: String.t() | nil,
           shipment: %{optional(String.t()) => term()} | nil,
           tax_code: String.t() | nil,
           type: Inttegro.Products.Type.t(),
           unit_dim: String.t() | nil,
-          updated_at: String.t() | nil
+          updated_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -271,7 +277,10 @@ defmodule Inttegro.Prices.EmbeddedProduct do
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
       active: Map.fetch!(map, "active"),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        ),
       attributes:
         if(is_nil(Map.get(map, "attributes")),
           do: nil,
@@ -281,7 +290,7 @@ defmodule Inttegro.Prices.EmbeddedProduct do
             end)
         ),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
@@ -301,7 +310,10 @@ defmodule Inttegro.Prices.EmbeddedProduct do
         ),
       name: Map.fetch!(map, "name"),
       published_at:
-        if(is_nil(Map.get(map, "published_at")), do: nil, else: Map.get(map, "published_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))
+        ),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       shipment:
         if(is_nil(Map.get(map, "shipment")),
@@ -312,7 +324,10 @@ defmodule Inttegro.Prices.EmbeddedProduct do
       type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        )
     }
   end
 
@@ -489,9 +504,9 @@ defmodule Inttegro.Prices.PageItem do
           nominal: Inttegro.Money.Amount.t(),
           product_id: String.t() | nil,
           product: Inttegro.Prices.EmbeddedProduct.t() | nil,
-          created_at: String.t(),
-          updated_at: String.t() | nil,
-          archived_at: String.t() | nil
+          created_at: DateTime.t(),
+          updated_at: DateTime.t() | nil,
+          archived_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -512,11 +527,17 @@ defmodule Inttegro.Prices.PageItem do
           do: nil,
           else: Inttegro.Prices.EmbeddedProduct.from_map(Map.get(map, "product"))
         ),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        )
     }
   end
 

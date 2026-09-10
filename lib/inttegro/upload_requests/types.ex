@@ -157,7 +157,7 @@ defmodule Inttegro.UploadRequests.CreateRequest do
           requester: Inttegro.Files.ActorInput.t() | nil,
           attempts: Inttegro.UploadRequests.AttemptsRequest.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          expires_at: String.t() | nil,
+          expires_at: DateTime.t() | nil,
           purpose: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -208,7 +208,10 @@ defmodule Inttegro.UploadRequests.CreateRequest do
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       purpose: Map.fetch!(map, "purpose")
     }
   end
@@ -551,13 +554,13 @@ defmodule Inttegro.UploadRequests.UploadRequest do
           canceled_by: Inttegro.UploadRequests.Actor.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
-          created_at: String.t(),
-          updated_at: String.t(),
-          expires_at: String.t(),
-          uploading_at: String.t() | nil,
-          fulfilled_at: String.t() | nil,
-          expired_at: String.t() | nil,
-          canceled_at: String.t() | nil,
+          created_at: DateTime.t(),
+          updated_at: DateTime.t(),
+          expires_at: DateTime.t(),
+          uploading_at: DateTime.t() | nil,
+          fulfilled_at: DateTime.t() | nil,
+          expired_at: DateTime.t() | nil,
+          canceled_at: DateTime.t() | nil,
           attempt: Inttegro.UploadRequests.Attempt.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -601,17 +604,29 @@ defmodule Inttegro.UploadRequests.UploadRequest do
           do: nil,
           else: Map.new(Map.get(map, "metadata"), fn {key, value} -> {key, value} end)
         ),
-      created_at: Map.fetch!(map, "created_at"),
-      updated_at: Map.fetch!(map, "updated_at"),
-      expires_at: Map.fetch!(map, "expires_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
+      updated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "updated_at")),
+      expires_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "expires_at")),
       uploading_at:
-        if(is_nil(Map.get(map, "uploading_at")), do: nil, else: Map.get(map, "uploading_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "uploading_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "uploading_at"))
+        ),
       fulfilled_at:
-        if(is_nil(Map.get(map, "fulfilled_at")), do: nil, else: Map.get(map, "fulfilled_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "fulfilled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "fulfilled_at"))
+        ),
       expired_at:
-        if(is_nil(Map.get(map, "expired_at")), do: nil, else: Map.get(map, "expired_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expired_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expired_at"))
+        ),
       canceled_at:
-        if(is_nil(Map.get(map, "canceled_at")), do: nil, else: Map.get(map, "canceled_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))
+        ),
       attempt:
         if(is_nil(Map.get(map, "attempt")),
           do: nil,
@@ -735,18 +750,18 @@ defmodule Inttegro.UploadRequests.Attempt do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          attempted_at: String.t(),
+          attempted_at: DateTime.t(),
           content_type: String.t() | nil,
           declared_size: integer() | nil,
           error: Inttegro.UploadRequests.LatestError.t() | nil,
-          failed_at: String.t() | nil,
+          failed_at: DateTime.t() | nil,
           file_id: String.t() | nil,
           filename: String.t() | nil,
           id: String.t(),
           ordinal: integer(),
           review: Inttegro.UploadRequests.Review.t() | nil,
           status: String.t(),
-          succeeded_at: String.t() | nil,
+          succeeded_at: DateTime.t() | nil,
           upload_request_id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -756,7 +771,7 @@ defmodule Inttegro.UploadRequests.Attempt do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      attempted_at: Map.fetch!(map, "attempted_at"),
+      attempted_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "attempted_at")),
       content_type:
         if(is_nil(Map.get(map, "content_type")), do: nil, else: Map.get(map, "content_type")),
       declared_size:
@@ -766,7 +781,11 @@ defmodule Inttegro.UploadRequests.Attempt do
           do: nil,
           else: Inttegro.UploadRequests.LatestError.from_map(Map.get(map, "error"))
         ),
-      failed_at: if(is_nil(Map.get(map, "failed_at")), do: nil, else: Map.get(map, "failed_at")),
+      failed_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "failed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "failed_at"))
+        ),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       id: Map.fetch!(map, "id"),
@@ -778,7 +797,10 @@ defmodule Inttegro.UploadRequests.Attempt do
         ),
       status: Map.fetch!(map, "status"),
       succeeded_at:
-        if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "succeeded_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "succeeded_at"))
+        ),
       upload_request_id: Map.fetch!(map, "upload_request_id")
     }
   end
@@ -824,7 +846,7 @@ defmodule Inttegro.UploadRequests.Attempts do
           max_attempts: integer() | nil,
           attempt_count: integer(),
           failed_attempt_count: integer(),
-          last_attempted_at: String.t() | nil
+          last_attempted_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -838,9 +860,9 @@ defmodule Inttegro.UploadRequests.Attempts do
       attempt_count: Map.fetch!(map, "attempt_count"),
       failed_attempt_count: Map.fetch!(map, "failed_attempt_count"),
       last_attempted_at:
-        if(is_nil(Map.get(map, "last_attempted_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "last_attempted_at"))),
           do: nil,
-          else: Map.get(map, "last_attempted_at")
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "last_attempted_at"))
         )
     }
   end
@@ -1126,7 +1148,7 @@ defmodule Inttegro.UploadRequests.LatestError do
           param: String.t() | nil,
           message: String.t() | nil,
           retryable: boolean() | nil,
-          at: String.t() | nil
+          at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1139,7 +1161,11 @@ defmodule Inttegro.UploadRequests.LatestError do
       param: if(is_nil(Map.get(map, "param")), do: nil, else: Map.get(map, "param")),
       message: if(is_nil(Map.get(map, "message")), do: nil, else: Map.get(map, "message")),
       retryable: if(is_nil(Map.get(map, "retryable")), do: nil, else: Map.get(map, "retryable")),
-      at: if(is_nil(Map.get(map, "at")), do: nil, else: Map.get(map, "at"))
+      at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "at"))
+        )
     }
   end
 
@@ -1213,12 +1239,12 @@ defmodule Inttegro.UploadRequests.Review do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          created_at: String.t(),
+          created_at: DateTime.t(),
           decision: Inttegro.UploadRequests.UploadReviewDecision.t(),
           file_id: String.t() | nil,
           public_message: String.t() | nil,
           reasons: [Inttegro.UploadRequests.ReviewReason.t()] | nil,
-          reviewed_at: String.t(),
+          reviewed_at: DateTime.t(),
           type: Inttegro.UploadRequests.UploadReviewType.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1228,7 +1254,7 @@ defmodule Inttegro.UploadRequests.Review do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       decision: Inttegro.UploadRequests.UploadReviewDecision.decode(Map.fetch!(map, "decision")),
       file_id: if(is_nil(Map.get(map, "file_id")), do: nil, else: Map.get(map, "file_id")),
       public_message:
@@ -1241,7 +1267,7 @@ defmodule Inttegro.UploadRequests.Review do
               Inttegro.UploadRequests.ReviewReason.from_map(item)
             end)
         ),
-      reviewed_at: Map.fetch!(map, "reviewed_at"),
+      reviewed_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "reviewed_at")),
       type: Inttegro.UploadRequests.UploadReviewType.decode(Map.fetch!(map, "type"))
     }
   end

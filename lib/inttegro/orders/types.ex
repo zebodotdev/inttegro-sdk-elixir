@@ -139,6 +139,7 @@ defmodule Inttegro.Orders.LineItem do
           Inttegro.Orders.ProductLineItem.t()
           | Inttegro.Orders.FeeLineItem.t()
           | Inttegro.Orders.ShippingLineItem.t()
+          | Inttegro.Orders.DiscountLineItem.t()
 
   @doc false
   @spec decode(term()) :: t()
@@ -147,7 +148,8 @@ defmodule Inttegro.Orders.LineItem do
       [
         Inttegro.Orders.ProductLineItem,
         Inttegro.Orders.FeeLineItem,
-        Inttegro.Orders.ShippingLineItem
+        Inttegro.Orders.ShippingLineItem,
+        Inttegro.Orders.DiscountLineItem
       ],
       value,
       fn module ->
@@ -461,7 +463,7 @@ defmodule Inttegro.Orders.CreateExistingCustomerInput do
           billing_details: Inttegro.Orders.BillingDetailsInput.t() | nil,
           shipping: Inttegro.Orders.ShippingInput.t() | nil,
           customer_id: String.t(),
-          line_items: [term()]
+          line_items: [Inttegro.Orders.LineItemInput.t()]
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -540,7 +542,10 @@ defmodule Inttegro.Orders.CreateExistingCustomerInput do
           else: Inttegro.Orders.ShippingInput.from_map(Map.get(map, "shipping"))
         ),
       customer_id: Map.fetch!(map, "customer_id"),
-      line_items: Enum.map(Map.fetch!(map, "line_items"), fn item -> item end)
+      line_items:
+        Enum.map(Map.fetch!(map, "line_items"), fn item ->
+          Inttegro.Orders.LineItemInput.decode(item)
+        end)
     }
   end
 
@@ -732,7 +737,7 @@ defmodule Inttegro.Orders.CreateNewCustomerInput do
           shipping: Inttegro.Orders.ShippingInput.t() | nil,
           payment_method_data: Inttegro.PaymentMethods.DataInput.t() | nil,
           customer_data: Inttegro.Customers.DataInput.t(),
-          line_items: [term()]
+          line_items: [Inttegro.Orders.LineItemInput.t()]
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -807,7 +812,10 @@ defmodule Inttegro.Orders.CreateNewCustomerInput do
           else: Inttegro.PaymentMethods.DataInput.from_map(Map.get(map, "payment_method_data"))
         ),
       customer_data: Inttegro.Customers.DataInput.from_map(Map.fetch!(map, "customer_data")),
-      line_items: Enum.map(Map.fetch!(map, "line_items"), fn item -> item end)
+      line_items:
+        Enum.map(Map.fetch!(map, "line_items"), fn item ->
+          Inttegro.Orders.LineItemInput.decode(item)
+        end)
     }
   end
 
@@ -1137,35 +1145,31 @@ defmodule Inttegro.Orders.Order do
             payment: nil,
             paid_at: nil,
             payment_due_at: nil,
-            payout_settings: nil,
-            reference: nil,
-            shipping: nil
+            reference: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          canceled_at: String.t() | nil,
+          canceled_at: DateTime.t() | nil,
           checkout_settings: Inttegro.Orders.CheckoutSettings.t() | nil,
-          completed_at: String.t() | nil,
+          completed_at: DateTime.t() | nil,
           created_from: Inttegro.Orders.CreatedFrom.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer: Inttegro.Orders.Customer.t(),
-          expires_at: String.t() | nil,
+          expires_at: DateTime.t() | nil,
           id: String.t(),
-          initiated_at: String.t(),
+          initiated_at: DateTime.t(),
           invoice: Inttegro.Invoices.Order.t() | nil,
           number: String.t() | nil,
           receipt_number: String.t() | nil,
           refunds: [Inttegro.Refunds.Refund.t()] | nil,
           invoice_settings: Inttegro.Invoices.Settings.t() | nil,
           status: Inttegro.Orders.Status.t(),
-          sealed_at: String.t() | nil,
+          sealed_at: DateTime.t() | nil,
           line_item_group: Inttegro.Orders.LineItemGroup.t() | nil,
           payment: Inttegro.Payments.Payment.t() | nil,
-          paid_at: String.t() | nil,
-          payment_due_at: String.t() | nil,
-          payout_settings: %{optional(String.t()) => term()} | nil,
-          reference: String.t() | nil,
-          shipping: %{optional(String.t()) => term()} | nil
+          paid_at: DateTime.t() | nil,
+          payment_due_at: DateTime.t() | nil,
+          reference: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1175,14 +1179,20 @@ defmodule Inttegro.Orders.Order do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       canceled_at:
-        if(is_nil(Map.get(map, "canceled_at")), do: nil, else: Map.get(map, "canceled_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))
+        ),
       checkout_settings:
         if(is_nil(Map.get(map, "checkout_settings")),
           do: nil,
           else: Inttegro.Orders.CheckoutSettings.from_map(Map.get(map, "checkout_settings"))
         ),
       completed_at:
-        if(is_nil(Map.get(map, "completed_at")), do: nil, else: Map.get(map, "completed_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "completed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "completed_at"))
+        ),
       created_from:
         if(is_nil(Map.get(map, "created_from")),
           do: nil,
@@ -1195,9 +1205,12 @@ defmodule Inttegro.Orders.Order do
         ),
       customer: Inttegro.Orders.Customer.from_map(Map.fetch!(map, "customer")),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       id: Map.fetch!(map, "id"),
-      initiated_at: Map.fetch!(map, "initiated_at"),
+      initiated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "initiated_at")),
       invoice:
         if(is_nil(Map.get(map, "invoice")),
           do: nil,
@@ -1220,7 +1233,11 @@ defmodule Inttegro.Orders.Order do
           else: Inttegro.Invoices.Settings.from_map(Map.get(map, "invoice_settings"))
         ),
       status: Inttegro.Orders.Status.decode(Map.fetch!(map, "status")),
-      sealed_at: if(is_nil(Map.get(map, "sealed_at")), do: nil, else: Map.get(map, "sealed_at")),
+      sealed_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "sealed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "sealed_at"))
+        ),
       line_item_group:
         if(is_nil(Map.get(map, "line_item_group")),
           do: nil,
@@ -1231,20 +1248,17 @@ defmodule Inttegro.Orders.Order do
           do: nil,
           else: Inttegro.Payments.Payment.from_map(Map.get(map, "payment"))
         ),
-      paid_at: if(is_nil(Map.get(map, "paid_at")), do: nil, else: Map.get(map, "paid_at")),
-      payment_due_at:
-        if(is_nil(Map.get(map, "payment_due_at")), do: nil, else: Map.get(map, "payment_due_at")),
-      payout_settings:
-        if(is_nil(Map.get(map, "payout_settings")),
+      paid_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "paid_at"))),
           do: nil,
-          else: Map.new(Map.get(map, "payout_settings"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "paid_at"))
         ),
-      reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
-      shipping:
-        if(is_nil(Map.get(map, "shipping")),
+      payment_due_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "payment_due_at"))),
           do: nil,
-          else: Map.new(Map.get(map, "shipping"), fn {key, value} -> {key, value} end)
-        )
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "payment_due_at"))
+        ),
+      reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference"))
     }
   end
 
@@ -1308,24 +1322,8 @@ defmodule Inttegro.Orders.Order do
           do: nil,
           else: Inttegro.Codec.encode(value.payment_due_at)
         ),
-      "payout_settings" =>
-        if(is_nil(value.payout_settings),
-          do: nil,
-          else:
-            Map.new(value.payout_settings, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
-        ),
       "reference" =>
-        if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
-      "shipping" =>
-        if(is_nil(value.shipping),
-          do: nil,
-          else:
-            Map.new(value.shipping, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
-        )
+        if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference))
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
@@ -1712,6 +1710,38 @@ defmodule Inttegro.Orders.FeeLineItemFee do
   end
 end
 
+defmodule Inttegro.Orders.Discount do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
+defmodule Inttegro.Orders.DiscountLineItem do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @enforce_keys [:type, :discount]
+  defstruct type: nil, discount: nil
+  @type t :: %__MODULE__{type: String.t(), discount: Inttegro.Orders.Discount.t()}
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map) do
+    %__MODULE__{
+      type: Map.fetch!(map, "type"),
+      discount: Inttegro.Orders.Discount.from_map(Map.fetch!(map, "discount"))
+    }
+  end
+
+  @spec to_map(t()) :: map()
+  def to_map(value),
+    do: %{"type" => value.type, "discount" => Inttegro.Codec.encode(value.discount)}
+end
+
 defmodule Inttegro.Orders.LineItemGroup do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:line_items, :total]
@@ -1719,7 +1749,7 @@ defmodule Inttegro.Orders.LineItemGroup do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          line_items: [term()],
+          line_items: [Inttegro.Orders.LineItem.t()],
           total: Inttegro.Money.Amount.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1729,7 +1759,10 @@ defmodule Inttegro.Orders.LineItemGroup do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      line_items: Enum.map(Map.fetch!(map, "line_items"), fn item -> item end),
+      line_items:
+        Enum.map(Map.fetch!(map, "line_items"), fn item ->
+          Inttegro.Orders.LineItem.decode(item)
+        end),
       total: Inttegro.Money.Amount.from_map(Map.fetch!(map, "total"))
     }
   end
@@ -1748,13 +1781,14 @@ end
 
 defmodule Inttegro.Orders.Page do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @enforce_keys [:number, :size, :orders]
   defstruct number: nil, size: nil, orders: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          number: integer() | nil,
-          size: integer() | nil,
-          orders: [Inttegro.Orders.Order.t()] | nil
+          number: integer(),
+          size: integer(),
+          orders: [Inttegro.Orders.Order.t()]
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1763,14 +1797,10 @@ defmodule Inttegro.Orders.Page do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      number: if(is_nil(Map.get(map, "number")), do: nil, else: Map.get(map, "number")),
-      size: if(is_nil(Map.get(map, "size")), do: nil, else: Map.get(map, "size")),
+      number: Map.fetch!(map, "number"),
+      size: Map.fetch!(map, "size"),
       orders:
-        if(is_nil(Map.get(map, "orders")),
-          do: nil,
-          else:
-            Enum.map(Map.get(map, "orders"), fn item -> Inttegro.Orders.Order.from_map(item) end)
-        )
+        Enum.map(Map.fetch!(map, "orders"), fn item -> Inttegro.Orders.Order.from_map(item) end)
     }
   end
 
@@ -1778,13 +1808,9 @@ defmodule Inttegro.Orders.Page do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "number" => if(is_nil(value.number), do: nil, else: Inttegro.Codec.encode(value.number)),
-      "size" => if(is_nil(value.size), do: nil, else: Inttegro.Codec.encode(value.size)),
-      "orders" =>
-        if(is_nil(value.orders),
-          do: nil,
-          else: Enum.map(value.orders, fn item -> Inttegro.Codec.encode(item) end)
-        )
+      "number" => Inttegro.Codec.encode(value.number),
+      "size" => Inttegro.Codec.encode(value.size),
+      "orders" => Enum.map(value.orders, fn item -> Inttegro.Codec.encode(item) end)
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)
     |> Map.new()
@@ -2372,7 +2398,7 @@ defmodule Inttegro.Orders.UpdateRequest do
           custom_data: %{optional(String.t()) => String.t()} | nil,
           invoice_settings: Inttegro.Invoices.SettingsInput.t() | nil,
           finalize: boolean() | nil,
-          line_items: [term()] | nil,
+          line_items: [Inttegro.Orders.LineItemInput.t()] | nil,
           number: String.t() | nil,
           receipt_number: String.t() | nil,
           payment_method_data: Inttegro.Orders.UpdateRequestPaymentMethodData.t() | nil,
@@ -2407,7 +2433,10 @@ defmodule Inttegro.Orders.UpdateRequest do
       line_items:
         if(is_nil(Map.get(map, "line_items")),
           do: nil,
-          else: Enum.map(Map.get(map, "line_items"), fn item -> item end)
+          else:
+            Enum.map(Map.get(map, "line_items"), fn item ->
+              Inttegro.Orders.LineItemInput.decode(item)
+            end)
         ),
       number: if(is_nil(Map.get(map, "number")), do: nil, else: Map.get(map, "number")),
       receipt_number:

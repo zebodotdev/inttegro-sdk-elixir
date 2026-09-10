@@ -134,7 +134,7 @@ defmodule Inttegro.Keys.GeneratedSecretKey do
           id: String.t(),
           label: String.t() | nil,
           token_type: Inttegro.Keys.SecretKeyTokenType.t(),
-          issued_at: String.t(),
+          issued_at: DateTime.t(),
           token: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -147,7 +147,7 @@ defmodule Inttegro.Keys.GeneratedSecretKey do
       id: Map.fetch!(map, "id"),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       token_type: Inttegro.Keys.SecretKeyTokenType.decode(Map.fetch!(map, "token_type")),
-      issued_at: Map.fetch!(map, "issued_at"),
+      issued_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "issued_at")),
       token: Map.fetch!(map, "token")
     }
   end
@@ -254,13 +254,13 @@ defmodule Inttegro.Keys.SecretKey do
           id: String.t(),
           label: String.t() | nil,
           token_type: Inttegro.Keys.SecretKeyTokenType.t(),
-          issued_at: String.t(),
-          updated_at: String.t() | nil,
-          expires_at: String.t() | nil,
+          issued_at: DateTime.t(),
+          updated_at: DateTime.t() | nil,
+          expires_at: DateTime.t() | nil,
           status: Inttegro.Keys.SecretKeyStatus.t(),
           active: boolean(),
-          revoked_at: String.t() | nil,
-          last_used_at: String.t() | nil,
+          revoked_at: DateTime.t() | nil,
+          last_used_at: DateTime.t() | nil,
           usage_count: integer() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -273,17 +273,29 @@ defmodule Inttegro.Keys.SecretKey do
       id: Map.fetch!(map, "id"),
       label: if(is_nil(Map.get(map, "label")), do: nil, else: Map.get(map, "label")),
       token_type: Inttegro.Keys.SecretKeyTokenType.decode(Map.fetch!(map, "token_type")),
-      issued_at: Map.fetch!(map, "issued_at"),
+      issued_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "issued_at")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       status: Inttegro.Keys.SecretKeyStatus.decode(Map.fetch!(map, "status")),
       active: Map.fetch!(map, "active"),
       revoked_at:
-        if(is_nil(Map.get(map, "revoked_at")), do: nil, else: Map.get(map, "revoked_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "revoked_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "revoked_at"))
+        ),
       last_used_at:
-        if(is_nil(Map.get(map, "last_used_at")), do: nil, else: Map.get(map, "last_used_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "last_used_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "last_used_at"))
+        ),
       usage_count:
         if(is_nil(Map.get(map, "usage_count")), do: nil, else: Map.get(map, "usage_count"))
     }
@@ -493,7 +505,7 @@ defmodule Inttegro.Keys.SecretKeyUsageRow do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           secret_key_id: String.t(),
-          occurred_at: String.t(),
+          occurred_at: DateTime.t(),
           auth_result: Inttegro.Keys.SecretKeyAuthResult.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -504,7 +516,7 @@ defmodule Inttegro.Keys.SecretKeyUsageRow do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       secret_key_id: Map.fetch!(map, "secret_key_id"),
-      occurred_at: Map.fetch!(map, "occurred_at"),
+      occurred_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "occurred_at")),
       auth_result: Inttegro.Keys.SecretKeyAuthResult.decode(Map.fetch!(map, "auth_result"))
     }
   end

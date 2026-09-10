@@ -220,10 +220,10 @@ defmodule Inttegro.Files.File do
           latest_error: Inttegro.Files.LatestError.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
-          created_at: String.t(),
-          updated_at: String.t(),
-          available_at: String.t() | nil,
-          expires_at: String.t() | nil
+          created_at: DateTime.t(),
+          updated_at: DateTime.t(),
+          available_at: DateTime.t() | nil,
+          expires_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -269,12 +269,18 @@ defmodule Inttegro.Files.File do
           do: nil,
           else: Map.new(Map.get(map, "metadata"), fn {key, value} -> {key, value} end)
         ),
-      created_at: Map.fetch!(map, "created_at"),
-      updated_at: Map.fetch!(map, "updated_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
+      updated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "updated_at")),
       available_at:
-        if(is_nil(Map.get(map, "available_at")), do: nil, else: Map.get(map, "available_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "available_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "available_at"))
+        ),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        )
     }
   end
 
@@ -511,7 +517,7 @@ defmodule Inttegro.Files.LatestError do
           code: String.t() | nil,
           message: String.t() | nil,
           retryable: boolean() | nil,
-          at: String.t() | nil
+          at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -523,7 +529,11 @@ defmodule Inttegro.Files.LatestError do
       code: if(is_nil(Map.get(map, "code")), do: nil, else: Map.get(map, "code")),
       message: if(is_nil(Map.get(map, "message")), do: nil, else: Map.get(map, "message")),
       retryable: if(is_nil(Map.get(map, "retryable")), do: nil, else: Map.get(map, "retryable")),
-      at: if(is_nil(Map.get(map, "at")), do: nil, else: Map.get(map, "at"))
+      at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "at"))
+        )
     }
   end
 
@@ -869,7 +879,7 @@ defmodule Inttegro.Files.UploadReceipt do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           content_type: String.t(),
-          created_at: String.t(),
+          created_at: DateTime.t(),
           filename: String.t() | nil,
           id: String.t(),
           name: String.t() | nil,
@@ -884,7 +894,7 @@ defmodule Inttegro.Files.UploadReceipt do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       content_type: Map.fetch!(map, "content_type"),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       filename: if(is_nil(Map.get(map, "filename")), do: nil, else: Map.get(map, "filename")),
       id: Map.fetch!(map, "id"),
       name: if(is_nil(Map.get(map, "name")), do: nil, else: Map.get(map, "name")),
@@ -957,8 +967,8 @@ defmodule Inttegro.Files.PageRequest do
           status: Inttegro.Files.Status.t() | nil,
           page_number: integer() | nil,
           page_size: integer() | nil,
-          created_after: String.t() | nil,
-          created_before: String.t() | nil
+          created_after: DateTime.t() | nil,
+          created_before: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -977,9 +987,15 @@ defmodule Inttegro.Files.PageRequest do
         if(is_nil(Map.get(map, "page_number")), do: nil, else: Map.get(map, "page_number")),
       page_size: if(is_nil(Map.get(map, "page_size")), do: nil, else: Map.get(map, "page_size")),
       created_after:
-        if(is_nil(Map.get(map, "created_after")), do: nil, else: Map.get(map, "created_after")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "created_after"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "created_after"))
+        ),
       created_before:
-        if(is_nil(Map.get(map, "created_before")), do: nil, else: Map.get(map, "created_before"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "created_before"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "created_before"))
+        )
     }
   end
 

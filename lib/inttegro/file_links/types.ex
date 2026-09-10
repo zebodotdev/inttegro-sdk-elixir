@@ -81,7 +81,7 @@ defmodule Inttegro.FileLinks.CreateRequest do
           access: Inttegro.FileLinks.AccessRequest.t() | nil,
           created_by: Inttegro.Files.ActorInput.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          expires_at: String.t() | nil,
+          expires_at: DateTime.t() | nil,
           file_id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -112,7 +112,10 @@ defmodule Inttegro.FileLinks.CreateRequest do
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       file_id: Map.fetch!(map, "file_id")
     }
   end
@@ -190,10 +193,10 @@ defmodule Inttegro.FileLinks.FileLink do
           revoked_by: Inttegro.FileLinks.Actor.t() | nil,
           custom_data: %{optional(String.t()) => String.t()} | nil,
           metadata: %{optional(String.t()) => String.t()} | nil,
-          created_at: String.t(),
-          updated_at: String.t(),
-          expires_at: String.t(),
-          revoked_at: String.t() | nil
+          created_at: DateTime.t(),
+          updated_at: DateTime.t(),
+          expires_at: DateTime.t(),
+          revoked_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -226,11 +229,14 @@ defmodule Inttegro.FileLinks.FileLink do
           do: nil,
           else: Map.new(Map.get(map, "metadata"), fn {key, value} -> {key, value} end)
         ),
-      created_at: Map.fetch!(map, "created_at"),
-      updated_at: Map.fetch!(map, "updated_at"),
-      expires_at: Map.fetch!(map, "expires_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
+      updated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "updated_at")),
+      expires_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "expires_at")),
       revoked_at:
-        if(is_nil(Map.get(map, "revoked_at")), do: nil, else: Map.get(map, "revoked_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "revoked_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "revoked_at"))
+        )
     }
   end
 
@@ -288,7 +294,7 @@ defmodule Inttegro.FileLinks.Access do
   @type t :: %__MODULE__{
           max_accesses: integer() | nil,
           access_count: integer() | nil,
-          last_accessed_at: String.t() | nil,
+          last_accessed_at: DateTime.t() | nil,
           allow_download: boolean() | nil,
           allowed_origins: [String.t()] | nil
         }
@@ -304,9 +310,9 @@ defmodule Inttegro.FileLinks.Access do
       access_count:
         if(is_nil(Map.get(map, "access_count")), do: nil, else: Map.get(map, "access_count")),
       last_accessed_at:
-        if(is_nil(Map.get(map, "last_accessed_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "last_accessed_at"))),
           do: nil,
-          else: Map.get(map, "last_accessed_at")
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "last_accessed_at"))
         ),
       allow_download:
         if(is_nil(Map.get(map, "allow_download")), do: nil, else: Map.get(map, "allow_download")),

@@ -112,7 +112,7 @@ defmodule Inttegro.PurchaseIntents.CreateRequest do
           price: Inttegro.PurchaseIntents.CreateRequestPrice.t() | nil,
           price_id: String.t() | nil,
           usage: Inttegro.PurchaseIntents.CreateRequestUsage.t() | nil,
-          expires_at: String.t() | nil,
+          expires_at: DateTime.t() | nil,
           quantity: Inttegro.PurchaseIntents.CreateRequestQuantity.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -141,7 +141,10 @@ defmodule Inttegro.PurchaseIntents.CreateRequest do
           else: Inttegro.PurchaseIntents.CreateRequestUsage.from_map(Map.get(map, "usage"))
         ),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       quantity:
         Inttegro.PurchaseIntents.CreateRequestQuantity.from_map(Map.fetch!(map, "quantity"))
     }
@@ -449,18 +452,18 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          activity: Inttegro.PurchaseIntents.Activity.t() | nil,
+          activity: Inttegro.PurchaseIntents.ActivityLog.t() | nil,
           allow_variants: boolean(),
-          created_at: String.t(),
-          expires_at: String.t() | nil,
+          created_at: DateTime.t(),
+          expires_at: DateTime.t() | nil,
           id: String.t(),
-          inactive_at: String.t() | nil,
+          inactive_at: DateTime.t() | nil,
           merchant: Inttegro.PurchaseIntents.Merchant.t() | nil,
           price: Inttegro.PurchaseIntents.Price.t() | nil,
           product: Inttegro.PurchaseIntents.Product.t() | nil,
           quantity: Inttegro.PurchaseIntents.Quantity.t(),
           status: Inttegro.PurchaseIntents.Status.t(),
-          updated_at: String.t() | nil,
+          updated_at: DateTime.t() | nil,
           usage: Inttegro.PurchaseIntents.Usage.t(),
           variant_set: Inttegro.PurchaseIntents.VariantSet.t() | nil
         }
@@ -474,15 +477,21 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
       activity:
         if(is_nil(Map.get(map, "activity")),
           do: nil,
-          else: Inttegro.PurchaseIntents.Activity.from_map(Map.get(map, "activity"))
+          else: Inttegro.PurchaseIntents.ActivityLog.from_map(Map.get(map, "activity"))
         ),
       allow_variants: Map.fetch!(map, "allow_variants"),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       id: Map.fetch!(map, "id"),
       inactive_at:
-        if(is_nil(Map.get(map, "inactive_at")), do: nil, else: Map.get(map, "inactive_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "inactive_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "inactive_at"))
+        ),
       merchant:
         if(is_nil(Map.get(map, "merchant")),
           do: nil,
@@ -501,7 +510,10 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
       quantity: Inttegro.PurchaseIntents.Quantity.from_map(Map.fetch!(map, "quantity")),
       status: Inttegro.PurchaseIntents.Status.decode(Map.fetch!(map, "status")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       usage: Inttegro.PurchaseIntents.Usage.from_map(Map.fetch!(map, "usage")),
       variant_set:
         if(is_nil(Map.get(map, "variant_set")),
@@ -541,7 +553,7 @@ defmodule Inttegro.PurchaseIntents.PurchaseIntent do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.Activity do
+defmodule Inttegro.PurchaseIntents.ActivityLog do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   defstruct recent: nil
 
@@ -582,13 +594,220 @@ defmodule Inttegro.PurchaseIntents.Activity do
   end
 end
 
-defmodule Inttegro.PurchaseIntents.Merchant do
+defmodule Inttegro.PurchaseIntents.Activity do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
-  defstruct app_id: nil, app_name: nil, organization_id: nil, organization_name: nil
+  @enforce_keys [:created_at, :id, :purchase_intent_id, :type]
+  defstruct amount: nil,
+            attribution: nil,
+            created_at: nil,
+            error_code: nil,
+            id: nil,
+            order_id: nil,
+            payment_id: nil,
+            product_id: nil,
+            purchase_intent_id: nil,
+            quantity: nil,
+            source: nil,
+            type: nil,
+            variant_product_id: nil,
+            visitor: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          app_id: String.t() | nil,
+          amount: Inttegro.Money.Amount.t() | nil,
+          attribution: Inttegro.PurchaseIntents.ActivityAttribution.t() | nil,
+          created_at: DateTime.t(),
+          error_code: String.t() | nil,
+          id: String.t(),
+          order_id: String.t() | nil,
+          payment_id: String.t() | nil,
+          product_id: String.t() | nil,
+          purchase_intent_id: String.t(),
+          quantity: integer() | nil,
+          source: String.t() | nil,
+          type: Inttegro.PurchaseIntents.ActivityType.t(),
+          variant_product_id: String.t() | nil,
+          visitor: Inttegro.PurchaseIntents.ActivityVisitor.t() | nil
+        }
+  @doc Inttegro.Docs.constructor_doc(__MODULE__)
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @doc false
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map) do
+    %__MODULE__{
+      amount:
+        if(is_nil(Map.get(map, "amount")),
+          do: nil,
+          else: Inttegro.Money.Amount.from_map(Map.get(map, "amount"))
+        ),
+      attribution:
+        if(is_nil(Map.get(map, "attribution")),
+          do: nil,
+          else: Inttegro.PurchaseIntents.ActivityAttribution.from_map(Map.get(map, "attribution"))
+        ),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
+      error_code: Map.get(map, "error_code"),
+      id: Map.fetch!(map, "id"),
+      order_id: Map.get(map, "order_id"),
+      payment_id: Map.get(map, "payment_id"),
+      product_id: Map.get(map, "product_id"),
+      purchase_intent_id: Map.fetch!(map, "purchase_intent_id"),
+      quantity: Map.get(map, "quantity"),
+      source: Map.get(map, "source"),
+      type: Inttegro.PurchaseIntents.ActivityType.decode(Map.fetch!(map, "type")),
+      variant_product_id: Map.get(map, "variant_product_id"),
+      visitor:
+        if(is_nil(Map.get(map, "visitor")),
+          do: nil,
+          else: Inttegro.PurchaseIntents.ActivityVisitor.from_map(Map.get(map, "visitor"))
+        )
+    }
+  end
+
+  @doc false
+  @spec to_map(t()) :: map()
+  def to_map(value) do
+    %{
+      "amount" => if(is_nil(value.amount), do: nil, else: Inttegro.Codec.encode(value.amount)),
+      "attribution" =>
+        if(is_nil(value.attribution), do: nil, else: Inttegro.Codec.encode(value.attribution)),
+      "created_at" => Inttegro.Codec.encode(value.created_at),
+      "error_code" => value.error_code,
+      "id" => Inttegro.Codec.encode(value.id),
+      "order_id" => value.order_id,
+      "payment_id" => value.payment_id,
+      "product_id" => value.product_id,
+      "purchase_intent_id" => Inttegro.Codec.encode(value.purchase_intent_id),
+      "quantity" => value.quantity,
+      "source" => value.source,
+      "type" => Inttegro.PurchaseIntents.ActivityType.encode(value.type),
+      "variant_product_id" => value.variant_product_id,
+      "visitor" => if(is_nil(value.visitor), do: nil, else: Inttegro.Codec.encode(value.visitor))
+    }
+    |> Enum.reject(fn {_key, item} -> is_nil(item) end)
+    |> Map.new()
+  end
+end
+
+defmodule Inttegro.PurchaseIntents.ActivityAttribution do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  defstruct campaign: nil,
+            channel: nil,
+            content: nil,
+            landing_url: nil,
+            medium: nil,
+            referrer: nil,
+            referrer_host: nil,
+            source: nil,
+            term: nil
+
+  @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{
+          campaign: String.t() | nil,
+          channel: String.t() | nil,
+          content: String.t() | nil,
+          landing_url: String.t() | nil,
+          medium: String.t() | nil,
+          referrer: String.t() | nil,
+          referrer_host: String.t() | nil,
+          source: String.t() | nil,
+          term: String.t() | nil
+        }
+  @doc Inttegro.Docs.constructor_doc(__MODULE__)
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @doc false
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map) do
+    %__MODULE__{
+      campaign: Map.get(map, "campaign"),
+      channel: Map.get(map, "channel"),
+      content: Map.get(map, "content"),
+      landing_url: Map.get(map, "landing_url"),
+      medium: Map.get(map, "medium"),
+      referrer: Map.get(map, "referrer"),
+      referrer_host: Map.get(map, "referrer_host"),
+      source: Map.get(map, "source"),
+      term: Map.get(map, "term")
+    }
+  end
+
+  @doc false
+  @spec to_map(t()) :: map()
+  def to_map(value) do
+    value
+    |> Map.from_struct()
+    |> Enum.reject(fn {_key, item} -> is_nil(item) end)
+    |> Map.new(fn {key, item} -> {Atom.to_string(key), item} end)
+  end
+end
+
+defmodule Inttegro.PurchaseIntents.ActivityVisitor do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  defstruct browser: nil,
+            city: nil,
+            country: nil,
+            device: nil,
+            ip_address: nil,
+            os: nil,
+            region: nil,
+            session_id: nil,
+            timezone: nil,
+            user_agent: nil,
+            visitor_id: nil
+
+  @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{
+          browser: String.t() | nil,
+          city: String.t() | nil,
+          country: String.t() | nil,
+          device: String.t() | nil,
+          ip_address: String.t() | nil,
+          os: String.t() | nil,
+          region: String.t() | nil,
+          session_id: String.t() | nil,
+          timezone: String.t() | nil,
+          user_agent: String.t() | nil,
+          visitor_id: String.t() | nil
+        }
+  @doc Inttegro.Docs.constructor_doc(__MODULE__)
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @doc false
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map) do
+    %__MODULE__{
+      browser: Map.get(map, "browser"),
+      city: Map.get(map, "city"),
+      country: Map.get(map, "country"),
+      device: Map.get(map, "device"),
+      ip_address: Map.get(map, "ip_address"),
+      os: Map.get(map, "os"),
+      region: Map.get(map, "region"),
+      session_id: Map.get(map, "session_id"),
+      timezone: Map.get(map, "timezone"),
+      user_agent: Map.get(map, "user_agent"),
+      visitor_id: Map.get(map, "visitor_id")
+    }
+  end
+
+  @doc false
+  @spec to_map(t()) :: map()
+  def to_map(value) do
+    value
+    |> Map.from_struct()
+    |> Enum.reject(fn {_key, item} -> is_nil(item) end)
+    |> Map.new(fn {key, item} -> {Atom.to_string(key), item} end)
+  end
+end
+
+defmodule Inttegro.PurchaseIntents.Merchant do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  defstruct app_name: nil, organization_id: nil, organization_name: nil
+
+  @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{
           app_name: String.t() | nil,
           organization_id: String.t() | nil,
           organization_name: String.t() | nil
@@ -600,7 +819,6 @@ defmodule Inttegro.PurchaseIntents.Merchant do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      app_id: if(is_nil(Map.get(map, "app_id")), do: nil, else: Map.get(map, "app_id")),
       app_name: if(is_nil(Map.get(map, "app_name")), do: nil, else: Map.get(map, "app_name")),
       organization_id:
         if(is_nil(Map.get(map, "organization_id")),
@@ -619,7 +837,6 @@ defmodule Inttegro.PurchaseIntents.Merchant do
   @spec to_map(t()) :: map()
   def to_map(value) do
     %{
-      "app_id" => if(is_nil(value.app_id), do: nil, else: Inttegro.Codec.encode(value.app_id)),
       "app_name" =>
         if(is_nil(value.app_name), do: nil, else: Inttegro.Codec.encode(value.app_name)),
       "organization_id" =>
@@ -797,22 +1014,22 @@ defmodule Inttegro.PurchaseIntents.Product do
           id: String.t(),
           about: String.t() | nil,
           active: boolean(),
-          archived_at: String.t() | nil,
+          archived_at: DateTime.t() | nil,
           attributes: [Inttegro.PurchaseIntents.ProductAttributesItem.t()] | nil,
           category: String.t() | nil,
-          created_at: String.t(),
+          created_at: DateTime.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           description: String.t() | nil,
-          dimensions: %{optional(String.t()) => term()} | nil,
-          media: %{optional(String.t()) => term()} | nil,
+          dimensions: Inttegro.Products.Dimensions.t() | nil,
+          media: Inttegro.Products.Media.t() | nil,
           name: String.t(),
-          published_at: String.t() | nil,
+          published_at: DateTime.t() | nil,
           reference: String.t() | nil,
-          shipment: %{optional(String.t()) => term()} | nil,
+          shipment: Inttegro.Products.Shipment.t() | nil,
           tax_code: String.t() | nil,
           type: Inttegro.Products.Type.t(),
           unit_dim: String.t() | nil,
-          updated_at: String.t() | nil,
+          updated_at: DateTime.t() | nil,
           prices: [Inttegro.Products.PriceSummary.t()] | nil,
           variant_set_id: String.t() | nil
         }
@@ -827,7 +1044,10 @@ defmodule Inttegro.PurchaseIntents.Product do
       about: if(is_nil(Map.get(map, "about")), do: nil, else: Map.get(map, "about")),
       active: Map.fetch!(map, "active"),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        ),
       attributes:
         if(is_nil(Map.get(map, "attributes")),
           do: nil,
@@ -837,7 +1057,7 @@ defmodule Inttegro.PurchaseIntents.Product do
             end)
         ),
       category: if(is_nil(Map.get(map, "category")), do: nil, else: Map.get(map, "category")),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
@@ -848,27 +1068,33 @@ defmodule Inttegro.PurchaseIntents.Product do
       dimensions:
         if(is_nil(Map.get(map, "dimensions")),
           do: nil,
-          else: Map.new(Map.get(map, "dimensions"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Dimensions.from_map(Map.get(map, "dimensions"))
         ),
       media:
         if(is_nil(Map.get(map, "media")),
           do: nil,
-          else: Map.new(Map.get(map, "media"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Media.from_map(Map.get(map, "media"))
         ),
       name: Map.fetch!(map, "name"),
       published_at:
-        if(is_nil(Map.get(map, "published_at")), do: nil, else: Map.get(map, "published_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "published_at"))
+        ),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       shipment:
         if(is_nil(Map.get(map, "shipment")),
           do: nil,
-          else: Map.new(Map.get(map, "shipment"), fn {key, value} -> {key, value} end)
+          else: Inttegro.Products.Shipment.from_map(Map.get(map, "shipment"))
         ),
       tax_code: if(is_nil(Map.get(map, "tax_code")), do: nil, else: Map.get(map, "tax_code")),
       type: Inttegro.Products.Type.decode(Map.fetch!(map, "type")),
       unit_dim: if(is_nil(Map.get(map, "unit_dim")), do: nil, else: Map.get(map, "unit_dim")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       prices:
         if(is_nil(Map.get(map, "prices")),
           do: nil,
@@ -910,34 +1136,15 @@ defmodule Inttegro.PurchaseIntents.Product do
       "description" =>
         if(is_nil(value.description), do: nil, else: Inttegro.Codec.encode(value.description)),
       "dimensions" =>
-        if(is_nil(value.dimensions),
-          do: nil,
-          else:
-            Map.new(value.dimensions, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
-        ),
-      "media" =>
-        if(is_nil(value.media),
-          do: nil,
-          else:
-            Map.new(value.media, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
-        ),
+        if(is_nil(value.dimensions), do: nil, else: Inttegro.Codec.encode(value.dimensions)),
+      "media" => if(is_nil(value.media), do: nil, else: Inttegro.Codec.encode(value.media)),
       "name" => Inttegro.Codec.encode(value.name),
       "published_at" =>
         if(is_nil(value.published_at), do: nil, else: Inttegro.Codec.encode(value.published_at)),
       "reference" =>
         if(is_nil(value.reference), do: nil, else: Inttegro.Codec.encode(value.reference)),
       "shipment" =>
-        if(is_nil(value.shipment),
-          do: nil,
-          else:
-            Map.new(value.shipment, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
-        ),
+        if(is_nil(value.shipment), do: nil, else: Inttegro.Codec.encode(value.shipment)),
       "tax_code" =>
         if(is_nil(value.tax_code), do: nil, else: Inttegro.Codec.encode(value.tax_code)),
       "type" => Inttegro.Products.Type.encode(value.type),
@@ -1079,7 +1286,7 @@ defmodule Inttegro.PurchaseIntents.UsageOrder do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          created_at: String.t(),
+          created_at: DateTime.t(),
           id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1089,7 +1296,7 @@ defmodule Inttegro.PurchaseIntents.UsageOrder do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       id: Map.fetch!(map, "id")
     }
   end
@@ -1289,7 +1496,7 @@ defmodule Inttegro.PurchaseIntents.UpdateRequest do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :request)
   @type t :: %__MODULE__{
-          expires_at: String.t() | nil,
+          expires_at: DateTime.t() | nil,
           id: String.t() | nil,
           quantity: Inttegro.PurchaseIntents.UpdateRequestQuantity.t() | nil,
           purchase_intent_id: String.t() | nil,
@@ -1303,7 +1510,10 @@ defmodule Inttegro.PurchaseIntents.UpdateRequest do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       id: if(is_nil(Map.get(map, "id")), do: nil, else: Map.get(map, "id")),
       quantity:
         if(is_nil(Map.get(map, "quantity")),
