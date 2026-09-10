@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Breaking: replaced generic maps with named structs for balances, purchase intents, products, payment methods, payments, and orders.
+- Breaking: exposed API timestamps as `DateTime` values and accepted `DateTime` values in timestamp request fields.
+
 ## 0.2.0
 
 - Reorganized API types into domain namespaces such as `Inttegro.Orders.Order` and
