@@ -76,8 +76,8 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          archived_at: String.t() | nil,
-          created_at: String.t(),
+          archived_at: DateTime.t() | nil,
+          created_at: DateTime.t(),
           currency: String.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           description: String.t() | nil,
@@ -91,7 +91,7 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
           type: Inttegro.FinancialAccounts.Type.t(),
           verification: %{optional(String.t()) => term()} | nil,
           bank_account: Inttegro.FinancialAccounts.Bank.t() | nil,
-          disconnected_at: String.t() | nil,
+          disconnected_at: DateTime.t() | nil,
           dosh_account: %{optional(String.t()) => term()} | nil,
           owner: Inttegro.FinancialAccounts.Owner.t() | nil,
           wallet: Inttegro.FinancialAccounts.Wallet.t() | nil
@@ -104,8 +104,11 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
-      created_at: Map.fetch!(map, "created_at"),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        ),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       currency: Map.fetch!(map, "currency"),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
@@ -156,9 +159,9 @@ defmodule Inttegro.FinancialAccounts.FinancialAccount do
           else: Inttegro.FinancialAccounts.Bank.from_map(Map.get(map, "bank_account"))
         ),
       disconnected_at:
-        if(is_nil(Map.get(map, "disconnected_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "disconnected_at"))),
           do: nil,
-          else: Map.get(map, "disconnected_at")
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "disconnected_at"))
         ),
       dosh_account:
         if(is_nil(Map.get(map, "dosh_account")),
@@ -1195,7 +1198,7 @@ defmodule Inttegro.FinancialAccounts.PullConfiguration do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          enabled_at: String.t(),
+          enabled_at: DateTime.t(),
           mandate: Inttegro.FinancialAccounts.PullConfigurationMandate.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -1205,7 +1208,7 @@ defmodule Inttegro.FinancialAccounts.PullConfiguration do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      enabled_at: Map.fetch!(map, "enabled_at"),
+      enabled_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "enabled_at")),
       mandate:
         Inttegro.FinancialAccounts.PullConfigurationMandate.from_map(Map.fetch!(map, "mandate"))
     }
@@ -1230,7 +1233,7 @@ defmodule Inttegro.FinancialAccounts.PullConfigurationMandate do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          created_at: String.t(),
+          created_at: DateTime.t(),
           id: String.t(),
           ip_address: String.t(),
           user_agent: String.t()
@@ -1242,7 +1245,7 @@ defmodule Inttegro.FinancialAccounts.PullConfigurationMandate do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       id: Map.fetch!(map, "id"),
       ip_address: Map.fetch!(map, "ip_address"),
       user_agent: Map.fetch!(map, "user_agent")
@@ -1270,7 +1273,7 @@ defmodule Inttegro.FinancialAccounts.PushConfiguration do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          enabled_at: String.t()
+          enabled_at: DateTime.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1279,7 +1282,7 @@ defmodule Inttegro.FinancialAccounts.PushConfiguration do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      enabled_at: Map.fetch!(map, "enabled_at")
+      enabled_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "enabled_at"))
     }
   end
 

@@ -33,20 +33,22 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
             paid_at: nil,
             payment_id: nil,
             payout_id: nil,
+            payout_configuration: nil,
             refund_id: nil,
             type: nil
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           amount: Inttegro.BalanceTransactions.Amount.t(),
-          available_at: String.t() | nil,
-          claimed_at: String.t() | nil,
-          created_at: String.t(),
+          available_at: DateTime.t() | nil,
+          claimed_at: DateTime.t() | nil,
+          created_at: DateTime.t(),
           id: String.t(),
           order_id: String.t(),
-          paid_at: String.t() | nil,
+          paid_at: DateTime.t() | nil,
           payment_id: String.t() | nil,
           payout_id: String.t() | nil,
+          payout_configuration: Inttegro.Payments.PayoutConfiguration.t() | nil,
           refund_id: String.t() | nil,
           type: Inttegro.BalanceTransactions.Type.t()
         }
@@ -59,16 +61,32 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
     %__MODULE__{
       amount: Inttegro.BalanceTransactions.Amount.from_map(Map.fetch!(map, "amount")),
       available_at:
-        if(is_nil(Map.get(map, "available_at")), do: nil, else: Map.get(map, "available_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "available_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "available_at"))
+        ),
       claimed_at:
-        if(is_nil(Map.get(map, "claimed_at")), do: nil, else: Map.get(map, "claimed_at")),
-      created_at: Map.fetch!(map, "created_at"),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "claimed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "claimed_at"))
+        ),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       id: Map.fetch!(map, "id"),
       order_id: Map.fetch!(map, "order_id"),
-      paid_at: if(is_nil(Map.get(map, "paid_at")), do: nil, else: Map.get(map, "paid_at")),
+      paid_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "paid_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "paid_at"))
+        ),
       payment_id:
         if(is_nil(Map.get(map, "payment_id")), do: nil, else: Map.get(map, "payment_id")),
       payout_id: if(is_nil(Map.get(map, "payout_id")), do: nil, else: Map.get(map, "payout_id")),
+      payout_configuration:
+        if(is_nil(Map.get(map, "payout_configuration")),
+          do: nil,
+          else:
+            Inttegro.Payments.PayoutConfiguration.from_map(Map.get(map, "payout_configuration"))
+        ),
       refund_id: if(is_nil(Map.get(map, "refund_id")), do: nil, else: Map.get(map, "refund_id")),
       type: Inttegro.BalanceTransactions.Type.decode(Map.fetch!(map, "type"))
     }
@@ -91,6 +109,11 @@ defmodule Inttegro.BalanceTransactions.BalanceTransaction do
         if(is_nil(value.payment_id), do: nil, else: Inttegro.Codec.encode(value.payment_id)),
       "payout_id" =>
         if(is_nil(value.payout_id), do: nil, else: Inttegro.Codec.encode(value.payout_id)),
+      "payout_configuration" =>
+        if(is_nil(value.payout_configuration),
+          do: nil,
+          else: Inttegro.Codec.encode(value.payout_configuration)
+        ),
       "refund_id" =>
         if(is_nil(value.refund_id), do: nil, else: Inttegro.Codec.encode(value.refund_id)),
       "type" => Inttegro.BalanceTransactions.Type.encode(value.type)

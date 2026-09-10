@@ -244,11 +244,11 @@ defmodule Inttegro.Otp.Transaction do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           cancel_reason: String.t() | nil,
-          canceled_at: String.t() | nil,
-          expires_at: String.t(),
+          canceled_at: DateTime.t() | nil,
+          expires_at: DateTime.t(),
           full_message: String.t(),
           id: String.t(),
-          initiated_at: String.t(),
+          initiated_at: DateTime.t(),
           status: Inttegro.Otp.Status.t(),
           transmission: Inttegro.Otp.Transmission.t() | nil
         }
@@ -262,11 +262,14 @@ defmodule Inttegro.Otp.Transaction do
       cancel_reason:
         if(is_nil(Map.get(map, "cancel_reason")), do: nil, else: Map.get(map, "cancel_reason")),
       canceled_at:
-        if(is_nil(Map.get(map, "canceled_at")), do: nil, else: Map.get(map, "canceled_at")),
-      expires_at: Map.fetch!(map, "expires_at"),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))
+        ),
+      expires_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "expires_at")),
       full_message: Map.fetch!(map, "full_message"),
       id: Map.fetch!(map, "id"),
-      initiated_at: Map.fetch!(map, "initiated_at"),
+      initiated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "initiated_at")),
       status: Inttegro.Otp.Status.decode(Map.fetch!(map, "status")),
       transmission:
         if(is_nil(Map.get(map, "transmission")),
@@ -306,7 +309,7 @@ defmodule Inttegro.Otp.Transmission do
   @type t :: %__MODULE__{
           recipient: String.t(),
           sender_id: String.t(),
-          sent_at: String.t() | nil,
+          sent_at: DateTime.t() | nil,
           sent_via: String.t() | nil,
           status: Inttegro.Otp.TransmissionStatus.t() | nil
         }
@@ -319,7 +322,11 @@ defmodule Inttegro.Otp.Transmission do
     %__MODULE__{
       recipient: Map.fetch!(map, "recipient"),
       sender_id: Map.fetch!(map, "sender_id"),
-      sent_at: if(is_nil(Map.get(map, "sent_at")), do: nil, else: Map.get(map, "sent_at")),
+      sent_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "sent_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "sent_at"))
+        ),
       sent_via: if(is_nil(Map.get(map, "sent_via")), do: nil, else: Map.get(map, "sent_via")),
       status:
         if(is_nil(Map.get(map, "status")),
@@ -391,7 +398,7 @@ defmodule Inttegro.Otp.VerificationAttempt do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          attempted_at: String.t(),
+          attempted_at: DateTime.t(),
           id: String.t(),
           presented_token: String.t(),
           recipient: String.t(),
@@ -404,7 +411,7 @@ defmodule Inttegro.Otp.VerificationAttempt do
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
     %__MODULE__{
-      attempted_at: Map.fetch!(map, "attempted_at"),
+      attempted_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "attempted_at")),
       id: Map.fetch!(map, "id"),
       presented_token: Map.fetch!(map, "presented_token"),
       recipient: Map.fetch!(map, "recipient"),

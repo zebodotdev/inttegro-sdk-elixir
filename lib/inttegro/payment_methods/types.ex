@@ -197,6 +197,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
   defstruct active: nil,
             archived_at: nil,
             bank_account: nil,
+            card: nil,
             created_at: nil,
             custom_data: nil,
             customer_id: nil,
@@ -213,20 +214,21 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
           active: boolean(),
-          archived_at: String.t() | nil,
+          archived_at: DateTime.t() | nil,
           bank_account: Inttegro.PaymentMethods.BankAccount.t() | nil,
-          created_at: String.t(),
+          card: Inttegro.PaymentMethods.Card.t() | nil,
+          created_at: DateTime.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
           customer_id: String.t(),
           ephemeral: boolean() | nil,
-          expires_on: String.t() | nil,
+          expires_on: DateTime.t() | nil,
           id: String.t(),
           mobile_money: Inttegro.PaymentMethods.MobileMoney.t() | nil,
           owner: Inttegro.PaymentMethods.Owner.t() | nil,
           type: Inttegro.PaymentMethods.Type.t(),
           supplied: Inttegro.PaymentMethods.Supplied.t() | nil,
           verification: Inttegro.PaymentMethods.Verification.t() | nil,
-          verified_at: String.t() | nil
+          verified_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -237,13 +239,21 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
     %__MODULE__{
       active: Map.fetch!(map, "active"),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        ),
       bank_account:
         if(is_nil(Map.get(map, "bank_account")),
           do: nil,
           else: Inttegro.PaymentMethods.BankAccount.from_map(Map.get(map, "bank_account"))
         ),
-      created_at: Map.fetch!(map, "created_at"),
+      card:
+        if(is_nil(Map.get(map, "card")),
+          do: nil,
+          else: Inttegro.PaymentMethods.Card.from_map(Map.get(map, "card"))
+        ),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
@@ -252,7 +262,10 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
       customer_id: Map.fetch!(map, "customer_id"),
       ephemeral: if(is_nil(Map.get(map, "ephemeral")), do: nil, else: Map.get(map, "ephemeral")),
       expires_on:
-        if(is_nil(Map.get(map, "expires_on")), do: nil, else: Map.get(map, "expires_on")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_on"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_on"))
+        ),
       id: Map.fetch!(map, "id"),
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
@@ -276,7 +289,10 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
           else: Inttegro.PaymentMethods.Verification.from_map(Map.get(map, "verification"))
         ),
       verified_at:
-        if(is_nil(Map.get(map, "verified_at")), do: nil, else: Map.get(map, "verified_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "verified_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "verified_at"))
+        )
     }
   end
 
@@ -289,6 +305,7 @@ defmodule Inttegro.PaymentMethods.PaymentMethod do
         if(is_nil(value.archived_at), do: nil, else: Inttegro.Codec.encode(value.archived_at)),
       "bank_account" =>
         if(is_nil(value.bank_account), do: nil, else: Inttegro.Codec.encode(value.bank_account)),
+      "card" => if(is_nil(value.card), do: nil, else: Inttegro.Codec.encode(value.card)),
       "created_at" => Inttegro.Codec.encode(value.created_at),
       "custom_data" =>
         if(is_nil(value.custom_data),
@@ -891,6 +908,18 @@ defmodule Inttegro.PaymentMethods.Settings do
   end
 end
 
+defmodule Inttegro.PaymentMethods.Card do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{}
+  defstruct []
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when map == %{}, do: %__MODULE__{}
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{}), do: %{}
+end
+
 defmodule Inttegro.PaymentMethods.Snapshot do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:id, :created_at, :customer_id, :type, :verified]
@@ -909,14 +938,14 @@ defmodule Inttegro.PaymentMethods.Snapshot do
   @type t :: %__MODULE__{
           id: String.t(),
           bank_account: Inttegro.PaymentMethods.SnapshotBankAccount.t() | nil,
-          card: %{optional(String.t()) => term()} | nil,
-          created_at: String.t(),
+          card: Inttegro.PaymentMethods.Card.t() | nil,
+          created_at: DateTime.t(),
           customer_id: String.t(),
           mobile_money: Inttegro.PaymentMethods.SnapshotMobileMoney.t() | nil,
           owner: Inttegro.PaymentMethods.SnapshotOwner.t() | nil,
           type: Inttegro.PaymentMethods.Type.t(),
           verified: boolean(),
-          verified_at: String.t() | nil
+          verified_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -934,9 +963,9 @@ defmodule Inttegro.PaymentMethods.Snapshot do
       card:
         if(is_nil(Map.get(map, "card")),
           do: nil,
-          else: Map.new(Map.get(map, "card"), fn {key, value} -> {key, value} end)
+          else: Inttegro.PaymentMethods.Card.from_map(Map.get(map, "card"))
         ),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       customer_id: Map.fetch!(map, "customer_id"),
       mobile_money:
         if(is_nil(Map.get(map, "mobile_money")),
@@ -951,7 +980,10 @@ defmodule Inttegro.PaymentMethods.Snapshot do
       type: Inttegro.PaymentMethods.Type.decode(Map.fetch!(map, "type")),
       verified: Map.fetch!(map, "verified"),
       verified_at:
-        if(is_nil(Map.get(map, "verified_at")), do: nil, else: Map.get(map, "verified_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "verified_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "verified_at"))
+        )
     }
   end
 
@@ -965,10 +997,7 @@ defmodule Inttegro.PaymentMethods.Snapshot do
       "card" =>
         if(is_nil(value.card),
           do: nil,
-          else:
-            Map.new(value.card, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.card)
         ),
       "created_at" => Inttegro.Codec.encode(value.created_at),
       "customer_id" => Inttegro.Codec.encode(value.customer_id),
@@ -1168,7 +1197,7 @@ defmodule Inttegro.PaymentMethods.Supplied do
           channel: String.t() | nil,
           resource_id: String.t() | nil,
           resource_type: String.t() | nil,
-          supplied_at: String.t()
+          supplied_at: DateTime.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1185,7 +1214,7 @@ defmodule Inttegro.PaymentMethods.Supplied do
         if(is_nil(Map.get(map, "resource_id")), do: nil, else: Map.get(map, "resource_id")),
       resource_type:
         if(is_nil(Map.get(map, "resource_type")), do: nil, else: Map.get(map, "resource_type")),
-      supplied_at: Map.fetch!(map, "supplied_at")
+      supplied_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "supplied_at"))
     }
   end
 
@@ -1268,8 +1297,8 @@ defmodule Inttegro.PaymentMethods.Verification do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          completed_at: String.t() | nil,
-          initiated_at: String.t(),
+          completed_at: DateTime.t() | nil,
+          initiated_at: DateTime.t(),
           mechanism: String.t() | nil,
           request_id: String.t(),
           type: String.t()
@@ -1282,8 +1311,11 @@ defmodule Inttegro.PaymentMethods.Verification do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       completed_at:
-        if(is_nil(Map.get(map, "completed_at")), do: nil, else: Map.get(map, "completed_at")),
-      initiated_at: Map.fetch!(map, "initiated_at"),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "completed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "completed_at"))
+        ),
+      initiated_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "initiated_at")),
       mechanism: if(is_nil(Map.get(map, "mechanism")), do: nil, else: Map.get(map, "mechanism")),
       request_id: Map.fetch!(map, "request_id"),
       type: Map.fetch!(map, "type")
@@ -1307,6 +1339,39 @@ defmodule Inttegro.PaymentMethods.Verification do
   end
 end
 
+defmodule Inttegro.PaymentMethods.VerificationDelivery do
+  @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
+  defstruct recipient: nil, channel: nil, sender_id: nil
+
+  @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
+  @type t :: %__MODULE__{
+          recipient: String.t() | nil,
+          channel: String.t() | nil,
+          sender_id: String.t() | nil
+        }
+  @spec new!(map() | keyword()) :: t()
+  def new!(attrs \\ %{}), do: struct!(__MODULE__, attrs)
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map) do
+    %__MODULE__{
+      recipient: Map.get(map, "recipient"),
+      channel: Map.get(map, "channel"),
+      sender_id: Map.get(map, "sender_id")
+    }
+  end
+
+  @spec to_map(t()) :: map()
+  def to_map(value) do
+    %{
+      "recipient" => value.recipient,
+      "channel" => value.channel,
+      "sender_id" => value.sender_id
+    }
+    |> Enum.reject(fn {_key, item} -> is_nil(item) end)
+    |> Map.new()
+  end
+end
+
 defmodule Inttegro.PaymentMethods.VerificationSession do
   @moduledoc Inttegro.Docs.module_doc(__MODULE__, :domain)
   @enforce_keys [:payment_method_id, :status]
@@ -1320,9 +1385,9 @@ defmodule Inttegro.PaymentMethods.VerificationSession do
   @type t :: %__MODULE__{
           payment_method_id: String.t(),
           status: String.t(),
-          token_sent_at: String.t() | nil,
-          expires_at: String.t() | nil,
-          delivery: %{optional(String.t()) => term()} | nil
+          token_sent_at: DateTime.t() | nil,
+          expires_at: DateTime.t() | nil,
+          delivery: Inttegro.PaymentMethods.VerificationDelivery.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -1334,13 +1399,19 @@ defmodule Inttegro.PaymentMethods.VerificationSession do
       payment_method_id: Map.fetch!(map, "payment_method_id"),
       status: Map.fetch!(map, "status"),
       token_sent_at:
-        if(is_nil(Map.get(map, "token_sent_at")), do: nil, else: Map.get(map, "token_sent_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "token_sent_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "token_sent_at"))
+        ),
       expires_at:
-        if(is_nil(Map.get(map, "expires_at")), do: nil, else: Map.get(map, "expires_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "expires_at"))
+        ),
       delivery:
         if(is_nil(Map.get(map, "delivery")),
           do: nil,
-          else: Map.new(Map.get(map, "delivery"), fn {key, value} -> {key, value} end)
+          else: Inttegro.PaymentMethods.VerificationDelivery.from_map(Map.get(map, "delivery"))
         )
     }
   end
@@ -1358,10 +1429,7 @@ defmodule Inttegro.PaymentMethods.VerificationSession do
       "delivery" =>
         if(is_nil(value.delivery),
           do: nil,
-          else:
-            Map.new(value.delivery, fn {key, value} ->
-              {to_string(key), Inttegro.Codec.encode(value)}
-            end)
+          else: Inttegro.Codec.encode(value.delivery)
         )
     }
     |> Enum.reject(fn {_key, item} -> is_nil(item) end)

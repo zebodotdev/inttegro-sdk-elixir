@@ -338,19 +338,19 @@ defmodule Inttegro.Refunds.Refund do
 
   @typedoc Inttegro.Docs.type_doc(__MODULE__, :domain)
   @type t :: %__MODULE__{
-          canceled_at: String.t() | nil,
-          created_at: String.t(),
+          canceled_at: DateTime.t() | nil,
+          created_at: DateTime.t(),
           custom_data: %{optional(String.t()) => String.t()} | nil,
-          failed_at: String.t() | nil,
+          failed_at: DateTime.t() | nil,
           id: String.t(),
           line_items: [Inttegro.Refunds.LineItem.t()],
           order_id: String.t(),
-          processing_at: String.t() | nil,
+          processing_at: DateTime.t() | nil,
           reason: Inttegro.Refunds.Reason.t(),
           reason_details: String.t() | nil,
           reference: String.t() | nil,
           status: Inttegro.Refunds.Status.t(),
-          succeeded_at: String.t() | nil,
+          succeeded_at: DateTime.t() | nil,
           total: Inttegro.Money.Amount.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -361,14 +361,21 @@ defmodule Inttegro.Refunds.Refund do
   def from_map(map) when is_map(map) do
     %__MODULE__{
       canceled_at:
-        if(is_nil(Map.get(map, "canceled_at")), do: nil, else: Map.get(map, "canceled_at")),
-      created_at: Map.fetch!(map, "created_at"),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))
+        ),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       custom_data:
         if(is_nil(Map.get(map, "custom_data")),
           do: nil,
           else: Map.new(Map.get(map, "custom_data"), fn {key, value} -> {key, value} end)
         ),
-      failed_at: if(is_nil(Map.get(map, "failed_at")), do: nil, else: Map.get(map, "failed_at")),
+      failed_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "failed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "failed_at"))
+        ),
       id: Map.fetch!(map, "id"),
       line_items:
         Enum.map(Map.fetch!(map, "line_items"), fn item ->
@@ -376,14 +383,20 @@ defmodule Inttegro.Refunds.Refund do
         end),
       order_id: Map.fetch!(map, "order_id"),
       processing_at:
-        if(is_nil(Map.get(map, "processing_at")), do: nil, else: Map.get(map, "processing_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "processing_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "processing_at"))
+        ),
       reason: Inttegro.Refunds.Reason.decode(Map.fetch!(map, "reason")),
       reason_details:
         if(is_nil(Map.get(map, "reason_details")), do: nil, else: Map.get(map, "reason_details")),
       reference: if(is_nil(Map.get(map, "reference")), do: nil, else: Map.get(map, "reference")),
       status: Inttegro.Refunds.Status.decode(Map.fetch!(map, "status")),
       succeeded_at:
-        if(is_nil(Map.get(map, "succeeded_at")), do: nil, else: Map.get(map, "succeeded_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "succeeded_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "succeeded_at"))
+        ),
       total: Inttegro.Money.Amount.from_map(Map.fetch!(map, "total"))
     }
   end

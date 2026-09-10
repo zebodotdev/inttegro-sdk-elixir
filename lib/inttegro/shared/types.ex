@@ -17,7 +17,7 @@ defmodule Inttegro.Shared.ResourceSupply do
           channel: String.t() | nil,
           resource_id: String.t() | nil,
           resource_type: String.t() | nil,
-          supplied_at: String.t()
+          supplied_at: DateTime.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -34,7 +34,7 @@ defmodule Inttegro.Shared.ResourceSupply do
         if(is_nil(Map.get(map, "resource_id")), do: nil, else: Map.get(map, "resource_id")),
       resource_type:
         if(is_nil(Map.get(map, "resource_type")), do: nil, else: Map.get(map, "resource_type")),
-      supplied_at: Map.fetch!(map, "supplied_at")
+      supplied_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "supplied_at"))
     }
   end
 

@@ -84,18 +84,18 @@ defmodule Inttegro.Schedules.CancelDetail do
   @type t :: %__MODULE__{
           chime_ids: [String.t()] | nil,
           content: String.t(),
-          created_at: String.t(),
+          created_at: DateTime.t(),
           customer_ids: [String.t()] | nil,
           email: Inttegro.Chimes.EmailMessage.t() | nil,
           errors: [Inttegro.Schedules.Error.t()] | nil,
-          executed_at: String.t() | nil,
+          executed_at: DateTime.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
           purpose: String.t() | nil,
           recipients: [String.t()],
-          send_after: String.t(),
+          send_after: DateTime.t(),
           sender_id: String.t(),
-          canceled_at: String.t() | nil
+          canceled_at: DateTime.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -110,7 +110,7 @@ defmodule Inttegro.Schedules.CancelDetail do
           else: Enum.map(Map.get(map, "chime_ids"), fn item -> item end)
         ),
       content: Map.fetch!(map, "content"),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       customer_ids:
         if(is_nil(Map.get(map, "customer_ids")),
           do: nil,
@@ -130,7 +130,10 @@ defmodule Inttegro.Schedules.CancelDetail do
             end)
         ),
       executed_at:
-        if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "executed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "executed_at"))
+        ),
       id: Map.fetch!(map, "id"),
       idempotency_key:
         if(is_nil(Map.get(map, "idempotency_key")),
@@ -139,10 +142,13 @@ defmodule Inttegro.Schedules.CancelDetail do
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       recipients: Enum.map(Map.fetch!(map, "recipients"), fn item -> item end),
-      send_after: Map.fetch!(map, "send_after"),
+      send_after: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "send_after")),
       sender_id: Map.fetch!(map, "sender_id"),
       canceled_at:
-        if(is_nil(Map.get(map, "canceled_at")), do: nil, else: Map.get(map, "canceled_at"))
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "canceled_at"))
+        )
     }
   end
 
@@ -209,16 +215,16 @@ defmodule Inttegro.Schedules.Detail do
   @type t :: %__MODULE__{
           chime_ids: [String.t()] | nil,
           content: String.t(),
-          created_at: String.t(),
+          created_at: DateTime.t(),
           customer_ids: [String.t()] | nil,
           email: Inttegro.Chimes.EmailMessage.t() | nil,
           errors: [Inttegro.Schedules.Error.t()] | nil,
-          executed_at: String.t() | nil,
+          executed_at: DateTime.t() | nil,
           id: String.t(),
           idempotency_key: String.t() | nil,
           purpose: String.t() | nil,
           recipients: [String.t()],
-          send_after: String.t(),
+          send_after: DateTime.t(),
           sender_id: String.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -234,7 +240,7 @@ defmodule Inttegro.Schedules.Detail do
           else: Enum.map(Map.get(map, "chime_ids"), fn item -> item end)
         ),
       content: Map.fetch!(map, "content"),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       customer_ids:
         if(is_nil(Map.get(map, "customer_ids")),
           do: nil,
@@ -254,7 +260,10 @@ defmodule Inttegro.Schedules.Detail do
             end)
         ),
       executed_at:
-        if(is_nil(Map.get(map, "executed_at")), do: nil, else: Map.get(map, "executed_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "executed_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "executed_at"))
+        ),
       id: Map.fetch!(map, "id"),
       idempotency_key:
         if(is_nil(Map.get(map, "idempotency_key")),
@@ -263,7 +272,7 @@ defmodule Inttegro.Schedules.Detail do
         ),
       purpose: if(is_nil(Map.get(map, "purpose")), do: nil, else: Map.get(map, "purpose")),
       recipients: Enum.map(Map.fetch!(map, "recipients"), fn item -> item end),
-      send_after: Map.fetch!(map, "send_after"),
+      send_after: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "send_after")),
       sender_id: Map.fetch!(map, "sender_id")
     }
   end

@@ -104,9 +104,9 @@ defmodule Inttegro.Apps.Application do
           name: String.t(),
           alias: String.t() | nil,
           description: String.t() | nil,
-          created_at: String.t(),
-          updated_at: String.t() | nil,
-          archived_at: String.t() | nil,
+          created_at: DateTime.t(),
+          updated_at: DateTime.t() | nil,
+          archived_at: DateTime.t() | nil,
           secret_key: Inttegro.Apps.ApplicationSecretKey.t() | nil,
           relationship: Inttegro.Apps.ApplicationRelationship.t() | nil
         }
@@ -122,11 +122,17 @@ defmodule Inttegro.Apps.Application do
       alias: if(is_nil(Map.get(map, "alias")), do: nil, else: Map.get(map, "alias")),
       description:
         if(is_nil(Map.get(map, "description")), do: nil, else: Map.get(map, "description")),
-      created_at: Map.fetch!(map, "created_at"),
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at")),
       updated_at:
-        if(is_nil(Map.get(map, "updated_at")), do: nil, else: Map.get(map, "updated_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "updated_at"))
+        ),
       archived_at:
-        if(is_nil(Map.get(map, "archived_at")), do: nil, else: Map.get(map, "archived_at")),
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "archived_at"))
+        ),
       secret_key:
         if(is_nil(Map.get(map, "secret_key")),
           do: nil,
@@ -209,7 +215,7 @@ defmodule Inttegro.Apps.ApplicationRelationship do
           child_standing: String.t(),
           relationship_policy: Inttegro.Apps.ApplicationRelationshipPolicy.t(),
           retained_creator_authority_exists: boolean(),
-          created_at: String.t()
+          created_at: DateTime.t()
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
   @spec new!(map() | keyword()) :: t()
@@ -233,7 +239,7 @@ defmodule Inttegro.Apps.ApplicationRelationship do
           Map.fetch!(map, "relationship_policy")
         ),
       retained_creator_authority_exists: Map.fetch!(map, "retained_creator_authority_exists"),
-      created_at: Map.fetch!(map, "created_at")
+      created_at: Inttegro.Codec.decode_timestamp(Map.fetch!(map, "created_at"))
     }
   end
 
@@ -306,7 +312,7 @@ defmodule Inttegro.Apps.ApplicationSecretKey do
   @type t :: %__MODULE__{
           id: String.t() | nil,
           token_type: String.t() | nil,
-          issued_at: String.t() | nil,
+          issued_at: DateTime.t() | nil,
           token: String.t() | nil
         }
   @doc Inttegro.Docs.constructor_doc(__MODULE__)
@@ -319,7 +325,11 @@ defmodule Inttegro.Apps.ApplicationSecretKey do
       id: if(is_nil(Map.get(map, "id")), do: nil, else: Map.get(map, "id")),
       token_type:
         if(is_nil(Map.get(map, "token_type")), do: nil, else: Map.get(map, "token_type")),
-      issued_at: if(is_nil(Map.get(map, "issued_at")), do: nil, else: Map.get(map, "issued_at")),
+      issued_at:
+        if(is_nil(Inttegro.Codec.decode_timestamp(Map.get(map, "issued_at"))),
+          do: nil,
+          else: Inttegro.Codec.decode_timestamp(Map.get(map, "issued_at"))
+        ),
       token: if(is_nil(Map.get(map, "token")), do: nil, else: Map.get(map, "token"))
     }
   end

@@ -512,46 +512,4 @@ defmodule Inttegro.Orders do
       {:ok, Inttegro.Orders.Page.from_map(value)}
     end
   end
-
-  @doc """
-  Compatibility alias for `/refunds/create`. It accepts the same request and returns the same response. New integrations should use `/refunds/create`. Choose one URL for a logical refund and use that same URL, idempotency key, and body for every retry.
-
-  ## Parameters
-
-  * `client` — an authenticated `Inttegro.Client`.
-  * `request` — a `Inttegro.Refunds.CreateRequest` containing the operation input.
-  * `options` — request options such as `:idempotency_key` and additional `:headers`.
-
-  ## Returns
-
-  Returns `{:ok, Inttegro.Refunds.Refund.t()}` when Inttegro accepts and decodes the operation. Returns
-  `{:error, exception}` for API, transport, or decoding failures. A successful API response can
-  still describe an asynchronous resource that has not reached its terminal state.
-
-  ## Example
-
-      request = Inttegro.Refunds.CreateRequest.new!(request_attributes)
-
-      case Inttegro.Orders.refund(client, request) do
-        {:ok, result} -> result
-        {:error, error} -> {:error, error}
-      end
-  """
-  @spec refund(Client.t(), Inttegro.Refunds.CreateRequest.t(), keyword()) ::
-          {:ok, Inttegro.Refunds.Refund.t()} | {:error, Exception.t()}
-  def refund(client, request, options \\ []) do
-    with {:ok, value} <-
-           Client.request(
-             client,
-             "POST",
-             "/orders/refund",
-             Inttegro.Codec.encode(request),
-             options,
-             "orders.refund",
-             "refund",
-             true
-           ) do
-      {:ok, Inttegro.Refunds.Refund.from_map(value)}
-    end
-  end
 end
