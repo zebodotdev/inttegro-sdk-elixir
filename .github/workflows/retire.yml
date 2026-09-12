@@ -31,7 +31,7 @@ concurrency:
 
 jobs:
   retire:
-    if: github.repository == 'zebodotdev/inttegro-sdk-elixir'
+    if: github.repository == 'inttegro/inttegro-sdk-elixir'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: release

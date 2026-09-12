@@ -10,7 +10,7 @@ defmodule Inttegro.MixProject do
       elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       description: "Official typed server-side Elixir SDK for Inttegro",
-      source_url: "https://github.com/zebodotdev/inttegro-sdk-elixir",
+      source_url: "https://github.com/inttegro/inttegro-sdk-elixir",
       homepage_url: "https://studio.inttegro.com/sdks/elixir",
       package: package(),
       docs: docs(),
@@ -32,7 +32,7 @@ defmodule Inttegro.MixProject do
   defp package do
     [
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/zebodotdev/inttegro-sdk-elixir"},
+      links: %{"GitHub" => "https://github.com/inttegro/inttegro-sdk-elixir"},
       files: ~w(lib guides mix.exs README.md CHANGELOG.md LICENSE)
     ]
   end

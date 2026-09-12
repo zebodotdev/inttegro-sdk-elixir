@@ -2,7 +2,7 @@
 
 The official typed Elixir client for server-side Inttegro integrations.
 
-[API documentation](https://hexdocs.pm/inttegro/) · [Integration guides](https://studio.inttegro.com/sdks/elixir) · [Source](https://github.com/zebodotdev/inttegro-sdk-elixir)
+[API documentation](https://hexdocs.pm/inttegro/) · [Integration guides](https://studio.inttegro.com/sdks/elixir) · [Source](https://github.com/inttegro/inttegro-sdk-elixir)
 
 ## Install
 
